@@ -48,75 +48,92 @@ export default function Solution() {
             <div className={'relative'}>
                 <Topbar/>
                 <div
-                    className={`p-8 flex flex-col mx-6 justify-center max-w-screen-lg md:mx-auto border-x border-dashed`}>
-                    <div className="flex flex-col md:flex-row items-center gap-5 pt-20 mb-8">
-                        {
-                            user && (
-                                <div className="relative w-32 h-32 rounded-full overflow-hidden">
-                                    <Image
-                                        src={imgPath ?? account?.user?.image}
-                                        alt="profile"
-                                        height={128}
-                                        width={128}
-                                    />
-                                </div>
-                            )
-                        }
-                        <div className="flex flex-col items-start gap-2">
-                            <h1 className={'text-3xl font-bold text-gray-950'}>Mon compte</h1>
-                            <h2 className={'text-gray-500'}>
-                                Inscrit
-                                <span className="font-bold ml-2">
-                                {moment(user?.createdAt).fromNow(false)}
-                            </span>
-                            </h2>
+                    className={`p-8 flex flex-col mx-6 justify-start max-w-screen-lg md:mx-auto border-x border-dashed`}>
+                    {
+                        user ? (
+                            <>
+                                <div className="flex flex-col md:flex-row items-center gap-5 pt-20 mb-8">
 
-                            <div className="flex items-center gap-2 flex-wrap text-sm ">
-                                <h3 className={'rounded-md bg-gray-100 px-2 font-bold py-1'}>{user?.email}</h3>
-                                <h3 className={'text-gray-900'}>{user?.name}</h3>
+
+                                    <div className="relative w-32 h-32 rounded-full overflow-hidden">
+                                        <Image
+                                            src={imgPath ?? account?.user?.image}
+                                            alt="profile"
+                                            height={128}
+                                            width={128}
+                                        />
+                                    </div>
+
+                                    {
+                                        !account?.user?.image && !user?.profile && (
+                                            <div
+                                                className="relative w-32 h-32 flex flex-col items-center justify-center rounded-full bg-gray-200 overflow-hidden">
+                                                <h1 className={'text-xl font-bold'}>{user?.name[0]}</h1>
+                                            </div>
+                                        )
+                                    }
+
+                                    <div className="flex flex-col items-start gap-2">
+                                        <h1 className={'text-3xl font-bold text-gray-950'}>Mon compte</h1>
+                                        <h2 className={'text-gray-500'}>
+                                            Inscrit
+                                            <span className="font-bold ml-2">
+                                                {moment(user?.createdAt).fromNow(false)}
+                                            </span>
+                                        </h2>
+                                        <div className="flex items-center gap-2 flex-wrap text-sm ">
+                                            <h3 className={'rounded-md bg-gray-100 px-2 font-bold py-1'}>{user?.email}</h3>
+                                            <h3 className={'text-gray-900'}>{user?.name}</h3>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="flex gap-5 mb-6">
+                                    <button
+                                        className={`pb-1 after:block after:h-[2px]  ${active === 'profile' && 'after:bg-indigo-400'}`}
+                                        onClick={() => setActive('profile')}>
+                                        Mon profil
+                                    </button>
+                                    {
+                                        solutions && (
+                                            <button
+                                                className={`pb-1 after:block after:h-[2px]  ${active === 'solutions' && 'after:bg-indigo-400'}`}
+                                                onClick={() => setActive('solutions')}>
+                                                Mes solutions
+                                            </button>
+                                        )
+                                    }
+                                </div>
+
+                                <div className="mb-6">
+                                    {
+                                        active === 'profile' && (
+                                            <div className={'flex flex-col gap-5 w-full md:w-2/3'}>
+                                                <FilePond
+                                                    files={files}
+                                                    onupdatefiles={setFiles}
+                                                    allowMultiple={false}
+                                                    server={{
+                                                        url: `${API_BASE_URL}users/${user?.id}/image`
+                                                    }}
+                                                    name="thumb"
+                                                    labelIdle='Selectionnez une image'
+                                                />
+                                                <UpdateProfile user={user}/>
+                                            </div>
+                                        )
+                                    }
+                                    {
+                                        active === 'solutions' && <SolutionCard solutions={solutions}/>
+                                    }
+                                </div>
+                            </>
+                        ) : (
+                            <div className={'h-screen items-center justify-center'}>
+                                <h1 className={'text-gray-950 text-lg'}>Chargement...</h1>
                             </div>
-                        </div>
-                    </div>
-
-                    <div className="flex gap-5 mb-6">
-                        <button
-                            className={`pb-1 after:block after:h-[2px]  ${active === 'profile' && 'after:bg-indigo-400'}`}
-                            onClick={() => setActive('profile')}>
-                            Mon profil
-                        </button>
-                        {
-                            solutions && (
-                                <button
-                                    className={`pb-1 after:block after:h-[2px]  ${active === 'solutions' && 'after:bg-indigo-400'}`}
-                                    onClick={() => setActive('solutions')}>
-                                    Mes solutions
-                                </button>
-                            )
-                        }
-                    </div>
-
-                    <div className="mb-6">
-                        {
-                            active === 'profile' && (
-                                <div className={'flex flex-col gap-5 w-full md:w-2/3'}>
-                                    <FilePond
-                                        files={files}
-                                        onupdatefiles={setFiles}
-                                        allowMultiple={false}
-                                        server={{
-                                            url: `${API_BASE_URL}users/${user?.id}/image`
-                                        }}
-                                        name="thumb"
-                                        labelIdle='Selectionnez une image'
-                                    />
-                                    <UpdateProfile user={user}/>
-                                </div>
-                            )
-                        }
-                        {
-                            active === 'solutions' && <SolutionCard solutions={solutions}/>
-                        }
-                    </div>
+                        )
+                    }
                 </div>
                 <ToastContainer/>
             </div>
