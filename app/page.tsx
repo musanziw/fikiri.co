@@ -6,12 +6,12 @@ import Topbar from "@/app/shared/components/Topbar";
 
 export default function Home() {
     return (
-        <div className={'relative'}>
+        <main className={'relative'}>
             <Topbar/>
             <Hero/>
             <Sdg/>
             <About/>
             <Footer/>
-        </div>
+        </main>
     );
 }

@@ -13,7 +13,6 @@ import axios from "@/app/shared/config/axios";
 import {getInputError} from "@/app/shared/helpers/getInputError";
 import {toast, ToastContainer} from "react-toastify";
 
-
 export default function Login() {
     const [errors, setErrors] = useState([])
     const [formStatus, setFormStatus] = useState('')

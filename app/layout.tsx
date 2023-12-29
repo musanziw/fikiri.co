@@ -3,6 +3,7 @@ import "./globals.css";
 import {ReactNode} from "react";
 import {Roboto} from "next/font/google";
 import AuthProvider from "@/app/shared/context/authProvider";
+import {NextuiProvider} from "@/app/shared/context/nextuiProvider";
 
 const roboto = Roboto({
     subsets: ['latin'],
@@ -20,7 +21,9 @@ export default function RootLayout({children}: { children: ReactNode }) {
         <html lang="en">
         <body className={`${roboto.className} text-gray-600`}>
         <AuthProvider>
-            {children}
+            <NextuiProvider>
+                {children}
+            </NextuiProvider>
         </AuthProvider>
         </body>
         </html>
