@@ -13,6 +13,7 @@ import 'filepond/dist/filepond.min.css'
 import {API_BASE_URL} from "@/app/shared/config/urls";
 import SolutionCard from "@/app/(pages)/me/components/SolutionCard";
 import UpdateProfile from "@/app/(pages)/me/components/UpdateProfile";
+import {Skeleton} from "@/app/shared/utils/ui/skeleton";
 
 moment.locale('fr')
 
@@ -27,7 +28,6 @@ export default function Solution() {
 
     useEffect(() => {
         if (!authenticated) return
-
         (async () => {
             const payload = {
                 name: account?.user?.name,
@@ -52,9 +52,7 @@ export default function Solution() {
                     {
                         user ? (
                             <>
-                                <div className="flex flex-col md:flex-row items-center gap-5 pt-20 mb-8">
-
-
+                                <div className="flex flex-col md:flex-row md:items-center gap-5 pt-20 mb-8">
                                     <div className="relative w-32 h-32 rounded-full overflow-hidden">
                                         <Image
                                             src={imgPath ?? account?.user?.image}
@@ -63,7 +61,6 @@ export default function Solution() {
                                             width={128}
                                         />
                                     </div>
-
                                     {
                                         !account?.user?.image && !user?.profile && (
                                             <div
@@ -83,7 +80,6 @@ export default function Solution() {
                                         </h2>
                                         <div className="flex items-center gap-2 flex-wrap text-sm ">
                                             <h3 className={'rounded-md bg-gray-100 px-2 font-bold py-1'}>{user?.email}</h3>
-                                            <h3 className={'text-gray-900'}>{user?.name}</h3>
                                         </div>
                                     </div>
                                 </div>
@@ -95,7 +91,7 @@ export default function Solution() {
                                         Mon profil
                                     </button>
                                     {
-                                        solutions && (
+                                        solutions?.length > 0 && (
                                             <button
                                                 className={`pb-1 after:block after:h-[2px]  ${active === 'solutions' && 'after:bg-indigo-400'}`}
                                                 onClick={() => setActive('solutions')}>
@@ -129,9 +125,29 @@ export default function Solution() {
                                 </div>
                             </>
                         ) : (
-                            <div className={'h-screen items-center justify-center'}>
-                                <h1 className={'text-gray-950 text-lg'}>Chargement...</h1>
-                            </div>
+                            <>
+                                <div className="flex flex-col md:flex-row md:items-center gap-5 pt-20 mb-8">
+                                    <Skeleton className={'w-32 h-32 rounded-full'}/>
+                                    <div className="flex flex-col items-start gap-2">
+                                        <Skeleton className="h-4 w-[250px]"/>
+                                        <Skeleton className="h-4 w-[250px]"/>
+                                        <Skeleton className="h-4 w-[250px]"/>
+                                    </div>
+                                </div>
+
+                                <div className="flex gap-5 mb-6">
+                                    <Skeleton className="h-4 w-[250px]"/>
+                                </div>
+
+                                <div className="mb-6 flex flex-col gap-4">
+                                    <Skeleton className="h-4 w-[250px]"/>
+                                    <Skeleton className="h-4 w-[250px]"/>
+                                    <Skeleton className="h-4 w-[250px]"/>
+                                    <Skeleton className="h-4 w-[250px]"/>
+                                    <Skeleton className="h-4 w-[250px]"/>
+                                    <Skeleton className="h-4 w-[250px]"/>
+                                </div>
+                            </>
                         )
                     }
                 </div>
