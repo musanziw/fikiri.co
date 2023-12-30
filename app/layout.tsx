@@ -2,7 +2,7 @@ import type {Metadata} from "next";
 import "./globals.css";
 import {ReactNode} from "react";
 import {Roboto} from "next/font/google";
-import AuthProvider from "@/app/shared/context/authProvider";
+import AuthProvider from "@/app/shared/providers/authProvider";
 
 const roboto = Roboto({
     subsets: ['latin'],

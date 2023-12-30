@@ -2,23 +2,23 @@
 
 import Topbar from "@/app/shared/components/Topbar";
 import axios from "@/app/shared/config/axios";
-import {useEffect, useMemo, useState} from "react";
-import {useSession} from "next-auth/react";
+import { useEffect, useMemo, useState } from "react";
+import { useSession } from "next-auth/react";
 import Image from 'next/image'
-import {ToastContainer} from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import {moment} from "@/app/shared/config/moment"
-import {FilePond} from 'react-filepond'
+import { moment } from "@/app/shared/config/moment"
+import { FilePond } from 'react-filepond'
 import 'filepond/dist/filepond.min.css'
-import {API_BASE_URL} from "@/app/shared/config/urls";
+import { API_BASE_URL } from "@/app/shared/config/urls";
 import SolutionCard from "@/app/(pages)/me/components/SolutionCard";
 import UpdateProfile from "@/app/(pages)/me/components/UpdateProfile";
-import {Skeleton} from "@/app/shared/utils/ui/skeleton";
+import { Skeleton } from "@/app/shared/utils/ui/skeleton";
 
 moment.locale('fr')
 
 export default function Solution() {
-    const {data: account, status: authStatus} = useSession()
+    const { data: account, status: authStatus } = useSession()
     const [solutions, setSolutions] = useState<any>()
     const [user, setUser] = useState<any>()
     const [active, setActive] = useState<string>('profile')
@@ -35,9 +35,9 @@ export default function Solution() {
                 profile: account?.user?.image
             }
             await axios.post(`users/create`, JSON.stringify(payload))
-            const {data: response} = await axios.get(`auth/profile/${account?.user?.email}`)
+            const { data: response } = await axios.get(`auth/profile/${account?.user?.email}`)
             setUser(response.data)
-            const {data: reponse} = await axios.get(`solutions/user/${account?.user?.email}`)
+            const { data: reponse } = await axios.get(`solutions/user/${account?.user?.email}`)
             setSolutions(reponse.data)
         })()
     }, [account, authenticated])
@@ -46,13 +46,13 @@ export default function Solution() {
     return (
         <>
             <div className={'relative'}>
-                <Topbar/>
+                <Topbar />
                 <div
                     className={`p-8 flex flex-col mx-6 justify-start max-w-screen-lg md:mx-auto border-x border-dashed`}>
                     {
                         user ? (
                             <>
-                                <div className="flex flex-col md:flex-row md:items-center gap-5 pt-20 mb-8">
+                                <div className="flex flex-col md:flex-row md:items-center gap-5 pt-16 mb-8">
                                     <div className="relative w-32 h-32 rounded-full overflow-hidden">
                                         <Image
                                             src={imgPath ?? account?.user?.image}
@@ -115,43 +115,43 @@ export default function Solution() {
                                                     name="thumb"
                                                     labelIdle='Selectionnez une image'
                                                 />
-                                                <UpdateProfile user={user}/>
+                                                <UpdateProfile user={user} />
                                             </div>
                                         )
                                     }
                                     {
-                                        active === 'solutions' && <SolutionCard solutions={solutions}/>
+                                        active === 'solutions' && <SolutionCard solutions={solutions} />
                                     }
                                 </div>
                             </>
                         ) : (
                             <>
-                                <div className="flex flex-col md:flex-row md:items-center gap-5 pt-20 mb-8">
-                                    <Skeleton className={'w-32 h-32 rounded-full'}/>
+                                <div className="flex flex-col md:flex-row md:items-center gap-5 pt-16 mb-8">
+                                    <Skeleton className={'w-32 h-32 rounded-full'} />
                                     <div className="flex flex-col items-start gap-2">
-                                        <Skeleton className="h-4 w-[250px]"/>
-                                        <Skeleton className="h-4 w-[250px]"/>
-                                        <Skeleton className="h-4 w-[250px]"/>
+                                        <Skeleton className="h-8 w-[250px]" />
+                                        <Skeleton className="h-4 w-[250px]" />
+                                        <Skeleton className="h-4 w-[250px]" />
                                     </div>
                                 </div>
 
                                 <div className="flex gap-5 mb-6">
-                                    <Skeleton className="h-4 w-[250px]"/>
+                                    <Skeleton className="h-4 w-[250px]" />
                                 </div>
 
                                 <div className="mb-6 flex flex-col gap-4">
-                                    <Skeleton className="h-4 w-[250px]"/>
-                                    <Skeleton className="h-4 w-[250px]"/>
-                                    <Skeleton className="h-4 w-[250px]"/>
-                                    <Skeleton className="h-4 w-[250px]"/>
-                                    <Skeleton className="h-4 w-[250px]"/>
-                                    <Skeleton className="h-4 w-[250px]"/>
+                                    <Skeleton className="h-6 w-[250px]" />
+                                    <Skeleton className="h-6 w-[250px]" />
+                                    <Skeleton className="h-6 w-[250px]" />
+                                    <Skeleton className="h-6 w-[250px]" />
+                                    <Skeleton className="h-6 w-[250px]" />
+                                    <Skeleton className="h-6 w-[250px]" />
                                 </div>
                             </>
                         )
                     }
                 </div>
-                <ToastContainer/>
+                <ToastContainer />
             </div>
         </>
     )
