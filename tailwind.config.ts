@@ -18,6 +18,10 @@ const config = {
       },
     },
     extend: {
+      backgroundImage: {
+        'banner': 'url("/banner.webp")',
+        'hero': 'url("/hero.webp")',
+      },
       keyframes: {
         "accordion-down": {
           from: { height: "0" },
