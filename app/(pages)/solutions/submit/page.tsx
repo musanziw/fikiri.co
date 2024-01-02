@@ -1,6 +1,6 @@
 "use client";
 
-import {useState, FormEvent, useEffect} from "react";
+import {useState, FormEvent, useEffect, useMemo} from "react";
 import {toast, ToastContainer} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import {useRouter} from "next/navigation";
@@ -23,7 +23,7 @@ export default function SubmitProject() {
     const router = useRouter();
     const {data: session} = useSession()
     const [formStatus, setFormStatus] = useState('')
-    const isPending = formStatus === 'pending'
+    const isPending = useMemo(() => formStatus === 'pending', [formStatus])
 
     useEffect(() => {
         (async () => {
