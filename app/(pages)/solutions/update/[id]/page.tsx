@@ -1,7 +1,7 @@
 'use client'
 
 import {Input} from "@/app/shared/utils/Input";
-import {FormEvent, useEffect, useState} from "react";
+import {FormEvent, useEffect, useMemo, useState} from "react";
 import {FormCard} from "@/app/shared/utils/FormCard";
 import Topbar from "@/app/shared/components/Topbar";
 import axios from "@/app/shared/config/axios";
@@ -18,14 +18,13 @@ export default function Solution({params}: { params: { id: string } }) {
     const [files, setFiles] = useState<any>([])
     const router = useRouter()
     const [formStatus, setFormStatus] = useState('')
-    const isPending = formStatus === 'pending'
+    const isPending = useMemo(() => formStatus === 'pending', [formStatus])
 
     useEffect(() => {
-        axios.get(`solutions/${params.id}`)
-            .then(({data: response}) => {
-                const data = response.data
-                setSolution(data)
-            })
+        (async () => {
+            const {data: response} = await axios.get(`solutions/${params.id}`)
+            setSolution(response?.data)
+        })()
     }, [params.id]);
 
     async function handleSubmit(e: FormEvent<HTMLFormElement>) {
@@ -57,7 +56,7 @@ export default function Solution({params}: { params: { id: string } }) {
     return (
         <div className={'relative'}>
             <Topbar/>
-            <FormCard title={' Modifier votre solution'} handleSubmit={handleSubmit}>
+            <FormCard title={'Modifier votre solution'} handleSubmit={handleSubmit}>
                 <FilePond
                     files={files}
                     onupdatefiles={setFiles}
