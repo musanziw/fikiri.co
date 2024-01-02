@@ -23,7 +23,6 @@ export default function Solution() {
     const {data: account, status: authStatus} = useSession()
     const [solutions, setSolutions] = useState<any>()
     const [user, setUser] = useState<any>()
-    const [active, setActive] = useState<string>('profile')
     const [files, setFiles] = useState<any>([])
     const authenticated = useMemo(() => authStatus === 'authenticated', [authStatus])
     const imgPath: string = useMemo(() => `${API_BASE_URL}uploads/${user?.profile}`, [user])
