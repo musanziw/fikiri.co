@@ -1,17 +1,13 @@
 "use client";
 
-import {useState, FormEvent, useEffect, useMemo} from "react";
-import {toast, ToastContainer} from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import {FormEvent, useContext, useEffect, useMemo, useState} from "react";
+import {toast, Toaster} from "react-hot-toast";
 import {useRouter} from "next/navigation";
 import Select from "react-select";
 import axios from "@/app/shared/config/axios";
 import Topbar from "@/app/shared/components/Topbar";
-import {Button} from "@/app/shared/utils/Button";
-import {useSession} from "next-auth/react";
-import {Input} from "@/app/shared/utils/Input";
-import {Textarea} from "@/app/shared/utils/TextArea";
-import {FormCard} from "@/app/shared/utils/FormCard";
+import {FormCard} from "@/app/shared/utils/ui/formCard";
+import {AuthContext} from "@/app/shared/providers/authProvider";
 
 export default function SubmitProject() {
     const [calls, setCalls] = useState<any[]>();
@@ -21,22 +17,25 @@ export default function SubmitProject() {
     const [challenges, setChallenges] = useState<any[]>()
     const [selectedChallenges, setSelectedChallenges] = useState<any>()
     const router = useRouter();
-    const {data: session} = useSession()
+    const {user} = useContext(AuthContext)
     const [formStatus, setFormStatus] = useState('')
     const isPending = useMemo(() => formStatus === 'pending', [formStatus])
 
     useEffect(() => {
+
+
         (async () => {
             const {data: response} = await axios.get('calls')
             const options = response.data
+            console.log(response)
             setCalls(
-                options.map((option: any) => ({
+                options?.map((option: any) => ({
                     value: option.id,
                     label: option.name,
                 }))
             );
         })()
-    }, []);
+    }, [calls]);
 
     const handleCallChange = async (option: any) => {
         setSelectedCall(option.value)
@@ -75,7 +74,7 @@ export default function SubmitProject() {
         const data = Object.fromEntries(formData)
         const payload = {
             ...data,
-            user: session?.user?.email,
+            user: user?.email,
             call: selectedCall,
             thematic: selectedThematic,
             challenges: selectedChallenges,
@@ -96,10 +95,10 @@ export default function SubmitProject() {
     return (
         <div className={'relative'}>
             <Topbar/>
-            <FormCard handleSubmit={handleSubmit} title={'Soumettre votre solution'}>
-                <Input name={'name'} label={'Titre de la solution'} placeholder={"Saisir le nom de votre solution"}
-                       error={''} type={'text'}/>
-                {
+            <FormCard handleSubmit={handleSubmit} title={'Votre solution'}>
+                {/*<Input name={'name'} label={'Titre de la solution'} placeholder={"Saisir le nom de votre solution"}*/}
+                {/*       error={''} type={'text'}/>*/}
+                {/*{*/}
                     calls && (
                         <>
                             <div className="flex flex-col gap-3">
@@ -135,23 +134,23 @@ export default function SubmitProject() {
                                 />
                             </div>
                         </>
-                    )
-                }
+                {/*    )*/}
+                {/*}*/}
 
-                <Textarea name={'description'} label={'Parlez brièvement de votre solution'}
-                          placeholder={'Décrivez votre solution...'} error={''}/>
+                {/*<Textarea name={'description'} label={'Parlez brièvement de votre solution'}*/}
+                {/*          placeholder={'Décrivez votre solution...'} error={''}/>*/}
 
-                <Textarea name={'targetedProblem'} label={'Problème ciblé'}
-                          placeholder={'Decrire le problème ici...'}
-                          error={''}/>
+                {/*<Textarea name={'targetedProblem'} label={'Problème ciblé'}*/}
+                {/*          placeholder={'Decrire le problème ici...'}*/}
+                {/*          error={''}/>*/}
 
-                <Input name={'videoLink'} label={'Lien youtube de la vidéo (optionnel)'}
-                       placeholder={"Coller le lien de la vidéo"} error={''}
-                       type={'text'}/>
+                {/*<Input name={'videoLink'} label={'Lien youtube de la vidéo (optionnel)'}*/}
+                {/*       placeholder={"Coller le lien de la vidéo"} error={''}*/}
+                {/*       type={'text'}/>*/}
 
-                <Button label={"Soumettre"} type={'submit'} pending={isPending}/>
+                {/*<Button label={"Soumettre"} type={'submit'} pending={isPending}/>*/}
             </FormCard>
-            <ToastContainer/>
+            <Toaster/>
         </div>
     );
 }

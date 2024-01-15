@@ -108,7 +108,7 @@ export function About() {
                 <div className="grid grid-rows-1 md:grid-cols-2 gap-8 items-center content-center">
                     <div className={"flex flex-col gap-4"}>
                         <h1 className={'text-xl font-semibold'}>Qui sommes-nous ?</h1>
-                        <p className={'font-medium text-base leading-8'}>
+                        <p>
                               Fikiri est une plateforme web qui vise à cartographier les solutions
                               locales en République Démocratique du Congo pour accélérer
                               l&apos;atteinte des Objectifs de Développement Durable (ODD).
