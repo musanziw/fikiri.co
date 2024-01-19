@@ -23,7 +23,7 @@ export default function Solution({params}: { params: { id: string } }) {
             const {data} = await axios.get(`solutions/${params.id}`)
             setSolution(data.data)
         })()
-    }, []);
+    }, [params.id]);
 
     async function handleSubmit(e: FormEvent<HTMLFormElement>) {
         e.preventDefault()

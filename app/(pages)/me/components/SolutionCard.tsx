@@ -43,7 +43,7 @@ export default function SolutionCard({solutions}: SolutionsCardProps) {
             </div>
         )) : (
             <div className="flex flex-col">
-                <h1 className={'text-xl font-bold'}>Vous n'avez pas encore de solution</h1>
+                <h1 className={'text-xl font-bold'}>Vous n&apos;avez pas encore de solution</h1>
             </div>
         )
     )
