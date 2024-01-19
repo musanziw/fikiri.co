@@ -45,9 +45,8 @@ export default function Login() {
                 setErrors(data.message)
             }
             setIsLoggedIn(false)
-        } finally {
-            setIsPending(false)
         }
+        setIsPending(false)
     }
 
     async function loginWithGoogle(e: FormEvent) {
@@ -72,14 +71,17 @@ export default function Login() {
                 <Label htmlFor={'password'}>Mot de passe</Label>
                 <Input name={'password'} placeholder={'Entrez votre mot de passe'}
                        type={'password'} error={getInputError(errors, 'password')}/>
-                {
-                    isPending ? <Button disabled>
-                        <Loader2 className="mr-2 h-4 w-4 animate-spin"/>
-                        En cours...
-                    </Button> : <Button type={'submit'}>
-                        Se connecter
-                    </Button>
-                }
+
+                <Button type={'submit'} disabled={isPending} className={'mt-5'}>
+                    {
+                        isPending ? (
+                            <>
+                                <Loader2 className="mr-2 h-4 w-4 animate-spin"/>
+                                En cours ...
+                            </>
+                        ) : " Se connecter"
+                    }
+                </Button>
 
                 <div className="flex flex-row gap-5 justify-center items-center">
                     <div className="basis-1/2 border-t border-gray-300 text-sm text-gray-500"></div>
