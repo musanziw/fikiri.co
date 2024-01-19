@@ -2,7 +2,7 @@
 
 import Topbar from "@/app/shared/components/Topbar";
 import axios from "@/app/shared/config/axios";
-import {useContext, useEffect, useState} from "react";
+import {useCallback, useContext, useEffect, useState} from "react";
 import {Toaster} from "react-hot-toast";
 import {moment} from "@/app/shared/config/moment"
 import UpdateProfile from "@/app/(pages)/me/components/UpdateProfile";
@@ -30,14 +30,14 @@ export default function Solution() {
         }
     ]
 
-    const getSolutions = async () => {
+    const getSolutions = useCallback(async () => {
         try {
             const {data: reponse} = await axios.get(`solutions/user/${user?.email}`)
             setSolutions(reponse.data)
         } catch {
             setSolutions([])
         }
-    }
+    }, []);
 
     useEffect(() => {
         (async () => await getSolutions())()
@@ -64,7 +64,7 @@ export default function Solution() {
                             </div>
                         </div>
                         {
-                            active === 0 &&  <UpdateProfile user={user}/>
+                            active === 0 && <UpdateProfile user={user}/>
                         }
                         {
                             active === 1 && <SolutionCard solutions={solutions}/>
