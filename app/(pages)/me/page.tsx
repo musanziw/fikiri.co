@@ -37,11 +37,11 @@ export default function Solution() {
         } catch {
             setSolutions([])
         }
-    }, []);
+    }, [user?.email]);
 
     useEffect(() => {
         (async () => await getSolutions())()
-    }, [user?.email, getSolutions])
+    }, [getSolutions])
 
     return (
         <div className={'relative'}>
