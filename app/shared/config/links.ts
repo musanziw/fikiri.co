@@ -1,4 +1,4 @@
-const API_BASE_URL: string = 'https://api.fikiri-solutions.com/'
+const API_BASE_URL: string = 'https://api.fikiri-solutions.co/'
 // const API_BASE_URL: string = 'http://localhost:8000/'
 const API_LOGIN: string = 'auth/login'
 const API_REGISTER: string = 'auth/register'

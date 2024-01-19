@@ -41,7 +41,7 @@ export default function Solution() {
 
     useEffect(() => {
         (async () => await getSolutions())()
-    }, [user, getSolutions])
+    }, [user?.email, getSolutions])
 
     return (
         <div className={'relative'}>
