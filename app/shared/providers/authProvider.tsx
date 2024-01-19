@@ -3,23 +3,18 @@
 import React, {createContext, ReactNode, useEffect, useState} from 'react';
 import axios from "@/app/shared/config/axios";
 
-interface AuthContextData {
+interface AuthContextProps {
     user: any | null;
     isLoggedIn: boolean;
-    checkAuth: () => void;
     setUser: (user: any) => void;
     setIsLoggedIn: (isLoggedIn: boolean) => void
 }
 
-export const AuthContext = createContext<AuthContextData>({
+export const AuthContext = createContext<AuthContextProps>({
     user: null,
     isLoggedIn: false,
-    checkAuth: () => {
-    },
-    setIsLoggedIn: () => {
-    },
-    setUser: () => {
-    }
+    setIsLoggedIn: () => {},
+    setUser: () => {}
 });
 
 export const AuthProvider = ({children}: { children: ReactNode }) => {
@@ -32,7 +27,6 @@ export const AuthProvider = ({children}: { children: ReactNode }) => {
             const {data} = await axios.get('auth/profile')
             if (data.data) {
                 const {data: response} = await axios.get(`users/${data.data.id}`)
-                console.log(response)
                 setUser(response.data)
             }
         } catch {
@@ -46,7 +40,7 @@ export const AuthProvider = ({children}: { children: ReactNode }) => {
     }, []);
 
     return (
-        <AuthContext.Provider value={{user, isLoggedIn, checkAuth, setIsLoggedIn, setUser}}>
+        <AuthContext.Provider value={{user, isLoggedIn, setIsLoggedIn, setUser}}>
             {children}
         </AuthContext.Provider>
     );
