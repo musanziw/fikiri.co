@@ -78,14 +78,17 @@ export default function Register() {
                 <Label htmlFor={'password'}>Mot de passe</Label>
                 <Input name={'password'} placeholder={'Entrez le mot de passe'} error={getInputError(errors, 'password')} type={'password'}/>
 
-                {
-                    isPending ? <Button disabled>
-                        <Loader2 className="mr-2 h-4 w-4 animate-spin"/>
-                        En cours...
-                    </Button> : <Button type={'submit'}>
-                        S&apos;inscrire
-                    </Button>
-                }
+                <Button type={'submit'} disabled={isPending} className={'mt-5'}>
+                    {
+                        isPending ? (
+                            <>
+                                <Loader2 className="mr-2 h-4 w-4 animate-spin"/>
+                                En cours ...
+                            </>
+                        ) : "S'inscrire"
+                    }
+                </Button>
+
 
                 <div className="flex flex-row gap-5 justify-center items-center">
                     <div className="basis-1/2 border-t border-gray-300 text-sm text-gray-500"></div>

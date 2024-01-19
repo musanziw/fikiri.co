@@ -1,6 +1,6 @@
 "use client";
 
-import {FormEvent, useContext, useEffect, useMemo, useState} from "react";
+import {FormEvent, useContext, useEffect, useState} from "react";
 import {toast, Toaster} from "react-hot-toast";
 import {useRouter} from "next/navigation";
 import Select from "react-select";
@@ -8,6 +8,12 @@ import axios from "@/app/shared/config/axios";
 import Topbar from "@/app/shared/components/Topbar";
 import {FormCard} from "@/app/shared/utils/ui/formCard";
 import {AuthContext} from "@/app/shared/providers/authProvider";
+import {Input} from "@/app/shared/utils/ui/input";
+import {Label} from "@/app/shared/utils/ui/label";
+import {Textarea} from "@/app/shared/utils/ui/textarea";
+import {Button} from "@/app/shared/utils/ui/button";
+import {Loader2} from "lucide-react";
+import {getInputError} from "@/app/shared/helpers/getInputError";
 
 export default function SubmitProject() {
     const [calls, setCalls] = useState<any[]>();
@@ -18,16 +24,13 @@ export default function SubmitProject() {
     const [selectedChallenges, setSelectedChallenges] = useState<any>()
     const router = useRouter();
     const {user} = useContext(AuthContext)
-    const [formStatus, setFormStatus] = useState('')
-    const isPending = useMemo(() => formStatus === 'pending', [formStatus])
+    const [isPending, setIsPending] = useState<boolean>(false)
+    const [errors, setErrors] = useState([])
 
     useEffect(() => {
-
-
         (async () => {
             const {data: response} = await axios.get('calls')
             const options = response.data
-            console.log(response)
             setCalls(
                 options?.map((option: any) => ({
                     value: option.id,
@@ -35,7 +38,7 @@ export default function SubmitProject() {
                 }))
             );
         })()
-    }, [calls]);
+    }, []);
 
     const handleCallChange = async (option: any) => {
         setSelectedCall(option.value)
@@ -69,7 +72,7 @@ export default function SubmitProject() {
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        setFormStatus('pending')
+        setIsPending(true)
         const formData = new FormData(e.target as HTMLFormElement)
         const data = Object.fromEntries(formData)
         const payload = {
@@ -82,23 +85,29 @@ export default function SubmitProject() {
         try {
             await axios.post('solutions', JSON.stringify(payload));
             toast.success("Solution soumis avec succès !");
-        } catch (e: any) {
-            toast.error(e.response.data.message)
-        } finally {
             setTimeout(() => {
                 router.back()
             }, 1000)
-            setFormStatus('')
+        } catch (e: any) {
+            const data = e.response.data
+            if (typeof data.message === 'string') {
+                toast.error(data.message)
+            } else {
+                setErrors(data.message)
+            }
         }
+        setIsPending(false)
     };
 
     return (
         <div className={'relative'}>
             <Topbar/>
             <FormCard handleSubmit={handleSubmit} title={'Votre solution'}>
-                {/*<Input name={'name'} label={'Titre de la solution'} placeholder={"Saisir le nom de votre solution"}*/}
-                {/*       error={''} type={'text'}/>*/}
-                {/*{*/}
+
+                <Label htmlFor={'name'}>Nom de la solution</Label>
+                <Input name={'name'} placeholder={"Saisir le nom de votre solution"}
+                       error={getInputError(errors, 'name')} type={'text'}/>
+                {
                     calls && (
                         <>
                             <div className="flex flex-col gap-3">
@@ -134,21 +143,30 @@ export default function SubmitProject() {
                                 />
                             </div>
                         </>
-                {/*    )*/}
-                {/*}*/}
+                    )
+                }
 
-                {/*<Textarea name={'description'} label={'Parlez brièvement de votre solution'}*/}
-                {/*          placeholder={'Décrivez votre solution...'} error={''}/>*/}
+                <Label htmlFor={'description'}>Description</Label>
+                <Textarea name={'description'} placeholder={'Décrivez votre solution...'} error={getInputError(errors, 'description')}/>
 
-                {/*<Textarea name={'targetedProblem'} label={'Problème ciblé'}*/}
-                {/*          placeholder={'Decrire le problème ici...'}*/}
-                {/*          error={''}/>*/}
+                <Label htmlFor={'targetedProblem'}>Problème ciblé</Label>
+                <Textarea name={'targetedProblem'} placeholder={'Decrire le problème ici...'}
+                          error={getInputError(errors, 'targetedProblem')}/>
 
-                {/*<Input name={'videoLink'} label={'Lien youtube de la vidéo (optionnel)'}*/}
-                {/*       placeholder={"Coller le lien de la vidéo"} error={''}*/}
-                {/*       type={'text'}/>*/}
+                <Label htmlFor={'solution'}>Lien youtube de la vidéo (optionnel)</Label>
+                <Input name={'videoLink'} placeholder={"Coller le lien de la vidéo"} error={getInputError(errors, 'videoLink')}
+                       type={'text'}/>
 
-                {/*<Button label={"Soumettre"} type={'submit'} pending={isPending}/>*/}
+                <Button type={'submit'} disabled={isPending} className={'mt-5'}>
+                    {
+                        isPending ? (
+                            <>
+                                <Loader2 className="mr-2 h-4 w-4 animate-spin"/>
+                                Soumission...
+                            </>
+                        ) : "Soumettre la solution"
+                    }
+                </Button>
             </FormCard>
             <Toaster/>
         </div>
