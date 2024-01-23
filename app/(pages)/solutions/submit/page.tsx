@@ -1,35 +1,38 @@
 "use client";
 
-import {FormEvent, useContext, useEffect, useState} from "react";
+import {FormEvent, useEffect, useState} from "react";
 import {toast, Toaster} from "react-hot-toast";
 import {useRouter} from "next/navigation";
 import Select from "react-select";
-import axios from "@/app/shared/config/axios";
-import Topbar from "@/app/shared/components/Topbar";
-import {FormCard} from "@/app/shared/utils/ui/formCard";
-import {AuthContext} from "@/app/shared/providers/authProvider";
+import Topbar from "@/app/shared/utils/Topbar";
+import {FormCard} from "@/app/shared/utils/formCard";
 import {Input} from "@/app/shared/utils/ui/input";
 import {Label} from "@/app/shared/utils/ui/label";
 import {Textarea} from "@/app/shared/utils/ui/textarea";
 import {Button} from "@/app/shared/utils/ui/button";
 import {Loader2} from "lucide-react";
 import {getInputError} from "@/app/shared/helpers/getInputError";
+import {Call} from "@/app/shared/models/Call";
+import {Thematic} from "@/app/shared/models/Thematic";
+import {Challenge} from "@/app/shared/models/Challenge";
+import useStore from "@/app/shared/hooks/useStore";
+import {api} from "@/app/shared/config/api";
 
 export default function SubmitProject() {
-    const [calls, setCalls] = useState<any[]>();
-    const [thematics, setThematics] = useState<any[]>()
+    const [calls, setCalls] = useState<Call[]>();
+    const [thematics, setThematics] = useState<Thematic[]>()
     const [selectedCall, setSelectedCall] = useState<any>()
     const [selectedThematic, setSelectedThematic] = useState<string>('')
-    const [challenges, setChallenges] = useState<any[]>()
-    const [selectedChallenges, setSelectedChallenges] = useState<any>()
+    const [challenges, setChallenges] = useState<Challenge[]>()
+    const [selectedChallenges, setSelectedChallenges] = useState<Challenge>()
     const router = useRouter();
-    const {user} = useContext(AuthContext)
+    const user = useStore.use.user()
     const [isPending, setIsPending] = useState<boolean>(false)
     const [errors, setErrors] = useState([])
 
     useEffect(() => {
         (async () => {
-            const {data: response} = await axios.get('calls')
+            const {data: response} = await api.get('calls')
             const options = response.data
             setCalls(
                 options?.map((option: any) => ({
@@ -42,7 +45,7 @@ export default function SubmitProject() {
 
     const handleCallChange = async (option: any) => {
         setSelectedCall(option.value)
-        const {data: response} = await axios.get(`calls/${option.value}`)
+        const {data: response} = await api.get(`calls/${option.value}`)
         const {thematics: options} = response.data
         setThematics(
             options.map((option: any) => ({
@@ -54,7 +57,7 @@ export default function SubmitProject() {
 
     const handleThematicsChange = async (option: any) => {
         setSelectedThematic(option.value)
-        const {data: reponse} = await axios.get(`thematics/${option.value}`)
+        const {data: reponse} = await api.get(`thematics/${option.value}`)
         const {challenges: options} = reponse.data
         setChallenges(
             options.map((option: any) => ({
@@ -70,7 +73,7 @@ export default function SubmitProject() {
         )
     }
 
-    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
         setIsPending(true)
         const formData = new FormData(e.target as HTMLFormElement)
@@ -83,7 +86,7 @@ export default function SubmitProject() {
             challenges: selectedChallenges,
         }
         try {
-            await axios.post('solutions', JSON.stringify(payload));
+            await api.post('solutions', JSON.stringify(payload));
             toast.success("Solution soumis avec succès !");
             setTimeout(() => {
                 router.back()
@@ -103,7 +106,6 @@ export default function SubmitProject() {
         <div className={'relative'}>
             <Topbar/>
             <FormCard handleSubmit={handleSubmit} title={'Votre solution'}>
-
                 <Label htmlFor={'name'}>Nom de la solution</Label>
                 <Input name={'name'} placeholder={"Saisir le nom de votre solution"}
                        error={getInputError(errors, 'name')} type={'text'}/>
@@ -147,14 +149,16 @@ export default function SubmitProject() {
                 }
 
                 <Label htmlFor={'description'}>Description</Label>
-                <Textarea name={'description'} placeholder={'Décrivez votre solution...'} error={getInputError(errors, 'description')}/>
+                <Textarea name={'description'} placeholder={'Décrivez votre solution...'}
+                          error={getInputError(errors, 'description')}/>
 
                 <Label htmlFor={'targetedProblem'}>Problème ciblé</Label>
                 <Textarea name={'targetedProblem'} placeholder={'Decrire le problème ici...'}
                           error={getInputError(errors, 'targetedProblem')}/>
 
                 <Label htmlFor={'solution'}>Lien youtube de la vidéo (optionnel)</Label>
-                <Input name={'videoLink'} placeholder={"Coller le lien de la vidéo"} error={getInputError(errors, 'videoLink')}
+                <Input name={'videoLink'} placeholder={"Coller le lien de la vidéo"}
+                       error={getInputError(errors, 'videoLink')}
                        type={'text'}/>
 
                 <Button type={'submit'} disabled={isPending} className={'mt-5'}>

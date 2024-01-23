@@ -1,35 +1,33 @@
 "use client";
 
-import {useContext, useState} from "react";
+import {useState} from "react";
 import Link from "next/link";
 import logo from "@/public/logo.png";
 import Image from "next/image";
 import {usePathname, useRouter} from "next/navigation";
-import {
-    WEB_BASE_URL,
-    WEB_LOGIN,
-    WEB_PROFILE,
-    WEB_REGISTER,
-    WEB_SOLUTIONS,
-    WEB_SOLUTIONS_SUBMIT,
-} from "@/app/shared/config/links";
-import {AuthContext} from "@/app/shared/providers/authProvider";
-import axios from "@/app/shared/config/axios";
-import {toast, Toaster} from "react-hot-toast";
+import useStore from "@/app/shared/hooks/useStore";
+import {api} from "@/app/shared/config/api";
+import {User} from "@/app/shared/models/User";
+
+type Link = {
+    name: string,
+    path: string,
+    isShown: boolean,
+}
 
 export default function Topbar() {
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const pathname: string = usePathname();
-    const {isLoggedIn, user, setIsLoggedIn, setUser} = useContext(AuthContext)
     const router = useRouter()
+    const user: User | null = useStore.use.user()
+    const setUser = useStore.use.setUser()
 
     const logOut = async (e: any) => {
         e.preventDefault()
         router.push('/')
-        setIsLoggedIn(false)
         setUser(null)
         setTimeout(async () => {
-            await axios.post('auth/logout')
+            await api.post('auth/logout')
         }, 1000)
     };
 
@@ -40,32 +38,31 @@ export default function Topbar() {
         return name;
     }
 
-    const LINKS = [
+    const LINKS: Link[] = [
         {
             name: "Acceuil",
-            path: WEB_BASE_URL,
+            path: '/',
             isShown: true,
         },
         {
             name: "Solutions",
-            label: 'solutions',
-            path: WEB_SOLUTIONS,
+            path: '/solutions',
             isShown: true,
         },
         {
             name: "Se connecter",
-            path: WEB_LOGIN,
-            isShown: !isLoggedIn,
+            path: '/login',
+            isShown: user === null,
         },
         {
             name: "S'inscrire",
-            path: WEB_REGISTER,
-            isShown: !isLoggedIn,
+            path: '/register',
+            isShown: user === null,
         },
         {
             name: trimName(user?.name || ''),
-            path: WEB_PROFILE,
-            isShown: isLoggedIn,
+            path: '/me',
+            isShown: user !== null,
         },
     ];
 
@@ -94,7 +91,7 @@ export default function Topbar() {
                     )
                 ))}
                 {
-                    isLoggedIn && (
+                    user && (
                         <button onClick={logOut}>
                             Déconnexion
                         </button>
@@ -113,14 +110,13 @@ export default function Topbar() {
                         )
                 )}
                 {
-                    isLoggedIn && (
+                    user && (
                         <button onClick={logOut}>
                             Déconnexion
                         </button>
                     )
                 }
             </div>
-            <Toaster/>
         </header>
     );
 }

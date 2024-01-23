@@ -1,11 +1,21 @@
-import {Footer} from "@/app/shared/components/Footer";
-import Topbar from "@/app/shared/components/Topbar";
-import axios from "@/app/shared/config/axios";
-import {SolutionCard} from "@/app/(pages)/solutions/components/SolutionCard";
+'use client';
 
-export default async function Solutions() {
-    const solutions: any[] = await axios.get(`solutions/approved`)
-        .then(({data: response}) => response.data)
+import {Footer} from "@/app/shared/utils/Footer";
+import Topbar from "@/app/shared/utils/Topbar";
+import {SolutionCard} from "@/app/(pages)/solutions/components/SolutionCard";
+import {useQuery} from "react-query";
+import {loadMappedSolution} from "@/app/(pages)/solutions/_requests";
+import {Solution} from "@/app/shared/models/Solution";
+import {Skeleton} from "@/app/shared/utils/ui/skeleton";
+
+export default function Solutions() {
+    const {data, isFetching, isFetched} = useQuery(
+        ['solutions'],
+        () => loadMappedSolution(),
+        {
+            staleTime: 60_000
+        })
+    const solutions: Solution[] = data || []
 
     return (
         <div className={'relative'}>
@@ -22,7 +32,16 @@ export default async function Solutions() {
                         résoudre les problèmes de la communauté.
                     </p>
                     <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-                        <SolutionCard solutions={solutions}/>
+                        {isFetching &&
+                            Array.from({length: 10}, (_, i) => (
+                                    <Skeleton key={i} className={'animate-pulse h-[250px]'}/>
+                            ))
+                        }
+                        {isFetched &&
+                            solutions.map((solution: Solution) => (
+                                <SolutionCard solution={solution}/>
+                            ))
+                        }
                     </div>
                 </div>
             )}

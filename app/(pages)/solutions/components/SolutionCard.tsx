@@ -1,12 +1,13 @@
 import Link from "next/link";
+import {Solution} from "@/app/shared/models/Solution";
 
 interface SolutionCardProps {
-    solutions: any[];
+    solution: Solution;
 }
 
-export function SolutionCard({solutions}: SolutionCardProps) {
-    return solutions.map((solution, index) =>
-        <div className={"relative flex flex-col overflow-hidden rounded-md border"} key={index}>
+export function SolutionCard({solution}: SolutionCardProps) {
+    return (
+        <div className={"relative flex flex-col overflow-hidden rounded-md border"}>
             <div className="p-8">
                 <h5 className={"font-bold text-sm uppercase mb-2"}>
                     {solution.name}
@@ -21,5 +22,5 @@ export function SolutionCard({solutions}: SolutionCardProps) {
                 </Link>
             </div>
         </div>
-    );
+    )
 }

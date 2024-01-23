@@ -1,9 +1,8 @@
 'use client'
 
 import {FormEvent, useEffect, useState} from "react";
-import {FormCard} from "@/app/shared/utils/ui/formCard";
-import Topbar from "@/app/shared/components/Topbar";
-import axios from "@/app/shared/config/axios";
+import {FormCard} from "@/app/shared/utils/formCard";
+import Topbar from "@/app/shared/utils/Topbar";
 import {toast} from "react-hot-toast";
 import {useRouter} from "next/navigation";
 import {Input} from "@/app/shared/utils/ui/input";
@@ -12,36 +11,38 @@ import {Textarea} from "@/app/shared/utils/ui/textarea";
 import {Button} from "@/app/shared/utils/ui/button";
 import {Loader2} from "lucide-react";
 import Uploader from "@/app/shared/utils/Uploader";
+import {Solution} from "@/app/shared/models/Solution";
+import {api} from "@/app/shared/config/api";
 
 export default function Solution({params}: { params: { id: string } }) {
-    const [solution, setSolution] = useState<any>()
+    const [solution, setSolution] = useState<Solution>()
     const router = useRouter()
     const [isPending, setIsPending] = useState(false)
 
     useEffect(() => {
         (async () => {
-            const {data} = await axios.get(`solutions/${params.id}`)
+            const {data} = await api.get(`solutions/${params.id}`)
             setSolution(data.data)
         })()
     }, [params.id]);
 
-    async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    async function handleSubmit(e: FormEvent) {
         e.preventDefault()
         setIsPending(true)
         const formData = new FormData(e.target as HTMLFormElement)
         const data = Object.fromEntries(formData)
         delete data.thumbs
         const payload = {
-            ...data,
-            status: solution?.status?.id
+            ...data
         }
         try {
-            await axios.patch(`solutions/${params.id}`, JSON.stringify(payload))
+            await api.patch(`solutions/${params.id}/user`, JSON.stringify(payload))
             toast.success('La solution a été mis à jour')
             setTimeout(() => {
                 router.back()
             }, 1000)
-        } catch {
+        } catch(e) {
+            console.log(e)
             toast.error('Echec de mis à jour')
             setTimeout(() => {
                 router.refresh()
@@ -54,7 +55,9 @@ export default function Solution({params}: { params: { id: string } }) {
         <div className={'relative'}>
             <Topbar/>
             <FormCard title={'Modifier votre solution'} handleSubmit={handleSubmit}>
-                <Uploader name={'thumbs'} path={`solutions/${solution?.id}/images`}/>
+
+                <Label htmlFor={'thumbs'}>Preuve de l&apos;existence de la solution</Label>
+                <Uploader name={'thumbs'} path={`solutions/${solution?.id}/images`} label={'Cliquez pour ajouter max 3 photos'}/>
 
                 <Label htmlFor={'name'}>Nom de la solution</Label>
                 <Input name={'name'} placeholder={''} type={'text'} defaultValue={solution?.name} error={''}/>
