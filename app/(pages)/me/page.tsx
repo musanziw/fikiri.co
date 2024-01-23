@@ -1,23 +1,19 @@
 'use client'
 
-import Topbar from "@/app/shared/components/Topbar";
-import axios from "@/app/shared/config/axios";
-import {useCallback, useContext, useEffect, useState} from "react";
+import Topbar from "@/app/shared/utils/Topbar";
+import {useState} from "react";
 import {Toaster} from "react-hot-toast";
-import {moment} from "@/app/shared/config/moment"
 import UpdateProfile from "@/app/(pages)/me/components/UpdateProfile";
-import {AuthContext} from "@/app/shared/providers/authProvider";
 import {Loader2} from "lucide-react";
 import UserInfo from "@/app/(pages)/me/components/UserInfo";
 import SolutionCard from "./components/SolutionCard";
-
-moment.locale('fr')
+import useStore from "@/app/shared/hooks/useStore";
+import {useQuery} from "react-query";
+import {loadSolutions} from "@/app/(pages)/me/_requests";
 
 export default function Solution() {
-    const [solutions, setSolutions] = useState<any>()
     const [active, setActive] = useState<number>(0)
-    const {user} = useContext(AuthContext)
-
+    const {user} = useStore()
 
     const LINKS = [
         {
@@ -30,18 +26,14 @@ export default function Solution() {
         }
     ]
 
-    const getSolutions = useCallback(async () => {
-        try {
-            const {data: reponse} = await axios.get(`solutions/user/${user?.email}`)
-            setSolutions(reponse.data)
-        } catch {
-            setSolutions([])
+    const {data} = useQuery(
+        ['solutions', user?.id],
+        async () => user && loadSolutions(user.email), {
+            enabled: !!user?.email,
+            staleTime: 60_000
         }
-    }, [user?.email]);
-
-    useEffect(() => {
-        (async () => await getSolutions())()
-    }, [getSolutions])
+    )
+    const solutions = data || []
 
     return (
         <div className={'relative'}>
@@ -51,11 +43,11 @@ export default function Solution() {
                     <div className={`p-8 max-w-screen-sm mx-auto flex flex-col pt-20 border-x border-dashed`}>
                         <div className="flex flex-col">
                             <UserInfo user={user}/>
-                            <div className="flex items-center mb-8">
+                            <div className="flex items-center gap-3 mb-8">
                                 {
                                     LINKS.map((link, index) => (
                                         <button key={index}
-                                                className={`flex items-center gap-2 py-2 px-4 rounded-md cursor-pointer ${link.index === active ? 'bg-gray-200' : ''}`}
+                                                className={`flex items-center gap-2 py-2 px-4 rounded-md cursor-pointer ${link.index === active ? 'bg-gray-300/70 text-gray-950' : 'bg-gray-100/90'}`}
                                                 onClick={() => setActive(index)}>
                                             <span className={'text-gray-500 text-sm font-medium'}>{link.name}</span>
                                         </button>
@@ -67,16 +59,18 @@ export default function Solution() {
                             active === 0 && <UpdateProfile user={user}/>
                         }
                         {
-                            active === 1 && <SolutionCard solutions={solutions}/>
+                            active === 1 && (
+                                solutions.map((solution: any, index: number) => (
+                                    <SolutionCard key={index} solution={solution}/>
+                                ))
+                            )
                         }
                     </div>
                 ) : (
-                    <>
-                        <div className="h-screen w-full flex flex-col items-center justify-center gap-5 pt-16 mb-8">
-                            <Loader2 className={'w-6 h-6 animate-spin'}/>
-                            Chargement en cours...
-                        </div>
-                    </>
+                    <div className="h-screen w-full flex flex-col items-center justify-center gap-5 pt-16 mb-8">
+                        <Loader2 className={'w-6 h-6 animate-spin'}/>
+                        Chargement en cours...
+                    </div>
                 )
             }
             <Toaster/>
