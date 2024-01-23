@@ -2,7 +2,7 @@ import type {Metadata} from "next";
 import "./globals.css";
 import {ReactNode} from "react";
 import {Roboto} from "next/font/google";
-import {AuthProvider} from "@/app/shared/providers/authProvider";
+import {ReactQueryClient} from "@/app/shared/providers/ReactQueryClient";
 
 const roboto = Roboto({
     subsets: ['latin'],
@@ -19,9 +19,9 @@ export default function RootLayout({children}: { children: ReactNode }) {
     return (
         <html lang="en">
         <body className={`${roboto.className} text-gray-600`}>
-            <AuthProvider>
-                {children}
-            </AuthProvider>
+        <ReactQueryClient>
+            {children}
+        </ReactQueryClient>
         </body>
         </html>
     );
