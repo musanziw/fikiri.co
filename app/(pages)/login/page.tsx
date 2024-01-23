@@ -17,7 +17,6 @@ import {useMutation} from "react-query";
 import {api, apiBaseURL} from "@/app/shared/config/api";
 import {login} from "@/app/(pages)/login/_requests";
 import {AxiosError} from "axios";
-import {User} from "@/app/shared/models/User";
 
 export default function Login() {
     const setUser = useStore.use.setUser()
