@@ -6,7 +6,7 @@ import 'filepond/dist/filepond.min.css'
 import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation'
 import FilePondPluginImagePreview from 'filepond-plugin-image-preview'
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css'
-import {API_BASE_URL} from "@/app/shared/config/links";
+import {apiBaseURL} from "@/app/shared/config/api";
 
 registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview)
 
@@ -14,9 +14,10 @@ interface UploaderProps {
     name: string
     path: string
     isMultiple?: boolean
+    label?: string
 }
 
-export default function Uploader({name, path, isMultiple = true}: UploaderProps) {
+export default function Uploader({name, path, label,isMultiple = true}: UploaderProps) {
     const [files, setFiles] = useState<any>([])
     return (
         <FilePond
@@ -27,12 +28,12 @@ export default function Uploader({name, path, isMultiple = true}: UploaderProps)
             maxFiles={3}
             server={{
                 process: {
-                    url: `${API_BASE_URL}${path}`,
+                    url: `${apiBaseURL}${path}`,
                     withCredentials: true,
                 }
             }}
             name={name}
-            labelIdle='Drag & Drop your files or <span class="filepond--label-action">Browse</span>'
+            labelIdle={label}
         />
     )
 }
