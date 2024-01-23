@@ -1,9 +1,7 @@
-export function getInputError(errors = [], field: string): string {
-    if (errors.length > 0) {
-        const error = errors.find(error => error['property'] === field)
-        if (error) {
-            return error['message']
-        }
-    }
-    return ''
+import '@/app/shared/types/ApiValidationError'
+
+export function getInputError(errors: ApiValidationError[], field: string): string {
+    const error = errors.find((error: ApiValidationError) => error.property === field)
+    if (!error) return ''
+    return error.message
 }
