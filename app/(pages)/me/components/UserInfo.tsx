@@ -1,9 +1,10 @@
 import Image from "next/image";
 import {moment} from "@/app/shared/config/moment";
-import {API_BASE_URL} from "@/app/shared/config/links";
+import {User} from "@/app/shared/models/User";
+import {apiBaseURL} from "@/app/shared/config/api";
 
 interface UserInfoProps {
-    user: any
+    user: User
 }
 
 export default function UserInfo({user}: UserInfoProps) {
@@ -17,19 +18,18 @@ export default function UserInfo({user}: UserInfoProps) {
                     </div>
                 )
             }
-
-                {
-                    user?.googleImage && !user?.profile && (
-                        <Image src={user?.googleImage} alt={user?.name} width={100} height={100}
-                               className={'rounded-full w-32 h-32 object-cover'}/>
-                    )
-                }
-                {
-                    user?.profile && (
-                        <Image src={`${API_BASE_URL}uploads/${user?.profile}`} alt={user?.name} width={100} height={100} className={'rounded-full w-32 h-32 object-cover'}/>
-                    )
-                }
-
+            {
+                user?.googleImage && !user?.profile && (
+                    <Image src={user?.googleImage} alt={user?.name} width={100} height={100}
+                           className={'rounded-full w-32 h-32 object-cover'}/>
+                )
+            }
+            {
+                user?.profile && (
+                    <Image src={`${apiBaseURL}uploads/${user?.profile}`} alt={user?.name} width={100} height={100}
+                           className={'rounded-full w-32 h-32 object-cover'}/>
+                )
+            }
             <div className="flex flex-col items-start gap-2">
                 <h1 className={'text-3xl font-bold'}>Mon compte</h1>
                 <h2 className={'text-gray-600'}>
@@ -41,5 +41,4 @@ export default function UserInfo({user}: UserInfoProps) {
             </div>
         </div>
     )
-
 }
