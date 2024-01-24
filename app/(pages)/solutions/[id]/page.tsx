@@ -7,12 +7,7 @@ import {loadSolution} from "@/app/(pages)/solutions/_requests";
 import {Loader2} from "lucide-react";
 
 export default function Solution({params}: { params: { id: string } }) {
-    const {data, isFetched, isFetching} = useQuery(
-        ['solution', params.id],
-        () => loadSolution(+params.id),
-        {
-            staleTime: 60_000
-        })
+    const {data, isFetched, isFetching} = useQuery(['solution', params.id], () => loadSolution(+params.id))
     const solution = data || {}
 
     return (
