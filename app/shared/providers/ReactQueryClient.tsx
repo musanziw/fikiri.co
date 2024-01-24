@@ -2,14 +2,18 @@
 
 import {QueryClient, QueryClientProvider} from 'react-query'
 import {ReactNode} from "react";
-import {ReactQueryDevtools} from "react-query/devtools";
 
-const reactQueryClient = new QueryClient()
+const reactQueryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            staleTime: 1000 * 60 * 5, // 5 minutes
+        }
+    },
+})
 
 export function ReactQueryClient({children}: { children: ReactNode }) {
     return (
         <QueryClientProvider client={reactQueryClient}>
-            <ReactQueryDevtools initialIsOpen={false}/>
             {children}
         </QueryClientProvider>
     )
