@@ -20,7 +20,7 @@ import {AxiosError} from "axios";
 
 
 export default function Register() {
-    const [errors, setErrors] = useState<any>([]);
+    const [errors, setErrors] = useState<ApiValidationError[]>([]);
     const router = useRouter()
 
     const {isLoading, mutate} = useMutation(async (e: FormEvent) => {
@@ -35,7 +35,7 @@ export default function Register() {
             router.push('/login')
         },
         onError: (error: AxiosError<any>) => {
-            const message: string = error.response?.data?.message
+            const message: string | ApiValidationError[] = error.response?.data?.message
             if (Array.isArray(message)) setErrors(message)
             else toast.error(message)
         }
