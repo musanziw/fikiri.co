@@ -1,6 +1,6 @@
 'use client'
 
-import {FormEvent, useEffect, useState} from "react";
+import {FormEvent, useState} from "react";
 import {FormCard} from "@/app/shared/utils/formCard";
 import Topbar from "@/app/shared/utils/Topbar";
 import {toast} from "react-hot-toast";
@@ -12,65 +12,64 @@ import {Button} from "@/app/shared/utils/ui/button";
 import {Loader2} from "lucide-react";
 import Uploader from "@/app/shared/utils/Uploader";
 import {Solution} from "@/app/shared/models/Solution";
-import {api} from "@/app/shared/config/api";
+import {useMutation, useQuery} from "react-query";
+import {loadSolution, updateSolution} from "@/app/(pages)/solutions/_requests";
+import {AxiosError} from "axios";
+import {getInputError} from "@/app/shared/helpers/getInputError";
 
 export default function Solution({params}: { params: { id: string } }) {
-    const [solution, setSolution] = useState<Solution>()
+    const [errors, setErrors] = useState<ApiValidationError[]>([]);
     const router = useRouter()
-    const [isPending, setIsPending] = useState(false)
 
-    useEffect(() => {
-        (async () => {
-            const {data} = await api.get(`solutions/${params.id}`)
-            setSolution(data.data)
-        })()
-    }, [params.id]);
+    const {data} = useQuery(['solution', params.id], async () => loadSolution(+params.id))
+    const solution: Solution = data || {}
 
-    async function handleSubmit(e: FormEvent) {
+    const {mutate, isLoading: isUpdating} = useMutation(async (e: FormEvent) => {
         e.preventDefault()
-        setIsPending(true)
+        setErrors([])
         const formData = new FormData(e.target as HTMLFormElement)
         const data = Object.fromEntries(formData)
         delete data.thumbs
         const payload = {
             ...data
         }
-        try {
-            await api.patch(`solutions/${params.id}/user`, JSON.stringify(payload))
-            toast.success('La solution a été mis à jour')
-            setTimeout(() => {
-                router.back()
-            }, 1000)
-        } catch(e) {
-            console.log(e)
-            toast.error('Echec de mis à jour')
-            setTimeout(() => {
-                router.refresh()
-            }, 1000)
+        return await updateSolution(+params.id, payload)
+    }, {
+        onSuccess: () => {
+            toast.success('La solution a été mise à jour')
+            router.back()
+        },
+        onError: (error: AxiosError<any>) => {
+            const message: string | ApiValidationError[] = error.response?.data?.message
+            if (Array.isArray(message)) setErrors(message)
+            else toast.error(message)
         }
-        setIsPending(false)
-    }
+    })
 
     return (
         <div className={'relative'}>
             <Topbar/>
-            <FormCard title={'Modifier votre solution'} handleSubmit={handleSubmit}>
+            <FormCard title={'Modifier votre solution'} handleSubmit={mutate}>
 
                 <Label htmlFor={'thumbs'}>Preuve de l&apos;existence de la solution</Label>
-                <Uploader name={'thumbs'} path={`solutions/${solution?.id}/images`} label={'Cliquez pour ajouter max 3 photos'}/>
+                <Uploader name={'thumbs'} path={`solutions/${solution?.id}/images`}
+                          label={'Cliquez pour ajouter max 3 photos'}/>
 
                 <Label htmlFor={'name'}>Nom de la solution</Label>
-                <Input name={'name'} placeholder={''} type={'text'} defaultValue={solution?.name} error={''}/>
+                <Input name={'name'} placeholder={''} type={'text'} defaultValue={solution?.name}
+                       error={getInputError(errors, 'name')}/>
 
                 <Label htmlFor={'description'}>La description de la solution</Label>
-                <Textarea name={'description'} placeholder={''} defaultValue={solution?.description}/>
+                <Textarea name={'description'} placeholder={''} defaultValue={solution?.description}
+                          error={getInputError(errors, 'description')}/>
 
                 <Label htmlFor={'targetedProblem'}>Votre solution résoud quel problème ?</Label>
-                <Textarea name={'targetedProblem'} placeholder={''} defaultValue={solution?.targetedProblem}/>
+                <Textarea name={'targetedProblem'} placeholder={''} defaultValue={solution?.targetedProblem}
+                          error={getInputError(errors, 'targetedProblem')}/>
 
-                <Button type={'submit'} disabled={isPending} className={'mt-5'}>
+                <Button type={'submit'} disabled={isUpdating} className={'mt-5'}>
                     {
-                        isPending ? (
+                        isUpdating ? (
                             <>
                                 <Loader2 className="mr-2 h-4 w-4 animate-spin"/>
                                 En cours de traitement...

@@ -11,10 +11,8 @@ import {Skeleton} from "@/app/shared/utils/ui/skeleton";
 export default function Solutions() {
     const {data, isFetching, isFetched} = useQuery(
         ['solutions'],
-        () => loadMappedSolution(),
-        {
-            staleTime: 60_000
-        })
+        () => loadMappedSolution()
+    )
     const solutions: Solution[] = data || []
 
     return (
@@ -34,7 +32,7 @@ export default function Solutions() {
                     <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
                         {isFetching &&
                             Array.from({length: 10}, (_, i) => (
-                                    <Skeleton key={i} className={'animate-pulse h-[250px]'}/>
+                                <Skeleton key={i} className={'animate-pulse h-[250px]'}/>
                             ))
                         }
                         {isFetched &&
