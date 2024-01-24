@@ -10,4 +10,9 @@ const loadMappedSolution = async () => {
     return data.data
 }
 
-export {loadSolution, loadMappedSolution}
+const updateSolution = async <T>(id: number, payload: T) => {
+    const {data} = await api.patch(`solutions/${id}/user`, payload)
+    return data.data
+}
+
+export {loadSolution, loadMappedSolution, updateSolution}
