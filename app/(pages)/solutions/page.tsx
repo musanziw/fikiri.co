@@ -36,8 +36,8 @@ export default function Solutions() {
                             ))
                         }
                         {isFetched &&
-                            solutions.map((solution: Solution) => (
-                                <SolutionCard solution={solution}/>
+                            solutions.map((solution: Solution, index: number) => (
+                                <SolutionCard key={index} solution={solution}/>
                             ))
                         }
                     </div>

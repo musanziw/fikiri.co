@@ -26,9 +26,7 @@ export default function Solution() {
         }
     ]
 
-    const {data} = useQuery(
-        ['solutions', user?.id],
-        async () => user && loadSolutions(user.email), {
+    const {data} = useQuery(['solutions', user?.id], async () => user && loadSolutions(user.email), {
             enabled: !!user?.email
         }
     )

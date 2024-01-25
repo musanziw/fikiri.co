@@ -3,7 +3,7 @@
 import {FormEvent, useState} from "react";
 import {FormCard} from "@/app/shared/utils/formCard";
 import Topbar from "@/app/shared/utils/Topbar";
-import {toast} from "react-hot-toast";
+import {toast, Toaster} from "react-hot-toast";
 import {useRouter} from "next/navigation";
 import {Input} from "@/app/shared/utils/ui/input";
 import {Label} from "@/app/shared/utils/ui/label";
@@ -12,7 +12,7 @@ import {Button} from "@/app/shared/utils/ui/button";
 import {Loader2} from "lucide-react";
 import Uploader from "@/app/shared/utils/Uploader";
 import {Solution} from "@/app/shared/models/Solution";
-import {useMutation, useQuery} from "react-query";
+import {useMutation, useQuery, useQueryClient} from "react-query";
 import {loadSolution, updateSolution} from "@/app/(pages)/solutions/_requests";
 import {AxiosError} from "axios";
 import {getInputError} from "@/app/shared/helpers/getInputError";
@@ -23,6 +23,7 @@ export default function Solution({params}: { params: { id: string } }) {
 
     const {data} = useQuery(['solution', params.id], async () => loadSolution(+params.id))
     const solution: Solution = data || {}
+    const queryClient = useQueryClient()
 
     const {mutate, isLoading: isUpdating} = useMutation(async (e: FormEvent) => {
         e.preventDefault()
@@ -35,7 +36,9 @@ export default function Solution({params}: { params: { id: string } }) {
         }
         return await updateSolution(+params.id, payload)
     }, {
-        onSuccess: () => {
+        onSuccess: async () => {
+            await queryClient.invalidateQueries(['solutions'])
+            await queryClient.invalidateQueries(['solution'])
             toast.success('La solution a été mise à jour')
             router.back()
         },
@@ -78,6 +81,7 @@ export default function Solution({params}: { params: { id: string } }) {
                     }
                 </Button>
             </FormCard>
+            <Toaster/>
         </div>
     )
 }
