@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const apiBaseURL: string = 'https://api.fikiri-solutions.co/'
+const apiBaseURL: string = 'https://api.fikiri.co/'
 
 const api = axios.create({
     baseURL: apiBaseURL,
