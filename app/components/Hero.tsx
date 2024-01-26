@@ -9,7 +9,7 @@ export function Hero() {
     return (
         <div className="bg-hero bg-center bg-cover">
             <div
-                className={"p-8 h-full pt-36 pb-24 flex flex-col items-center justify-center bg-indigo-800/60 text-gray-50 mx-auto"}>
+                className={"p-8 h-full pt-36 pb-24 flex flex-col items-center justify-center bg-indigo-700/60 text-gray-50 mx-auto"}>
                 <div className={"flex flex-col justify-center items-start gap-6 mx-auto md:max-w-screen-lg"}>
                     <h2 className={`text-xl md:text-4xl text-gray-50 font-semibold mt-6 md:w-2/3`}>
                         Cartographie des solutions innovantes locales pour accélérer
