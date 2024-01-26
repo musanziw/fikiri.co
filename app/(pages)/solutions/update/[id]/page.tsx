@@ -1,6 +1,6 @@
 'use client'
 
-import {FormEvent, useState} from "react";
+import React, {FormEvent, useState} from "react";
 import {FormCard} from "@/app/shared/utils/formCard";
 import Topbar from "@/app/shared/utils/Topbar";
 import {toast, Toaster} from "react-hot-toast";
@@ -69,6 +69,10 @@ export default function Solution({params}: { params: { id: string } }) {
                 <Label htmlFor={'targetedProblem'}>Votre solution résoud quel problème ?</Label>
                 <Textarea name={'targetedProblem'} placeholder={''} defaultValue={solution?.targetedProblem}
                           error={getInputError(errors, 'targetedProblem')}/>
+
+                <Label htmlFor={'solution'}>Lien youtube de la vidéo (optionnel)</Label>
+                <Input name={'videoLink'} placeholder={"Coller le lien de la vidéo"} defaultValue={solution?.videoLink}
+                       error={getInputError(errors, 'videoLink')} type={'text'}/>
 
                 <Button type={'submit'} disabled={isUpdating} className={'mt-5'}>
                     {

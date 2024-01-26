@@ -70,9 +70,12 @@ export default function Login() {
                 </Button>
 
                 <p className="border-t border-gray-300 pt-6 text-sm text-gray-500">
-                    Vous n&lsquo;avez pas de compte ?
-                    <Link href={'/register'} className="text-gray-950 inline-block ml-1">
+                    <Link href={'/register'} className="text-gray-950 inline-block mr-1">
                         Inscrivez-vous
+                    </Link>
+                            /
+                    <Link href={'/reset-password-request'} className="text-gray-950 inline-block ml-1">
+                        Mot de passe oublié ?
                     </Link>
                 </p>
             </FormCard>
