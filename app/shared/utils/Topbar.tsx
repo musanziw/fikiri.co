@@ -40,7 +40,7 @@ export default function Topbar() {
 
     const LINKS: Link[] = [
         {
-            name: "Acceuil",
+            name: "Accueil",
             path: '/',
             isShown: true,
         },
