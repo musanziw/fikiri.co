@@ -15,11 +15,23 @@ import useStore from "@/app/shared/hooks/useStore";
 
 interface UpdateProfileProps {
     user: User
-}
+}   
 
 export default function UpdateProfile({user}: UpdateProfileProps) {
     const [errors, setErrors] = useState<ApiValidationError[]>([]);
     const setUser = useStore.use.setUser()
+
+    // const getFormData = function (e: FormEvent) {
+    //     const formData = new FormData(e.target as HTMLFormElement)
+    //     const payload = Object.fromEntries(formData)
+    //     delete payload.thumb
+    //     return payload
+    // }
+    //
+    // const onSuccess = function <T>(data: T) {
+    //     setUser(data.data)
+    //     toast.success(data.message)
+    // }
 
     const {isLoading, mutate} = useMutation(async (e: FormEvent) => {
         e.preventDefault()

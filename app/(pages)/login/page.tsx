@@ -1,11 +1,9 @@
 "use client";
 
-import {FormEvent} from "react";
 import Link from "next/link";
 import {FormCard} from "@/app/shared/utils/formCard";
 import Topbar from "@/app/shared/utils/Topbar";
 import {toast, Toaster} from "react-hot-toast";
-import {useRouter} from "next/navigation";
 import {Label} from "@/app/shared/utils/ui/label";
 import {Input} from "@/app/shared/utils/ui/input";
 import {Button} from "@/app/shared/utils/ui/button";
@@ -13,38 +11,29 @@ import {Loader2} from "lucide-react";
 import Image from "next/image";
 import googleLogo from "@/public/googleLogo.svg"
 import useStore from "@/app/shared/hooks/useStore";
-import {useMutation} from "react-query";
-import {api, apiBaseURL} from "@/app/shared/config/api";
 import {login} from "@/app/(pages)/login/_requests";
-import {AxiosError} from "axios";
+import {useMutate} from "@/app/shared/hooks/useMutate";
+import {googleAuth} from "@/app/(pages)/_requests";
+import {FormEvent} from "react";
+import {useRouter} from "next/navigation";
+import {User} from "@/app/shared/models/User";
 
 export default function Login() {
     const setUser = useStore.use.setUser()
     const router = useRouter()
 
-    const {isLoading, mutate} = useMutation(async (e: FormEvent) => {
-        e.preventDefault()
+    const getFormData = function (e: FormEvent) {
         const formData = new FormData(e.target as HTMLFormElement)
-        const payload = Object.fromEntries(formData)
-        if (!payload.email || !payload.password) throw new Error('Veuillez remplir tous les champs')
-        return await login(payload)
-    }, {
-        onSuccess: (data) => {
-            toast.success('Vous êtes connecté')
-            setUser(data)
-            router.push('/me')
-        },
-        onError: (error: AxiosError<any>) => {
-            const message: string = error.response?.data?.message || error.message
-            toast.error(message ?? 'Une erreur est survenue')
-        }
-    })
-
-    const loginWithGoogle = async () => {
-        window.location.replace(`${apiBaseURL}auth/google/redirect`);
-        api.get('auth/login')
-            .catch(() => router.push('/login'))
+        return Object.fromEntries(formData)
     }
+
+    const onSuccess = function (data: User | null) {
+        toast.success('Connexion réussie')
+        setUser(data)
+        router.push('/me')
+    }
+
+    const {isLoading, mutate} = useMutate(getFormData, login, onSuccess)
 
     return (
         <div className={'relative'}>
@@ -65,7 +54,7 @@ export default function Login() {
                     }
                 </Button>
                 <hr className="my-6 border-gray-300 w-full"/>
-                <Button onClick={loginWithGoogle} variant={'outline'} type={'button'}>
+                <Button onClick={googleAuth} variant={'outline'} type={'button'}>
                     <Image src={googleLogo} alt={'img logo'} className="mr-2 h-4 w-4"/> Se connecter avec Google
                 </Button>
 
@@ -73,7 +62,7 @@ export default function Login() {
                     <Link href={'/register'} className="text-gray-950 inline-block mr-1">
                         Inscrivez-vous
                     </Link>
-                            /
+                    /
                     <Link href={'/reset-password-request'} className="text-gray-950 inline-block ml-1">
                         Mot de passe oublié ?
                     </Link>

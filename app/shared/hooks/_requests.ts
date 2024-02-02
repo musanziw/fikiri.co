@@ -7,6 +7,10 @@ const getUser = async (userId: number) => {
 }
 
 const checkAuth = async () => {
+    const {data: isAuthenticated} = await api.get('auth/is-authenticated')
+    if (!isAuthenticated) {
+        return null
+    }
     const {data} = await api.get('auth/profile')
     return getUser(data.data.id)
 }

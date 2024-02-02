@@ -12,13 +12,13 @@ import {Button} from "@/app/shared/utils/ui/button";
 import {Loader2} from "lucide-react";
 import {getInputError} from "@/app/shared/helpers/getInputError";
 import useStore from "@/app/shared/hooks/useStore";
-import {useMutation, useQuery} from "react-query";
+import { useQuery} from "react-query";
 import {loadCalls, loadChallenges, loadThematics, submitSolution} from "@/app/(pages)/solutions/submit/_requests";
-import {AxiosError} from "axios";
 import {Thematic} from "@/app/shared/models/Thematic";
 import {Challenge} from "@/app/shared/models/Challenge";
 import Select, {MultiValue, SingleValue} from "react-select";
 import {Call} from "@/app/shared/models/Call";
+import {useMutate} from "@/app/shared/hooks/useMutate";
 
 interface OptionProps {
     value: number;
@@ -29,17 +29,19 @@ export default function SubmitProject() {
     const [selectedCall, setSelectedCall] = useState<number | undefined>(undefined)
     const [selectedThematic, setSelectedThematic] = useState<number | undefined>(undefined)
     const [selectedChallenges, setSelectedChallenges] = useState<number[]>([])
-    const [errors, setErrors] = useState<ApiValidationError[]>([])
     const [thematics, setThematics] = useState<OptionProps[]>([])
     const [challenges, setChallenges] = useState<OptionProps[]>([])
     const router = useRouter();
     const user = useStore.use.user()
 
-    const {data: calls} = useQuery(['calls'], async () => loadCalls().then((data) => data.map((call: Call) => ({
+    const {data} = useQuery(['calls'], async () => loadCalls().then((data) => data))
+
+    const calls = data?.map((call: Call) => {
+        return {
             value: call.id,
             label: call.name
-        })))
-    )
+        }
+    }) || []
 
     useEffect(() => {
         if (selectedCall) {
@@ -75,31 +77,24 @@ export default function SubmitProject() {
         options.map((option: OptionProps) => option.value)
     )
 
-    const {mutate, isLoading} = useMutation(async (e: FormEvent) => {
-            e.preventDefault();
-            setErrors([])
-            const formData = new FormData(e.target as HTMLFormElement)
-            const data = Object.fromEntries(formData)
-            const payload = {
-                ...data,
-                user: user?.email,
-                call: selectedCall,
-                thematic: selectedThematic,
-                challenges: selectedChallenges,
-            }
-            return await submitSolution(payload)
-        }, {
-            onSuccess: () => {
-                toast.success('Solution soumise avec succès')
-                router.push('/me')
-            },
-            onError: (error: AxiosError<any>) => {
-                const message: string | ApiValidationError[] = error?.response?.data?.message
-                if (Array.isArray(message)) setErrors(message)
-                else toast.error(message)
-            }
+    const getFormData = function (e: FormEvent) {
+        const formData = new FormData(e.target as HTMLFormElement)
+        const data = Object.fromEntries(formData)
+        return {
+            ...data,
+            user: user?.email,
+            call: selectedCall,
+            thematic: selectedThematic,
+            challenges: selectedChallenges,
         }
-    )
+    }
+
+    const onSuccess = () => {
+        toast.success('Solution soumise avec succès')
+        router.push('/me')
+    }
+
+    const {isLoading, mutate, errors} = useMutate(getFormData, submitSolution, onSuccess)
 
     return (
         <div className={'relative'}>
@@ -118,7 +113,8 @@ export default function SubmitProject() {
                             <Select id={'thematic'} options={thematics} onChange={handleThematicsChange}/>
 
                             <Label htmlFor={'challenges'}>A quoi votre solution répond elle ?</Label>
-                            <Select id={'challenges'} name={'challenges'} isClearable={false} isMulti options={challenges} onChange={handleChallenge}/>
+                            <Select id={'challenges'} name={'challenges'} isClearable={false} isMulti options={challenges}
+                                    onChange={handleChallenge}/>
 
                         </>
                     )

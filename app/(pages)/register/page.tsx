@@ -1,10 +1,8 @@
 "use client";
 
-import {useState, FormEvent} from "react";
 import {toast, Toaster} from "react-hot-toast";
 import Link from "next/link";
 import {FormCard} from "@/app/shared/utils/formCard";
-import {useRouter} from "next/navigation";
 import Topbar from "@/app/shared/utils/Topbar";
 import {getInputError} from "@/app/shared/helpers/getInputError";
 import {Input} from "@/app/shared/utils/ui/input";
@@ -13,39 +11,26 @@ import {Button} from "@/app/shared/utils/ui/button";
 import {Loader2} from "lucide-react";
 import Image from "next/image";
 import googleLogo from "@/public/googleLogo.svg";
-import {api, apiBaseURL} from "@/app/shared/config/api";
-import {useMutation} from "react-query";
 import {register} from "@/app/(pages)/register/_requests";
-import {AxiosError} from "axios";
-
+import {useMutate} from "@/app/shared/hooks/useMutate";
+import {googleAuth} from "@/app/(pages)/_requests";
+import {useRouter} from "next/navigation";
+import {FormEvent} from "react";
 
 export default function Register() {
-    const [errors, setErrors] = useState<ApiValidationError[]>([]);
     const router = useRouter()
 
-    const {isLoading, mutate} = useMutation(async (e: FormEvent) => {
-        e.preventDefault()
-        setErrors([])
+    const getFormData = function (e: FormEvent) {
         const formData = new FormData(e.target as HTMLFormElement)
-        const payload = Object.fromEntries(formData)
-        return await register(payload)
-    }, {
-        onSuccess: () => {
-            toast.success('Inscription réussie')
-            router.push('/login')
-        },
-        onError: (error: AxiosError<any>) => {
-            const message: string | ApiValidationError[] = error.response?.data?.message
-            if (Array.isArray(message)) setErrors(message)
-            else toast.error(message)
-        }
-    })
-
-    const registerWithGoogle = async () => {
-        window.location.replace(`${apiBaseURL}auth/google/redirect`);
-        api.get('auth/login')
-            .catch(() => router.push('/login'))
+        return Object.fromEntries(formData)
     }
+
+    const onSuccess = function () {
+        toast.success('Inscription réussie')
+        router.push('/login')
+    }
+
+    const {isLoading, mutate, errors} = useMutate(getFormData, register, onSuccess)
 
     return (
         <div className={'relative'}>
@@ -81,7 +66,7 @@ export default function Register() {
                     }
                 </Button>
                 <hr className="my-6 border-gray-300 w-full"/>
-                <Button onClick={registerWithGoogle} variant={'outline'} type={"button"}>
+                <Button onClick={googleAuth} variant={'outline'} type={"button"}>
                     <Image src={googleLogo} alt={'img logo'} className="mr-2 h-4 w-4"/> S&apos;inscrire avec google
                 </Button>
 

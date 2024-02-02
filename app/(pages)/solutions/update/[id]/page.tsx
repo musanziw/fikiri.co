@@ -25,6 +25,7 @@ export default function Solution({params}: { params: { id: string } }) {
     const solution: Solution = data || {}
     const queryClient = useQueryClient()
 
+
     const {mutate, isLoading: isUpdating} = useMutation(async (e: FormEvent) => {
         e.preventDefault()
         setErrors([])
