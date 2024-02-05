@@ -1,6 +1,6 @@
 "use client";
 
-import {FormEvent, useState} from "react";
+import {FormEvent} from "react";
 import Link from "next/link";
 import {FormCard} from "@/app/shared/utils/formCard";
 import Topbar from "@/app/shared/utils/Topbar";
@@ -10,39 +10,39 @@ import {Label} from "@/app/shared/utils/ui/label";
 import {Input} from "@/app/shared/utils/ui/input";
 import {Button} from "@/app/shared/utils/ui/button";
 import {Loader2} from "lucide-react";
-import {useMutation} from "react-query";
-import {AxiosError} from "axios";
 import {resetPasswordRequest} from "@/app/(pages)/reset-password-request/_requests";
-import {register} from "@/app/(pages)/register/_requests";
 import {getInputError} from "@/app/shared/helpers/getInputError";
+import {useMutate} from "@/app/shared/hooks/useMutate";
 
 export default function Login() {
-    const [errors, setErrors] = useState<ApiValidationError[]>([]);
     const router = useRouter()
 
-    const {isLoading, mutate} = useMutation(async (e: FormEvent) => {
-        e.preventDefault()
-        setErrors([])
+    const getFormData = function (e: FormEvent) {
         const formData = new FormData(e.target as HTMLFormElement)
-        const payload = Object.fromEntries(formData)
-        return await resetPasswordRequest(payload)
-    }, {
-        onSuccess: (data) => {
-            console.log(data)
-            toast.success('Mot de passe envoyé par email')
-            router.push('/reset-password')
-        },
-        onError: (error: AxiosError<any>) => {
-            const message: string | ApiValidationError[] = error.response?.data?.message
-            if (Array.isArray(message)) setErrors(message)
-            else toast.error(message)
-        }
-    })
+        return Object.fromEntries(formData)
+    }
+
+    const onSuccess = function () {
+        toast.success('Mot de passe envoyé par email')
+        router.push('/reset-password')
+    }
+
+    const {isLoading, errors, mutate} = useMutate(getFormData, resetPasswordRequest, onSuccess)
 
     return (
         <div className={'relative'}>
             <Topbar/>
-            <FormCard title={"Réinitialiser le mot de passe"} handleSubmit={mutate}>
+            <FormCard title={"Réinitialisation"} handleSubmit={mutate}>
+
+                <div className="mb-3 -mt-6">
+                    <p className="text-sm">
+                        Entrez votre adresse email pour recevoir un code à 6 chiffres par mail pour réinitialiser votre
+                        mot de passe,
+                        sur la page suivante, vous pourrez entrer le code reçu par mail et choisir un nouveau mot de
+                        passe.
+                    </p>
+                </div>
+
                 <Label htmlFor={'email'}>Email</Label>
                 <Input name={'email'} placeholder={'Entrez votre email'} error={getInputError(errors, 'email')}/>
                 <Button type={'submit'} disabled={isLoading} className={'mt-5'}>
@@ -55,12 +55,9 @@ export default function Login() {
                         ) : "Réinitialiser"
                     }
                 </Button>
-
-                <p className="border-t border-gray-300 pt-6 text-sm text-gray-500">
-                    <Link href={'/login'} className="text-gray-950 inline-block ml-1">
-                        Connectez-vous
-                    </Link>
-                </p>
+                <Link href={'/login'} className="text-gray-950 inline-block ml-1">
+                    Vous avez un compte ? Connectez-vous.
+                </Link>
             </FormCard>
             <Toaster/>
         </div>

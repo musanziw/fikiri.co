@@ -12,7 +12,7 @@ import {Button} from "@/app/shared/utils/ui/button";
 import {Loader2} from "lucide-react";
 import {getInputError} from "@/app/shared/helpers/getInputError";
 import useStore from "@/app/shared/hooks/useStore";
-import { useQuery} from "react-query";
+import {useQuery} from "react-query";
 import {loadCalls, loadChallenges, loadThematics, submitSolution} from "@/app/(pages)/solutions/submit/_requests";
 import {Thematic} from "@/app/shared/models/Thematic";
 import {Challenge} from "@/app/shared/models/Challenge";
@@ -108,31 +108,24 @@ export default function SubmitProject() {
                         <>
                             <Label htmlFor={'call'}>Selectionner l&apos;appel</Label>
                             <Select id={'call'} name={'call'} options={calls} onChange={handleCallChange}/>
-
                             <Label htmlFor={"thematic"}>Choisir une thématique</Label>
                             <Select id={'thematic'} options={thematics} onChange={handleThematicsChange}/>
-
                             <Label htmlFor={'challenges'}>A quoi votre solution répond elle ?</Label>
                             <Select id={'challenges'} name={'challenges'} isClearable={false} isMulti options={challenges}
                                     onChange={handleChallenge}/>
-
                         </>
                     )
                 }
-
                 <Label htmlFor={'description'}>Description</Label>
                 <Textarea name={'description'} placeholder={'Décrivez votre solution...'}
                           error={getInputError(errors, 'description')}/>
-
                 <Label htmlFor={'targetedProblem'}>Problème ciblé</Label>
                 <Textarea name={'targetedProblem'} placeholder={'Decrire le problème ici...'}
                           error={getInputError(errors, 'targetedProblem')}/>
-
                 <Label htmlFor={'solution'}>Lien youtube de la vidéo (optionnel)</Label>
                 <Input name={'videoLink'} placeholder={"Coller le lien de la vidéo"}
                        error={getInputError(errors, 'videoLink')}
                        type={'text'}/>
-
                 <Button type={'submit'} disabled={isLoading} className={'mt-5'}>
                     {
                         isLoading ? (

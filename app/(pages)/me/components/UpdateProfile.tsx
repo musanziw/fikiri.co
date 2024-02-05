@@ -1,4 +1,4 @@
-import {FormEvent, useState} from "react";
+import {FormEvent} from "react";
 import {toast} from "react-hot-toast";
 import {Input} from "@/app/shared/utils/ui/input";
 import {Label} from "@/app/shared/utils/ui/label";
@@ -8,49 +8,34 @@ import {getInputError} from "@/app/shared/helpers/getInputError";
 import Uploader from "@/app/shared/utils/Uploader";
 import {User} from "@/app/shared/models/User";
 import '@/app/shared/types/ApiValidationError'
-import {AxiosError} from "axios";
-import {useMutation} from "react-query";
 import {updateUser} from "@/app/(pages)/me/_requests";
 import useStore from "@/app/shared/hooks/useStore";
+import {useMutate} from "@/app/shared/hooks/useMutate";
 
 interface UpdateProfileProps {
     user: User
-}   
+}
 
 export default function UpdateProfile({user}: UpdateProfileProps) {
-    const [errors, setErrors] = useState<ApiValidationError[]>([]);
     const setUser = useStore.use.setUser()
 
-    // const getFormData = function (e: FormEvent) {
-    //     const formData = new FormData(e.target as HTMLFormElement)
-    //     const payload = Object.fromEntries(formData)
-    //     delete payload.thumb
-    //     return payload
-    // }
-    //
-    // const onSuccess = function <T>(data: T) {
-    //     setUser(data.data)
-    //     toast.success(data.message)
-    // }
-
-    const {isLoading, mutate} = useMutation(async (e: FormEvent) => {
-        e.preventDefault()
-        setErrors([])
+    const getFormData = function (e: FormEvent) {
         const formData = new FormData(e.target as HTMLFormElement)
         const payload = Object.fromEntries(formData)
         delete payload.thumb
-        return user && await updateUser(user.id, payload)
-    }, {
-        onSuccess: (data) => {
-            setUser(data.data)
-            toast.success(data.message)
-        },
-        onError: (e: AxiosError<any>) => {
-            const {message} = e?.response?.data
-            if (Array.isArray(message)) setErrors(message)
-            else toast.error(message)
-        }
-    })
+        return payload
+    }
+
+    const onSuccess = function (data: any) {
+        setUser(data.data)
+        toast.success('Votre profil a été mis à jour avec succès')
+    }
+
+    const updateProfile = function <T>(payload: T) {
+        return updateUser(user.id, payload)
+    }
+
+    const {isLoading, mutate, errors} = useMutate(getFormData, updateProfile, onSuccess)
 
     return (
         <form onSubmit={mutate}>
