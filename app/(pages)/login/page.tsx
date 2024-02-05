@@ -40,9 +40,9 @@ export default function Login() {
             <Topbar/>
             <FormCard title={"Se connecter"} handleSubmit={mutate}>
                 <Label htmlFor={'email'}>Email</Label>
-                <Input name={'email'} placeholder={'Entrez votre email'}/>
+                <Input name={'email'} placeholder={'Entrez votre email'} required={true}/>
                 <Label htmlFor={'password'}>Mot de passe</Label>
-                <Input name={'password'} type={'password'} placeholder={'Entrez votre mot de passe'}/>
+                <Input name={'password'} type={'password'} placeholder={'Entrez votre mot de passe'} required={true}/>
                 <Button type={'submit'} disabled={isLoading} className={'mt-5'}>
                     {
                         isLoading ? (
@@ -57,16 +57,10 @@ export default function Login() {
                 <Button onClick={googleAuth} variant={'outline'} type={'button'}>
                     <Image src={googleLogo} alt={'img logo'} className="mr-2 h-4 w-4"/> Se connecter avec Google
                 </Button>
+                <Link href={'/reset-password-request'} className="text-gray-950 inline-block ml-1">
+                    Mot de passe oublié ? Réinitialiser.
+                </Link>
 
-                <p className="border-t border-gray-300 pt-6 text-sm text-gray-500">
-                    <Link href={'/register'} className="text-gray-950 inline-block mr-1">
-                        Inscrivez-vous
-                    </Link>
-                    /
-                    <Link href={'/reset-password-request'} className="text-gray-950 inline-block ml-1">
-                        Mot de passe oublié ?
-                    </Link>
-                </p>
             </FormCard>
             <Toaster/>
         </div>
