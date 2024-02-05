@@ -109,13 +109,13 @@ export function About() {
                     <div className={"flex flex-col gap-4"}>
                         <h1 className={'text-xl font-semibold'}>Qui sommes-nous ?</h1>
                         <p>
-                              Fikiri est une plateforme web qui vise à cartographier les solutions
-                              locales en République Démocratique du Congo pour accélérer
-                              l&apos;atteinte des Objectifs de Développement Durable (ODD).
-                              L&apos;objectif de Fikiri est de mettre en lumière les solutions
-                              locales qui contribuent à l&apos;atteinte des ODD en RDC. Cela
-                              permettra de faciliter la recherche des solutions locales par les
-                              organisations internationales et les bailleurs de fonds.
+                            Fikiri est une plateforme web qui vise à cartographier les solutions
+                            locales en République Démocratique du Congo pour accélérer
+                            l&apos;atteinte des Objectifs de Développement Durable (ODD).
+                            L&apos;objectif de Fikiri est de mettre en lumière les solutions
+                            locales qui contribuent à l&apos;atteinte des ODD en RDC. Cela
+                            permettra de faciliter la recherche des solutions locales par les
+                            organisations internationales et les bailleurs de fonds.
                         </p>
                     </div>
                     <Image
@@ -126,25 +126,26 @@ export function About() {
                 </div>
 
                 <div
-                    className="w-full inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)]">
+                    className="w-full mt-8 inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)]">
                     <ul className="flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-infinite-scroll">
                         {PARTAINERS.map((partainer, index) => (
                             <li key={index}>
                                 <Image
                                     src={partainer.src}
                                     alt={partainer.nom}
-                                    className={"w-36"}
+                                    className={"w-32"}
                                 />
                             </li>
                         ))}
                     </ul>
-                    <ul className="flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-infinite-scroll" aria-hidden="true">
+                    <ul className="flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-infinite-scroll"
+                        aria-hidden="true">
                         {PARTAINERS.map((partainer, index) => (
                             <li key={index}>
                                 <Image
                                     src={partainer.src}
                                     alt={partainer.nom}
-                                    className={"w-36"}
+                                    className={"w-32"}
                                 />
                             </li>
                         ))}

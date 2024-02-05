@@ -57,10 +57,9 @@ export default function Login() {
                 <Button onClick={googleAuth} variant={'outline'} type={'button'}>
                     <Image src={googleLogo} alt={'img logo'} className="mr-2 h-4 w-4"/> Se connecter avec Google
                 </Button>
-                <Link href={'/reset-password-request'} className="text-gray-950 inline-block ml-1">
+                <Link href={'/reset-password-request'} className={"text-gray-950 text-sm"}>
                     Mot de passe oublié ? Réinitialiser.
                 </Link>
-
             </FormCard>
             <Toaster/>
         </div>

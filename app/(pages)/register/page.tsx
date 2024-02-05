@@ -69,13 +69,9 @@ export default function Register() {
                 <Button onClick={googleAuth} variant={'outline'} type={"button"}>
                     <Image src={googleLogo} alt={'img logo'} className="mr-2 h-4 w-4"/> S&apos;inscrire avec google
                 </Button>
-
-                <p className="border-t border-gray-300 pt-6 text-sm text-gray-500 dark:text-gray-400">
-                    Vous avez un compte ?{" "}
-                    <Link href={'/login'} className="text-gray-950">
-                        Connectez-vous
-                    </Link>
-                </p>
+                <Link href={'/login'} className={"text-gray-950 text-sm"}>
+                    Vous avez un compte ? Connectez-vous
+                </Link>
             </FormCard>
             <Toaster/>
         </div>

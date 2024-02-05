@@ -55,7 +55,7 @@ export default function Login() {
                         ) : "Réinitialiser"
                     }
                 </Button>
-                <Link href={'/login'} className="text-gray-950 inline-block ml-1">
+                <Link href={'/login'} className="text-gray-950 text-sm">
                     Vous avez un compte ? Connectez-vous.
                 </Link>
             </FormCard>
