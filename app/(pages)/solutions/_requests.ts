@@ -6,7 +6,7 @@ const loadSolution = async (id: number) => {
 }
 
 const loadMappedSolution = async () => {
-    const {data} = await api.get(`solutions/approved`);
+    const {data} = await api.get(`solutions/mapped`);
     return data.data
 }
 
