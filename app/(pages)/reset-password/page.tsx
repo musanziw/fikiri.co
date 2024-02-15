@@ -10,16 +10,17 @@ import {Label} from "@/app/shared/utils/ui/label";
 import {Input} from "@/app/shared/utils/ui/input";
 import {Button} from "@/app/shared/utils/ui/button";
 import {Loader2} from "lucide-react";
-import {resetPassword} from "@/app/(pages)/reset-password/_requests";
 import {getInputError} from "@/app/shared/helpers/getInputError";
 import {useMutate} from "@/app/shared/hooks/useMutate";
+import {post} from "@/app/shared/_requests";
 
 export default function Login() {
     const router = useRouter()
 
-    const getFormData = (e: FormEvent) => {
+    const resetPassword = async (e: FormEvent) => {
         const formData = new FormData(e.target as HTMLFormElement)
-        return Object.fromEntries(formData)
+        const payload = Object.fromEntries(formData)
+        return await post('auth/reset-password', payload)
     }
 
     const onSuccess = () => {
@@ -27,7 +28,7 @@ export default function Login() {
         router.push('/login')
     }
 
-    const {isLoading, errors, mutate} = useMutate(getFormData, resetPassword, onSuccess)
+    const {isLoading, errors, mutate} = useMutate(resetPassword, onSuccess)
 
     return (
         <div className={'relative'}>

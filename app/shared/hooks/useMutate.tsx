@@ -3,14 +3,13 @@ import {useMutation} from "react-query";
 import {toast} from "react-hot-toast";
 import {AxiosError} from "axios";
 
-export const useMutate = function <T>(getFormData: Function, callback: Function, onSuccess: Function) {
+export const useMutate = function <T>(callback: Function, onSuccess: Function) {
     const [errors, setErrors] = useState<ApiValidationError[]>([]);
 
-    const {isLoading, mutate} = useMutation(async (e: FormEvent) => {
-        e.preventDefault()
+    const {isLoading, mutate} = useMutation(async (event: FormEvent) => {
+        event.preventDefault()
         setErrors([])
-        const payload = getFormData(e)
-        return await callback(payload)
+        return await callback(event)
     }, {
         onSuccess: (data: T) => {
             onSuccess(data)

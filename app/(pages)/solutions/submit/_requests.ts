@@ -18,9 +18,6 @@ const loadChallenges = async (id: number) => {
     return data.data.challenges as Challenge[]
 }
 
-const submitSolution = async <T>(payload: T) => {
-    const response = await api.post('solutions', payload);
-    return response.data
-}
 
-export {loadCalls, loadThematics, loadChallenges, submitSolution}
+
+export {loadCalls, loadThematics, loadChallenges}

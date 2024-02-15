@@ -11,18 +11,18 @@ import {Button} from "@/app/shared/utils/ui/button";
 import {Loader2} from "lucide-react";
 import Image from "next/image";
 import googleLogo from "@/public/googleLogo.svg";
-import {register} from "@/app/(pages)/register/_requests";
 import {useMutate} from "@/app/shared/hooks/useMutate";
-import {googleAuth} from "@/app/(pages)/_requests";
 import {useRouter} from "next/navigation";
 import {FormEvent} from "react";
+import {googleAuth, post} from "@/app/shared/_requests";
 
 export default function Register() {
     const router = useRouter()
 
-    const getFormData = function (e: FormEvent) {
+    const register = async function (e: FormEvent) {
         const formData = new FormData(e.target as HTMLFormElement)
-        return Object.fromEntries(formData)
+        const payload = Object.fromEntries(formData)
+        return await post("auth/register", payload)
     }
 
     const onSuccess = function () {
@@ -30,7 +30,7 @@ export default function Register() {
         router.push('/login')
     }
 
-    const {isLoading, mutate, errors} = useMutate(getFormData, register, onSuccess)
+    const {isLoading, mutate, errors} = useMutate(register, onSuccess)
 
     return (
         <div className={'relative'}>

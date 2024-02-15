@@ -13,23 +13,23 @@ import {Loader2} from "lucide-react";
 import Uploader from "@/app/shared/utils/Uploader";
 import {Solution} from "@/app/shared/models/Solution";
 import {useQuery, useQueryClient} from "react-query";
-import {loadSolution, updateSolution} from "@/app/(pages)/solutions/_requests";
 import {getInputError} from "@/app/shared/helpers/getInputError";
 import {useMutate} from "@/app/shared/hooks/useMutate";
+import {getOne, patch} from "@/app/shared/_requests";
 
 export default function Solution({params}: { params: { id: string } }) {
     const router = useRouter()
 
-    const {data} = useQuery(['solution', params.id], async () => loadSolution(+params.id))
+    const {data} = useQuery(['solution', params.id], async () => getOne(`solutions/${+params.id}`))
     const solution: Solution = data || {}
 
     const queryClient = useQueryClient()
 
-    const getFormData = (e: FormEvent) => {
+    const update = async (e: FormEvent) => {
         const formData = new FormData(e.target as HTMLFormElement)
-        const data = Object.fromEntries(formData)
-        delete data.thumbs
-        return data
+        const payload = Object.fromEntries(formData)
+        delete payload.thumbs
+        return await patch(`solutions/${+params.id}/user`, payload)
     }
 
     const onSuccess = async () => {
@@ -39,37 +39,27 @@ export default function Solution({params}: { params: { id: string } }) {
         router.back()
     }
 
-    const update = function <T>(payload: T) {
-        return updateSolution(+params.id, payload)
-    }
-
-    const {mutate, isLoading: isUpdating, errors} = useMutate(getFormData, update, onSuccess)
+    const {mutate, isLoading: isUpdating, errors} = useMutate(update, onSuccess)
 
     return (
         <div className={'relative'}>
             <Topbar/>
             <FormCard title={'Modifier votre solution'} handleSubmit={mutate}>
-
                 <Label htmlFor={'thumbs'}>Preuve de l&apos;existence de la solution</Label>
                 <Uploader name={'thumbs'} path={`solutions/${solution?.id}/images`}
                           label={'Cliquez pour ajouter max 3 photos'}/>
-
                 <Label htmlFor={'name'}>Nom de la solution</Label>
                 <Input name={'name'} placeholder={''} type={'text'} defaultValue={solution?.name}
                        error={getInputError(errors, 'name')} required={true}/>
-
                 <Label htmlFor={'description'}>La description de la solution</Label>
                 <Textarea name={'description'} placeholder={''} defaultValue={solution?.description}
                           error={getInputError(errors, 'description')} required={true}/>
-
                 <Label htmlFor={'targetedProblem'}>Votre solution résoud quel problème ?</Label>
                 <Textarea name={'targetedProblem'} placeholder={''} defaultValue={solution?.targetedProblem}
                           error={getInputError(errors, 'targetedProblem')} required={true}/>
-
                 <Label htmlFor={'solution'}>Lien youtube de la vidéo (optionnel)</Label>
                 <Input name={'videoLink'} placeholder={"Coller le lien de la vidéo"} defaultValue={solution?.videoLink}
                        error={getInputError(errors, 'videoLink')} type={'text'} required={true}/>
-
                 <Button type={'submit'} disabled={isUpdating} className={'mt-5'}>
                     {
                         isUpdating ? (

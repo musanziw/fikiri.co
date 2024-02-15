@@ -1,16 +1,16 @@
 import {FormEvent} from "react";
-import {toast} from "react-hot-toast";
-import {Input} from "@/app/shared/utils/ui/input";
-import {Label} from "@/app/shared/utils/ui/label";
-import {Button} from "@/app/shared/utils/ui/button";
-import {Loader2} from "lucide-react";
-import {getInputError} from "@/app/shared/helpers/getInputError";
-import Uploader from "@/app/shared/utils/Uploader";
 import {User} from "@/app/shared/models/User";
 import '@/app/shared/types/ApiValidationError'
-import {updateUser} from "@/app/(pages)/me/_requests";
 import useStore from "@/app/shared/hooks/useStore";
+import {patch} from "@/app/shared/_requests";
+import toast from "react-hot-toast";
 import {useMutate} from "@/app/shared/hooks/useMutate";
+import {Label} from "@/app/shared/utils/ui/label";
+import Uploader from "@/app/shared/utils/Uploader";
+import {Input} from "@/app/shared/utils/ui/input";
+import {getInputError} from "@/app/shared/helpers/getInputError";
+import {Button} from "@/app/shared/utils/ui/button";
+import {Loader2} from "lucide-react";
 
 interface UpdateProfileProps {
     user: User
@@ -19,23 +19,19 @@ interface UpdateProfileProps {
 export default function UpdateProfile({user}: UpdateProfileProps) {
     const setUser = useStore.use.setUser()
 
-    const getFormData = function (e: FormEvent) {
+    const updateProfile = async function (e: FormEvent) {
         const formData = new FormData(e.target as HTMLFormElement)
         const payload = Object.fromEntries(formData)
         delete payload.thumb
-        return payload
+        return await patch(`auth/profile/${user.id}`, payload)
     }
 
-    const onSuccess = function (data: any) {
-        setUser(data.data)
+    const onSuccess = function (data: User) {
+        setUser(data)
         toast.success('Votre profil a été mis à jour avec succès')
     }
 
-    const updateProfile = function <T>(payload: T) {
-        return updateUser(user.id, payload)
-    }
-
-    const {isLoading, mutate, errors} = useMutate(getFormData, updateProfile, onSuccess)
+    const {isLoading, mutate, errors} = useMutate(updateProfile, onSuccess)
 
     return (
         <form onSubmit={mutate}>

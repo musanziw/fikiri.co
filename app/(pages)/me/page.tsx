@@ -9,7 +9,7 @@ import UserInfo from "@/app/(pages)/me/components/UserInfo";
 import SolutionCard from "./components/SolutionCard";
 import useStore from "@/app/shared/hooks/useStore";
 import {useQuery} from "react-query";
-import {loadSolutions} from "@/app/(pages)/me/_requests";
+import {getMany} from "@/app/shared/_requests";
 
 export default function Solution() {
     const [active, setActive] = useState<number>(0)
@@ -26,10 +26,12 @@ export default function Solution() {
         }
     ]
 
-    const {data} = useQuery(['solutions', user?.id], async () => user && loadSolutions(user.email), {
+    const {data} = useQuery(['solutions', user?.id], async () => user && getMany(`solutions/user/${user?.email}`), {
             enabled: !!user?.email
         }
     )
+    // console.log(data, user?.email)
+
     const solutions = data || []
 
     return (
@@ -71,6 +73,7 @@ export default function Solution() {
                 )
             }
             <Toaster/>
+
         </div>
     )
 }

@@ -11,20 +11,20 @@ import {Loader2} from "lucide-react";
 import Image from "next/image";
 import googleLogo from "@/public/googleLogo.svg"
 import useStore from "@/app/shared/hooks/useStore";
-import {login} from "@/app/(pages)/login/_requests";
 import {useMutate} from "@/app/shared/hooks/useMutate";
-import {googleAuth} from "@/app/(pages)/_requests";
 import {FormEvent} from "react";
 import {useRouter} from "next/navigation";
 import {User} from "@/app/shared/models/User";
+import {googleAuth, post} from "@/app/shared/_requests";
 
 export default function Login() {
     const setUser = useStore.use.setUser()
     const router = useRouter()
 
-    const getFormData = function (e: FormEvent) {
+    const login = async function (e: FormEvent) {
         const formData = new FormData(e.target as HTMLFormElement)
-        return Object.fromEntries(formData)
+        const payload = Object.fromEntries(formData)
+        return await post('auth/login', payload)
     }
 
     const onSuccess = function (data: User | null) {
@@ -33,7 +33,8 @@ export default function Login() {
         router.push('/me')
     }
 
-    const {isLoading, mutate} = useMutate(getFormData, login, onSuccess)
+
+    const {isLoading, mutate} = useMutate(login, onSuccess)
 
     return (
         <div className={'relative'}>

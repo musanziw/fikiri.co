@@ -4,15 +4,12 @@ import {Footer} from "@/app/shared/utils/Footer";
 import Topbar from "@/app/shared/utils/Topbar";
 import {SolutionCard} from "@/app/(pages)/solutions/components/SolutionCard";
 import {useQuery} from "react-query";
-import {loadMappedSolution} from "@/app/(pages)/solutions/_requests";
 import {Solution} from "@/app/shared/models/Solution";
 import {Skeleton} from "@/app/shared/utils/ui/skeleton";
+import {getMany} from "@/app/shared/_requests";
 
 export default function Solutions() {
-    const {data, isFetching, isFetched} = useQuery(
-        ['solutions'],
-        () => loadMappedSolution()
-    )
+    const {data, isFetching, isFetched} = useQuery(['solutions'], () => getMany('solutions/mapped'))
     const solutions: Solution[] = data || []
 
     return (

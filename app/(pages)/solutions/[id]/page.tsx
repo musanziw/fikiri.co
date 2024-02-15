@@ -3,12 +3,17 @@
 import Topbar from "@/app/shared/utils/Topbar";
 import {Footer} from "@/app/shared/utils/Footer";
 import {useQuery} from "react-query";
-import {loadSolution} from "@/app/(pages)/solutions/_requests";
 import {Loader2} from "lucide-react";
+import {getOne} from "@/app/shared/_requests";
 
 export default function Solution({params}: { params: { id: string } }) {
-    const {data, isFetched, isFetching} = useQuery(['solution', params.id], () => loadSolution(+params.id))
+    const {
+        data,
+        isFetched,
+        isFetching
+    } = useQuery(['solution', params.id], async () => await getOne(`solutions/${+params.id}`))
     const solution = data || {}
+
 
     return (
         <div className={'relative'}>

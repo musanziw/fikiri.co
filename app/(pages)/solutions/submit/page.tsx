@@ -13,12 +13,13 @@ import {Loader2} from "lucide-react";
 import {getInputError} from "@/app/shared/helpers/getInputError";
 import useStore from "@/app/shared/hooks/useStore";
 import {useQuery} from "react-query";
-import {loadCalls, loadChallenges, loadThematics, submitSolution} from "@/app/(pages)/solutions/submit/_requests";
+import {loadCalls, loadChallenges, loadThematics} from "@/app/(pages)/solutions/submit/_requests";
 import {Thematic} from "@/app/shared/models/Thematic";
 import {Challenge} from "@/app/shared/models/Challenge";
 import Select, {MultiValue, SingleValue} from "react-select";
 import {Call} from "@/app/shared/models/Call";
 import {useMutate} from "@/app/shared/hooks/useMutate";
+import {post} from "@/app/shared/_requests";
 
 interface OptionProps {
     value: number;
@@ -77,16 +78,17 @@ export default function SubmitProject() {
         options.map((option: OptionProps) => option.value)
     )
 
-    const getFormData = function (e: FormEvent) {
+    const submitSolution = async function (e: FormEvent) {
         const formData = new FormData(e.target as HTMLFormElement)
         const data = Object.fromEntries(formData)
-        return {
+        const payload = {
             ...data,
             user: user?.email,
             call: selectedCall,
             thematic: selectedThematic,
             challenges: selectedChallenges,
         }
+        return await post('solutions', payload)
     }
 
     const onSuccess = () => {
@@ -94,12 +96,13 @@ export default function SubmitProject() {
         router.push('/me')
     }
 
-    const {isLoading, mutate, errors} = useMutate(getFormData, submitSolution, onSuccess)
+
+    const {isLoading, mutate, errors} = useMutate(submitSolution, onSuccess)
 
     return (
         <div className={'relative'}>
             <Topbar/>
-            <FormCard handleSubmit={mutate} title={'Soumettre la solution'}>
+            <FormCard handleSubmit={mutate} title={'M   a solution'}>
                 <Label htmlFor={'name'}>Nom de la solution</Label>
                 <Input name={'name'} placeholder={"Saisir le nom de votre solution"}
                        error={getInputError(errors, 'name')} type={'text'}/>
@@ -109,9 +112,9 @@ export default function SubmitProject() {
                             <Label htmlFor={'call'}>Selectionner l&apos;appel</Label>
                             <Select id={'call'} name={'call'} options={calls} onChange={handleCallChange}/>
                             <Label htmlFor={"thematic"}>Choisir une thématique</Label>
-                            <Select id={'thematic'} options={thematics} onChange={handleThematicsChange}/>
+                            <Select id={'thematic'} name={'thematic'} options={thematics} onChange={handleThematicsChange}/>
                             <Label htmlFor={'challenges'}>A quoi votre solution répond elle ?</Label>
-                            <Select id={'challenges'} name={'challenges'} isClearable={false} isMulti options={challenges}
+                            <Select id={'challenges'} name={'challenges'} isMulti={true} options={challenges}
                                     onChange={handleChallenge}/>
                         </>
                     )
