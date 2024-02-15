@@ -1,29 +1,21 @@
-'use client';
-
 import Topbar from "@/app/shared/utils/Topbar";
 import {Footer} from "@/app/shared/utils/Footer";
-import {useQuery} from "react-query";
 import {Loader2} from "lucide-react";
 import {getOne} from "@/app/shared/_requests";
+import {Solution} from "@/app/shared/models/Solution";
 
-export default function Solution({params}: { params: { id: string } }) {
-    const {
-        data,
-        isFetched,
-        isFetching
-    } = useQuery(['solution', params.id], async () => await getOne(`solutions/${+params.id}`))
-    const solution = data || {}
-
+export default async function Solution({params}: { params: { id: string } }) {
+    const solution = await getOne<Solution>(`solutions/${+params.id}`)
 
     return (
         <div className={'relative'}>
             <Topbar/>
             <div className="flex flex-col mx-6 justify-center max-w-screen-md md:mx-auto border-x border-dashed">
-                {isFetched && (
+                {solution && (
                     <>
                         <div className="p-4 pt-24">
                             <p className="text-sm uppercase font-bold text-gray-800 mb-6">
-                                {solution.thematic.name}
+                                {solution.thematic?.name}
                             </p>
                             <h2 className={'text-gray-600 text-2xl font-semibold mb-6 uppercase'}>
                                 {solution.name}
@@ -46,7 +38,7 @@ export default function Solution({params}: { params: { id: string } }) {
                     </>)
                 }
                 {
-                    isFetching && (
+                    !solution && (
                         <div className="h-screen w-full flex flex-col items-center justify-center gap-5 pt-16 mb-8">
                             <Loader2 className={'w-6 h-6 animate-spin'}/>
                             Chargement en cours...

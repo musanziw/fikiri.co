@@ -2,7 +2,6 @@
 
 import Topbar from "@/app/shared/utils/Topbar";
 import {useState} from "react";
-import {Toaster} from "react-hot-toast";
 import UpdateProfile from "@/app/(pages)/me/components/UpdateProfile";
 import {Loader2} from "lucide-react";
 import UserInfo from "@/app/(pages)/me/components/UserInfo";
@@ -10,6 +9,7 @@ import SolutionCard from "./components/SolutionCard";
 import useStore from "@/app/shared/hooks/useStore";
 import {useQuery} from "react-query";
 import {getMany} from "@/app/shared/_requests";
+import {Solution} from "@/app/shared/models/Solution";
 
 export default function Solution() {
     const [active, setActive] = useState<number>(0)
@@ -26,11 +26,10 @@ export default function Solution() {
         }
     ]
 
-    const {data} = useQuery(['solutions', user?.id], async () => user && getMany(`solutions/user/${user?.email}`), {
+    const {data} = useQuery(['solutions', user?.id], async () => user && getMany<Solution[]>(`solutions/user/${user?.email}`), {
             enabled: !!user?.email
         }
     )
-    // console.log(data, user?.email)
 
     const solutions = data || []
 
@@ -72,8 +71,6 @@ export default function Solution() {
                     </div>
                 )
             }
-            <Toaster/>
-
         </div>
     )
 }

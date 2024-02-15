@@ -1,7 +1,6 @@
 "use client";
 
 import React, {FormEvent, useEffect, useState} from "react";
-import {toast, Toaster} from "react-hot-toast";
 import {useRouter} from "next/navigation";
 import Topbar from "@/app/shared/utils/Topbar";
 import {FormCard} from "@/app/shared/utils/formCard";
@@ -20,6 +19,7 @@ import Select, {MultiValue, SingleValue} from "react-select";
 import {Call} from "@/app/shared/models/Call";
 import {useMutate} from "@/app/shared/hooks/useMutate";
 import {post} from "@/app/shared/_requests";
+import {toast} from "@/app/shared/helpers/toast";
 
 interface OptionProps {
     value: number;
@@ -91,8 +91,8 @@ export default function SubmitProject() {
         return await post('solutions', payload)
     }
 
-    const onSuccess = () => {
-        toast.success('Solution soumise avec succès')
+    const onSuccess = async () => {
+        await toast('success', 'Solution soumise avec succès')
         router.push('/me')
     }
 
@@ -140,7 +140,6 @@ export default function SubmitProject() {
                     }
                 </Button>
             </FormCard>
-            <Toaster/>
         </div>
     );
 }

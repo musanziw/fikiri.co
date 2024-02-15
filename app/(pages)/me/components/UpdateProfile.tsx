@@ -3,7 +3,6 @@ import {User} from "@/app/shared/models/User";
 import '@/app/shared/types/ApiValidationError'
 import useStore from "@/app/shared/hooks/useStore";
 import {patch} from "@/app/shared/_requests";
-import toast from "react-hot-toast";
 import {useMutate} from "@/app/shared/hooks/useMutate";
 import {Label} from "@/app/shared/utils/ui/label";
 import Uploader from "@/app/shared/utils/Uploader";
@@ -11,6 +10,7 @@ import {Input} from "@/app/shared/utils/ui/input";
 import {getInputError} from "@/app/shared/helpers/getInputError";
 import {Button} from "@/app/shared/utils/ui/button";
 import {Loader2} from "lucide-react";
+import {toast} from "@/app/shared/helpers/toast";
 
 interface UpdateProfileProps {
     user: User
@@ -26,9 +26,9 @@ export default function UpdateProfile({user}: UpdateProfileProps) {
         return await patch(`auth/profile/${user.id}`, payload)
     }
 
-    const onSuccess = function (data: User) {
+    const onSuccess = async function (data: User) {
         setUser(data)
-        toast.success('Votre profil a été mis à jour avec succès')
+        await toast('success', 'Votre profil a été mis à jour avec succès')
     }
 
     const {isLoading, mutate, errors} = useMutate(updateProfile, onSuccess)

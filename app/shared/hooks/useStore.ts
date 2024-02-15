@@ -2,7 +2,8 @@
 
 import {create, StoreApi, UseBoundStore} from 'zustand'
 import {User} from "@/app/shared/models/User";
-import {checkAuth} from "@/app/shared/hooks/_requests";
+import {api} from "@/app/shared/config/api";
+import {getOne} from "@/app/shared/_requests";
 
 interface StoreProps {
     user: User | null,
@@ -30,6 +31,13 @@ const useStoreBase: UseBoundStore<StoreApi<StoreProps>> = create<StoreProps>()((
 }))
 
 const useStore = createSelectors(useStoreBase)
+
+const checkAuth = async () => {
+    const {data: isAuthenticated} = await api.get('auth/is-authenticated')
+    if (!isAuthenticated) return null
+    const user = await getOne<User>('auth/profile')
+    return await getOne<User>(`users/${user.id}`)
+}
 
 checkAuth()
     .then(user => useStore.setState({user}))

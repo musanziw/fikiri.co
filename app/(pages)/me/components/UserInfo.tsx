@@ -26,7 +26,7 @@ export default function UserInfo({user}: UserInfoProps) {
             }
             {
                 user?.profile && (
-                    <Image src={`${apiBaseURL}uploads/${user?.profile}`} alt={user?.name} width={100} height={100}
+                    <Image src={`https://api.fikiri.co/uploads/${user?.profile}`} alt={user?.name} width={100} height={100}
                            className={'rounded-full w-32 h-32 object-cover'}/>
                 )
             }
