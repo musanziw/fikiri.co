@@ -6,7 +6,7 @@ import { Skeleton } from "@/app/shared/utils/ui/skeleton";
 import { getMany } from "@/app/shared/_requests";
 
 export default async function Solutions() {
-  const solutions = await getMany<Solution[]>("solutions/mapped");
+  const solutions: Solution[] = [];
 
   return (
     <div className={"relative"}>
