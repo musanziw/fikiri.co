@@ -1,5 +1,4 @@
 interface ApiValidationError {
-    property: string,
-    message: string
+  property: string;
+  message: string;
 }
-

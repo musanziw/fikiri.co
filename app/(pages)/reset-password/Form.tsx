@@ -1,54 +1,69 @@
-'use client'
+"use client";
 
-import {useRouter} from "next/navigation";
-import {post} from "@/app/shared/_requests";
-import {toast} from "@/app/shared/helpers/toast";
-import {useMutate} from "@/app/shared/hooks/useMutate";
-import {Label} from "@/app/shared/utils/ui/label";
-import {Input} from "@/app/shared/utils/ui/input";
-import {getInputError} from "@/app/shared/helpers/getInputError";
-import {Button} from "@/app/shared/utils/ui/button";
-import {Loader2} from "lucide-react";
+import { useRouter } from "next/navigation";
+import { post } from "@/app/shared/_requests";
+import { toast } from "@/app/shared/helpers/toast";
+import { useMutate } from "@/app/shared/hooks/useMutate";
+import { Label } from "@/app/shared/utils/ui/label";
+import { Input } from "@/app/shared/utils/ui/input";
+import { getInputError } from "@/app/shared/helpers/getInputError";
+import { Button } from "@/app/shared/utils/ui/button";
+import { Loader2 } from "lucide-react";
 import Link from "next/link";
-import {FormCard} from "@/app/shared/utils/formCard";
-import {InputPassword} from "@/app/shared/utils/inputPassword";
+import { FormCard } from "@/app/shared/utils/formCard";
+import { InputPassword } from "@/app/shared/utils/inputPassword";
 
 export function Form() {
-    const router = useRouter()
+  const router = useRouter();
 
-    const onSuccess = async () => {
-        await toast('success', 'Mot de passe réinitialisé')
-        router.push('/login')
-    }
+  const onSuccess = async () => {
+    await toast("success", "Mot de passe réinitialisé");
+    router.push("/login");
+  };
 
-    const {isLoading, errors, mutate} = useMutate(post, onSuccess, 'auth/reset-password')
+  const { isLoading, errors, mutate } = useMutate(
+    post,
+    onSuccess,
+    "auth/reset-password"
+  );
 
-    return (
-        <FormCard title={"Réinitialiser"} handleSubmit={mutate}>
-            <Label htmlFor={'token'}>Mot de passe à 6 chiffres</Label>
-            <Input name={'token'} placeholder={'Mot de passe à 6 chiffres'} error={getInputError(errors, 'token')}
-                   required={true}/>
+  return (
+    <FormCard title={"Réinitialiser"} handleSubmit={mutate}>
+      <Label htmlFor={"token"}>Mot de passe à 6 chiffres</Label>
+      <Input
+        name={"token"}
+        placeholder={"Mot de passe à 6 chiffres"}
+        error={getInputError(errors, "token")}
+        required={true}
+      />
 
-            <Label htmlFor={'password'}>Nouveau mot de passe</Label>
-            <InputPassword name={'password'} placeholder={'Entrez le nouveau mot de passe'}
-                           error={getInputError(errors, 'password')}/>
+      <Label htmlFor={"password"}>Nouveau mot de passe</Label>
+      <InputPassword
+        name={"password"}
+        placeholder={"Entrez le nouveau mot de passe"}
+        error={getInputError(errors, "password")}
+      />
 
-            <Label htmlFor={'passwordConfirm'}>Confirmez votre de passe</Label>
-            <InputPassword name={'passwordConfirm'} placeholder={'Confirmez votre mot de passe'} error={getInputError(errors, 'passwordConfirm')}/>
+      <Label htmlFor={"passwordConfirm"}>Confirmez votre de passe</Label>
+      <InputPassword
+        name={"passwordConfirm"}
+        placeholder={"Confirmez votre mot de passe"}
+        error={getInputError(errors, "passwordConfirm")}
+      />
 
-            <Button type={'submit'} disabled={isLoading} className={'mt-5'}>
-                {
-                    isLoading ? (
-                        <>
-                            <Loader2 className="mr-2 h-4 w-4 animate-spin"/>
-                            En cours ...
-                        </>
-                    ) : "Réinitialiser"
-                }
-            </Button>
-            <Link href={'/login'} className="text-gray-950 text-sm">
-                Vous avez un compte ? Connectez-vous.
-            </Link>
-        </FormCard>
-    )
+      <Button type={"submit"} disabled={isLoading} className={"mt-5"}>
+        {isLoading ? (
+          <>
+            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            En cours ...
+          </>
+        ) : (
+          "Réinitialiser"
+        )}
+      </Button>
+      <Link href={"/login"} className="text-gray-950 text-sm">
+        Vous avez un compte ? Connectez-vous.
+      </Link>
+    </FormCard>
+  );
 }
