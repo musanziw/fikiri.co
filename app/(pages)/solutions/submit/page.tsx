@@ -11,7 +11,7 @@ import { Button } from "@/app/shared/utils/ui/button";
 import { Loader2 } from "lucide-react";
 import { getInputError } from "@/app/shared/helpers/getInputError";
 import useStore from "@/app/shared/hooks/useStore";
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 import { Thematic } from "@/app/shared/models/Thematic";
 import { Challenge } from "@/app/shared/models/Challenge";
 import Select, { MultiValue, SingleValue } from "react-select";
@@ -33,6 +33,7 @@ export default function SubmitProject() {
   const [selectedChallenges, setSelectedChallenges] = useState<number[]>([]);
   const router = useRouter();
   const user = useStore.use.user();
+  const queryClient = useQueryClient();
 
   const { data: calls } = useQuery(
     ["calls"],
@@ -61,19 +62,16 @@ export default function SubmitProject() {
     });
   };
 
-  const modifier = async function (payload: {
-    [p: string]: FormDataEntryValue;
-  }) {
-    return {
-      ...payload,
-      user: user?.email,
-      call: selectedCall,
-      thematic: selectedThematic,
-      challenges: selectedChallenges,
-    };
+  const modifier = function (payload: { [p: string]: FormDataEntryValue }) {
+    payload["user"] = user?.email as unknown as FormDataEntryValue;
+    payload["call"] = selectedCall as unknown as FormDataEntryValue;
+    payload["thematic"] = selectedThematic as unknown as FormDataEntryValue;
+    payload["challenges"] = selectedChallenges as unknown as FormDataEntryValue;
+    return payload;
   };
 
   const onSuccess = async () => {
+    await queryClient.invalidateQueries("solutions");
     await toast("success", "Solution soumise avec succès");
     router.push("/me");
   };
