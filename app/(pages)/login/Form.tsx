@@ -2,7 +2,6 @@
 
 import useStore from "@/app/shared/hooks/useStore";
 import {useRouter} from "next/navigation";
-import React, {FormEvent, useState} from "react";
 import {googleAuth, post} from "@/app/shared/_requests";
 import {User} from "@/app/shared/models/User";
 import {useMutate} from "@/app/shared/hooks/useMutate";
@@ -17,15 +16,9 @@ import {FormCard} from "@/app/shared/utils/formCard";
 import {toast} from "@/app/shared/helpers/toast";
 import {InputPassword} from "@/app/shared/utils/inputPassword";
 
-export default function Form() {
+export function Form() {
     const setUser = useStore.use.setUser()
     const router = useRouter()
-
-    const login = async function (e: FormEvent) {
-        const formData = new FormData(e.target as HTMLFormElement)
-        const payload = Object.fromEntries(formData)
-        return await post('auth/login', payload)
-    }
 
     const onSuccess = async function (data: User | null) {
         await toast('success', 'Connexion réussie')
@@ -33,7 +26,7 @@ export default function Form() {
         router.push('/me')
     }
 
-    const {isLoading, mutate} = useMutate(login, onSuccess)
+    const {isLoading, mutate} = useMutate(post, onSuccess, 'auth/login')
 
     return (
         <FormCard title={"Se connecter"} handleSubmit={mutate}>

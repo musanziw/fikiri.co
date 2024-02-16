@@ -3,13 +3,16 @@ import {useMutation} from "react-query";
 import {AxiosError} from "axios";
 import {toast} from "@/app/shared/helpers/toast";
 
-export const useMutate = function <T>(callback: Function, onSuccess: Function) {
+export const useMutate = function <T>(method: Function, onSuccess: Function, link: string, modifier?: Function) {
     const [errors, setErrors] = useState<ApiValidationError[]>([]);
 
     const {isLoading, mutate} = useMutation(async (event: FormEvent) => {
         event.preventDefault()
         setErrors([])
-        return await callback(event)
+        const formData = new FormData(event.target as HTMLFormElement)
+        const payload = Object.fromEntries(formData)
+        if (modifier) return await method(link, modifier(payload))
+        return await method(link, payload)
     }, {
         onSuccess: (data: T) => {
             onSuccess(data)
@@ -20,6 +23,5 @@ export const useMutate = function <T>(callback: Function, onSuccess: Function) {
             if (typeof message === 'string') await toast('error', message)
         }
     })
-
     return {isLoading, mutate, errors}
 }

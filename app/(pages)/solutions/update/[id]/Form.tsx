@@ -3,7 +3,6 @@
 import {useRouter} from "next/navigation";
 import {useQuery, useQueryClient} from "react-query";
 import {getOne, patch} from "@/app/shared/_requests";
-import React, {FormEvent} from "react";
 import {toast} from "@/app/shared/helpers/toast";
 import {useMutate} from "@/app/shared/hooks/useMutate";
 import {Label} from "@/app/shared/utils/ui/label";
@@ -16,27 +15,23 @@ import {Loader2} from "lucide-react";
 import {FormCard} from "@/app/shared/utils/formCard";
 import {Solution} from "@/app/shared/models/Solution";
 
-export default function Form({params}: { params: { id: string } }) {
+export function Form({params}: { params: { id: string } }) {
     const router = useRouter()
     const {data} = useQuery(['solution', params.id], async () => getOne<Solution>(`solutions/${+params.id}`))
     const solution = data as Solution
     const queryClient = useQueryClient()
 
-    const update = async (e: FormEvent) => {
-        const formData = new FormData(e.target as HTMLFormElement)
-        const payload = Object.fromEntries(formData)
+    const modifier = function (payload: { [p: string]: FormDataEntryValue }) {
         delete payload.thumbs
-        return await patch(`solutions/${+params.id}/user`, payload)
+        return payload
     }
-
     const onSuccess = async () => {
         await queryClient.invalidateQueries('solutions')
         await queryClient.invalidateQueries('solution')
         await toast('success', 'La solution a été mise à jour')
         router.back()
     }
-
-    const {mutate, isLoading: isUpdating, errors} = useMutate(update, onSuccess)
+    const {mutate, isLoading: isUpdating, errors} = useMutate(patch, onSuccess, `solutions/${+params.id}/user`, modifier)
 
     return (
         <FormCard title={'Modifier votre solution'} handleSubmit={mutate}>

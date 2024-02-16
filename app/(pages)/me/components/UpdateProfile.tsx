@@ -1,4 +1,3 @@
-import {FormEvent} from "react";
 import {User} from "@/app/shared/models/User";
 import '@/app/shared/types/ApiValidationError'
 import useStore from "@/app/shared/hooks/useStore";
@@ -19,11 +18,9 @@ interface UpdateProfileProps {
 export default function UpdateProfile({user}: UpdateProfileProps) {
     const setUser = useStore.use.setUser()
 
-    const updateProfile = async function (e: FormEvent) {
-        const formData = new FormData(e.target as HTMLFormElement)
-        const payload = Object.fromEntries(formData)
+    const modifier = function (payload: { [p: string]: FormDataEntryValue }) {
         delete payload.thumb
-        return await patch(`auth/profile/${user.id}`, payload)
+        return payload
     }
 
     const onSuccess = async function (data: User) {
@@ -31,7 +28,7 @@ export default function UpdateProfile({user}: UpdateProfileProps) {
         await toast('success', 'Votre profil a été mis à jour avec succès')
     }
 
-    const {isLoading, mutate, errors} = useMutate(updateProfile, onSuccess)
+    const {isLoading, mutate, errors} = useMutate(patch, onSuccess, `auth/profile/${user.id}`, modifier)
 
     return (
         <form onSubmit={mutate}>

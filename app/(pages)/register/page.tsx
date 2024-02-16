@@ -1,6 +1,6 @@
 import Topbar from "@/app/shared/utils/Topbar";
 import type {Metadata} from "next";
-import Form from "@/app/(pages)/register/Form";
+import {Form} from "@/app/(pages)/register/Form";
 
 export const metadata: Metadata = {
     title: "Fikiri | Register",

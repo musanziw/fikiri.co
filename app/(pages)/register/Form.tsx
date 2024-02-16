@@ -1,7 +1,6 @@
 'use client'
 
 import {useRouter} from "next/navigation";
-import React, {FormEvent, useState} from "react";
 import {googleAuth, post} from "@/app/shared/_requests";
 import {toast} from "@/app/shared/helpers/toast";
 import {useMutate} from "@/app/shared/hooks/useMutate";
@@ -16,42 +15,15 @@ import Link from "next/link";
 import {FormCard} from "@/app/shared/utils/formCard";
 import {InputPassword} from "@/app/shared/utils/inputPassword";
 
-export default function Form() {
+export function Form() {
     const router = useRouter()
-    const [error, setError] = useState<string>('')
-
-    // const checkPasswordMatch = (passwordConfirm: string, password: string) => {
-    //     if (passwordConfirm === password) return true
-    //     else {
-    //         setError("Les mots de passe saisis sont invalides")
-    //         return false
-    //     }
-    // }
-
-    const checkPasswordMatch = (passwordConfirm: string, password: string) => passwordConfirm === password
-
-    const register = async function (e: FormEvent) {
-        const formData = new FormData(e.target as HTMLFormElement)
-        const payload = Object.fromEntries(formData)
-        const passwordConfirm = formData.get('passwordConfirm') as string
-        const password = formData.get('password') as string
-        const isMatch = checkPasswordMatch(passwordConfirm, password)
-        if (isMatch) {
-            setError('')
-            delete payload.passwordConfirm
-            return await post("auth/register", payload)
-        } else {
-            setError("Les mots de passe saisis sont invalides")
-            throw new Error()
-        }
-    }
 
     const onSuccess = async function () {
         await toast('success', 'Inscription réussie')
-        // router.push('/login')
+        router.push('/login')
     }
 
-    const {isLoading, mutate, errors} = useMutate(register, onSuccess)
+    const {isLoading, mutate, errors} = useMutate(post, onSuccess, "auth/register")
 
     return (
         <FormCard title={"Inscrivez-vous"} handleSubmit={mutate}>
@@ -70,12 +42,11 @@ export default function Form() {
             <Input name={'address'} placeholder={'Entrez votre adresse'} error={getInputError(errors, 'address')}
                    type={'text'}/>
 
-
             <Label htmlFor={'password'}>Mot de passe</Label>
             <InputPassword name={'password'} error={getInputError(errors, 'password')}/>
 
             <Label htmlFor={'passwordConfirm'}>Confirmez votre de passe</Label>
-            <InputPassword name={'passwordConfirm'} placeholder={'Confirmez votre mot de passe'} error={error}/>
+            <InputPassword name={'passwordConfirm'} placeholder={'Confirmez votre mot de passe'} error={getInputError(errors,'passwordConfirm')}/>
 
             <Button type={'submit'} disabled={isLoading} className={'mt-5'}>
                 {

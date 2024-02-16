@@ -1,7 +1,6 @@
 'use client'
 
 import {useRouter} from "next/navigation";
-import {FormEvent} from "react";
 import {post} from "@/app/shared/_requests";
 import {useMutate} from "@/app/shared/hooks/useMutate";
 import {FormCard} from "@/app/shared/utils/formCard";
@@ -13,25 +12,18 @@ import {Loader2} from "lucide-react";
 import Link from "next/link";
 import {toast} from "@/app/shared/helpers/toast";
 
-export default function Form() {
+export function Form() {
     const router = useRouter()
 
-    const resetPasswordRequest = async function (e: FormEvent) {
-        const formData = new FormData(e.target as HTMLFormElement)
-        const payload = Object.fromEntries(formData)
-        return await post('auth/reset-password-request', payload)
-    }
-
-    const onSuccess = function () {
-        toast('success', 'Mot de passe envoyé par email')
+    const onSuccess = async function () {
+        await toast('success', 'Mot de passe envoyé par email')
         router.push('/reset-password')
     }
 
-    const {isLoading, errors, mutate} = useMutate(resetPasswordRequest, onSuccess)
+    const {isLoading, errors, mutate} = useMutate(post, onSuccess, 'auth/reset-password-request')
 
     return (
         <FormCard title={"Réinitialisation"} handleSubmit={mutate}>
-
             <div className="mb-3 -mt-6">
                 <p className="text-sm">
                     Entrez votre adresse email pour recevoir un code à 6 chiffres par mail pour réinitialiser votre
