@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Topbar from "@/app/shared/utils/Topbar";
 import { FormCard } from "@/app/shared/utils/formCard";
@@ -12,17 +12,12 @@ import { Loader2 } from "lucide-react";
 import { getInputError } from "@/app/shared/helpers/getInputError";
 import useStore from "@/app/shared/hooks/useStore";
 import { useQuery } from "react-query";
-import {
-  loadCalls,
-  loadChallenges,
-  loadThematics,
-} from "@/app/(pages)/solutions/submit/_requests";
 import { Thematic } from "@/app/shared/models/Thematic";
 import { Challenge } from "@/app/shared/models/Challenge";
 import Select, { MultiValue, SingleValue } from "react-select";
 import { Call } from "@/app/shared/models/Call";
 import { useMutate } from "@/app/shared/hooks/useMutate";
-import { post } from "@/app/shared/_requests";
+import { getMany, getOne, post } from "@/app/shared/_requests";
 import { toast } from "@/app/shared/helpers/toast";
 
 interface OptionProps {
@@ -30,72 +25,41 @@ interface OptionProps {
   label: string;
 }
 
+type Model = Call | Thematic | Challenge;
+
 export default function SubmitProject() {
-  const [selectedCall, setSelectedCall] = useState<number | undefined>(
-    undefined
-  );
-  const [selectedThematic, setSelectedThematic] = useState<number | undefined>(
-    undefined
-  );
+  const [selectedCall, setSelectedCall] = useState<number>();
+  const [selectedThematic, setSelectedThematic] = useState<number>();
   const [selectedChallenges, setSelectedChallenges] = useState<number[]>([]);
-  const [thematics, setThematics] = useState<OptionProps[]>([]);
-  const [challenges, setChallenges] = useState<OptionProps[]>([]);
   const router = useRouter();
   const user = useStore.use.user();
 
-  const { data: calls } = useQuery(["calls"], async () =>
-    loadCalls().then((data) => data)
+  const { data: calls } = useQuery(
+    ["calls"],
+    async () => await getMany<Call[]>("calls")
   );
 
-  const {} = useQuery(
+  const { data: thematics } = useQuery(
     ["thematics", selectedCall],
-    async () => selectedCall && loadThematics(selectedCall).then((data) => data)
+    async () => await getMany<Thematic[]>(`thematics/call/${selectedCall}`),
+    { enabled: !!selectedCall }
   );
 
-  const callsOptions =
-    calls?.map((call: Call) => {
+  const { data: challenges } = useQuery(
+    ["challenges", selectedThematic],
+    async () =>
+      await getMany<Challenge[]>(`challenges/thematic/${selectedThematic}`),
+    { enabled: !!selectedThematic }
+  );
+
+  const generateOptions = (data: Model[] | undefined) => {
+    return data?.map((model: Model) => {
       return {
-        value: call.id,
-        label: call.name,
+        value: model.id,
+        label: model.name,
       };
-    }) || [];
-
-  useEffect(() => {
-    if (selectedCall) {
-      loadThematics(selectedCall).then((data) => {
-        setThematics(
-          data.map((thematic: Thematic) => ({
-            value: thematic.id,
-            label: thematic.name,
-          }))
-        );
-      });
-    }
-  }, [selectedCall]);
-
-  useEffect(() => {
-    if (selectedThematic) {
-      loadChallenges(selectedThematic).then((data) => {
-        setChallenges(
-          data.map((challenge: Challenge) => ({
-            value: challenge.id,
-            label: challenge.name,
-          }))
-        );
-      });
-    }
-  }, [selectedThematic]);
-
-  const handleCallChange = async (option: SingleValue<OptionProps>) => {
-    option && setSelectedCall(option.value);
+    });
   };
-
-  const handleThematicsChange = async (option: SingleValue<OptionProps>) => {
-    option && setSelectedThematic(option.value);
-  };
-
-  const handleChallenge = async (options: MultiValue<OptionProps>) =>
-    setSelectedChallenges(options.map((option: OptionProps) => option.value));
 
   const modifier = async function (payload: {
     [p: string]: FormDataEntryValue;
@@ -124,7 +88,7 @@ export default function SubmitProject() {
   return (
     <div className={"relative"}>
       <Topbar />
-      <FormCard handleSubmit={mutate} title={"M   a solution"}>
+      <FormCard handleSubmit={mutate} title={"Ma solution"}>
         <Label htmlFor={"name"}>Nom de la solution</Label>
         <Input
           name={"name"}
@@ -132,21 +96,25 @@ export default function SubmitProject() {
           error={getInputError(errors, "name")}
           type={"text"}
         />
-        {callsOptions && (
+        {user && (
           <>
             <Label htmlFor={"call"}>Selectionner l&apos;appel</Label>
             <Select
               id={"call"}
               name={"call"}
-              options={callsOptions}
-              onChange={handleCallChange}
+              options={generateOptions(calls)}
+              onChange={(option: SingleValue<OptionProps>) =>
+                setSelectedCall(option?.value)
+              }
             />
             <Label htmlFor={"thematic"}>Choisir une thématique</Label>
             <Select
               id={"thematic"}
               name={"thematic"}
-              options={thematics}
-              onChange={handleThematicsChange}
+              options={generateOptions(thematics)}
+              onChange={(option: SingleValue<OptionProps>) =>
+                setSelectedThematic(option?.value)
+              }
             />
             <Label htmlFor={"challenges"}>
               A quoi votre solution répond elle ?
@@ -155,8 +123,12 @@ export default function SubmitProject() {
               id={"challenges"}
               name={"challenges"}
               isMulti={true}
-              options={challenges}
-              onChange={handleChallenge}
+              options={generateOptions(challenges)}
+              onChange={(options: MultiValue<OptionProps>) => {
+                setSelectedChallenges(
+                  options.map((option: OptionProps) => option.value)
+                );
+              }}
             />
           </>
         )}

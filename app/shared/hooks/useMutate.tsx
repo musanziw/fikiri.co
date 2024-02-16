@@ -17,7 +17,10 @@ export const useMutate = function <T>(
       setErrors([]);
       const formData = new FormData(event.target as HTMLFormElement);
       const payload = Object.fromEntries(formData);
-      if (modifier) return await method(link, modifier(payload));
+      if (modifier) {
+        const modifiedPayload = modifier(payload);
+        return await method(link, modifiedPayload);
+      }
       return await method(link, payload);
     },
     {
