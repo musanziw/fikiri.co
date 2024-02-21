@@ -19,8 +19,8 @@ export function Form() {
   const router = useRouter();
 
   const onSuccess = async function () {
-    await toast("success", "Inscription réussie");
     router.push("/login");
+    await toast("success", "Inscription réussie");
   };
 
   const { isLoading, mutate, errors } = useMutate(

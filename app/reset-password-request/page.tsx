@@ -1,5 +1,5 @@
 import Topbar from "@/app/shared/utils/Topbar";
-import { Form } from "@/app/(pages)/reset-password-request/Form";
+import { Form } from "@/app/reset-password-request/Form";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {

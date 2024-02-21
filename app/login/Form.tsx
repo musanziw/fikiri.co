@@ -21,9 +21,9 @@ export function Form() {
   const router = useRouter();
 
   const onSuccess = async function (data: User | null) {
-    await toast("success", "Connexion réussie");
     setUser(data);
     router.push("/me");
+    await toast("success", "Connexion réussie");
   };
 
   const { isLoading, mutate } = useMutate(post, onSuccess, "auth/login");

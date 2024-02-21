@@ -1,12 +1,12 @@
 import { Footer } from "@/app/shared/utils/Footer";
 import Topbar from "@/app/shared/utils/Topbar";
-import { SolutionCard } from "@/app/(pages)/solutions/components/SolutionCard";
+import { SolutionCard } from "@/app/solutions/components/SolutionCard";
 import { Solution } from "@/app/shared/models/Solution";
 import { Skeleton } from "@/app/shared/utils/ui/skeleton";
 import { getMany } from "@/app/shared/_requests";
 
 export default async function Solutions() {
-  const solutions: Solution[] = [];
+  const solutions = await getMany<Solution[]>("solutions/mapped");
 
   return (
     <div className={"relative"}>

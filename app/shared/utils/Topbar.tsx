@@ -26,9 +26,7 @@ export default function Topbar() {
     e.preventDefault();
     router.push("/");
     setUser(null);
-    setTimeout(async () => {
-      await api.post("auth/logout");
-    }, 1000);
+    await api.post("auth/logout");
   };
 
   const trimName = (name: string) => {

@@ -27,17 +27,19 @@ export function Form({ params }: { params: { id: string } }) {
     delete payload.thumbs;
     return payload;
   };
+
   const onSuccess = async () => {
     await queryClient.invalidateQueries("solutions");
-    await queryClient.invalidateQueries("solution");
-    await toast("success", "La solution a été mise à jour");
     router.back();
+    await toast("success", "La solution a été mise à jour");
   };
-  const {
-    mutate,
-    isLoading: isUpdating,
-    errors,
-  } = useMutate(patch, onSuccess, `solutions/${+params.id}/user`, modifier);
+
+  const { mutate, isLoading, errors } = useMutate(
+    patch,
+    onSuccess,
+    `solutions/${+params.id}/user`,
+    modifier
+  );
 
   return (
     <FormCard title={"Modifier votre solution"} handleSubmit={mutate}>
@@ -85,8 +87,8 @@ export function Form({ params }: { params: { id: string } }) {
         type={"text"}
         required={true}
       />
-      <Button type={"submit"} disabled={isUpdating} className={"mt-5"}>
-        {isUpdating ? (
+      <Button type={"submit"} disabled={isLoading} className={"mt-5"}>
+        {isLoading ? (
           <>
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
             En cours...

@@ -1,19 +1,27 @@
 "use client";
 
 import Topbar from "@/app/shared/utils/Topbar";
-import { useState } from "react";
-import UpdateProfile from "@/app/(pages)/me/components/UpdateProfile";
+import { useEffect, useState } from "react";
+import UpdateProfile from "@/app/me/(components)/UpdateProfile";
 import { Loader2 } from "lucide-react";
-import UserInfo from "@/app/(pages)/me/components/UserInfo";
-import SolutionCard from "./components/SolutionCard";
+import UserInfo from "@/app/me/(components)/UserInfo";
+import SolutionCard from "./(components)/SolutionCard";
 import useStore from "@/app/shared/hooks/useStore";
 import { useQuery } from "react-query";
 import { getMany } from "@/app/shared/_requests";
 import { Solution } from "@/app/shared/models/Solution";
+import { useRouter } from "next/navigation";
 
 export default function Solution() {
   const [active, setActive] = useState<number>(0);
-  const { user } = useStore();
+  const user = useStore.use.user();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!user) {
+      router.push("/login");
+    }
+  }, [user, router]);
 
   const LINKS = [
     {

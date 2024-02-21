@@ -1,6 +1,6 @@
 import React from "react";
 import Topbar from "@/app/shared/utils/Topbar";
-import { Form } from "@/app/(pages)/solutions/update/[id]/Form";
+import { Form } from "@/app/solutions/update/[id]/Form";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {

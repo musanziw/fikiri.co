@@ -2,55 +2,48 @@
 
 import { useRouter } from "next/navigation";
 import { post } from "@/app/shared/_requests";
-import { toast } from "@/app/shared/helpers/toast";
 import { useMutate } from "@/app/shared/hooks/useMutate";
+import { FormCard } from "@/app/shared/utils/formCard";
 import { Label } from "@/app/shared/utils/ui/label";
 import { Input } from "@/app/shared/utils/ui/input";
 import { getInputError } from "@/app/shared/helpers/getInputError";
 import { Button } from "@/app/shared/utils/ui/button";
 import { Loader2 } from "lucide-react";
 import Link from "next/link";
-import { FormCard } from "@/app/shared/utils/formCard";
-import { InputPassword } from "@/app/shared/utils/inputPassword";
+import { toast } from "@/app/shared/helpers/toast";
 
 export function Form() {
   const router = useRouter();
 
-  const onSuccess = async () => {
-    await toast("success", "Mot de passe réinitialisé");
-    router.push("/login");
+  const onSuccess = async function () {
+    router.push("/reset-password");
+    await toast("success", "Mot de passe envoyé par email");
   };
 
   const { isLoading, errors, mutate } = useMutate(
     post,
     onSuccess,
-    "auth/reset-password"
+    "auth/reset-password-request"
   );
 
   return (
-    <FormCard title={"Réinitialiser"} handleSubmit={mutate}>
-      <Label htmlFor={"token"}>Mot de passe à 6 chiffres</Label>
+    <FormCard title={"Réinitialisation"} handleSubmit={mutate}>
+      <div className="mb-3 -mt-6">
+        <p className="text-sm">
+          Entrez votre adresse email pour recevoir un code à 6 chiffres par mail
+          pour réinitialiser votre mot de passe, sur la page suivante, vous
+          pourrez entrer le code reçu par mail et choisir un nouveau mot de
+          passe.
+        </p>
+      </div>
+
+      <Label htmlFor={"email"}>Email</Label>
       <Input
-        name={"token"}
-        placeholder={"Mot de passe à 6 chiffres"}
-        error={getInputError(errors, "token")}
+        name={"email"}
+        placeholder={"Entrez votre email"}
         required={true}
+        error={getInputError(errors, "email")}
       />
-
-      <Label htmlFor={"password"}>Nouveau mot de passe</Label>
-      <InputPassword
-        name={"password"}
-        placeholder={"Entrez le nouveau mot de passe"}
-        error={getInputError(errors, "password")}
-      />
-
-      <Label htmlFor={"passwordConfirm"}>Confirmez votre de passe</Label>
-      <InputPassword
-        name={"passwordConfirm"}
-        placeholder={"Confirmez votre mot de passe"}
-        error={getInputError(errors, "passwordConfirm")}
-      />
-
       <Button type={"submit"} disabled={isLoading} className={"mt-5"}>
         {isLoading ? (
           <>
