@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { Solution } from "@/app/shared/models/Solution";
+import Image from "next/image";
+import { imgPath } from "@/app/shared/config/api";
 
 interface SolutionCardProps {
   solution: Solution;
@@ -8,7 +10,14 @@ interface SolutionCardProps {
 export function SolutionCard({ solution }: SolutionCardProps) {
   return (
     <div className={"relative flex flex-col overflow-hidden rounded-md border"}>
-      <div className="p-8">
+      <Image
+        src={imgPath + (solution?.images[0]?.imageLink ?? solution.imageLink)}
+        alt={solution.name}
+        width={250}
+        height={200}
+      />
+
+      <div className={"p-8 bg-gray-50"}>
         <h5 className={"font-bold text-sm uppercase mb-2"}>{solution.name}</h5>
         <p className={"text-sm mb-6"}>{solution.description}</p>
         <Link

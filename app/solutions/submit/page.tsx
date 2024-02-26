@@ -27,7 +27,7 @@ interface OptionProps {
 
 type Model = Call | Thematic | Challenge;
 
-export default function SubmitProject() {
+export default function SubmitSolution() {
   const [selectedCall, setSelectedCall] = useState<number>();
   const [selectedThematic, setSelectedThematic] = useState<number>();
   const [selectedChallenges, setSelectedChallenges] = useState<number[]>([]);

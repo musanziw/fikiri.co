@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const apiBaseURL: string = "http://localhost:8000/";
+const imgPath: string = "https://api.fikiri.co/uploads/";
 // const apiBaseURL: string = "https://api.fikiri.co/";
 
 const api = axios.create({
@@ -11,4 +12,4 @@ const api = axios.create({
   withCredentials: true,
 });
 
-export { api, apiBaseURL };
+export { api, apiBaseURL, imgPath };

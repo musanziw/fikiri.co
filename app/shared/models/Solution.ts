@@ -9,6 +9,7 @@ export interface Solution {
   id: number;
   name: string;
   videoLink: string;
+  imageLink: string;
   description: string;
   callId: number;
   thematicId: number;

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { moment } from "@/app/shared/config/moment";
 import { User } from "@/app/shared/models/User";
-// import { apiBaseURL } from "@/app/shared/config/api";
+import { imgPath } from "@/app/shared/config/api";
 
 interface UserInfoProps {
   user: User;
@@ -26,7 +26,7 @@ export default function UserInfo({ user }: UserInfoProps) {
       )}
       {user?.profile && (
         <Image
-          src={`https://api.fikiri.co/uploads/${user?.profile}`}
+          src={imgPath + user?.profile}
           alt={user?.name}
           width={100}
           height={100}

@@ -23,7 +23,7 @@ export default function UpdateProfile({ user }: UpdateProfileProps) {
     return payload;
   };
 
-  const onSuccess = async function (data: User) {
+  const onSuccess = async function (data: User | null) {
     setUser(data);
     await toast("success", "Votre profil a été mis à jour avec succès");
   };
