@@ -10,7 +10,7 @@ export function Hero() {
     <div className="bg-hero bg-center bg-cover">
       <div
         className={
-          "p-8 h-full pt-36 pb-24 flex flex-col items-center justify-center bg-indigo-700/60 text-gray-50 mx-auto"
+          "p-8 h-full pt-36 pb-24 flex flex-col items-center justify-center bg-indigo-900/60 text-gray-50 mx-auto"
         }
       >
         <div
@@ -30,9 +30,9 @@ export function Hero() {
             l&apos;atteinte des Objectifs de Développement Durable (ODD).
           </p>
           <Link
-            href={user ? "/solutions/submit" : "/login"}
+            href={user ? "/me" : "/login"}
             className={
-              "px-6 text-lg fade-in-3 py-2 inline-block mb-10 rounded-md bg-indigo-500 text-white font-semibold"
+              "px-6 text-lg fade-in-3 py-2 inline-block mb-10 rounded-md bg-blue-600 text-white font-semibold"
             }
           >
             Postulez dès maintenant
