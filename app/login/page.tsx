@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { getMany } from "@/app/shared/_requests";
 import Topbar from "../shared/utils/Topbar";
 import { Form } from "./Form";
 
@@ -8,8 +7,6 @@ export const metadata: Metadata = {
 };
 
 export default async function Login() {
-  const x = await getMany("solutions/mapped");
-
   return (
     <div className={"relative"}>
       <Topbar />
