@@ -1,16 +1,16 @@
-import Topbar from "@/app/shared/utils/Topbar";
-import { Form } from "@/app/reset-password/Form";
-import type { Metadata } from "next";
+import Topbar from "@/app/core/utils/Topbar";
+import {Form} from "@/app/reset-password/Form";
+import type {Metadata} from "next";
 
 export const metadata: Metadata = {
-  title: "Fikiri | Reset password",
+    title: "Fikiri | Reset password",
 };
 
 export default function Login() {
-  return (
-    <div className={"relative"}>
-      <Topbar />
-      <Form />
-    </div>
-  );
+    return (
+        <div className={"relative"}>
+            <Topbar/>
+            <Form/>
+        </div>
+    );
 }

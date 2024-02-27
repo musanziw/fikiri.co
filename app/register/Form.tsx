@@ -1,99 +1,90 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import { googleAuth, post } from "@/app/shared/_requests";
-import { toast } from "@/app/shared/helpers/toast";
-import { useMutate } from "@/app/shared/hooks/useMutate";
-import { Label } from "@/app/shared/utils/ui/label";
-import { Input } from "@/app/shared/utils/ui/input";
-import { getInputError } from "@/app/shared/helpers/getInputError";
-import { Button } from "@/app/shared/utils/ui/button";
-import { Loader2 } from "lucide-react";
+import {useRouter} from "next/navigation";
+import {googleAuth, post} from "@/app/core/_requests";
+import {toast} from "@/app/core/helpers/toast";
+import {useMutate} from "@/app/core/hooks/useMutate";
+import {Label} from "@/app/core/utils/ui/label";
+import {Input} from "@/app/core/utils/ui/input";
+import {getInputError} from "@/app/core/helpers/getInputError";
+import {Button} from "@/app/core/utils/ui/button";
+import {Loader2} from "lucide-react";
 import Image from "next/image";
 import googleLogo from "@/public/googleLogo.svg";
 import Link from "next/link";
-import { FormCard } from "@/app/shared/utils/formCard";
-import { InputPassword } from "@/app/shared/utils/inputPassword";
+import {FormCard} from "@/app/core/utils/formCard";
+import {InputPassword} from "@/app/core/utils/inputPassword";
 
 export function Form() {
-  const router = useRouter();
+    const router = useRouter();
 
-  const onSuccess = async function () {
-    router.push("/login");
-    await toast("success", "Inscription réussie");
-  };
+    const onSuccess = async function () {
+        router.push("/login");
+        await toast("success", "Inscription réussie");
+    };
 
-  const { isLoading, mutate, errors } = useMutate(
-    post,
-    onSuccess,
-    "auth/register"
-  );
+    const {isLoading, mutate, errors} = useMutate(post, onSuccess, "auth/register");
 
-  return (
-    <FormCard title={"Inscrivez-vous"} handleSubmit={mutate}>
-      <Label htmlFor={"name"}>Nom</Label>
-      <Input
-        name={"name"}
-        placeholder={"Entrez le nom"}
-        error={getInputError(errors, "name")}
-        type={"text"}
-      />
+    return (
+        <FormCard title={"Inscrivez-vous"} handleSubmit={mutate}>
+            <Label htmlFor={"name"}>Nom</Label>
+            <Input name={"name"} placeholder={"Entrez le nom"} error={getInputError(errors, "name")} type={"text"}/>
 
-      <Label htmlFor={"email"}>Email</Label>
-      <Input
-        name={"email"}
-        placeholder={"Entrez votre Email"}
-        error={getInputError(errors, "email")}
-        type={"email"}
-      />
+            <Label htmlFor={"email"}>Email</Label>
+            <Input
+                name={"email"}
+                placeholder={"Entrez votre Email"}
+                error={getInputError(errors, "email")}
+                type={"email"}
+            />
 
-      <Label htmlFor={"phoneNumber"}>Téléphone</Label>
-      <Input
-        name={"phoneNumber"}
-        placeholder={"Entrez votre numéro Téléphone"}
-        error={getInputError(errors, "phoneNumber")}
-        type={"text"}
-      />
+            <Label htmlFor={"phoneNumber"}>Téléphone</Label>
+            <Input
+                name={"phoneNumber"}
+                placeholder={"Entrez votre numéro Téléphone"}
+                error={getInputError(errors, "phoneNumber")}
+                type={"text"}
+            />
 
-      <Label htmlFor={"address"}>Adresse</Label>
-      <Input
-        name={"address"}
-        placeholder={"Entrez votre adresse"}
-        error={getInputError(errors, "address")}
-        type={"text"}
-      />
+            <Label htmlFor={"address"}>Adresse</Label>
+            <Input
+                name={"address"}
+                placeholder={"Entrez votre adresse"}
+                error={getInputError(errors, "address")}
+                type={"text"}
+            />
 
-      <Label htmlFor={"password"}>Mot de passe</Label>
-      <InputPassword
-        name={"password"}
-        error={getInputError(errors, "password")}
-      />
+            <Label htmlFor={"password"}>Mot de passe</Label>
+            <InputPassword
+                name={"password"}
+                error={getInputError(errors, "password")}
+            />
 
-      <Label htmlFor={"passwordConfirm"}>Confirmez votre de passe</Label>
-      <InputPassword
-        name={"passwordConfirm"}
-        placeholder={"Confirmez votre mot de passe"}
-        error={getInputError(errors, "passwordConfirm")}
-      />
+            <Label htmlFor={"passwordConfirm"}>Confirmez votre de passe</Label>
+            <InputPassword
+                name={"passwordConfirm"}
+                placeholder={"Confirmez votre mot de passe"}
+                error={getInputError(errors, "passwordConfirm")}
+            />
 
-      <Button type={"submit"} disabled={isLoading} className={"mt-5"}>
-        {isLoading ? (
-          <>
-            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-            En cours ...
-          </>
-        ) : (
-          "S'inscrire"
-        )}
-      </Button>
-      <hr className="my-6 border-gray-300 w-full" />
-      <Button onClick={googleAuth} variant={"outline"} type={"button"}>
-        <Image src={googleLogo} alt={"img logo"} className="mr-2 h-4 w-4" />{" "}
-        S&apos;inscrire avec google
-      </Button>
-      <Link href={"/login"} className={"text-gray-950 text-sm"}>
-        Vous avez un compte ? Connectez-vous
-      </Link>
-    </FormCard>
-  );
+            <Button type={"submit"} disabled={isLoading} className={"mt-5"}>
+                {isLoading ? (
+                    <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin"/>
+                        En cours ...
+                    </>
+                ) : (
+                    "S'inscrire"
+                )}
+            </Button>
+            <hr className="my-6 border-gray-300 w-full"/>
+            <Button onClick={googleAuth} variant={"outline"} type={"button"}>
+                <Image src={googleLogo} alt={"img logo"} className="mr-2 h-4 w-4"/>{" "}
+                S&apos;inscrire avec google
+            </Button>
+            <Link href={"/login"} className={"text-gray-950 text-sm"}>
+                Vous avez un compte ? Connectez-vous
+            </Link>
+        </FormCard>
+    );
 }

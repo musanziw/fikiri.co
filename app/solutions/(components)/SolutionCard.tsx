@@ -1,34 +1,23 @@
 import Link from "next/link";
-import { Solution } from "@/app/shared/models/Solution";
 import Image from "next/image";
-import { imgPath } from "@/app/shared/config/api";
+import {imgPath} from "@/app/core/config/api";
+import {Solution} from "@/app/core/_models";
 
 interface SolutionCardProps {
-  solution: Solution;
+    solution: Solution;
 }
 
-export function SolutionCard({ solution }: SolutionCardProps) {
-  return (
-    <div className={"relative flex flex-col overflow-hidden rounded-md border"}>
-      <Image
-        src={imgPath + (solution?.images[0]?.imageLink ?? solution.imageLink)}
-        alt={solution.name}
-        width={250}
-        height={200}
-      />
-
-      <div className={"p-8 bg-gray-50"}>
-        <h5 className={"font-bold text-sm uppercase mb-2"}>{solution.name}</h5>
-        <p className={"text-sm mb-6"}>{solution.description}</p>
-        <Link
-          href={`/solutions/${solution.id}`}
-          className={
-            "inline-block text-indigo-500 text-xs border-2 rounded-sm px-6 py-2.5 border-indigo-400 font-bold uppercase hover:bg-indigo-400 hover:text-gray-50 transition-colors duration-300"
-          }
-        >
-          plus de détails
-        </Link>
-      </div>
-    </div>
-  );
+export function SolutionCard({solution}: SolutionCardProps) {
+    return (
+        <div className={"relative flex flex-col overflow-hidden rounded-md border"}>
+            <Image src={imgPath + (solution?.images[0]?.imageLink ?? solution.imageLink)} alt={solution.name} width={250} height={200}/>
+            <div className={"p-8 bg-gray-50"}>
+                <h5 className={"font-bold text-sm uppercase mb-2"}>{solution.name}</h5>
+                <p className={"text-sm mb-6"}>{solution.description}</p>
+                <Link href={`/solutions/${solution.id}`} className={"inline-block text-indigo-500 text-xs border-2 rounded-sm px-6 py-2.5 border-indigo-400 font-bold uppercase hover:bg-indigo-400 hover:text-gray-50 transition-colors duration-300"}>
+                    plus de détails
+                </Link>
+            </div>
+        </div>
+    );
 }
