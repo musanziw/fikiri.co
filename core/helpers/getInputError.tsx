@@ -1,4 +1,4 @@
-import "@/app/core/types/ApiValidationError";
+import "@/core/types/ApiValidationError";
 
 export function getInputError(
     errors: ApiValidationError[],

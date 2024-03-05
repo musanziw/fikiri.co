@@ -1,5 +1,5 @@
 import type {Metadata} from "next";
-import Topbar from "@/app/core/utils/Topbar";
+import Topbar from "@/core/utils/Topbar";
 import {Form} from "./Form";
 
 export const metadata: Metadata = {

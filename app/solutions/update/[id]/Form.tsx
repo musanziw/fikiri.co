@@ -2,23 +2,23 @@
 
 import {useRouter} from "next/navigation";
 import {useQuery, useQueryClient} from "react-query";
-import {getOne, patch} from "@/app/core/_requests";
-import {toast} from "@/app/core/helpers/toast";
-import {useMutate} from "@/app/core/hooks/useMutate";
-import {Label} from "@/app/core/utils/ui/label";
-import Uploader from "@/app/core/utils/Uploader";
-import {Input} from "@/app/core/utils/ui/input";
-import {getInputError} from "@/app/core/helpers/getInputError";
-import {Textarea} from "@/app/core/utils/ui/textarea";
-import {Button} from "@/app/core/utils/ui/button";
+import {get, patch} from "@/core/_requests";
+import {useMutate} from "@/core/hooks/useMutate";
+import {Label} from "@/core/utils/ui/label";
+import Uploader from "@/core/utils/Uploader";
+import {Input} from "@/core/utils/ui/input";
+import {getInputError} from "@/core/helpers/getInputError";
+import {Textarea} from "@/core/utils/ui/textarea";
+import {Button} from "@/core/utils/ui/button";
 import {Loader2} from "lucide-react";
-import {FormCard} from "@/app/core/utils/formCard";
-import {Solution} from "@/app/core/_models";
+import {FormCard} from "@/core/utils/formCard";
+import {Solution} from "@/core/_models";
+import {Toast} from "@/core/utils/Toast";
 
 export function Form({params}: { params: { id: string } }) {
     const router = useRouter();
     const {data: solution} = useQuery(["solution", params.id], async () =>
-        getOne<Solution>(`solutions/${+params.id}`)
+        get<Solution>(`solutions/${+params.id}`)
     );
 
     const queryClient = useQueryClient();
@@ -31,7 +31,7 @@ export function Form({params}: { params: { id: string } }) {
     const onSuccess = async () => {
         await queryClient.invalidateQueries("solutions");
         router.back();
-        await toast("success", "La solution a été mise à jour");
+        await Toast("success", "La solution a été mise à jour");
     };
 
     const {mutate, isLoading, errors} = useMutate(

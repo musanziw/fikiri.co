@@ -1,11 +1,11 @@
 import Topbar from "@/app/core/utils/Topbar";
 import {Footer} from "@/app/core/utils/Footer";
 import {Loader2} from "lucide-react";
-import {getOne} from "@/app/core/_requests";
+import {get} from "@/app/core/_requests";
 import {Solution} from "@/app/core/_models";
 
 export default async function Solution({params}: { params: { id: string } }) {
-    const solution = await getOne<Solution>(`solutions/${+params.id}`);
+    const solution = await get<Solution>(`solutions/${+params.id}`);
 
     return (
         <div className={"relative"}>

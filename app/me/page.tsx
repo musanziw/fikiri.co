@@ -1,16 +1,15 @@
 "use client";
-
-import Topbar from "@/app/core/utils/Topbar";
 import {useEffect, useState} from "react";
 import UpdateProfile from "@/app/me/(components)/UpdateProfile";
 import {Loader2} from "lucide-react";
 import UserInfo from "@/app/me/(components)/UserInfo";
 import SolutionCard from "./(components)/SolutionCard";
-import useStore from "@/app/core/hooks/useStore";
 import {useQuery} from "react-query";
-import {getMany} from "@/app/core/_requests";
 import {useRouter} from "next/navigation";
-import {Solution} from "@/app/core/_models";
+import useStore from "@/core/hooks/useStore";
+import {get} from "@/core/_requests";
+import {Solution} from "@/core/_models";
+import Topbar from "@/core/utils/Topbar";
 
 export default function Solution() {
     const [active, setActive] = useState<number>(0);
@@ -36,7 +35,7 @@ export default function Solution() {
 
     const {data} = useQuery(
         ["solutions", user?.id],
-        async () => user && getMany<Solution[]>(`solutions/user/${user?.email}`),
+        async () => user && get<Solution[]>(`solutions/user/${user?.email}`),
         {
             enabled: !!user?.email,
         }

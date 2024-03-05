@@ -1,7 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
-import {imgPath} from "@/app/core/config/api";
-import {Solution} from "@/app/core/_models";
+import {Solution} from "@/core/_models";
+import {imgPath} from "@/core/config/api";
+
 
 interface SolutionCardProps {
     solution: Solution;

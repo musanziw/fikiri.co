@@ -1,13 +1,12 @@
 "use client";
-
 import {useState} from "react";
 import Link from "next/link";
 import logo from "@/public/logo.png";
 import Image from "next/image";
 import {usePathname, useRouter} from "next/navigation";
-import useStore from "@/app/core/hooks/useStore";
-import {api} from "@/app/core/config/api";
-import {User} from "@/app/core/models/User";
+import useStore from "@/core/hooks/useStore";
+import {api} from "@/core/config/api";
+import {User} from "@/core/_models";
 
 type Link = {
     name: string;

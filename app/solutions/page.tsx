@@ -2,11 +2,11 @@ import {Footer} from "@/app/core/utils/Footer";
 import Topbar from "@/app/core/utils/Topbar";
 import {SolutionCard} from "@/app/solutions/(components)/SolutionCard";
 import {Skeleton} from "@/app/core/utils/ui/skeleton";
-import {getMany} from "@/app/core/_requests";
 import {Solution} from "@/app/core/_models";
+import {get} from "@/app/core/_requests";
 
 export default async function Solutions() {
-    const solutions = await getMany<Solution[]>("solutions/mapped");
+    const solutions = await get<Solution[]>("solutions/mapped");
 
     return (
         <div className={"relative"}>

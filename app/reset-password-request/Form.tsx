@@ -1,23 +1,22 @@
 "use client";
-
 import {useRouter} from "next/navigation";
-import {post} from "@/app/core/_requests";
-import {useMutate} from "@/app/core/hooks/useMutate";
-import {FormCard} from "@/app/core/utils/formCard";
-import {Label} from "@/app/core/utils/ui/label";
-import {Input} from "@/app/core/utils/ui/input";
-import {getInputError} from "@/app/core/helpers/getInputError";
-import {Button} from "@/app/core/utils/ui/button";
 import {Loader2} from "lucide-react";
 import Link from "next/link";
-import {toast} from "@/app/core/helpers/toast";
+import {Toast} from "@/core/utils/Toast";
+import {useMutate} from "@/core/hooks/useMutate";
+import {post} from "@/core/_requests";
+import {FormCard} from "@/core/utils/formCard";
+import {Label} from "@/core/utils/ui/label";
+import {Input} from "@/core/utils/ui/input";
+import {getInputError} from "@/core/helpers/getInputError";
+import {Button} from "@/core/utils/ui/button";
 
 export function Form() {
     const router = useRouter();
 
     const onSuccess = async function () {
         router.push("/reset-password");
-        await toast("success", "Mot de passe envoyé par email");
+        await Toast("success", "Mot de passe envoyé par email");
     };
 
     const {isLoading, errors, mutate} = useMutate(post, onSuccess, "auth/reset-password-request");
@@ -34,12 +33,7 @@ export function Form() {
             </div>
 
             <Label htmlFor={"email"}>Email</Label>
-            <Input
-                name={"email"}
-                placeholder={"Entrez votre email"}
-                required={true}
-                error={getInputError(errors, "email")}
-            />
+            <Input name={"email"} placeholder={"Entrez votre email"} required={true} error={getInputError(errors, "email")}/>
             <Button type={"submit"} disabled={isLoading} className={"mt-5"}>
                 {isLoading ? (
                     <>

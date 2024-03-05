@@ -1,7 +1,7 @@
 import Image from "next/image";
-import {moment} from "@/app/core/config/moment";
-import {imgPath} from "@/app/core/config/api";
-import {User} from "@/app/core/_models";
+import {moment} from "@/core/config/moment";
+import {imgPath} from "@/core/config/api";
+import {User} from "@/core/_models";
 
 interface UserInfoProps {
     user: User;

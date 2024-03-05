@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import useStore from "@/app/core/hooks/useStore";
+import useStore from "@/core/hooks/useStore";
 
 export function Hero() {
     const user = useStore.use.user();

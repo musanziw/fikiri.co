@@ -1,8 +1,8 @@
 import type {Metadata} from "next";
-import "./globals.css";
+import "./styles/globals.css";
 import {ReactNode} from "react";
 import {Roboto} from "next/font/google";
-import {ReactQueryClient} from "@/app/core/providers/ReactQueryClient";
+import {ReactQueryClient} from "@/core/providers/ReactQueryClient";
 
 const roboto = Roboto({
     subsets: ["latin"],

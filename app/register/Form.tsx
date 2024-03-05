@@ -1,26 +1,25 @@
 "use client";
-
 import {useRouter} from "next/navigation";
-import {googleAuth, post} from "@/app/core/_requests";
-import {toast} from "@/app/core/helpers/toast";
-import {useMutate} from "@/app/core/hooks/useMutate";
-import {Label} from "@/app/core/utils/ui/label";
-import {Input} from "@/app/core/utils/ui/input";
-import {getInputError} from "@/app/core/helpers/getInputError";
-import {Button} from "@/app/core/utils/ui/button";
 import {Loader2} from "lucide-react";
 import Image from "next/image";
 import googleLogo from "@/public/googleLogo.svg";
 import Link from "next/link";
-import {FormCard} from "@/app/core/utils/formCard";
-import {InputPassword} from "@/app/core/utils/inputPassword";
+import {Toast} from "@/core/utils/Toast";
+import {useMutate} from "@/core/hooks/useMutate";
+import {googleAuth, post} from "@/core/_requests";
+import {FormCard} from "@/core/utils/formCard";
+import {Label} from "@/core/utils/ui/label";
+import {Input} from "@/core/utils/ui/input";
+import {getInputError} from "@/core/helpers/getInputError";
+import {InputPassword} from "@/core/utils/inputPassword";
+import {Button} from "@/core/utils/ui/button";
 
 export function Form() {
     const router = useRouter();
 
     const onSuccess = async function () {
         router.push("/login");
-        await toast("success", "Inscription réussie");
+        await Toast("success", "Inscription réussie");
     };
 
     const {isLoading, mutate, errors} = useMutate(post, onSuccess, "auth/register");
@@ -55,17 +54,9 @@ export function Form() {
             />
 
             <Label htmlFor={"password"}>Mot de passe</Label>
-            <InputPassword
-                name={"password"}
-                error={getInputError(errors, "password")}
-            />
-
+            <InputPassword name={"password"} error={getInputError(errors, "password")}/>
             <Label htmlFor={"passwordConfirm"}>Confirmez votre de passe</Label>
-            <InputPassword
-                name={"passwordConfirm"}
-                placeholder={"Confirmez votre mot de passe"}
-                error={getInputError(errors, "passwordConfirm")}
-            />
+            <InputPassword name={"passwordConfirm"} placeholder={"Confirmez votre mot de passe"} error={getInputError(errors, "passwordConfirm")}/>
 
             <Button type={"submit"} disabled={isLoading} className={"mt-5"}>
                 {isLoading ? (

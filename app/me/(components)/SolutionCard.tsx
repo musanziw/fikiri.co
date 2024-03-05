@@ -1,10 +1,10 @@
-import {moment} from "@/app/core/config/moment";
+import {moment} from "@/core/config/moment";
 import Link from "next/link";
 import Image from "next/image";
-import {Badge} from "@/app/core/utils/ui/badge";
+import {Badge} from "@/core/utils/ui/badge";
 import {Pencil} from "lucide-react";
-import {apiBaseURL} from "@/app/core/config/api";
-import {Solution} from "@/app/core/_models";
+import {apiBaseURL} from "@/core/config/api";
+import {Solution} from "@/core/_models";
 
 interface SolutionCardProps {
     solution: Solution;

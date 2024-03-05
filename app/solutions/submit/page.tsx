@@ -1,22 +1,21 @@
 "use client";
-
 import {useState} from "react";
 import {useRouter} from "next/navigation";
-import Topbar from "@/app/core/utils/Topbar";
-import {FormCard} from "@/app/core/utils/formCard";
-import {Input} from "@/app/core/utils/ui/input";
-import {Label} from "@/app/core/utils/ui/label";
-import {Textarea} from "@/app/core/utils/ui/textarea";
-import {Button} from "@/app/core/utils/ui/button";
+import Topbar from "@/core/utils/Topbar";
+import {FormCard} from "@/core/utils/formCard";
+import {Input} from "@/core/utils/ui/input";
+import {Label} from "@/core/utils/ui/label";
+import {Textarea} from "@/core/utils/ui/textarea";
+import {Button} from "@/core/utils/ui/button";
 import {Loader2} from "lucide-react";
-import {getInputError} from "@/app/core/helpers/getInputError";
-import useStore from "@/app/core/hooks/useStore";
 import {useQuery, useQueryClient} from "react-query";
 import Select, {MultiValue, SingleValue} from "react-select";
-import {useMutate} from "@/app/core/hooks/useMutate";
-import {getMany, getOne, post} from "@/app/core/_requests";
-import {toast} from "@/app/core/helpers/toast";
-import {Call, Challenge, Thematic} from "@/app/core/_models";
+import {useMutate} from "@/core/hooks/useMutate";
+import {get, post} from "@/core/_requests";
+import {Call, Challenge, Thematic} from "@/core/_models";
+import useStore from "@/core/hooks/useStore";
+import {Toast} from "@/core/utils/Toast";
+import {getInputError} from "@/core/helpers/getInputError";
 
 interface OptionProps {
     value: number;
@@ -35,19 +34,19 @@ export default function SubmitSolution() {
 
     const {data: calls} = useQuery(
         ["calls"],
-        async () => await getMany<Call[]>("calls")
+        async () => await get<Call[]>("calls")
     );
 
     const {data: thematics} = useQuery(
         ["thematics", selectedCall],
-        async () => await getMany<Thematic[]>(`thematics/call/${selectedCall}`),
+        async () => await get<Thematic[]>(`thematics/call/${selectedCall}`),
         {enabled: !!selectedCall}
     );
 
     const {data: challenges} = useQuery(
         ["challenges", selectedThematic],
         async () =>
-            await getMany<Challenge[]>(`challenges/thematic/${selectedThematic}`),
+            await get<Challenge[]>(`challenges/thematic/${selectedThematic}`),
         {enabled: !!selectedThematic}
     );
 
@@ -70,7 +69,7 @@ export default function SubmitSolution() {
 
     const onSuccess = async () => {
         await queryClient.invalidateQueries("solutions");
-        await toast("success", "Solution soumise avec succès");
+        await Toast("success", "SolutionCard soumise avec succès");
         router.push("/me");
     };
 

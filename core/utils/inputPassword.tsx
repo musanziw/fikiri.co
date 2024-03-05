@@ -1,4 +1,4 @@
-import {Input} from "@/app/core/utils/ui/input";
+import {Input} from "@/core/utils/ui/input";
 import {Eye, EyeOff} from "lucide-react";
 import React, {useState} from "react";
 

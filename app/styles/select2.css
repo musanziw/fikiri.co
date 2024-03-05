@@ -1,0 +1,31 @@
+
+
+.custom-select .css-1fdsijx-ValueContainer {
+    @apply !pl-4;
+}
+.custom-select .css-b62m3t-container > div {
+    @apply bg-white  border-[rgb(224,230,237)] hover:border-inherit;
+}
+.custom-select .css-b62m3t-container > div:first-of-type {
+    @apply shadow-none;
+}
+
+.custom-select .css-1nmdiq5-menu > div > div {
+    @apply hover:!bg-[#f6f6f6]  !bg-transparent;
+}
+.custom-select .css-1nmdiq5-menu > div > div[aria-disabled='true'] {
+    @apply !bg-transparent !text-[#999];
+}
+.custom-select .css-1nmdiq5-menu > div > .css-tr4s17-option {
+    @apply !bg-[#f6f6f6] !text-black;
+}
+
+.custom-select .css-1u9des2-indicatorSeparator {
+    @apply hidden;
+}
+.custom-select .css-1p3m7a8-multiValue {
+    @apply !bg-green-300 !text-white;
+}
+.custom-select .css-wsp0cs-MultiValueGeneric {
+    @apply !text-white;
+}

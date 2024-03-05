@@ -1,7 +1,7 @@
 import {FormEvent, useState} from "react";
 import {useMutation} from "react-query";
 import {AxiosError} from "axios";
-import {toast} from "@/app/core/helpers/toast";
+import {Toast} from "@/core/utils/Toast";
 
 export const useMutate = function <T>(
     method: Function,
@@ -31,7 +31,7 @@ export const useMutate = function <T>(
                 const message: string | ApiValidationError[] =
                     error.response?.data?.message;
                 if (Array.isArray(message)) setErrors(message);
-                if (typeof message === "string") await toast("error", message);
+                if (typeof message === "string") await Toast("error", message);
             },
         }
     );

@@ -1,15 +1,14 @@
-import "@/app/core/types/ApiValidationError";
-import useStore from "@/app/core/hooks/useStore";
-import {patch} from "@/app/core/_requests";
-import {useMutate} from "@/app/core/hooks/useMutate";
-import {Label} from "@/app/core/utils/ui/label";
-import Uploader from "@/app/core/utils/Uploader";
-import {Input} from "@/app/core/utils/ui/input";
-import {getInputError} from "@/app/core/helpers/getInputError";
-import {Button} from "@/app/core/utils/ui/button";
+import useStore from "@/core/hooks/useStore";
+import {patch} from "@/core/_requests";
+import {useMutate} from "@/core/hooks/useMutate";
+import {Label} from "@/core/utils/ui/label";
+import Uploader from "@/core/utils/Uploader";
+import {Input} from "@/core/utils/ui/input";
+import {getInputError} from "@/core/helpers/getInputError";
+import {Button} from "@/core/utils/ui/button";
 import {Loader2} from "lucide-react";
-import {toast} from "@/app/core/helpers/toast";
-import {User} from "@/app/core/_models";
+import {User} from "@/core/_models";
+import {Toast} from "@/core/utils/Toast";
 
 interface UpdateProfileProps {
     user: User;
@@ -25,7 +24,7 @@ export default function UpdateProfile({user}: UpdateProfileProps) {
 
     const onSuccess = async function (data: User | null) {
         setUser(data);
-        await toast("success", "Votre profil a été mis à jour avec succès");
+        await Toast("success", "Votre profil a été mis à jour avec succès");
     };
 
     const {isLoading, mutate, errors} = useMutate(patch, onSuccess, `auth/profile/${user.id}`, modifier);

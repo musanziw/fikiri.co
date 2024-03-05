@@ -1,20 +1,20 @@
 "use client";
 
-import useStore from "@/app/core/hooks/useStore";
 import {useRouter} from "next/navigation";
-import {googleAuth, post} from "@/app/core/_requests";
-import {useMutate} from "@/app/core/hooks/useMutate";
-import {Label} from "@/app/core/utils/ui/label";
-import {Input} from "@/app/core/utils/ui/input";
-import {Button} from "@/app/core/utils/ui/button";
 import {Loader2} from "lucide-react";
 import Image from "next/image";
 import googleLogo from "@/public/googleLogo.svg";
 import Link from "next/link";
-import {FormCard} from "@/app/core/utils/formCard";
-import {toast} from "@/app/core/helpers/toast";
-import {InputPassword} from "@/app/core/utils/inputPassword";
-import {User} from "@/app/core/_models";
+import useStore from "@/core/hooks/useStore";
+import {User} from "@/core/_models";
+import {Toast} from "@/core/utils/Toast";
+import {useMutate} from "@/core/hooks/useMutate";
+import {googleAuth, post} from "@/core/_requests";
+import {FormCard} from "@/core/utils/formCard";
+import {Label} from "@/core/utils/ui/label";
+import {Input} from "@/core/utils/ui/input";
+import {InputPassword} from "@/core/utils/inputPassword";
+import {Button} from "@/core/utils/ui/button";
 
 export function Form() {
     const setUser = useStore.use.setUser();
@@ -23,7 +23,7 @@ export function Form() {
     const onSuccess = async function (data: User | null) {
         setUser(data);
         router.push("/me");
-        await toast("success", "Connexion réussie");
+        await Toast("success", "Connexion réussie");
     };
 
     const {isLoading, mutate} = useMutate(post, onSuccess, "auth/login");
