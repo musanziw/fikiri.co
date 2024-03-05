@@ -1,11 +1,6 @@
-import {api, apiBaseURL} from "@/app/core/config/api";
+import {api, apiBaseURL} from "@/core/config/api";
 
-const getOne = async <T>(uri: string) => {
-    const {data: res} = await api.get(uri);
-    return res.data as T;
-};
-
-const getMany = async <T>(uri: string) => {
+const get = async <T>(uri: string) => {
     const {data: res} = await api.get(uri);
     return res.data as T;
 };
@@ -22,4 +17,4 @@ const post = async <T, U>(uri: string, payload: T) => {
 
 const googleAuth = () => window.location.replace(`${apiBaseURL}auth/google/redirect`);
 
-export {getOne, getMany, patch, post, googleAuth};
+export {get, patch, post, googleAuth};
