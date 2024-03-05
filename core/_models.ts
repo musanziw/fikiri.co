@@ -40,7 +40,7 @@ export interface Solution {
     status: Status;
     thematic?: Thematic;
     user?: User;
-    challenges?: Challenge;
+    challenges?: Challenge[];
     images: SolutionImages[];
 }
 
@@ -52,6 +52,7 @@ export interface SolutionImages {
     createdAt: Date;
     updatedAt: Date;
 }
+
 export interface Status {
     id: number;
     name: string;
