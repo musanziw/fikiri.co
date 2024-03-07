@@ -12,14 +12,14 @@ interface SolutionProps {
 
 export default function SolutionCard({solution}: SolutionProps) {
     const valideImage = (images: SolutionImages[]) => {
-        return images.filter(image => image.imageLink.endsWith('.jpeg')
+        return images.find(image => image.imageLink.endsWith('.jpeg')
             || image.imageLink.endsWith('.jpg')
             || image.imageLink.endsWith('.png')
         )
     }
 
-    const sliceWord = (word: string, limit: number) => {
-        return word.length > 50 ? word.slice(0, limit) + " ..." : word;
+    const sliceWord = (word: string, length: number, limit: number) => {
+        return word.length > length ? word.slice(0, limit) + " ..." : word;
     };
 
     const capitalizeFirsteLetter = (word: string) => {
@@ -33,12 +33,12 @@ export default function SolutionCard({solution}: SolutionProps) {
     return (
         solution && <div className="flex flex-col">
             <Image src={diplayImage(solution)} alt={solution.name} height={250} width={300}
-                   className="mb-4 h-60 w-auto"/>
+                   className="mb-4 h-60 w-auto rounded-md"/>
             <h3 className="font-semibold text-lg text-gray-800 mb-3">
-                {sliceWord(capitalizeFirsteLetter(solution.name), 30)}
+                {sliceWord(capitalizeFirsteLetter(solution.name), 50, 30)}
             </h3>
             <p className="mb-1">
-                {sliceWord(solution.description, 170)}
+                {sliceWord(solution.description, 50, 170)}
             </p>
             <ul className="flex flex-wrap mb-4">
                 <li className="mr-1.5 mt-2">
@@ -49,10 +49,10 @@ export default function SolutionCard({solution}: SolutionProps) {
                 </li>
                 {
                     solution.challenges?.map((challenge, index) => (
-                            <div key={index}
-                                className="flex items-center rounded-full px-3 py-1 text-xs font-medium leading-5 text-blue-500 ">
-                                {challenge.name}
-                            </div>
+                        <div key={index}
+                             className="flex items-center bg-blue-400/10  rounded-full px-3 py-1 mt-2 text-xs font-medium leading-5 text-blue-500 ">
+                            {sliceWord(challenge.name, 40, 40)}
+                        </div>
                     ))
                 }
             </ul>
