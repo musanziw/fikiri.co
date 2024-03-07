@@ -1,4 +1,4 @@
-import Topbar from "@/app/core/utils/Topbar";
+import Topbar from "@/core/utils/Topbar";
 import type {Metadata} from "next";
 import {Form} from "@/app/register/Form";
 
