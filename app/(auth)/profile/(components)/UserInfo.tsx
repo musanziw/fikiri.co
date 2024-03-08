@@ -3,11 +3,7 @@ import {moment} from "@/core/config/moment";
 import {imgPath} from "@/core/config/api";
 import {User} from "@/core/_models";
 
-interface UserInfoProps {
-    user: User;
-}
-
-export default function UserInfo({user}: UserInfoProps) {
+const UserInfo = ({user}: { user: User }) => {
     return (
         <div className="flex flex-col items-start md:items-center md:flex-row gap-4 mb-8">
             {!user?.googleImage && !user?.profile && (
@@ -41,3 +37,5 @@ export default function UserInfo({user}: UserInfoProps) {
         </div>
     );
 }
+
+export default UserInfo

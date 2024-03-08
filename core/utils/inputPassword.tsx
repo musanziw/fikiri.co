@@ -2,13 +2,13 @@ import {Input} from "@/core/utils/ui/input";
 import {Eye, EyeOff} from "lucide-react";
 import React, {useState} from "react";
 
-interface IInputPassword {
+interface IProps {
     name: string;
     placeholder?: string;
     error?: string;
 }
 
-export function InputPassword({name, placeholder = "Entrez votre mot de passe", error = ""}: IInputPassword) {
+const InputPassword = ({name, placeholder = "Entrez votre mot de passe", error = ""}: IProps) => {
     const [showPassword, setShowPassword] = useState<boolean>(false);
     const tooglePassword = () => setShowPassword(!showPassword);
     return (
@@ -24,3 +24,5 @@ export function InputPassword({name, placeholder = "Entrez votre mot de passe", 
         </div>
     );
 }
+
+export default InputPassword

@@ -1,11 +1,11 @@
-import {Footer} from "@/core/utils/Footer";
+import Footer from "@/core/utils/Footer";
 import Topbar from "@/core/utils/Topbar";
-import {SolutionCard} from "@/app/solutions/(components)/SolutionCard";
-import {Skeleton} from "@/core/utils/ui/skeleton";
 import {Solution} from "@/core/_models";
 import {get} from "@/core/_requests";
+import SolutionCardSkeleton from "@/app/(components)/slots/SolutionCardSkeleton";
+import SolutionCard from "@/app/(components)/slots/SolutionCard";
 
-export default async function Solutions() {
+const Solutions = async () => {
     const solutions = await get<Solution[]>(`solutions/mapped/all?cursor=}`);
 
     return (
@@ -23,8 +23,8 @@ export default async function Solutions() {
                 </p>
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
                     {!solutions &&
-                        Array.from({length: 10}, (_, i) => (
-                            <Skeleton key={i} className={"animate-pulse h-[250px]"}/>
+                        Array.from({length: 6}, (_, i) => (
+                            <SolutionCardSkeleton key={i}/>
                         ))}
                     {solutions &&
                         solutions.map((solution: Solution, index: number) => (
@@ -36,3 +36,5 @@ export default async function Solutions() {
         </div>
     );
 }
+
+export default Solutions

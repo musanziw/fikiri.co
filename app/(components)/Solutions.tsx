@@ -9,7 +9,7 @@ import SolutionCardSkeleton from "@/app/(components)/slots/SolutionCardSkeleton"
 import {cn} from "@/lib/utils";
 import {Skeleton} from "@/core/utils/ui/skeleton";
 
-export default function Solutions() {
+const Solutions = () => {
     const [cursor, setCursor] = useState(1);
     const [oddFilter, setOddFilter] = useState<number>(100);
     const [filteredSolutions, setFilteredSolutions] = useState<Solution[] | undefined>([]);
@@ -153,11 +153,9 @@ export default function Solutions() {
                     )}
                 </button>
                 <hr className="w-full border-gray-300"/>
-
             </div>
-
         </div>
     );
-
-
 }
+
+export default Solutions

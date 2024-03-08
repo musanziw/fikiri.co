@@ -17,7 +17,7 @@ import odd16 from "@/public/goals/F-WEB-Goal-16.png";
 import odd17 from "@/public/goals/F-WEB-Goal-17.png";
 import Image from "next/image";
 
-export default function Sdg() {
+const Sdg = () => {
     const sdgs = [
         {
             oddImage: odd1,
@@ -141,3 +141,5 @@ export default function Sdg() {
         </div>
     );
 }
+
+export default Sdg

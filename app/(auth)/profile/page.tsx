@@ -1,8 +1,8 @@
 "use client";
 import {useEffect, useState} from "react";
-import UpdateProfile from "@/app/me/(components)/UpdateProfile";
+import UpdateProfile from "@/app/(auth)/profile/(components)/UpdateProfile";
 import {Loader2} from "lucide-react";
-import UserInfo from "@/app/me/(components)/UserInfo";
+import UserInfo from "@/app/(auth)/profile/(components)/UserInfo";
 import SolutionCard from "./(components)/SolutionCard";
 import {useQuery} from "react-query";
 import {useRouter} from "next/navigation";
@@ -11,7 +11,7 @@ import {get} from "@/core/_requests";
 import {Solution} from "@/core/_models";
 import Topbar from "@/core/utils/Topbar";
 
-export default function Solution() {
+const Profile = () => {
     const [active, setActive] = useState<number>(0);
     const user = useStore.use.user();
     const router = useRouter();
@@ -76,3 +76,5 @@ export default function Solution() {
         </div>
     );
 }
+
+export default Profile

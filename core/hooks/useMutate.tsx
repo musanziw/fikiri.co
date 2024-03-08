@@ -1,14 +1,10 @@
 import {FormEvent, useState} from "react";
 import {useMutation} from "react-query";
 import {AxiosError} from "axios";
-import {Toast} from "@/core/utils/Toast";
+import Toast from "@/core/utils/Toast";
+import {ApiValidationError} from "@/core/types/ApiValidationError";
 
-export const useMutate = function <T>(
-    method: Function,
-    onSuccess: Function,
-    link: string,
-    modifier?: Function
-) {
+export const useMutate = function <T>(method: Function, onSuccess: Function, link: string, modifier?: Function) {
     const [errors, setErrors] = useState<ApiValidationError[]>([]);
 
     const {isLoading, mutate} = useMutation(

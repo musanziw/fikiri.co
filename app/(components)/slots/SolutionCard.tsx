@@ -10,7 +10,7 @@ interface SolutionProps {
     solution: Solution
 }
 
-export default function SolutionCard({solution}: SolutionProps) {
+const  SolutionCard = ({solution}: SolutionProps) =>{
     const valideImage = (images: SolutionImages[]) => {
         return images.find(image => image.imageLink.endsWith('.jpeg')
             || image.imageLink.endsWith('.jpg')
@@ -56,10 +56,11 @@ export default function SolutionCard({solution}: SolutionProps) {
                     ))
                 }
             </ul>
-            <Link href={"/"}
+            <Link href={`/solutions/${solution.id}`}
                   className="flex justify-between text-xs border-2 rounded-sm px-6 py-2.5 font-bold uppercase bg-blue-500/90 text-gray-50 transition-colors duration-300 hover:bg-blue-500">
                 Plus d&apos;informations <ArrowRight size={16}/>
             </Link>
         </div>
     );
 }
+export default SolutionCard

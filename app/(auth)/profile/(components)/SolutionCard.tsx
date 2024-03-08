@@ -6,11 +6,7 @@ import {Pencil} from "lucide-react";
 import {apiBaseURL} from "@/core/config/api";
 import {Solution} from "@/core/_models";
 
-interface SolutionCardProps {
-    solution: Solution;
-}
-
-export default function SolutionCard({solution}: SolutionCardProps) {
+const SolutionCard = ({solution}: { solution: Solution }) => {
     return (
         <div className="mb-8">
             <div className="flex flex-col gap-2 ">
@@ -47,3 +43,5 @@ export default function SolutionCard({solution}: SolutionCardProps) {
         </div>
     );
 }
+
+export default SolutionCard

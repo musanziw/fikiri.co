@@ -1,17 +1,19 @@
 import React from "react";
-import Topbar from "@/app/core/utils/Topbar";
-import {Form} from "@/app/solutions/update/[id]/Form";
+import Topbar from "@/core/utils/Topbar";
+import UpdateSolutionFormfrom from "./Form";
 import type {Metadata} from "next";
 
 export const metadata: Metadata = {
-    title: "Fikiri | Login",
+    title: "Fikiri | Update solution",
 };
 
-export default function Solution({params}: { params: { id: string } }) {
+const UpdateSolution = ({params}: { params: { id: string } }) => {
     return (
         <div className={"relative"}>
             <Topbar/>
-            <Form params={params}/>
+            <UpdateSolutionFormfrom params={params}/>
         </div>
     );
 }
+
+export default UpdateSolution

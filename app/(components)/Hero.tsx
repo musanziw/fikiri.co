@@ -3,7 +3,7 @@
 import Link from "next/link";
 import useStore from "@/core/hooks/useStore";
 
-export function Hero() {
+const Hero = () => {
     const user = useStore.use.user();
 
     return (
@@ -20,7 +20,7 @@ export function Hero() {
                         locales en République Démocratique du Congo pour accélérer
                         l&apos;atteinte des Objectifs de Développement Durable (ODD).
                     </p>
-                    <Link href={user ? "/me" : "/login"}
+                    <Link href={user ? "/profile" : "/login"}
                           className={"px-6 text-lg fade-in-3 py-2 inline-block mb-10 rounded-md bg-blue-600 text-white font-semibold"}>
                         Postulez dès maintenant
                     </Link>
@@ -29,3 +29,5 @@ export function Hero() {
         </div>
     );
 }
+
+export default Hero

@@ -3,17 +3,17 @@
 import {useRouter} from "next/navigation";
 import {Loader2} from "lucide-react";
 import Link from "next/link";
-import {Toast} from "@/core/utils/Toast";
+import Toast from "@/core/utils/Toast";
 import {useMutate} from "@/core/hooks/useMutate";
 import {post} from "@/core/_requests";
-import {FormCard} from "@/core/utils/formCard";
+import FormCard from "@/core/utils/formCard";
 import {Label} from "@/core/utils/ui/label";
 import {Input} from "@/core/utils/ui/input";
-import {InputPassword} from "@/core/utils/inputPassword";
-import {getInputError} from "@/core/helpers/getInputError";
+import InputPassword from "@/core/utils/inputPassword";
+import getInputError from "@/core/helpers/getInputError";
 import {Button} from "@/core/utils/ui/button";
 
-export function Form() {
+const ResetPasswordForm = () => {
     const router = useRouter();
 
     const onSuccess = async () => {
@@ -53,3 +53,4 @@ export function Form() {
         </FormCard>
     );
 }
+export default ResetPasswordForm

@@ -2,7 +2,7 @@
 import {useState} from "react";
 import {useRouter} from "next/navigation";
 import Topbar from "@/core/utils/Topbar";
-import {FormCard} from "@/core/utils/formCard";
+import FormCard from "@/core/utils/formCard";
 import {Input} from "@/core/utils/ui/input";
 import {Label} from "@/core/utils/ui/label";
 import {Textarea} from "@/core/utils/ui/textarea";
@@ -14,8 +14,8 @@ import {useMutate} from "@/core/hooks/useMutate";
 import {get, post} from "@/core/_requests";
 import {Call, Challenge, Thematic} from "@/core/_models";
 import useStore from "@/core/hooks/useStore";
-import {Toast} from "@/core/utils/Toast";
-import {getInputError} from "@/core/helpers/getInputError";
+import Toast from "@/core/utils/Toast";
+import getInputError from "@/core/helpers/getInputError";
 
 interface OptionProps {
     value: number;
@@ -24,7 +24,7 @@ interface OptionProps {
 
 type Model = Call | Thematic | Challenge;
 
-export default function SubmitSolution() {
+const SubmitSolution = () => {
     const [selectedCall, setSelectedCall] = useState<number>();
     const [selectedThematic, setSelectedThematic] = useState<number>();
     const [selectedChallenges, setSelectedChallenges] = useState<number[]>([]);
@@ -130,3 +130,5 @@ export default function SubmitSolution() {
         </div>
     );
 }
+
+export default SubmitSolution

@@ -1,7 +1,7 @@
 'use client'
 import Swal, {SweetAlertIcon} from "sweetalert2";
 
-const Toast = function (icon: SweetAlertIcon, title: string) {
+const Toast = (icon: SweetAlertIcon, title: string) => {
     return Swal.fire({
         toast: true,
         icon,
@@ -10,7 +10,7 @@ const Toast = function (icon: SweetAlertIcon, title: string) {
         position: "top",
         showConfirmButton: false,
         timer: 2000,
-        timerProgressBar: false,
+        timerProgressBar: true,
         didOpen: (toast) => {
             toast.addEventListener("mouseenter", Swal.stopTimer);
             toast.addEventListener("mouseleave", Swal.resumeTimer);
@@ -18,4 +18,4 @@ const Toast = function (icon: SweetAlertIcon, title: string) {
     });
 };
 
-export {Toast};
+export default Toast

@@ -16,7 +16,7 @@ interface UploaderProps {
     label?: string;
 }
 
-export default function Uploader({name, path, label, isMultiple = true}: UploaderProps) {
+const Uploader = ({name, path, label, isMultiple = true}: UploaderProps) => {
     const [files, setFiles] = useState<any>([]);
 
     return (
@@ -37,3 +37,5 @@ export default function Uploader({name, path, label, isMultiple = true}: Uploade
         />
     );
 }
+
+export default Uploader

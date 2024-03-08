@@ -100,7 +100,7 @@ const PARTAINERS = [
     },
 ];
 
-export function About() {
+const About = () => {
     return (
         <div className={"p-8 bg-white"} id={"about"}>
             <div className={"lg:mx-auto border-t overflow-hidden lg:max-w-screen-lg py-20"}>
@@ -143,3 +143,5 @@ export function About() {
         </div>
     );
 }
+
+export default About

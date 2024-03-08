@@ -4,17 +4,17 @@ import {Loader2} from "lucide-react";
 import Image from "next/image";
 import googleLogo from "@/public/googleLogo.svg";
 import Link from "next/link";
-import {Toast} from "@/core/utils/Toast";
+import Toast from "@/core/utils/Toast";
 import {useMutate} from "@/core/hooks/useMutate";
 import {googleAuth, post} from "@/core/_requests";
-import {FormCard} from "@/core/utils/formCard";
+import FormCard from "@/core/utils/formCard";
 import {Label} from "@/core/utils/ui/label";
 import {Input} from "@/core/utils/ui/input";
-import {getInputError} from "@/core/helpers/getInputError";
-import {InputPassword} from "@/core/utils/inputPassword";
+import getInputError from "@/core/helpers/getInputError";
+import InputPassword from "@/core/utils/inputPassword";
 import {Button} from "@/core/utils/ui/button";
 
-export function Form() {
+const RegisterForm = () => {
     const router = useRouter();
 
     const onSuccess = async function () {
@@ -56,7 +56,8 @@ export function Form() {
             <Label htmlFor={"password"}>Mot de passe</Label>
             <InputPassword name={"password"} error={getInputError(errors, "password")}/>
             <Label htmlFor={"passwordConfirm"}>Confirmez votre de passe</Label>
-            <InputPassword name={"passwordConfirm"} placeholder={"Confirmez votre mot de passe"} error={getInputError(errors, "passwordConfirm")}/>
+            <InputPassword name={"passwordConfirm"} placeholder={"Confirmez votre mot de passe"}
+                           error={getInputError(errors, "passwordConfirm")}/>
 
             <Button type={"submit"} disabled={isLoading} className={"mt-5"}>
                 {isLoading ? (
@@ -79,3 +80,4 @@ export function Form() {
         </FormCard>
     );
 }
+export default RegisterForm

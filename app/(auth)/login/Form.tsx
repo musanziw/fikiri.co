@@ -7,22 +7,22 @@ import googleLogo from "@/public/googleLogo.svg";
 import Link from "next/link";
 import useStore from "@/core/hooks/useStore";
 import {User} from "@/core/_models";
-import {Toast} from "@/core/utils/Toast";
+import Toast from "@/core/utils/Toast";
 import {useMutate} from "@/core/hooks/useMutate";
 import {googleAuth, post} from "@/core/_requests";
-import {FormCard} from "@/core/utils/formCard";
+import FormCard from "@/core/utils/formCard";
 import {Label} from "@/core/utils/ui/label";
 import {Input} from "@/core/utils/ui/input";
-import {InputPassword} from "@/core/utils/inputPassword";
+import InputPassword from "@/core/utils/inputPassword";
 import {Button} from "@/core/utils/ui/button";
 
-export function Form() {
+const LoginForm = () => {
     const setUser = useStore.use.setUser();
     const router = useRouter();
 
     const onSuccess = async function (data: User | null) {
         setUser(data);
-        router.push("/me");
+        router.push("/profile");
         await Toast("success", "Connexion réussie");
     };
 
@@ -59,3 +59,5 @@ export function Form() {
         </FormCard>
     );
 }
+
+export default LoginForm

@@ -4,17 +4,17 @@ import {useMutate} from "@/core/hooks/useMutate";
 import {Label} from "@/core/utils/ui/label";
 import Uploader from "@/core/utils/Uploader";
 import {Input} from "@/core/utils/ui/input";
-import {getInputError} from "@/core/helpers/getInputError";
+import getInputError from "@/core/helpers/getInputError";
 import {Button} from "@/core/utils/ui/button";
 import {Loader2} from "lucide-react";
 import {User} from "@/core/_models";
-import {Toast} from "@/core/utils/Toast";
+import Toast from "@/core/utils/Toast";
 
 interface UpdateProfileProps {
     user: User;
 }
 
-export default function UpdateProfile({user}: UpdateProfileProps) {
+const UpdateProfile = ({user}: UpdateProfileProps) => {
     const setUser = useStore.use.setUser();
 
     const modifier = function (payload: { [p: string]: FormDataEntryValue }) {
@@ -64,3 +64,5 @@ export default function UpdateProfile({user}: UpdateProfileProps) {
         </form>
     );
 }
+
+export default UpdateProfile

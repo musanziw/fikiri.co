@@ -1,10 +1,10 @@
 import Topbar from "@/core/utils/Topbar";
-import {Footer} from "@/core/utils/Footer";
+import Footer from "@/core/utils/Footer";
 import {Loader2} from "lucide-react";
 import {get} from "@/core/_requests";
 import {Solution} from "@/core/_models";
 
-export default async function Solution({params}: { params: { id: string } }) {
+const Solution = async ({params}: { params: { id: string } }) => {
     const solution = await get<Solution>(`solutions/${+params.id}`);
 
     return (
@@ -42,3 +42,5 @@ export default async function Solution({params}: { params: { id: string } }) {
         </div>
     );
 }
+
+export default Solution

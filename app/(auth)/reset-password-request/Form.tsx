@@ -2,16 +2,16 @@
 import {useRouter} from "next/navigation";
 import {Loader2} from "lucide-react";
 import Link from "next/link";
-import {Toast} from "@/core/utils/Toast";
+import Toast from "@/core/utils/Toast";
 import {useMutate} from "@/core/hooks/useMutate";
 import {post} from "@/core/_requests";
-import {FormCard} from "@/core/utils/formCard";
+import FormCard from "@/core/utils/formCard";
 import {Label} from "@/core/utils/ui/label";
 import {Input} from "@/core/utils/ui/input";
-import {getInputError} from "@/core/helpers/getInputError";
+import getInputError from "@/core/helpers/getInputError";
 import {Button} from "@/core/utils/ui/button";
 
-export function Form() {
+const ResetPasswordRequestForm = () => {
     const router = useRouter();
 
     const onSuccess = async function () {
@@ -33,7 +33,8 @@ export function Form() {
             </div>
 
             <Label htmlFor={"email"}>Email</Label>
-            <Input name={"email"} placeholder={"Entrez votre email"} required={true} error={getInputError(errors, "email")}/>
+            <Input name={"email"} placeholder={"Entrez votre email"} required={true}
+                   error={getInputError(errors, "email")}/>
             <Button type={"submit"} disabled={isLoading} className={"mt-5"}>
                 {isLoading ? (
                     <>
@@ -50,3 +51,4 @@ export function Form() {
         </FormCard>
     );
 }
+export default ResetPasswordRequestForm

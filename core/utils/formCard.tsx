@@ -1,12 +1,12 @@
 import {FormEvent, ReactNode} from "react";
 
-interface FormCardProps {
+interface IProps {
     title: string;
     handleSubmit?: (ev: FormEvent<HTMLFormElement>) => void;
     children: ReactNode;
 }
 
-export function FormCard({title, handleSubmit, children}: FormCardProps) {
+const FormCard = ({title, handleSubmit, children}: IProps) => {
     return (
         <div className="relative py-16 bg-gray-50">
             <div className="container relative m-auto px-6 md:px-12 xl:px-40">
@@ -25,3 +25,5 @@ export function FormCard({title, handleSubmit, children}: FormCardProps) {
         </div>
     );
 }
+
+export default FormCard

@@ -7,15 +7,15 @@ import {useMutate} from "@/core/hooks/useMutate";
 import {Label} from "@/core/utils/ui/label";
 import Uploader from "@/core/utils/Uploader";
 import {Input} from "@/core/utils/ui/input";
-import {getInputError} from "@/core/helpers/getInputError";
+import getInputError from "@/core/helpers/getInputError";
 import {Textarea} from "@/core/utils/ui/textarea";
 import {Button} from "@/core/utils/ui/button";
 import {Loader2} from "lucide-react";
-import {FormCard} from "@/core/utils/formCard";
+import FormCard from "@/core/utils/formCard";
 import {Solution} from "@/core/_models";
-import {Toast} from "@/core/utils/Toast";
+import Toast from "@/core/utils/Toast";
 
-export function Form({params}: { params: { id: string } }) {
+const UpdateSolutionForm = ({params}: { params: { id: string } }) => {
     const router = useRouter();
     const {data: solution} = useQuery(["solution", params.id], async () =>
         get<Solution>(`solutions/${+params.id}`)
@@ -75,3 +75,5 @@ export function Form({params}: { params: { id: string } }) {
         </FormCard>
     );
 }
+
+export default UpdateSolutionForm

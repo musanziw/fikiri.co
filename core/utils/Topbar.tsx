@@ -14,7 +14,7 @@ type Link = {
     isShown: boolean;
 };
 
-export default function Topbar() {
+const Topbar = () => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const pathname: string = usePathname();
     const router = useRouter();
@@ -58,7 +58,7 @@ export default function Topbar() {
         },
         {
             name: trimName(user?.name || ""),
-            path: "/me",
+            path: "/profile",
             isShown: user !== null,
         },
     ];
@@ -113,3 +113,5 @@ export default function Topbar() {
         </header>
     );
 }
+
+export default Topbar
