@@ -1,5 +1,6 @@
-import { User } from '../../types/models-interfaces';
+import {User} from '../../types/models-interfaces';
 
 export interface AuthStoreInterface {
   user: User | null;
+  error: string | null;
 }
