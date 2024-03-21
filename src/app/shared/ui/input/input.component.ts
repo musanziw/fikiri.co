@@ -20,4 +20,5 @@ export class InputComponent {
   @Input() label: string = ''
   @Input() type: 'email' | 'password' | 'text' | 'number' = 'text'
   @Input() placeholder: string = ''
+  @Input() error: string = ''
 }
