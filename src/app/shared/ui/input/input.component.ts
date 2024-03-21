@@ -1,13 +1,23 @@
-import {Component, Input} from "@angular/core";
-import {CommonModule} from "@angular/common";
+import {Component, inject, Input} from "@angular/core";
+import {ControlContainer, ReactiveFormsModule} from "@angular/forms";
 
 @Component({
-  selector: 'ui-button',
+  selector: 'ui-input',
   standalone: true,
-  imports: [CommonModule],
-  templateUrl: './button.component.html'
+  viewProviders: [
+    {
+      provide: ControlContainer,
+      useFactory: () => inject(ControlContainer, {skipSelf: true})
+    }
+  ],
+  imports: [
+    ReactiveFormsModule
+  ],
+  templateUrl: './input.component.html',
 })
 export class InputComponent {
-  @Input() type: 'button' | 'submit' | 'reset' = 'submit'
-  @Input() loading: boolean = false
+  @Input() name: string = ''
+  @Input() label: string = ''
+  @Input() type: 'email' | 'password' | 'text' | 'number' = 'text'
+  @Input() placeholder: string = ''
 }

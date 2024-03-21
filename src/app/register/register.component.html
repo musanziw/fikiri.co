@@ -1,0 +1,23 @@
+<ui-topbar/>
+<ui-form-card formTitle="Se connecter">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="gap-8 flex flex-col justify-center">
+    <ui-input type="text" name="name" label="Nom complet" placeholder="Entrez votre nom"/>
+    <ui-input type="text" name="phoneNumber" label="Numéro téléphonique" placeholder="Entrez votre numéro"/>
+    <ui-input type="email" name="email" label="Email" placeholder="Entrez votre email"/>
+    <ui-input type="password" name="password" label="Mot de passe" placeholder="Entrez votre mot de passe"/>
+    <ui-input type="password" name="passwordConfirm" label="Confirmez votre mot de passe"
+              placeholder="Entrez votre confirmation"/>
+    <ui-button type="submit" [loading]="false">
+      S'inscrire
+    </ui-button>
+    <hr class="my-6 border-gray-300 w-full"/>
+    <ui-button-outline>
+      <img ngSrc="assets/images/google.svg" alt="googlr" class="mr-2 h-4 w-4" width="10" height="10"/>
+      <span class="text-gray-950 text-sm"> S'inscrire avec Google</span>
+    </ui-button-outline>
+    <a routerLink="/register" class="text-gray-950 text-sm">
+      Pas encore de compte ? Inscrivez-vous
+    </a>
+  </form>
+</ui-form-card>
+<ui-footer/>

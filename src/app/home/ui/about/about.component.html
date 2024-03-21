@@ -1,0 +1,25 @@
+<div class="p-8 bg-white" id="about">
+  <div class="lg:mx-auto border-t overflow-hidden lg:max-w-screen-lg py-20">
+    <div class="grid grid-rows-1 md:grid-cols-2 gap-8 items-center content-center">
+      <div class="flex flex-col gap-4">
+        <h1 class="text-xl font-semibold">Qui sommes-nous ?</h1>
+        <p>
+          Fikiri est une plateforme web qui vise à cartographier les
+          solutions locales en République Démocratique du Congo pour
+          accélérer l&apos;atteinte des Objectifs de Développement Durable
+          (ODD). L&apos;objectif de Fikiri est de mettre en lumière les
+          solutions locales qui contribuent à l&apos;atteinte des ODD en
+          RDC. Cela permettra de faciliter la recherche des solutions
+          locales par les organisations internationales et les bailleurs de
+          fonds.
+        </p>
+      </div>
+      <img ngSrc='/assets/images/about.jpeg' alt="About image" class="rounded-md" width="1600" height="900"/>
+    </div>
+    <div class="flex gap-2 flex-wrap">
+      @for (partainer of partainers; track partainer.id) {
+        <img [ngSrc]="partainer.src" [alt]="partainer.name" class="w-32" width="360" height="270">
+      }
+    </div>
+  </div>
+</div>

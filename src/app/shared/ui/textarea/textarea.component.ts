@@ -5,7 +5,7 @@ import {CommonModule} from "@angular/common";
   selector: 'ui-button',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './button.component.html'
+  templateUrl: './textarea.component.html'
 })
 export class TextareaComponent {
   @Input() type: 'button' | 'submit' | 'reset' = 'submit'

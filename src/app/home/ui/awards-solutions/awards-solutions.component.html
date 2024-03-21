@@ -1,0 +1,11 @@
+<div class="p-8 mx-auto max-w-screen-lg">
+  <h2 class="text-2xl mb-6 text-gray-900 font-semibold">
+    Les solutions cartographiées
+  </h2>
+  <p class="text-lg font-medium">Les 8 meilleures solutions du fikiri <span class="text-cyan-500">Awards</span>.</p>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-12 mt-8">
+    @for(solution of solutions; let i = $index; track i ) {
+      <fk-solution-card [solution]="solution" />
+    }
+  </div>
+</div>

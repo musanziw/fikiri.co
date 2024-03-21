@@ -1,13 +1,10 @@
 import {Component, Input} from "@angular/core";
-import {CommonModule} from "@angular/common";
 
 @Component({
-  selector: 'ui-button',
+  selector: 'ui-spinner',
   standalone: true,
-  imports: [CommonModule],
-  templateUrl: './button.component.html'
+  imports: [],
+  templateUrl: './spinner.component.html'
 })
 export class SpinnerComponent {
-  @Input() type: 'button' | 'submit' | 'reset' = 'submit'
-  @Input() loading: boolean = false
 }

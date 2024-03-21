@@ -1,0 +1,62 @@
+<div class="relative">
+  <ui-topbar />
+  <div class="flex flex-col text-lg mx-6 justify-center max-w-screen-md md:mx-auto border-x border-dashed pt-24">
+    <h2
+      class="font-bold text-gray-700 text-3xl mb-2 border-l-4 border-blue-500 pl-2 -ml-1">
+      Titre de la solution
+    </h2>
+
+    <h2 class="text-2xl font-bold text-gray-950 mb-6 p-4">
+      {{ capitalizeFirstLetter(solution?.name ?? '') }}
+    </h2>
+
+    @if (solution) {
+      <img [ngSrc]="displayImage(solution)" alt={solution.name} height="250" width="300"
+           class="mb-8 h-[400px] w-full"/>
+    }
+
+    <h2
+      class="font-bold text-gray-700 text-3xl mb-2 border-l-4 border-blue-500 pl-2 -ml-1">
+      Desciption de la solution
+    </h2>
+    <p class="font-medium mb-4 p-4">{{ solution?.description }}</p>
+
+    <h2
+      class="font-bold text-gray-700 text-3xl mb-2 border-l-4 border-blue-500 pl-2 -ml-1">
+      Problème résolu
+    </h2>
+
+    <p class="font-medium mb-8 p-4">{{ solution?.targetedProblem }}</p>
+    <h2
+      class="font-bold text-gray-700 text-3xl mb-2 border-l-4 border-blue-500 pl-2 -ml-1">
+      Innovateur
+    </h2>
+
+    <p class="p-4">
+      {{ solution?.user?.name }} &mdash; {{ solution?.user?.email }}
+    </p>
+
+    <h2
+      class="font-bold text-gray-700 text-3xl mb-2 border-l-4 border-blue-500 pl-2 -ml-1">
+      Thématique
+    </h2>
+
+    <p class="p-4">
+      {{ solution?.thematic?.name }}
+    </p>
+
+    <h2
+      class="font-bold text-gray-700 text-3xl mb-2 border-l-4 border-blue-500 pl-2 -ml-1">
+      Défis
+    </h2>
+
+    <div class="p-4">
+      <p class="font-medium mb-6">
+        @for (challenge of solution?.challenges; let i = $index; track i) {
+          <span class="mr-2"> &mdash; {{ challenge.name }}</span>
+        }
+      </p>
+    </div>
+
+  </div>
+</div>
