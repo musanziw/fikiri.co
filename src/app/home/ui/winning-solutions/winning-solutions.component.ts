@@ -4,12 +4,12 @@ import { SolutionCardComponent } from '../../../shared/ui/solution-card/solution
 import { HomeService } from '../../home.service';
 
 @Component({
-  selector: 'ui-awards-solutions',
+  selector: 'ui-winning-solutions',
   standalone: true,
   imports: [SolutionCardComponent],
-  templateUrl: './awards-solutions.component.html',
+  templateUrl: './winnging-solutions.component.html',
 })
-export class AwardsSolutionsComponent implements OnInit {
+export class WinningSolutionsComponent implements OnInit {
   solutions: Solution[] = [];
   homeService = inject(HomeService);
 
