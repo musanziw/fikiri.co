@@ -45,8 +45,8 @@ export class LoginComponent implements OnDestroy {
               private loginService: LoginService
   ) {
     this.form = this.formBuilder.group({
-      email: ['berryn@lunnovel.org', Validators.email],
-      password: ['admin1234', Validators.required],
+      email: ['', Validators.email],
+      password: ['', Validators.required],
     });
   }
 
@@ -68,21 +68,21 @@ export class LoginComponent implements OnDestroy {
   }
 
   onSubmit(): void {
-    this.isLoading = true;
-    this.subscription$ = this.loginService.login(this.form.value).subscribe({
-      next: async (res) => {
-        this.store.dispatch(authActions.authenticationSuccess(res.data));
-        this.showSuccess();
-        await this.router.navigate(['/profile']);
-      },
-      error: (err) => {
-        this.store.dispatch(
-          authActions.authenticationFailure(err.error.message)
-        );
-        this.handleError(err);
-      },
-    });
-    this.isLoading = false;
+    if (!this.form.invalid){
+      this.isLoading = true;
+      this.subscription$ = this.loginService.login(this.form.value).subscribe({
+        next: async (res) => {
+          this.store.dispatch(authActions.authenticationSuccess(res.data));
+          this.showSuccess();
+          await this.router.navigate(['/profile']);
+        },
+        error: (err) => {
+          this.store.dispatch(authActions.authenticationFailure(err.error.message));
+          this.handleError(err);
+        },
+      });
+      this.isLoading = false;
+    }
   }
 
   ngOnDestroy(): void {
