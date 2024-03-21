@@ -1,9 +1,9 @@
-import { createReducer, on } from '@ngrx/store';
+import {createReducer, on} from '@ngrx/store';
 import * as solutionsActions from './solutions.actions';
-import { SolutionsStoreInterface } from '../types/solutions-store.interface';
+import {SolutionsStoreInterface} from '../types/solutions-store.interface';
 
 const initialState: SolutionsStoreInterface = {
-  cursor: 1,
+  cursor: 0,
   isLoading: false,
   solutions: [],
   error: null,
@@ -11,20 +11,28 @@ const initialState: SolutionsStoreInterface = {
 
 export const solutionsReducers = createReducer(
   initialState,
-  on(solutionsActions.load, (state) => ({ ...state, isLoading: true })),
-  on(solutionsActions.loadMore, (state) => ({
-    ...state,
-    isLoading: true,
-    cursor: state.cursor + 1,
-  })),
-  on(solutionsActions.loadSuccess, (state, actions) => ({
-    ...state,
-    isLoading: false,
-    solutions: actions.solutions,
-  })),
-  on(solutionsActions.loadFailure, (state, actions) => ({
-    ...state,
-    isLoading: false,
-    error: actions.error,
-  }))
+  on(solutionsActions.load, (state) => {
+    return {...state, isLoading: true, cursor: state.cursor + 1}
+  }),
+  on(solutionsActions.loadMore, (state) => {
+    return {
+      ...state,
+      isLoading: true,
+      cursor: state.cursor + 1
+    }
+  }),
+  on(solutionsActions.loadSuccess, (state, actions) => {
+    return {
+      ...state,
+      isLoading: false,
+      solutions: actions.solutions,
+    }
+  }),
+  on(solutionsActions.loadFailure, (state, actions) => {
+    return {
+      ...state,
+      isLoading: false,
+      error: actions.error,
+    }
+  })
 );

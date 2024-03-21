@@ -1,4 +1,4 @@
-import { Solution } from '../../../shared/types/models-interfaces';
+import {Solution} from '../../../shared/types/models-interfaces';
 
 export interface SolutionsStoreInterface {
   cursor: number;

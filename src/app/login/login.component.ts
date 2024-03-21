@@ -12,7 +12,7 @@ import {HttpErrorResponse} from '@angular/common/http';
 import {throwError} from 'rxjs/internal/observable/throwError';
 import {ToastContainerDirective, ToastrService} from 'ngx-toastr';
 import {Store} from '@ngrx/store';
-import {Subscription} from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
 import {LoginService} from './login.service';
 import {AuthStoreInterface} from '../shared/auth/types/auth-store.interface';
 import * as authActions from '../shared/auth/store/auth.actions';
@@ -40,12 +40,9 @@ export class LoginComponent implements OnDestroy {
   isLoading: boolean = false;
   subscription$: Subscription = new Subscription();
 
-  constructor(
-    private store: Store<AuthStoreInterface>,
-    private formBuilder: FormBuilder,
-    private router: Router,
-    private toast: ToastrService,
-    private loginService: LoginService
+  constructor(private store: Store<AuthStoreInterface>, private formBuilder: FormBuilder,
+              private router: Router, private toast: ToastrService,
+              private loginService: LoginService
   ) {
     this.form = this.formBuilder.group({
       email: ['berryn@lunnovel.org', Validators.email],
@@ -53,15 +50,15 @@ export class LoginComponent implements OnDestroy {
     });
   }
 
-  showSuccess() {
+  showSuccess(): void {
     this.toast.success('Connexion réussie');
   }
 
-  showError(error: string) {
+  showError(error: string): void {
     this.toast.error(error);
   }
 
-  handleError(error: HttpErrorResponse) {
+  handleError(error: HttpErrorResponse): Observable<never> {
     if (error.status === 0) {
       this.showError('Impossible de se connecter au serveur');
     } else {
@@ -70,7 +67,7 @@ export class LoginComponent implements OnDestroy {
     return throwError(() => new Error('Essayer à nouveau !'));
   }
 
-  onSubmit() {
+  onSubmit(): void {
     this.isLoading = true;
     this.subscription$ = this.loginService.login(this.form.value).subscribe({
       next: async (res) => {

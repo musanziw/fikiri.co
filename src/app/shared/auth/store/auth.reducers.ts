@@ -1,6 +1,6 @@
-import { createReducer, on } from '@ngrx/store';
+import {createReducer, on} from '@ngrx/store';
 import * as authActions from './auth.actions';
-import { AuthStoreInterface } from '../types/auth-store.interface';
+import {AuthStoreInterface} from '../types/auth-store.interface';
 
 const initialState: AuthStoreInterface = {
   user: null,
@@ -9,13 +9,22 @@ const initialState: AuthStoreInterface = {
 
 export const authReducers = createReducer(
   initialState,
-  on(authActions.authentication, (store) => ({ ...store, user: null })),
-  on(authActions.authenticationSuccess, (store, user) => ({
-    ...store,
-    user,
-  })),
-  on(authActions.authenticationFailure, (store, actions) => ({
-    ...store,
-    error: actions.error,
-  }))
+  on(authActions.authentication, (store) => {
+    return {
+      ...store,
+      user: null
+    }
+  }),
+  on(authActions.authenticationSuccess, (store, user) => {
+    return {
+      ...store,
+      user,
+    }
+  }),
+  on(authActions.authenticationFailure, (store, actions) => {
+    return {
+      ...store,
+      error: actions.error,
+    }
+  })
 );

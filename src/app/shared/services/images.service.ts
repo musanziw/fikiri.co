@@ -6,7 +6,7 @@ import {Solution, SolutionImages} from "../types/models-interfaces";
 })
 export class ImagesService {
 
-  isValideImage(image: string) {
+  isValideImage(image: string): boolean {
     return image.endsWith('.jpeg') || image.endsWith('.jpg') || image.endsWith('.png')
   }
 
@@ -14,7 +14,7 @@ export class ImagesService {
     return images.find(image => this.isValideImage(image.imageLink))
   }
 
-  diplayImage(solution: Solution) {
+  diplayImage(solution: Solution): string {
     if (solution.imageLink && this.isValideImage(solution.imageLink)) {
       return 'https://api.fikiri.co/uploads/' + solution.imageLink
     }

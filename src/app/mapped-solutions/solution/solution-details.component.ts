@@ -30,11 +30,11 @@ export class SolutionDetailsComponent implements OnInit {
     });
   }
 
-  displayImage(solution: Solution) {
+  displayImage(solution: Solution): string {
     return this.imageService.diplayImage(solution);
   }
 
-  capitalizeFirstLetter(word: string) {
+  capitalizeFirstLetter(word: string): string {
     return this.stringService.capitalizeFirsteLetter(word);
   }
 }

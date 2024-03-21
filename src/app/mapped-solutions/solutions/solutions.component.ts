@@ -35,7 +35,6 @@ export class SolutionsComponent {
   solutions$: Observable<Solution[]>;
   isLoading$: Observable<boolean>;
   cursor$: Observable<number>;
-  cursor: number = 1;
 
   constructor(private store: Store<AppStoreInterface>) {
     this.store.dispatch(solutionsActions.load());

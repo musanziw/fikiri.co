@@ -1,5 +1,5 @@
-import { createSelector } from '@ngrx/store';
-import { AppStoreInterface } from '../../../shared/types/app-store.interface';
+import {createSelector} from '@ngrx/store';
+import {AppStoreInterface} from '../../../shared/types/app-store.interface';
 
 export const selectFeature = (state: AppStoreInterface) => state.solutions;
 

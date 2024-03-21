@@ -1,12 +1,7 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {NgOptimizedImage} from '@angular/common';
 import {RouterLink} from '@angular/router';
-import {
-  FormBuilder,
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule
-} from '@angular/forms';
+import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {FormCardComponent} from '../shared/ui/form-card/form-card.component';
 import {FooterComponent} from '../shared/ui/footer/footer.component';
 import {TopbarComponent} from '../shared/ui/topbar/topbar.component';
