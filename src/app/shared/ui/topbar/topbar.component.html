@@ -11,30 +11,48 @@
   <div
     class="absolute top-14 z-30 w-screen h-screen bg-white transition-transform shadow-xl duration-500 right-0 py-20 px-16 flex flex-col items-start gap-6 justify-start lg:hidden"
     [ngClass]="{ '-translate-y-[200%]': !isOpen() }">
-    @for (link of links; track link.path) {
-      @if (link.isShown) {
+    @for (link of commonLinks; track link.path) {
+      <a [routerLink]="link.path" class="transition-colors duration-300" routerLinkActive="text-blue-800">
+        {{ link.name }}
+      </a>
+    }
+    @if (user$ | async) {
+      @for (link of userLinks; track link.path) {
         <a [routerLink]="link.path" class="transition-colors duration-300" routerLinkActive="text-blue-800">
           {{ link.name }}
         </a>
       }
-    }
-    @if (user$ | async) {
       <button (click)="logOut()">Déconnexion</button>
+    } @else {
+      @for (link of authLinks; track link.path) {
+        <a [routerLink]="link.path" class="transition-colors duration-300" routerLinkActive="text-blue-800">
+          {{ link.name }}
+        </a>
+      }
     }
   </div>
 
   <!-- Desktop navbar -->
   <div class="hidden lg:flex items-center gap-4">
-    @for (link of links; track link.path) {
-      @if (link.isShown && !(user$ |
-        async)) {
+    @for (link of commonLinks; track link.path) {
+      <a [routerLink]="link.path" class="transition-colors duration-300" routerLinkActive="text-blue-800">
+        {{ link.name }}
+      </a>
+    }
+
+    @if (user$ | async) {
+      @for (link of userLinks; track link.path) {
         <a [routerLink]="link.path" class="transition-colors duration-300" routerLinkActive="text-blue-800">
           {{ link.name }}
         </a>
       }
-    }
-    @if (user$ | async) {
       <button (click)="logOut()">Déconnexion</button>
+    } @else {
+      @for (link of authLinks; track link.path) {
+        <a [routerLink]="link.path" class="transition-colors duration-300" routerLinkActive="text-blue-800">
+          {{ link.name }}
+        </a>
+      }
     }
   </div>
 </header>

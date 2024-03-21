@@ -26,5 +26,11 @@ export const authReducers = createReducer(
       ...store,
       error: actions.error,
     }
+  }),
+  on(authActions.authenticationLogout, (store, actions) => {
+    return {
+      ...store,
+      user: null,
+    }
   })
 );

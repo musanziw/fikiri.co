@@ -1,11 +1,13 @@
-import {Component, signal} from '@angular/core';
+import {Component, OnDestroy, signal, WritableSignal} from '@angular/core';
 import {CommonModule, NgOptimizedImage} from '@angular/common';
 import {Router, RouterModule} from '@angular/router';
 import {User} from '../../types/models-interfaces';
 import {select, Store} from '@ngrx/store';
 import {AppStoreInterface} from '../../types/app-store.interface';
 import {userSelector} from '../../auth/store/auth.selectors';
-import {Observable} from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
+import {AuthService} from "../../auth/auth.service";
+import * as authActions from "../../auth/store/auth.actions";
 
 @Component({
   selector: 'ui-topbar',
@@ -13,54 +15,63 @@ import {Observable} from 'rxjs';
   imports: [CommonModule, RouterModule, NgOptimizedImage],
   templateUrl: './topbar.component.html',
 })
-export class TopbarComponent {
-  isOpen = signal(false);
+export class TopbarComponent implements OnDestroy {
+  isOpen: WritableSignal<boolean> = signal(false);
   user$: Observable<User | null>;
+  userSubscription$: Subscription;
 
-  constructor(private store: Store<AppStoreInterface>, private router: Router) {
+  constructor(private store: Store<AppStoreInterface>, private router: Router, private authService: AuthService) {
     this.user$ = this.store.pipe(select(userSelector));
+    this.userSubscription$ = this.user$.subscribe(user => {
+      this.userLinks[0].name = this.trimName(user?.name || '');
+    })
   }
 
-  links: { name: string; path: string; isShown: boolean }[] = [
+  commonLinks: { name: string; path: string }[] = [
+    {
+      name: 'Appels',
+      path: '/calls',
+    },
     {
       name: 'Solutions',
       path: '/solutions',
-      isShown: true,
     },
+  ]
+
+  authLinks: { name: string; path: string }[] = [
     {
       name: 'Se connecter',
       path: '/login',
-      isShown: true,
     },
     {
       name: "S'inscrire",
       path: '/register',
-      isShown: true,
-    },
-    {
-      name: 'Profil',
-      path: '/profile',
-      isShown: false,
     },
   ];
 
+  userLinks: { name: string; path: string }[] = [
+    {
+      name: '',
+      path: '/profile',
+    },
+  ];
+
+
   async logOut() {
     await this.router.navigate(['/']);
-    // this.userService.setUser(null);
-    // Assuming a logout API call
-    // this.authService.logout().subscribe(() => {
-    //   this.router.navigate(['/']);
-    // });
+    this.store.dispatch(authActions.authenticationLogout())
+    this.authService.logout().subscribe()
   }
 
   trimName(name: string): string {
-    if (name.length > 15) {
-      return name.substring(0, 15) + '...';
-    }
-    return name;
+    return name.length > 15 ? (name = name.substring(0, 15) + '...') : name
   }
 
   toggleMenu(): void {
     this.isOpen.update((isOpen) => !isOpen);
+  }
+
+  ngOnDestroy() {
+    this.userSubscription$.unsubscribe();
   }
 }
