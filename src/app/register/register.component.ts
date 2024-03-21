@@ -5,8 +5,7 @@ import {
   FormBuilder,
   FormGroup,
   FormsModule,
-  ReactiveFormsModule,
-  Validators,
+  ReactiveFormsModule
 } from '@angular/forms';
 import {FormCardComponent} from '../shared/ui/form-card/form-card.component';
 import {FooterComponent} from '../shared/ui/footer/footer.component';

@@ -7,17 +7,12 @@ import {InputComponent} from '../shared/ui/input/input.component';
 import {Router, RouterLink} from '@angular/router';
 import {AsyncPipe, NgOptimizedImage} from '@angular/common';
 import {ButtonOutlineComponent} from '../shared/ui/button-outline/button-outline.component';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import {FormBuilder, FormGroup, ReactiveFormsModule, Validators,} from '@angular/forms';
 import {HttpErrorResponse} from '@angular/common/http';
 import {throwError} from 'rxjs/internal/observable/throwError';
 import {ToastContainerDirective, ToastrService} from 'ngx-toastr';
 import {Store} from '@ngrx/store';
-import {Observable, Subscription} from 'rxjs';
+import {Subscription} from 'rxjs';
 import {LoginService} from './login.service';
 import {AuthStoreInterface} from '../shared/auth/types/auth-store.interface';
 import * as authActions from '../shared/auth/store/auth.actions';
