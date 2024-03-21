@@ -4,15 +4,18 @@ import { AuthStoreInterface } from '../types/auth-store.interface';
 
 const initialState: AuthStoreInterface = {
   user: null,
+  error: null,
 };
 
 export const authReducers = createReducer(
   initialState,
-  on(authActions.authentication, (_, user) => ({
-    user: null,
-  })),
-  on(authActions.authenticationSuccess, (_, user) => ({
+  on(authActions.authentication, (store) => ({ ...store, user: null })),
+  on(authActions.authenticationSuccess, (store, user) => ({
+    ...store,
     user,
   })),
-  on(authActions.authenticationFailure, (_, user) => ({ user: null }))
+  on(authActions.authenticationFailure, (store, actions) => ({
+    ...store,
+    error: actions.error,
+  }))
 );
