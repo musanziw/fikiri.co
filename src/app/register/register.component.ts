@@ -1,7 +1,6 @@
-import { Component, inject, OnInit } from '@angular/core';
-
-import { NgOptimizedImage } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import {Component, inject, OnInit} from '@angular/core';
+import {NgOptimizedImage} from '@angular/common';
+import {RouterLink} from '@angular/router';
 import {
   FormBuilder,
   FormGroup,
@@ -9,12 +8,12 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { FormCardComponent } from '../shared/ui/form-card/form-card.component';
-import { FooterComponent } from '../shared/ui/footer/footer.component';
-import { TopbarComponent } from '../shared/ui/topbar/topbar.component';
-import { ButtonComponent } from '../shared/ui/button/button.component';
-import { ButtonOutlineComponent } from '../shared/ui/button-outline/button-outline.component';
-import { InputComponent } from '../shared/ui/input/input.component';
+import {FormCardComponent} from '../shared/ui/form-card/form-card.component';
+import {FooterComponent} from '../shared/ui/footer/footer.component';
+import {TopbarComponent} from '../shared/ui/topbar/topbar.component';
+import {ButtonComponent} from '../shared/ui/button/button.component';
+import {ButtonOutlineComponent} from '../shared/ui/button-outline/button-outline.component';
+import {InputComponent} from '../shared/ui/input/input.component';
 
 @Component({
   selector: 'app-register',

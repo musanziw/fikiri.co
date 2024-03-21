@@ -6,7 +6,7 @@ import {ImagesService} from "../../services/images.service";
 import {StringsService} from "../../services/strings.service";
 
 @Component({
-  selector: 'fk-solution-card',
+  selector: 'ui-solution-card',
   standalone: true,
   imports: [
     NgOptimizedImage,
@@ -17,15 +17,12 @@ import {StringsService} from "../../services/strings.service";
 export class SolutionCardComponent {
   @Input() solution!: Solution;
 
-  constructor(
-    private imageService: ImagesService,
-    private stringService: StringsService
-  ) {
+  constructor(private imageService: ImagesService, private stringService: StringsService) {
   }
 
   displayImage(solution: Solution) {
     return this.imageService.diplayImage(solution)
-  };
+  }
 
   capitalizeFirsteLetter(word: string) {
     return this.stringService.capitalizeFirsteLetter(word);

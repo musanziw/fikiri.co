@@ -1,25 +1,25 @@
-import { Component, OnDestroy } from '@angular/core';
-import { FormCardComponent } from '../shared/ui/form-card/form-card.component';
-import { TopbarComponent } from '../shared/ui/topbar/topbar.component';
-import { FooterComponent } from '../shared/ui/footer/footer.component';
-import { ButtonComponent } from '../shared/ui/button/button.component';
-import { InputComponent } from '../shared/ui/input/input.component';
-import { Router, RouterLink } from '@angular/router';
-import { AsyncPipe, NgOptimizedImage } from '@angular/common';
-import { ButtonOutlineComponent } from '../shared/ui/button-outline/button-outline.component';
+import {Component, OnDestroy} from '@angular/core';
+import {FormCardComponent} from '../shared/ui/form-card/form-card.component';
+import {TopbarComponent} from '../shared/ui/topbar/topbar.component';
+import {FooterComponent} from '../shared/ui/footer/footer.component';
+import {ButtonComponent} from '../shared/ui/button/button.component';
+import {InputComponent} from '../shared/ui/input/input.component';
+import {Router, RouterLink} from '@angular/router';
+import {AsyncPipe, NgOptimizedImage} from '@angular/common';
+import {ButtonOutlineComponent} from '../shared/ui/button-outline/button-outline.component';
 import {
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { HttpErrorResponse } from '@angular/common/http';
-import { throwError } from 'rxjs/internal/observable/throwError';
-import { ToastContainerDirective, ToastrService } from 'ngx-toastr';
-import { Store } from '@ngrx/store';
-import { Observable, Subscription } from 'rxjs';
-import { LoginService } from './login.service';
-import { AuthStoreInterface } from '../shared/auth/types/auth-store.interface';
+import {HttpErrorResponse} from '@angular/common/http';
+import {throwError} from 'rxjs/internal/observable/throwError';
+import {ToastContainerDirective, ToastrService} from 'ngx-toastr';
+import {Store} from '@ngrx/store';
+import {Observable, Subscription} from 'rxjs';
+import {LoginService} from './login.service';
+import {AuthStoreInterface} from '../shared/auth/types/auth-store.interface';
 import * as authActions from '../shared/auth/store/auth.actions';
 
 @Component({
@@ -84,7 +84,9 @@ export class LoginComponent implements OnDestroy {
         await this.router.navigate(['/profile']);
       },
       error: (err) => {
-        this.store.dispatch(authActions.authenticationFailure());
+        this.store.dispatch(
+          authActions.authenticationFailure(err.error.message)
+        );
         this.handleError(err);
       },
     });

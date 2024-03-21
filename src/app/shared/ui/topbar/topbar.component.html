@@ -1,21 +1,8 @@
-<header
-  class="fixed w-full text-gray-800 bg-white shadow-md px-10 py-4 z-10 flex items-center justify-between"
->
+<header class="fixed w-full text-gray-800 bg-white shadow-md px-10 py-4 z-10 flex items-center justify-between">
   <a routerLink="/" class="inline-block" aria-label="logo">
-    <img
-      ngSrc="/assets/images/logo.webp"
-      alt="Logo"
-      class="cursor-pointer w-24"
-      width="96"
-      height="31"
-      priority
-    />
+    <img ngSrc="/assets/images/logo.webp" alt="Logo" class="cursor-pointer w-24" width="96" height="31" priority/>
   </a>
-  <div
-    class="flex flex-col gap-2 lg:hidden"
-    [ngClass]="{ active: isOpen() }"
-    (click)="toggleMenu()"
-  >
+  <div class="flex flex-col gap-2 lg:hidden" [ngClass]="{ active: isOpen() }" (click)="toggleMenu()">
     <div class="h-[1px] w-6 bg-black transition-transform duration-300"></div>
     <div class="h-[1px] w-6 bg-black transition-transform duration-300"></div>
   </div>
@@ -23,36 +10,31 @@
   <!-- Mobile navbar -->
   <div
     class="absolute top-14 z-30 w-screen h-screen bg-white transition-transform shadow-xl duration-500 right-0 py-20 px-16 flex flex-col items-start gap-6 justify-start lg:hidden"
-    [ngClass]="{ '-translate-y-[200%]': !isOpen() }"
-  >
-    @for (link of links; track link.path) { @if (link.isShown) {
-    <a
-      href=""
-      [routerLink]="link.path"
-      class="transition-colors duration-300"
-      routerLinkActive="text-blue-800"
-    >
-      {{ link.name }}
-    </a>
-    } } @if (user$ | async) {
-    <button (click)="logOut()">Déconnexion</button>
+    [ngClass]="{ '-translate-y-[200%]': !isOpen() }">
+    @for (link of links; track link.path) {
+      @if (link.isShown) {
+        <a [routerLink]="link.path" class="transition-colors duration-300" routerLinkActive="text-blue-800">
+          {{ link.name }}
+        </a>
+      }
+    }
+    @if (user$ | async) {
+      <button (click)="logOut()">Déconnexion</button>
     }
   </div>
 
   <!-- Desktop navbar -->
   <div class="hidden lg:flex items-center gap-4">
-    @for (link of links; track link.path) { @if (link.isShown && !(user$ |
-    async)) {
-    <a
-      href=""
-      [routerLink]="link.path"
-      class="transition-colors duration-300"
-      routerLinkActive="text-blue-800"
-    >
-      {{ link.name }}
-    </a>
-    } } @if (user$ | async) {
-    <button (click)="logOut()">Déconnexion</button>
+    @for (link of links; track link.path) {
+      @if (link.isShown && !(user$ |
+        async)) {
+        <a [routerLink]="link.path" class="transition-colors duration-300" routerLinkActive="text-blue-800">
+          {{ link.name }}
+        </a>
+      }
+    }
+    @if (user$ | async) {
+      <button (click)="logOut()">Déconnexion</button>
     }
   </div>
 </header>

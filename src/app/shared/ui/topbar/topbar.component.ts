@@ -1,11 +1,11 @@
-import { Component, signal } from '@angular/core';
-import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { Router, RouterModule } from '@angular/router';
-import { User } from '../../types/models-interfaces';
-import { select, Store } from '@ngrx/store';
-import { AppStoreInterface } from '../../types/app-store.interface';
-import { userSelector } from '../../auth/store/auth.selectors';
-import { Observable } from 'rxjs';
+import {Component, signal} from '@angular/core';
+import {CommonModule, NgOptimizedImage} from '@angular/common';
+import {Router, RouterModule} from '@angular/router';
+import {User} from '../../types/models-interfaces';
+import {select, Store} from '@ngrx/store';
+import {AppStoreInterface} from '../../types/app-store.interface';
+import {userSelector} from '../../auth/store/auth.selectors';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'ui-topbar',
