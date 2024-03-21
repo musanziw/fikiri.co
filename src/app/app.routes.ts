@@ -1,5 +1,5 @@
-import { Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
+import {Routes} from '@angular/router';
+import {HomeComponent} from './home/home.component';
 
 export const routes: Routes = [
   {
@@ -11,7 +11,7 @@ export const routes: Routes = [
     path: 'solutions',
     title: 'Fikiri | Solutions',
     loadComponent: () =>
-      import('./solutions/solutions-list/solutions.component').then(
+      import('./mapped-solutions/solutions/solutions.component').then(
         (c) => c.SolutionsComponent
       ),
   },
@@ -19,7 +19,7 @@ export const routes: Routes = [
     path: 'solutions/:id',
     title: 'Fikiri | Solution - details',
     loadComponent: () =>
-      import('./solutions/solution-details/solution-details.component').then(
+      import('./mapped-solutions/solution/solution-details.component').then(
         (c) => c.SolutionDetailsComponent
       ),
   },
