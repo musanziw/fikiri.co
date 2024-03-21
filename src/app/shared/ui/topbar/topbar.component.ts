@@ -64,7 +64,7 @@ export class TopbarComponent implements OnDestroy {
   }
 
   trimName(name: string): string {
-    return name.length > 15 ? (name = name.substring(0, 15) + '...') : name
+    return name.length > 15 ? name.substring(0, 15) + '...' : name
   }
 
   toggleMenu(): void {
