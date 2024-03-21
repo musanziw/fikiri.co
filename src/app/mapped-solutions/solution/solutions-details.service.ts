@@ -1,5 +1,4 @@
-import {inject, Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
 import {Solution} from '../../shared/types/models-interfaces';
 import {environment} from '../../../environments/environment';
 import {HttpClientService} from "../../shared/services/http-client.service";
