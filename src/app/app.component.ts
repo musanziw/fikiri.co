@@ -1,5 +1,5 @@
 import {Store} from '@ngrx/store';
-import {Component, OnDestroy} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
 import * as authActions from './shared/auth/store/auth.actions';
 import {AuthStoreInterface} from './shared/auth/types/auth-store.interface';
@@ -10,8 +10,11 @@ import {AuthStoreInterface} from './shared/auth/types/auth-store.interface';
   imports: [RouterOutlet],
   templateUrl: './app.component.html',
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   constructor(private store: Store<AuthStoreInterface>) {
+  }
+
+  ngOnInit() {
     this.store.dispatch(authActions.authentication());
   }
 }
