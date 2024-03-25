@@ -1,37 +1,52 @@
 <div class="relative">
-  <ui-topbar/>
-  <div class="p-8 pt-28 text-gray-600 border-x border-dashed lg:mx-auto lg:max-w-screen-lg">
-    <h3 class="text-2xl font-bold mb-5">
-      Les solutions innovantes de la communauté
-    </h3>
-    <p class="mb-10">
-      Les solutions innovantes de la communauté sont des projets qui ont été mis
-      en place par des organisations locales ou des individus pour résoudre les
-      problèmes de la communauté.
-    </p>
-    <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-      @for (solution of solutions$ | async; track solution.id) {
-        <ui-solution-card [solution]="solution"/>
-      }
-      @if (isLoading$ | async) {
-        @for (i of [1, 2, 3, 4, 5, 6]; track i) {
-          <ui-solution-card-skeleton/>
-        }
-      }
-    </div>
-    <div class="flex mt-8 w-full justify-center items-center text-sm">
-      <hr class="w-full border-gray-300"/>
-      <button type="button" [disabled]="isLoading$ | async"
-              class="bg-none border w-1/2 rounded-full py-2 px-8 text-gray-950 hover:bg-gray-300/40 duration-75 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed"
-              (click)="loadMore()">
-        @if (isLoading$ | async) {
-          <ui-spinner/>
-        } @else {
-          Voir plus
-        }
-      </button>
-      <hr class="w-full border-gray-300"/>
+  <ui-topbar />
+
+  <div class="bg-solutions bg-cover bg-center bg-no-repeat">
+    <div
+      class="px-8 h-full py-40 flex flex-col items-center justify-center bg-gradient-to-b from-gray-300/30 to-gray-600 text-gray-50 mx-auto"
+    >
+      <div
+        class="flex flex-col justify-center items-start gap-6 mx-auto md:max-w-screen-lg"
+      >
+        <h2
+          class="text-xl md:text-4xl text-gray-50 font-semibold mt-6 md:w-2/3"
+        >
+          Les solutions innovantes de la communauté.
+        </h2>
+        <p class="md:w-2/3 md:text-xl font-medium mb-3">
+          Les solutions innovantes de la communauté sont des projets qui ont été
+          mis en place par des organisations locales ou des individus pour
+          résoudre les problèmes de la communauté.
+        </p>
+      </div>
     </div>
   </div>
-  <ui-footer/>
+
+  <div
+    class="p-8 text-gray-600 border-x border-dashed lg:mx-auto lg:max-w-screen-lg"
+  >
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+      @for (solution of solutions$ | async; track solution.id) {
+      <ui-solution-card [solution]="solution" />
+      } @if (isLoading$ | async) { @for (i of [1, 2, 3, 4, 5, 6]; track i) {
+      <ui-solution-card-skeleton />
+      } }
+    </div>
+    <div class="flex mt-8 w-full justify-center items-center text-sm">
+      <hr class="w-full border-gray-300" />
+      <ng-component> </ng-component>
+      <button
+        type="button"
+        [disabled]="isLoading$ | async"
+        class="bg-none border w-1/2 rounded-full py-2 px-8 text-gray-950 hover:bg-gray-300/40 duration-75 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed"
+        (click)="loadMore(3)"
+      >
+        @if (isLoadingMore$ | async) {
+        <ui-spinner />
+        } @else { Voir plus }
+      </button>
+      <hr class="w-full border-gray-300" />
+    </div>
+  </div>
+  <ui-footer />
 </div>

@@ -1,9 +1,10 @@
-import {createReducer, on} from '@ngrx/store';
+import { createReducer, on } from '@ngrx/store';
 import * as solutionsActions from './solutions.actions';
-import {SolutionsStoreInterface} from '../types/solutions-store.interface';
+import { SolutionsStoreInterface } from '../types/solutions-store.interface';
 
 const initialState: SolutionsStoreInterface = {
   cursor: 0,
+  isLoadingMore: false,
   isLoading: false,
   solutions: [],
   error: null,
@@ -12,27 +13,29 @@ const initialState: SolutionsStoreInterface = {
 export const solutionsReducers = createReducer(
   initialState,
   on(solutionsActions.load, (state) => {
-    return {...state, isLoading: true, cursor: state.cursor + 1}
+    return { ...state, isLoading: true, cursor: state.cursor + 1 };
   }),
   on(solutionsActions.loadMore, (state) => {
     return {
       ...state,
-      isLoading: true,
-      cursor: state.cursor + 1
-    }
+      isLoadingMore: true,
+      cursor: state.cursor + 1,
+    };
   }),
   on(solutionsActions.loadSuccess, (state, actions) => {
     return {
       ...state,
       isLoading: false,
+      isLoadingMore: false,
       solutions: actions.solutions,
-    }
+    };
   }),
   on(solutionsActions.loadFailure, (state, actions) => {
     return {
       ...state,
       isLoading: false,
+      isLoadingMore: false,
       error: actions.error,
-    }
+    };
   })
 );

@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Solution } from '../../shared/types/models-interfaces';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgComponentOutlet } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { SolutionCardComponent } from '../../shared/ui/solution-card/solution-card.component';
 import { TopbarComponent } from '../../shared/ui/topbar/topbar.component';
@@ -15,7 +15,7 @@ import {
   solutionsSelector,
 } from './store/solutions.selectors';
 import { SpinnerComponent } from '../../shared/ui/spinner/spinner.component';
-import {SolutionCardSkeletonComponent} from "../../shared/ui/solution-card-skeleton/solution-card-skeleton.component";
+import { SolutionCardSkeletonComponent } from '../../shared/ui/solution-card-skeleton/solution-card-skeleton.component';
 
 @Component({
   selector: 'fk-solutions',
@@ -29,21 +29,27 @@ import {SolutionCardSkeletonComponent} from "../../shared/ui/solution-card-skele
     FooterComponent,
     SpinnerComponent,
     SolutionCardSkeletonComponent,
+    NgComponentOutlet,
   ],
 })
-export class SolutionsComponent {
+export class SolutionsComponent implements OnInit {
   solutions$: Observable<Solution[]>;
   isLoading$: Observable<boolean>;
+  isLoadingMore$: Observable<boolean>;
   cursor$: Observable<number>;
 
   constructor(private store: Store<AppStoreInterface>) {
-    this.store.dispatch(solutionsActions.load());
     this.solutions$ = this.store.pipe(select(solutionsSelector));
     this.isLoading$ = this.store.pipe(select(isLoadingSelector));
     this.cursor$ = this.store.pipe(select(cursorSelector));
+    this.isLoadingMore$ = this.store.pipe(select(isLoadingSelector));
   }
 
-  loadMore() {
-    this.store.dispatch(solutionsActions.loadMore());
+  ngOnInit(): void {
+    this.store.dispatch(solutionsActions.load());
+  }
+
+  loadMore(cursor: number) {
+    this.store.dispatch(solutionsActions.loadMore({ cursor }));
   }
 }

@@ -15,7 +15,7 @@ export class SolutionsEffect {
     return this.actions$.pipe(
       ofType(solutionsActions.load),
       mergeMap(() => {
-        return this.solutionsService.getMappedSolutions().pipe(
+        return this.solutionsService.getMappedSolutions(1).pipe(
           map((res) => solutionsActions.loadSuccess({ solutions: res.data })),
           catchError((error) =>
             of(solutionsActions.loadFailure({ error: error.message }))
@@ -29,7 +29,7 @@ export class SolutionsEffect {
     return this.actions$.pipe(
       ofType(solutionsActions.loadMore),
       mergeMap(() => {
-        return this.solutionsService.getMappedSolutions().pipe(
+        return this.solutionsService.getMappedSolutions(2).pipe(
           map((res) => solutionsActions.loadSuccess({ solutions: res.data })),
           catchError((error) =>
             of(solutionsActions.loadFailure({ error: error.message }))
