@@ -5,7 +5,8 @@ module.exports = {
     extend: {
       backgroundImage: {
         hero: 'url("/assets/images/hero.webp")',
-        about: 'url("/assets/images/about.jpeg")',
+        about: 'url("/assets/images/solutions.webp")',
+        solutions: 'url("/assets/images/about.webp")'
       },
     },
   },
