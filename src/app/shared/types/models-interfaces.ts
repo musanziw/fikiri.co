@@ -34,7 +34,7 @@ export interface Solution {
   call?: Call;
   status: Status;
   thematic?: Thematic;
-  user?: User;
+  user: User;
   challenges?: Challenge[];
   images: SolutionImages[];
 }
@@ -85,7 +85,7 @@ export interface User {
   address?: string;
   token?: string;
   googleImage?: string;
-  profile?: string;
+  profile: string;
   createdAt: Date;
   updatedAt: Date;
   solutions?: Solution[];

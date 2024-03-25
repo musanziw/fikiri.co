@@ -1,34 +1,16 @@
 <div class="relative">
   <ui-topbar />
-
-  <div class="bg-solutions bg-cover bg-center bg-no-repeat">
-    <div
-      class="px-8 h-full py-40 flex flex-col items-center justify-center bg-gradient-to-b from-gray-300/30 to-gray-600 text-gray-50 mx-auto"
-    >
-      <div
-        class="flex flex-col justify-center items-start gap-6 mx-auto md:max-w-screen-lg"
-      >
-        <h2
-          class="text-xl md:text-4xl text-gray-50 font-semibold mt-6 md:w-2/3"
-        >
-          Les solutions innovantes de la communauté.
-        </h2>
-        <p class="md:w-2/3 md:text-xl font-medium mb-3">
-          Les solutions innovantes de la communauté sont des projets qui ont été
-          mis en place par des organisations locales ou des individus pour
-          résoudre les problèmes de la communauté.
-        </p>
-      </div>
-    </div>
-  </div>
-
   <div
     class="p-8 text-gray-600 border-x border-dashed lg:mx-auto lg:max-w-screen-lg"
   >
-    <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+    <h2 class="text-xl md:text-2xl mb-8 font-semibold pt-20 md:w-2/3">
+      Les solutions innovantes de la communauté.
+    </h2>
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
       @for (solution of solutions$ | async; track solution.id) {
       <ui-solution-card [solution]="solution" />
-      } @if (isLoading$ | async) { @for (i of [1, 2, 3, 4, 5, 6]; track i) {
+      } @if (isLoading$ | async) { @for (i of [1, 2, 3, 4, 5, 6, 7, 8]; track i)
+      {
       <ui-solution-card-skeleton />
       } }
     </div>

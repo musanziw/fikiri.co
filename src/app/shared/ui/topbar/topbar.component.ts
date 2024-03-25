@@ -38,7 +38,6 @@ export class TopbarComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.userSubscription$ = this.user$.subscribe({
       next: (user) => {
-        console.log(user);
         this.userLinks[0].name = this.trimName(user?.name || '');
       },
     });
