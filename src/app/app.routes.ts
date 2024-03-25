@@ -1,5 +1,6 @@
 import {Routes} from '@angular/router';
 import {HomeComponent} from './home/home.component';
+import {authGuard} from "./shared/auth/auth.guard";
 
 export const routes: Routes = [
   {
@@ -38,7 +39,14 @@ export const routes: Routes = [
   {
     path: 'profile',
     title: 'Fikiri | Profile',
+    canActivate: [authGuard],
     loadComponent: () =>
       import('./profile/profile.component').then((c) => c.ProfileComponent),
+  },
+  {
+    path: '**',
+    title: 'Fikiri | Home',
+    loadComponent: () =>
+      import('./home/home.component').then((c) => c.HomeComponent),
   },
 ];
