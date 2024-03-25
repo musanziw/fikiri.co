@@ -5,6 +5,7 @@ import {TopbarComponent} from '../shared/ui/topbar/topbar.component';
 import {FormCardComponent} from '../shared/ui/form-card/form-card.component';
 import {FooterComponent} from '../shared/ui/footer/footer.component';
 import {WinningSolutionsComponent} from './ui/winning-solutions/winning-solutions.component';
+import {PartnersComponent} from "./ui/partners/partners.component";
 
 @Component({
   selector: 'fk-home',
@@ -16,6 +17,7 @@ import {WinningSolutionsComponent} from './ui/winning-solutions/winning-solution
     TopbarComponent,
     FormCardComponent,
     FooterComponent,
+    PartnersComponent,
   ],
   templateUrl: './home.component.html',
 })
