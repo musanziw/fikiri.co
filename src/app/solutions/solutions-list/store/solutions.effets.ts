@@ -27,7 +27,7 @@ export const loadMoreSolutionsEffet = createEffect(
       ofType(solutionsActions.loadMore),
       withLatestFrom(store$.pipe(select(selectCursor))),
       switchMap(([_, cursor]) => {
-        return solutionsService.getMappedSolutions(cursor).pipe(
+        return solutionsService.getMappedSolutions(cursor + 1).pipe(
           map((solutions) => solutionsActions.loadSuccess({solutions})),
           catchError((error: HttpErrorResponse) => of(solutionsActions.loadFailure({error: error.error.message})))
         );
