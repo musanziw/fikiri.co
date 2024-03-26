@@ -17,7 +17,7 @@ export class SolutionEffect {
       ofType(solutionActions.load),
       mergeMap(() => {
         return this.solutionService.getSolution(1).pipe(
-          map((res) => solutionActions.loadSuccess({solution: res.data})),
+          map((solution) => solutionActions.loadSuccess({solution})),
           catchError((error) => of(solutionActions.loadFailure({error: error.message})))
         );
       })

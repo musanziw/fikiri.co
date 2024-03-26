@@ -21,6 +21,6 @@ export class ImagesService {
     if (solution.images && this.valideImage(solution.images)) {
       return 'https://api.fikiri.co/uploads/' + solution.images[0].imageLink
     }
-    return '/assets/images/about.jpeg'
+    return ''
   }
 }

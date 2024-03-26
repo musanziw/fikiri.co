@@ -17,8 +17,8 @@ export class WinningSolutionsEffects {
       ofType(winningSolutionsActions.load),
       mergeMap(() => {
         return this.winningSolutionsService.getWinningSolutions().pipe(
-          map((res) =>
-            winningSolutionsActions.loadSuccess({solutions: res.data})
+          map((solutions) =>
+            winningSolutionsActions.loadSuccess({solutions})
           ),
           catchError((error) =>
             of(winningSolutionsActions.loadFailure({error: error.message}))

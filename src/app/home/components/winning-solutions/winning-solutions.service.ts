@@ -10,7 +10,7 @@ export class WinningSolutionsService {
   constructor(private http: HttpClientService) {
   }
 
-  getWinningSolutions(): Observable<{ data: Solution[] }> {
+  getWinningSolutions(): Observable<Solution[]> {
     return this.http.get<Solution[]>('solutions/mapped/all?cursor=1');
   }
 }

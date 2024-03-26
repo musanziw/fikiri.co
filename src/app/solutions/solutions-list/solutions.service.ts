@@ -10,7 +10,7 @@ export class SolutionsService {
   constructor(private http: HttpClientService) {
   }
 
-  getMappedSolutions(cursor: number): Observable<{ data: Solution[] }> {
+  getMappedSolutions(cursor: number): Observable<Solution[]> {
     return this.http.get<Solution[]>(`solutions/mapped/all?cursor=${cursor}`);
   }
 }

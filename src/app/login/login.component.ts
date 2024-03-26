@@ -71,8 +71,8 @@ export class LoginComponent implements OnDestroy {
     if (!this.form.invalid) {
       this.isLoading = true;
       this.subscription$ = this.loginService.login(this.form.value).subscribe({
-        next: async (res) => {
-          this.store.dispatch(authActions.authenticate({user: res.data}));
+        next: async (user) => {
+          this.store.dispatch(authActions.authenticate({user}));
           this.showSuccess();
           await this.router.navigate(['/profile']);
         },

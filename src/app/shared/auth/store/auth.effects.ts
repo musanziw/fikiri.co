@@ -14,7 +14,7 @@ export class AuthEffects {
       ofType(authActions.isAuthenticated),
       mergeMap(() => {
         return this.authService.authenticatedUser().pipe(
-          map((res) => authActions.authenticate({user: res.data})),
+          map((user) => authActions.authenticate({user})),
           catchError((err) =>
             of(authActions.authenticationFailure({error: err.error.message}))
           )

@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 export class SolutionService {
   constructor(private http: HttpClientService) {}
 
-  getSolution(id: number): Observable<{ data: Solution }> {
+  getSolution(id: number): Observable<Solution> {
     return this.http.get<Solution>(`solutions/${id}`);
   }
 }
