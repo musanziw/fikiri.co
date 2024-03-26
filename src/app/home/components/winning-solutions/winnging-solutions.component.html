@@ -5,7 +5,7 @@
       @for (solution of state.solutions; track solution.id) {
         <component-solution-card [solution]="solution"/>
       }
-      @if (state.isLoading) {
+      @if (state.isLoading && state.solutions.length <= 0) {
         @for (i of [1, 2, 3, 4, 5, 6, 7, 8]; track i) {
           <component-solution-card-skeleton/>
         }
