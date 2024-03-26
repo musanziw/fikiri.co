@@ -21,7 +21,7 @@
         <a [routerLink]="link.path" class="transition-colors duration-300" routerLinkActive="text-blue-800">
           {{ link.name }}
         </a>
-      }
+    }
       <button (click)="logOut()">Déconnexion</button>
     } @else {
       @for (link of authLinks; track link.path) {

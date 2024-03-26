@@ -1,11 +1,11 @@
 import {Component} from '@angular/core';
-import {HeroComponent} from './ui/hero/hero.component';
-import {AboutComponent} from './ui/about/about.component';
+import {HeroComponent} from './components/hero/hero.component';
+import {AboutComponent} from './components/about/about.component';
 import {TopbarComponent} from '../shared/ui/topbar/topbar.component';
 import {FormCardComponent} from '../shared/ui/form-card/form-card.component';
 import {FooterComponent} from '../shared/ui/footer/footer.component';
-import {WinningSolutionsComponent} from './ui/winning-solutions/winning-solutions.component';
-import {PartnersComponent} from "./ui/partners/partners.component";
+import {WinningSolutionsComponent} from './components/winning-solutions/winning-solutions.component';
+import {PartnersComponent} from "./components/partners/partners.component";
 
 @Component({
   selector: 'fk-home',

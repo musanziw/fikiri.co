@@ -2,7 +2,7 @@ import {Component, Input} from "@angular/core";
 import {CommonModule} from "@angular/common";
 
 @Component({
-  selector: 'ui-button',
+  selector: 'ui-textarea',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './textarea.component.html'

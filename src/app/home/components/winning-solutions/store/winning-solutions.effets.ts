@@ -1,15 +1,16 @@
-import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
-import * as winningSolutionsActions from './winning-solutions.actions';
-import { catchError, map, mergeMap, of } from 'rxjs';
-import { WinningSolutionsService } from '../winning-solutions.service';
+import {Injectable} from '@angular/core';
+import {Actions, createEffect, ofType} from '@ngrx/effects';
+import {catchError, map, mergeMap, of} from 'rxjs';
+import {WinningSolutionsService} from '../winning-solutions.service';
+import {winningSolutionsActions} from "./winning-solutions.actions";
 
 @Injectable()
 export class WinningSolutionsEffects {
   constructor(
     private winningSolutionsService: WinningSolutionsService,
     private actions$: Actions
-  ) {}
+  ) {
+  }
 
   getWinningSolutions$ = createEffect(() => {
     return this.actions$.pipe(
@@ -17,10 +18,10 @@ export class WinningSolutionsEffects {
       mergeMap(() => {
         return this.winningSolutionsService.getWinningSolutions().pipe(
           map((res) =>
-            winningSolutionsActions.loadSuccess({ solutions: res.data })
+            winningSolutionsActions.loadSuccess({solutions: res.data})
           ),
           catchError((error) =>
-            of(winningSolutionsActions.loadFailure({ error: error.message }))
+            of(winningSolutionsActions.loadFailure({error: error.message}))
           )
         );
       })

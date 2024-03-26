@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {NgOptimizedImage} from "@angular/common";
 
 @Component({
-  selector: 'ui-partners',
+  selector: 'component-partners',
   standalone: true,
   imports: [
     NgOptimizedImage

@@ -1,19 +1,14 @@
-import {
-  Component,
-  OnDestroy,
-  OnInit,
-  signal,
-  WritableSignal,
-} from '@angular/core';
-import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { Router, RouterModule } from '@angular/router';
-import { User } from '../../types/models-interfaces';
-import { select, Store } from '@ngrx/store';
-import { AppStoreInterface } from '../../types/app-store.interface';
-import { userSelector } from '../../auth/store/auth.selectors';
-import { Observable, Subscription, tap } from 'rxjs';
-import { AuthService } from '../../auth/auth.service';
-import * as authActions from '../../auth/store/auth.actions';
+import {Component, OnDestroy, OnInit, signal, WritableSignal,} from '@angular/core';
+import {CommonModule, NgOptimizedImage} from '@angular/common';
+import {Router, RouterModule} from '@angular/router';
+import {select, Store} from '@ngrx/store';
+import {AppStoreInterface} from '../../types/app-store.interface';
+import {map, Observable, Subscription} from 'rxjs';
+import {AuthService} from '../../auth/auth.service';
+import {authActions} from "../../auth/store/auth.actions";
+import {selectAuthState} from "../../auth/store/auth.reducers";
+import {AuthStoreInterface} from "../../auth/types/auth-store.interface";
+import {User} from "../../types/models-interfaces";
 
 @Component({
   selector: 'ui-topbar',
@@ -23,7 +18,8 @@ import * as authActions from '../../auth/store/auth.actions';
 })
 export class TopbarComponent implements OnInit, OnDestroy {
   isOpen: WritableSignal<boolean> = signal(false);
-  user$: Observable<User | null>;
+  authState$: Observable<AuthStoreInterface>
+  user$: Observable<User | null>
   userSubscription$: Subscription = new Subscription();
   logoutSubscription$: Subscription = new Subscription();
 
@@ -32,15 +28,16 @@ export class TopbarComponent implements OnInit, OnDestroy {
     private router: Router,
     private authService: AuthService
   ) {
-    this.user$ = this.store.pipe(select(userSelector));
+    this.authState$ = this.store.pipe(select(selectAuthState));
+    this.user$ = this.authState$.pipe(map((res) => res.user));
   }
 
   ngOnInit(): void {
-    this.userSubscription$ = this.user$.subscribe({
-      next: (user) => {
-        this.userLinks[0].name = this.trimName(user?.name || '');
-      },
-    });
+    this.authState$.pipe(map((res) => {
+      if (res.user) {
+        this.userLinks[0].name = this.trimName(res.user.name);
+      }
+    }))
   }
 
   commonLinks: { name: string; path: string }[] = [
@@ -50,7 +47,7 @@ export class TopbarComponent implements OnInit, OnDestroy {
     },
     {
       name: 'Solutions',
-      path: '/solutions',
+      path: '/solutions-list',
     },
   ];
 
@@ -74,7 +71,7 @@ export class TopbarComponent implements OnInit, OnDestroy {
 
   async logOut() {
     await this.router.navigate(['/']);
-    this.store.dispatch(authActions.authenticationLogout());
+    this.store.dispatch(authActions.logout());
     this.logoutSubscription$ = this.authService.logout().subscribe();
   }
 

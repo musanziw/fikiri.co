@@ -5,7 +5,6 @@ import { Injectable } from '@angular/core';
 })
 export class StringsService {
   sliceWord(word: string, length: number, limit: number): string {
-    console.log(word.length, length, limit);
     return word.length > length ? word.slice(0, limit) + '...' : word;
   }
 

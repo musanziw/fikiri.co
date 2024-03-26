@@ -1,8 +1,8 @@
 import {Store} from '@ngrx/store';
 import {Component, OnInit} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
-import * as authActions from './shared/auth/store/auth.actions';
 import {AuthStoreInterface} from './shared/auth/types/auth-store.interface';
+import {authActions} from "./shared/auth/store/auth.actions";
 
 @Component({
   selector: 'app-root',
@@ -15,6 +15,6 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(authActions.authentication());
+    this.store.dispatch(authActions.isAuthenticated());
   }
 }

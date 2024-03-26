@@ -15,7 +15,7 @@ import {Store} from '@ngrx/store';
 import {Observable, Subscription} from 'rxjs';
 import {LoginService} from './login.service';
 import {AuthStoreInterface} from '../shared/auth/types/auth-store.interface';
-import * as authActions from '../shared/auth/store/auth.actions';
+import {authActions} from "../shared/auth/store/auth.actions";
 
 @Component({
   selector: 'fk-login',
@@ -68,11 +68,11 @@ export class LoginComponent implements OnDestroy {
   }
 
   onSubmit(): void {
-    if (!this.form.invalid){
+    if (!this.form.invalid) {
       this.isLoading = true;
       this.subscription$ = this.loginService.login(this.form.value).subscribe({
         next: async (res) => {
-          this.store.dispatch(authActions.authenticationSuccess(res.data));
+          this.store.dispatch(authActions.authenticate({user: res.data}));
           this.showSuccess();
           await this.router.navigate(['/profile']);
         },
