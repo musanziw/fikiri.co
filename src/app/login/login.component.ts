@@ -1,7 +1,7 @@
 import {Component, OnDestroy} from '@angular/core';
 import {FormCardComponent} from '../shared/ui/form-card/form-card.component';
-import {TopbarComponent} from '../shared/ui/topbar/topbar.component';
-import {FooterComponent} from '../shared/ui/footer/footer.component';
+import {TopbarComponent} from '../shared/components/topbar/topbar.component';
+import {FooterComponent} from '../shared/components/footer/footer.component';
 import {ButtonComponent} from '../shared/ui/button/button.component';
 import {InputComponent} from '../shared/ui/input/input.component';
 import {Router, RouterLink} from '@angular/router';
@@ -15,7 +15,7 @@ import {Store} from '@ngrx/store';
 import {Observable, Subscription} from 'rxjs';
 import {LoginService} from './login.service';
 import {AuthStoreInterface} from '../shared/auth/types/auth-store.interface';
-import {authActions} from "../shared/auth/store/auth.actions";
+import {loginActions} from "./store/login.actions";
 
 @Component({
   selector: 'fk-login',
@@ -69,19 +69,7 @@ export class LoginComponent implements OnDestroy {
 
   onSubmit(): void {
     if (!this.form.invalid) {
-      this.isLoading = true;
-      this.subscription$ = this.loginService.login(this.form.value).subscribe({
-        next: async (user) => {
-          this.store.dispatch(authActions.authenticate({user}));
-          this.showSuccess();
-          await this.router.navigate(['/profile']);
-        },
-        error: (err) => {
-          this.store.dispatch(authActions.authenticationFailure(err.error.message));
-          this.handleError(err);
-        },
-      });
-      this.isLoading = false;
+     this.store.dispatch(loginActions.authentication({payload: this.form.value}));
     }
   }
 

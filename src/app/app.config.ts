@@ -9,13 +9,16 @@ import {provideState, provideStore} from '@ngrx/store';
 import {provideEffects} from '@ngrx/effects';
 import {provideStoreDevtools} from '@ngrx/store-devtools';
 import {authFeatureKey, authReducers} from './shared/auth/store/auth.reducers';
-import {AuthEffects} from './shared/auth/store/auth.effects';
 import {winningSolutionsReducers} from './home/components/winning-solutions/store/winning-solutions.reducers';
-import {WinningSolutionsEffects} from './home/components/winning-solutions/store/winning-solutions.effets';
 import {solutionsReducers} from './solutions/solutions-list/store/solutions.reducers';
-import {SolutionsEffect} from './solutions/solutions-list/store/solutions.effets';
 import {solutionReducers} from './solutions/solution-details/store/solution.reducers';
-// import { SolutionEffect } from './solutions-list/solution-details/store/solution-details.effets';
+import {loginReducers} from "./login/store/login.reducers";
+import * as loginEffects from "./login/store/login.effects";
+import * as authEffects from './shared/auth/store/auth.effects';
+import * as winningSolutionsEffects from "./home/components/winning-solutions/store/winning-solutions.effets";
+import * as solutionEffets from "./solutions/solution-details/store/solution.effets";
+import * as solutionsEffets from "./solutions/solutions-list/store/solutions.effets";
+
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -28,9 +31,16 @@ export const appConfig: ApplicationConfig = {
       positionClass: 'toast-top-center',
       preventDuplicates: true,
     }),
-    provideEffects(AuthEffects, WinningSolutionsEffects, SolutionsEffect),
+    provideEffects(
+      authEffects,
+      loginEffects,
+      winningSolutionsEffects,
+      solutionEffets,
+      solutionsEffets
+    ),
     provideState(authFeatureKey, authReducers),
     provideStore({
+      login: loginReducers,
       winningSolutions: winningSolutionsReducers,
       solutions: solutionsReducers,
       solution: solutionReducers,

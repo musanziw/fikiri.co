@@ -11,7 +11,7 @@ import {AuthStoreInterface} from "../../auth/types/auth-store.interface";
 import {User} from "../../types/models-interfaces";
 
 @Component({
-  selector: 'ui-topbar',
+  selector: 'component-topbar',
   standalone: true,
   imports: [CommonModule, RouterModule, NgOptimizedImage],
   templateUrl: './topbar.component.html',
@@ -83,7 +83,7 @@ export class TopbarComponent implements OnInit, OnDestroy {
     this.isOpen.update((isOpen) => !isOpen);
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.logoutSubscription$.unsubscribe();
     this.userSubscription$.unsubscribe();
   }

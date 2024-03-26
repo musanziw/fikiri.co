@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'ui-footer',
+  selector: 'component-footer',
   standalone: true,
   imports: [RouterLink],
   templateUrl: './footer.component.html',

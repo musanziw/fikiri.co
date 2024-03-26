@@ -1,13 +1,15 @@
 <div class="relative" *ngIf="state$ | async as state">
-  <ui-topbar/>
+  <component-topbar/>
   <div class="flex flex-col text-lg mx-6 justify-center max-w-screen-md md:mx-auto border-x border-dashed pt-24">
     <h2 class="font-bold text-gray-800 text-2xl mb-2 p-3">
       Titre de la solution
     </h2>
 
-    <h2 class="text-xl text-gray-950 mb-6 p-4">
-      {{ capitalizeFirstLetter(state.solution?.name ?? "") }}
-    </h2>
+    @if (state.solution && state.solution.name) {
+      <h2 class="text-xl text-gray-950 mb-6 p-4">
+        {{ state.solution.name | capitalizeFirstLetter }}
+      </h2>
+    }
 
     @if (state.solution) {
       <img [ngSrc]="displayImage(state.solution)" alt="{solution.name}" height="250" width="300"
@@ -45,4 +47,5 @@
       </p>
     </div>
   </div>
+  <component-footer/>
 </div>

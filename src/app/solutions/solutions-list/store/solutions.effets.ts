@@ -1,42 +1,38 @@
-import {Injectable} from '@angular/core';
-import {Actions, createEffect, ofType} from '@ngrx/effects';
-import {catchError, map, mergeMap, of} from 'rxjs';
-import {SolutionsService} from '../solutions.service';
+import {Actions, createEffect, ofType} from "@ngrx/effects";
+import {inject} from "@angular/core";
+import {SolutionsService} from "../solutions.service";
 import {solutionsActions} from "./solutions.actions";
+import {catchError, map, of, switchMap, withLatestFrom} from "rxjs";
+import {HttpErrorResponse} from "@angular/common/http";
+import {select, Store} from "@ngrx/store";
+import {selectCursor} from "./solutions.reducers";
 
-@Injectable()
-export class SolutionsEffect {
-  constructor(
-    private solutionsService: SolutionsService,
-    private actions$: Actions
-  ) {
-  }
-
-  loadSolutions$ = createEffect(() => {
-    return this.actions$.pipe(
+export const solutionsEffet = createEffect(
+  (actions$ = inject(Actions), solutionsService = inject(SolutionsService)) => {
+    return actions$.pipe(
       ofType(solutionsActions.load),
-      mergeMap(() => {
-        return this.solutionsService.getMappedSolutions(1).pipe(
+      switchMap(() => {
+        return solutionsService.getMappedSolutions().pipe(
           map((solutions) => solutionsActions.loadSuccess({solutions})),
-          catchError((error) =>
-            of(solutionsActions.loadFailure({error: error.message}))
-          )
-        );
+          catchError((error) => of(solutionsActions.loadFailure({error})))
+        )
       })
-    );
-  });
+    )
+  }, {functional: true}
+)
 
-  loadMoreSolutions$ = createEffect(() => {
-    return this.actions$.pipe(
+export const loadMoreSolutionsEffet = createEffect(
+  (actions$ = inject(Actions), solutionsService = inject(SolutionsService), store$ = inject(Store)) => {
+    return actions$.pipe(
       ofType(solutionsActions.loadMore),
-      mergeMap(() => {
-        return this.solutionsService.getMappedSolutions(2).pipe(
+      withLatestFrom(store$.pipe(select(selectCursor))),
+      switchMap(([_, cursor]) => {
+        return solutionsService.getMappedSolutions(cursor).pipe(
           map((solutions) => solutionsActions.loadSuccess({solutions})),
-          catchError((error) =>
-            of(solutionsActions.loadFailure({error: error.message}))
-          )
+          catchError((error: HttpErrorResponse) => of(solutionsActions.loadFailure({error: error.error.message})))
         );
       })
-    );
-  });
-}
+    )
+  }, {functional: true}
+)
+

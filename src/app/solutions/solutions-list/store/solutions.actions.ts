@@ -6,7 +6,7 @@ export const solutionsActions = createActionGroup({
   source: 'solutions',
   events: {
     load: emptyProps(),
-    loadMore: props<{ cursor: number }>(),
+    loadMore:  emptyProps(),
     loadSuccess: props<{ solutions: Solution[] }>(),
     loadFailure: props<{ error: string }>(),
   },

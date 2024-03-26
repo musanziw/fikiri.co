@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {SolutionCardComponent} from '../../../shared/ui/solution-card/solution-card.component';
+import {SolutionCardComponent} from '../../../shared/components/solution-card/solution-card.component';
 import {Observable} from 'rxjs';
 import {select, Store} from '@ngrx/store';
 import {AppStoreInterface} from '../../../shared/types/app-store.interface';
 import {CommonModule} from '@angular/common';
 import {
   SolutionCardSkeletonComponent
-} from '../../../shared/ui/solution-card-skeleton/solution-card-skeleton.component';
+} from '../../../shared/components/solution-card-skeleton/solution-card-skeleton.component';
 import {WinningSolutionsStoreInterface} from "./types/winning-solutions-store.interface";
 import {selectWinningSolutionsState} from "./store/winning-solutions.reducers";
 import {winningSolutionsActions} from "./store/winning-solutions.actions";

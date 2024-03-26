@@ -1,6 +1,6 @@
 <header class="fixed w-full text-gray-800 bg-white shadow-md px-10 py-4 z-10 flex items-center justify-between">
   <a routerLink="/" class="inline-block" aria-label="logo">
-    <img ngSrc="/assets/images/logo.webp" alt="Logo" class="cursor-pointer w-24" width="96" height="31" priority/>
+    <img ngSrc="./assets/images/logo.webp" alt="logo" class="cursor-pointer w-24" width="96" height="31"/>
   </a>
   <div class="flex flex-col gap-2 lg:hidden" [ngClass]="{ active: isOpen() }" (click)="toggleMenu()">
     <div class="h-[1px] w-6 bg-black transition-transform duration-300"></div>

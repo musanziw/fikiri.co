@@ -12,8 +12,8 @@ const authFeature = createFeature({
   name: 'auth',
   reducer: createReducer(
     initialState,
-    on(authActions.isAuthenticated, (state) => ({...state, isLoading: true})),
-    on(authActions.authenticate, (state, actions) => ({...state, user: actions.user, isLoading: false})),
+    on(authActions.authenticatedUser, (state) => ({...state})),
+    on(authActions.authenticateUser, (state, actions) => ({...state, user: actions.user, isLoading: false})),
     on(authActions.authenticationFailure, (state, actions) => ({
       ...state,
       user: null,

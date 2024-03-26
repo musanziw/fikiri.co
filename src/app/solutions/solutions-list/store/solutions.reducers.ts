@@ -14,8 +14,12 @@ const solutionsFeature = createFeature({
   name: 'solutions',
   reducer: createReducer(
     initialState,
-    on(solutionsActions.load, (state) => ({...state, isLoading: true, cursor: state.cursor + 1})),
-    on(solutionsActions.loadMore, (state) => ({...state, isLoadingMore: true, cursor: state.cursor + 1,})),
+    on(solutionsActions.load, (state) => ({...state, isLoading: true})),
+    on(solutionsActions.loadMore, (state) => ({
+      ...state,
+      isLoadingMore: true,
+      cursor: state.cursor + 1
+    })),
     on(solutionsActions.loadSuccess, (state, actions) => ({
       ...state,
       isLoading: false,
@@ -31,4 +35,4 @@ const solutionsFeature = createFeature({
   ),
 })
 
-export const { reducer: solutionsReducers, selectSolutionsState} = solutionsFeature
+export const {reducer: solutionsReducers, selectCursor, selectSolutionsState} = solutionsFeature
