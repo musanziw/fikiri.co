@@ -1,4 +1,4 @@
-import {createActionGroup, emptyProps, props} from '@ngrx/store';
+import {createActionGroup, props} from '@ngrx/store';
 import {User} from "../../shared/types/models-interfaces";
 import {LoginPayloadInterface} from "../types/login-payload.interface";
 
