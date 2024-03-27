@@ -1,51 +1,66 @@
-<div class="relative" *ngIf="state$ | async as state">
-  <component-topbar/>
-  <div class="flex flex-col text-lg mx-6 justify-center max-w-screen-md md:mx-auto border-x border-dashed pt-24">
-    <h2 class="font-bold text-gray-800 text-2xl mb-2 p-3">
-      Titre de la solution
-    </h2>
-
-    @if (state.solution && state.solution.name) {
-      <h2 class="text-xl text-gray-950 mb-6 p-4">
-        {{ state.solution.name | capitalizeFirstLetter }}
-      </h2>
-    }
-
+<ng-container *ngIf="state$ | async as state">
+  <div class="relative">
+    <component-topbar/>
     @if (state.solution) {
-      <img [ngSrc]="displayImage(state.solution)" alt="{solution.name}" height="250" width="300"
-           class="mb-8 h-96 w-full"/>
-    }
-
-    <h2 class="font-bold text-gray-800 text-2xl mb-2 p-3">
-      Desciption de la solution
-    </h2>
-
-    <p class="mb-4 p-4">{{ state.solution?.description }}</p>
-
-    <h2 class="font-bold text-gray-800 text-2xl mb-2 p-3">Problème résolu</h2>
-
-    <p class="mb-8 p-4">{{ state.solution?.targetedProblem }}</p>
-    <h2 class="font-bold text-2xl mb-2 p-3">Innovateur</h2>
-
-    <p class="p-4">
-      {{ state.solution?.user?.name }} &mdash; {{ state.solution?.user?.email }}
-    </p>
-
-    <h2 class="font-bold text-gray-800 text-2xl mb-2 p-3">Thématique</h2>
-
-    <p class="p-4">
-      {{ state.solution?.thematic?.name }}
-    </p>
-
-    <h2 class="font-bold text-gray-800 text-2xl mb-2 p-3">Défis</h2>
-
-    <div class="p-4">
-      <p class="mb-6">
-        @for (challenge of state.solution?.challenges; let i = $index; track i) {
-          <span class="mr-2"> &mdash; {{ challenge.name }}</span>
+      <div class="flex flex-col text-lg mx-6 justify-center max-w-screen-md md:mx-auto border-x border-dashed pt-24">
+        <h2 class="font-bold text-gray-800 text-2xl mb-2 p-3">
+          Titre de la solution
+        </h2>
+        @if (state.solution && state.solution.name) {
+          <h2 class="text-xl text-gray-950 mb-6 p-4">
+            {{ state.solution.name | capitalizeFirstLetter }}
+          </h2>
         }
-      </p>
-    </div>
+        @if (state.solution) {
+          <img [ngSrc]="displayImage(state.solution)" [alt]="state.solution.name" height="250" width="300"
+               class="mb-8 h-96 w-full"/>
+        }
+        <h2 class="font-bold text-gray-800 text-2xl mb-2 p-3">
+          Desciption de la solution
+        </h2>
+        <p class="mb-4 p-4">{{ state.solution.description }}</p>
+        <h2 class="font-bold text-gray-800 text-2xl mb-2 p-3">Problème résolu</h2>
+        <p class="mb-8 p-4">{{ state.solution.targetedProblem }}</p>
+        <h2 class="font-bold text-2xl mb-2 p-3">Innovateur</h2>
+        <p class="p-4">
+          {{ state.solution.user.name }} &mdash; {{ state.solution.user.email }}
+        </p>
+        <h2 class="font-bold text-gray-800 text-2xl mb-2 p-3">Thématique</h2>
+        <p class="p-4">
+          {{ state.solution.thematic?.name }}
+        </p>
+        <h2 class="font-bold text-gray-800 text-2xl mb-2 p-3">Défis</h2>
+        <div class="p-4">
+          <p class="mb-6">
+            @for (challenge of state.solution.challenges; track challenge.id) {
+              <span class="mr-2"> &mdash; {{ challenge.name }}</span>
+            }
+          </p>
+        </div>
+      </div>
+
+    } @else {
+      <main class="h-screen w-full flex flex-col justify-center items-center">
+        <h1 class="text-9xl font-extrabold text-gray-950 tracking-widest">404</h1>
+        <div class="bg-[#FF6A3D] px-2 text-sm rounded rotate-12 absolute">
+          Page non trouvée
+        </div>
+        <button class="mt-5">
+          <a routerLink="/solutions-list"
+            class="relative inline-block text-sm font-medium text-[#FF6A3D] group active:text-orange-500 focus:outline-none focus:ring">
+      <span
+        class="absolute inset-0 transition-transform translate-x-0.5 translate-y-0.5 bg-[#FF6A3D] group-hover:translate-y-0 group-hover:translate-x-0"></span>
+
+            <span class="relative block px-8 py-3 bg-[#1A2238] border border-current">
+
+            Liste des solutions
+
+        </span>
+          </a>
+        </button>
+      </main>
+    }
+    <component-footer/>
   </div>
-  <component-footer/>
-</div>
+</ng-container>
+
