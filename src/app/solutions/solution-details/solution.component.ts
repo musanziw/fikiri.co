@@ -12,11 +12,12 @@ import {SolutionStoreInterface} from "./types/solution-store.interface";
 import {selectSolutionState} from "./store/solution.reducers";
 import {CapitalizeFirstLetterPipe} from "../../shared/pipes/capitalize-first-letter.pipe";
 import {solutionActions} from "./store/solution.actions";
+import {NotFoundComponent} from "../../shared/components/not-found/not-found.component";
 
 @Component({
   selector: 'fk-solution-details-details',
   standalone: true,
-  imports: [NgOptimizedImage, FooterComponent, TopbarComponent, CommonModule, CapitalizeFirstLetterPipe, RouterLink],
+  imports: [NgOptimizedImage, FooterComponent, TopbarComponent, CommonModule, CapitalizeFirstLetterPipe, RouterLink, NotFoundComponent],
   templateUrl: './solution.component.html',
 })
 export class SolutionComponent implements OnInit {

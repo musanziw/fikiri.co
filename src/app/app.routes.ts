@@ -37,6 +37,6 @@ export const routes: Routes = [
   {
     path: '**',
     title: 'Fikiri | Page non trouvée',
-    loadComponent: () => import('./not-found/not-found.component').then((c) => c.NotFoundComponent),
+    loadComponent: () => import('./not-found/not-found.component').then((c) => c.FkNotFoundComponent),
   },
 ];

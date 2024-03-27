@@ -1,19 +1,15 @@
-import {Component, OnDestroy} from '@angular/core';
+import {Component} from '@angular/core';
 import {FormCardComponent} from '../shared/ui/form-card/form-card.component';
 import {TopbarComponent} from '../shared/components/topbar/topbar.component';
 import {FooterComponent} from '../shared/components/footer/footer.component';
 import {ButtonComponent} from '../shared/ui/button/button.component';
 import {InputComponent} from '../shared/ui/input/input.component';
-import {Router, RouterLink} from '@angular/router';
+import {RouterLink} from '@angular/router';
 import {AsyncPipe, NgOptimizedImage} from '@angular/common';
 import {ButtonOutlineComponent} from '../shared/ui/button-outline/button-outline.component';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators,} from '@angular/forms';
-import {HttpErrorResponse} from '@angular/common/http';
-import {throwError} from 'rxjs/internal/observable/throwError';
-import {ToastContainerDirective, ToastrService} from 'ngx-toastr';
+import {ToastContainerDirective} from 'ngx-toastr';
 import {Store} from '@ngrx/store';
-import {Observable, Subscription} from 'rxjs';
-import {LoginService} from './login.service';
 import {AuthStoreInterface} from '../shared/auth/types/auth-store.interface';
 import {loginActions} from "./store/login.actions";
 
@@ -35,45 +31,20 @@ import {loginActions} from "./store/login.actions";
   ],
   templateUrl: './login.component.html',
 })
-export class LoginComponent implements OnDestroy {
+export class LoginComponent {
   form!: FormGroup;
   isLoading: boolean = false;
-  subscription$: Subscription = new Subscription();
 
-  constructor(private store: Store<AuthStoreInterface>, private formBuilder: FormBuilder,
-              private router: Router, private toast: ToastrService,
-              private loginService: LoginService
-  ) {
+  constructor(private store: Store<AuthStoreInterface>, private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
       email: ['', Validators.email],
       password: ['', Validators.required],
     });
   }
 
-  showSuccess(): void {
-    this.toast.success('Connexion réussie');
-  }
-
-  showError(error: string): void {
-    this.toast.error(error);
-  }
-
-  handleError(error: HttpErrorResponse): Observable<never> {
-    if (error.status === 0) {
-      this.showError('Impossible de se connecter au serveur');
-    } else {
-      this.showError(error.error.message);
-    }
-    return throwError(() => new Error('Essayer à nouveau !'));
-  }
-
   onSubmit(): void {
     if (!this.form.invalid) {
-     this.store.dispatch(loginActions.authentication({payload: this.form.value}));
+      this.store.dispatch(loginActions.authentication({payload: this.form.value}));
     }
-  }
-
-  ngOnDestroy(): void {
-    this.subscription$.unsubscribe();
   }
 }
