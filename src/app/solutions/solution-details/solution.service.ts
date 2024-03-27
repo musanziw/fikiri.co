@@ -10,6 +10,6 @@ export class SolutionService {
   constructor(private http: HttpClientService) {}
 
   getSolution(id: number): Observable<Solution> {
-    return this.http.get<Solution>(`solutions/${id}`);
+    return this.http.get<Solution>(`solutions/mapped/one/${id}`);
   }
 }
