@@ -10,8 +10,7 @@
         </h2>
       }
       <div class="mb-8 h-48 lg:h-96 w-full relative">
-        <img [ngSrc]="displayImage(state.solution) || '/assets/images/default-placeholder.png'"
-             [alt]="state.solution.name" priority fill/>
+        <img [ngSrc]="displayImage(state.solution)" [alt]="state.solution.name" priority fill/>
       </div>
       <h2 class="font-bold text-gray-800 text-2xl mb-2 p-3">
         Desciption de la solution
@@ -34,15 +33,34 @@
         }
       </div>
 
-      @if (state.prevAndNext) {
-        <button class=" font-medium text-sm">
-          Précédent
-        </button>
-        @if (state.prevAndNext.next) {
-          <button class=" font-medium text-sm">
-            Suivant
+      @if (state.prev || state.next) {
+        <div class="flex justify-between mb-8 pt-8 px-8 border-t">
+          <button [disabled]="!state.prev"
+                  (click)="loadPrevOrNext(state.prev)"
+                  class="font-medium text-sm flex items-center justify-center gap-1 disabled:text-gray-600 disabled:cursor-not-allowed">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                 class="bi bi-chevron-double-left w-3 h-3" viewBox="0 0 16 16">
+              <path fill-rule="evenodd"
+                    d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"/>
+              <path fill-rule="evenodd"
+                    d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"/>
+            </svg>
+            Précédent
           </button>
-        }
+
+          <button [disabled]="!state.next"
+                  (click)="loadPrevOrNext(state.next)"
+                  class="font-medium text-sm flex items-center justify-center gap-1 disabled:text-gray-600 disabled:cursor-not-allowed">
+            Suivant
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                 class="bi bi-chevron-double-right w-3 h-3" viewBox="0 0 16 16">
+              <path fill-rule="evenodd"
+                    d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708"/>
+              <path fill-rule="evenodd"
+                    d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708"/>
+            </svg>
+          </button>
+        </div>
       }
     </div>
   }

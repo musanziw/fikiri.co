@@ -11,21 +11,13 @@ export const solutionEffets = createEffect(
       ofType(solutionActions.load),
       switchMap(({id}) => {
         return solutionService.getSolution(id).pipe(
-          map((solution) => solutionActions.loadSuccess({solution})),
-          catchError((error: HttpErrorResponse) => of(solutionActions.loadFailure({error: error.error.message})))
-        )
-      })
-    )
-  }, {functional: true}
-)
-
-export const solutionPrevAndNextEffets = createEffect(
-  (actions$ = inject(Actions), solutionService = inject(SolutionService)) => {
-    return actions$.pipe(
-      ofType(solutionActions.load),
-      switchMap(({id}) => {
-        return solutionService.getPrevAndNext(id).pipe(
-          map((prevAndNext) => solutionActions.loadPrevAndNext({prevAndNext})),
+          map((solutionResponse) => {
+            return solutionActions.loadSuccess({
+              solution: solutionResponse.solution,
+              prev: solutionResponse.prev,
+              next: solutionResponse.next
+            })
+          }),
           catchError((error: HttpErrorResponse) => of(solutionActions.loadFailure({error: error.error.message})))
         )
       })

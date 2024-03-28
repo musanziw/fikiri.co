@@ -47,7 +47,8 @@ export class SolutionComponent implements OnInit {
     return this.imagesService.diplayImage(solution);
   }
 
-  loadPrevOrNext(id: number): void {
+  loadPrevOrNext(id: number | null): void {
+    if (!id) return
     this.store.dispatch(solutionActions.load({id}));
     this.router.navigate(['/solutions', id])
   }
