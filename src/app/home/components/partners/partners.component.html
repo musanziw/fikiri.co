@@ -4,9 +4,9 @@
     <h3 class="font-bold text-2xl mb-3">Découvrez les acteurs</h3>
     <div class="flex gap-4 flex-wrap justify-center lg:justify-start">
       @for (partainer of partainers; track partainer.id) {
-        <div class="bg-gray-200 rounded-md shadow-md">
-          <img [ngSrc]="partainer.src" [alt]="partainer.name" class="w-32" width="360" height="270"/>
-        </div>
+      <div class="h-24 w-28 relative object-contain bg-gray-200 rounded-md shadow-md">
+          <img [ngSrc]="partainer.src" class="" [alt]="partainer.name" fill/>
+      </div>
       }
     </div>
   </div>

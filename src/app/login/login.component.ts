@@ -1,7 +1,5 @@
 import {Component} from '@angular/core';
 import {FormCardComponent} from '../shared/ui/form-card/form-card.component';
-import {TopbarComponent} from '../shared/components/topbar/topbar.component';
-import {FooterComponent} from '../shared/components/footer/footer.component';
 import {ButtonComponent} from '../shared/ui/button/button.component';
 import {InputComponent} from '../shared/ui/input/input.component';
 import {RouterLink} from '@angular/router';
@@ -18,8 +16,6 @@ import {loginActions} from "./store/login.actions";
   standalone: true,
   imports: [
     FormCardComponent,
-    TopbarComponent,
-    FooterComponent,
     ButtonComponent,
     InputComponent,
     RouterLink,

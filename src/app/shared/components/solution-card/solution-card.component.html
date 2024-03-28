@@ -1,16 +1,17 @@
 <div class="flex flex-col">
-  <img [ngSrc]="displayImage(solution)" [alt]="solution.name" height="250" width="300"
-       class="mb-4 h-40 w-auto rounded-md"/>
+  <div class="w-auto h-40 mb-4 bject-cover relative">
+    <img [ngSrc]="displayImage(solution) || '/assets/images/default-placeholder.png'" class="rounded-md" [alt]="solution.name" fill/>
+  </div>
   <div class="flex flex-col gap-3">
     <h3 class="font-semibold text-lg text-gray-800">
       {{ solution.name | cutParagraph : 20 | capitalizeFirstLetter }}
     </h3>
-    <p class="break-all hyphens-auto" lang="fr">
+    <p class="break-all" lang="fr">
       {{ solution.description | cutParagraph : 140 | capitalizeFirstLetter }}
     </p>
-      <a [routerLink]="['/solution-details', solution.id]"
-         class="flex justify-center mt-6 text-xs border-2 rounded-sm text-black px-6 py-2.5 font-bold uppercase transition-colors duration-300">
-        Plus d&apos;informations
-      </a>
+    <a [routerLink]="['/solutions', solution.id]"
+       class="flex justify-center mt-6 text-xs border-2 rounded-sm text-black px-6 py-2.5 font-bold uppercase transition-colors duration-300">
+      Plus d&apos;informations
+    </a>
   </div>
 </div>

@@ -3,8 +3,6 @@ import {NgOptimizedImage} from '@angular/common';
 import {RouterLink} from '@angular/router';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {FormCardComponent} from '../shared/ui/form-card/form-card.component';
-import {FooterComponent} from '../shared/components/footer/footer.component';
-import {TopbarComponent} from '../shared/components/topbar/topbar.component';
 import {ButtonComponent} from '../shared/ui/button/button.component';
 import {ButtonOutlineComponent} from '../shared/ui/button-outline/button-outline.component';
 import {InputComponent} from '../shared/ui/input/input.component';
@@ -14,8 +12,6 @@ import {InputComponent} from '../shared/ui/input/input.component';
   standalone: true,
   imports: [
     FormCardComponent,
-    FooterComponent,
-    TopbarComponent,
     ButtonComponent,
     ButtonOutlineComponent,
     InputComponent,

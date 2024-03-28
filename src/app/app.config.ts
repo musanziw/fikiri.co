@@ -1,5 +1,12 @@
 import {ApplicationConfig, isDevMode} from '@angular/core';
-import {provideRouter, withComponentInputBinding} from '@angular/router';
+import {
+  InMemoryScrollingFeature,
+  InMemoryScrollingOptions,
+  provideRouter,
+  TitleStrategy,
+  withInMemoryScrolling,
+  withViewTransitions,
+} from '@angular/router';
 import {provideClientHydration} from '@angular/platform-browser';
 import {provideHttpClient, withFetch} from '@angular/common/http';
 import {provideAnimations} from '@angular/platform-browser/animations';
@@ -18,11 +25,19 @@ import * as authEffects from './shared/auth/store/auth.effects';
 import * as winningSolutionsEffects from "./home/components/winning-solutions/store/winning-solutions.effets";
 import * as solutionEffets from "./solutions/solution-details/store/solution.effets";
 import * as solutionsEffets from "./solutions/solutions-list/store/solutions.effets";
+import {TemplatePageTitleStrategy} from "./shared/services/title-strategy.service";
 
+
+const scrollConfig: InMemoryScrollingOptions = {
+  scrollPositionRestoration: 'top',
+  anchorScrolling: 'enabled',
+}
+const inMemoryScrollingFeature: InMemoryScrollingFeature = withInMemoryScrolling(scrollConfig);
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideRouter(routes, withComponentInputBinding()),
+    provideRouter(routes, inMemoryScrollingFeature, withViewTransitions()),
+    {provide: TitleStrategy, useClass: TemplatePageTitleStrategy},
     provideClientHydration(),
     provideHttpClient(withFetch()),
     provideAnimations(),

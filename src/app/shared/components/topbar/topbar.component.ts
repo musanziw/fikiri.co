@@ -1,57 +1,48 @@
-import {Component, OnDestroy, OnInit, signal, WritableSignal,} from '@angular/core';
+import {Component, signal, WritableSignal,} from '@angular/core';
 import {CommonModule, NgOptimizedImage} from '@angular/common';
 import {Router, RouterModule} from '@angular/router';
 import {select, Store} from '@ngrx/store';
 import {AppStoreInterface} from '../../types/app-store.interface';
-import {map, Observable, Subscription} from 'rxjs';
-import {AuthService} from '../../auth/auth.service';
+import {Observable, tap} from 'rxjs';
 import {authActions} from "../../auth/store/auth.actions";
-import {selectAuthState} from "../../auth/store/auth.reducers";
-import {AuthStoreInterface} from "../../auth/types/auth-store.interface";
+import {selectUser} from "../../auth/store/auth.reducers";
 import {User} from "../../types/models-interfaces";
+import {LinkInterface} from "./types/link.interface";
+import {FormsModule} from "@angular/forms";
 
 @Component({
   selector: 'component-topbar',
   standalone: true,
-  imports: [CommonModule, RouterModule, NgOptimizedImage],
+  imports: [CommonModule, RouterModule, NgOptimizedImage, FormsModule],
   templateUrl: './topbar.component.html',
 })
-export class TopbarComponent implements OnInit, OnDestroy {
+export class TopbarComponent {
   isOpen: WritableSignal<boolean> = signal(false);
-  authState$: Observable<AuthStoreInterface>
   user$: Observable<User | null>
-  userSubscription$: Subscription = new Subscription();
-  logoutSubscription$: Subscription = new Subscription();
 
-  constructor(
-    private store: Store<AppStoreInterface>,
-    private router: Router,
-    private authService: AuthService
-  ) {
-    this.authState$ = this.store.pipe(select(selectAuthState));
-    this.user$ = this.authState$.pipe(map((res) => res.user));
+  constructor(private store: Store<AppStoreInterface>, private router: Router) {
+    this.user$ = this.store.pipe(select(selectUser))
   }
 
-  ngOnInit(): void {
-    this.authState$.pipe(map((res) => {
-      if (res.user) {
-        this.userLinks[0].name = this.trimName(res.user.name);
-      }
+  setUsername(): Observable<User | null> {
+    return this.user$.pipe(tap((user) => {
+      if (!user) return ''
+      return this.userLinks[0].name = this.trimName(user.name);
     }))
   }
 
-  commonLinks: { name: string; path: string }[] = [
+  commonLinks: LinkInterface[] = [
     {
       name: 'Appels',
       path: '/calls',
     },
     {
       name: 'Solutions',
-      path: '/solutions-list',
+      path: '/solutions',
     },
   ];
 
-  authLinks: { name: string; path: string }[] = [
+  authLinks: LinkInterface[] = [
     {
       name: 'Se connecter',
       path: '/login',
@@ -62,17 +53,16 @@ export class TopbarComponent implements OnInit, OnDestroy {
     },
   ];
 
-  userLinks: { name: string; path: string }[] = [
+  userLinks: LinkInterface[] = [
     {
       name: '',
       path: '/profile',
     },
   ];
 
-  async logOut() {
-    await this.router.navigate(['/']);
+  logOut(): Promise<boolean> {
     this.store.dispatch(authActions.logout());
-    this.logoutSubscription$ = this.authService.logout().subscribe();
+    return this.router.navigate(['/'])
   }
 
   trimName(name: string): string {
@@ -83,8 +73,4 @@ export class TopbarComponent implements OnInit, OnDestroy {
     this.isOpen.update((isOpen) => !isOpen);
   }
 
-  ngOnDestroy(): void {
-    this.logoutSubscription$.unsubscribe();
-    this.userSubscription$.unsubscribe();
-  }
 }

@@ -18,3 +18,17 @@ export const solutionEffets = createEffect(
     )
   }, {functional: true}
 )
+
+export const solutionPrevAndNextEffets = createEffect(
+  (actions$ = inject(Actions), solutionService = inject(SolutionService)) => {
+    return actions$.pipe(
+      ofType(solutionActions.load),
+      switchMap(({id}) => {
+        return solutionService.getPrevAndNext(id).pipe(
+          map((prevAndNext) => solutionActions.loadPrevAndNext({prevAndNext})),
+          catchError((error: HttpErrorResponse) => of(solutionActions.loadFailure({error: error.error.message})))
+        )
+      })
+    )
+  }, {functional: true}
+)

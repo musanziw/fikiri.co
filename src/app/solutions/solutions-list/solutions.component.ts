@@ -2,8 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {CommonModule, NgComponentOutlet} from '@angular/common';
 import {RouterModule} from '@angular/router';
 import {SolutionCardComponent} from '../../shared/components/solution-card/solution-card.component';
-import {TopbarComponent} from '../../shared/components/topbar/topbar.component';
-import {FooterComponent} from '../../shared/components/footer/footer.component';
 import {Observable} from 'rxjs';
 import {select, Store} from '@ngrx/store';
 import {AppStoreInterface} from '../../shared/types/app-store.interface';
@@ -23,8 +21,6 @@ import {selectSolutionsState} from "./store/solutions.reducers";
     CommonModule,
     RouterModule,
     SolutionCardComponent,
-    TopbarComponent,
-    FooterComponent,
     SpinnerComponent,
     SolutionCardSkeletonComponent,
     NgComponentOutlet,
@@ -41,7 +37,7 @@ export class SolutionsComponent implements OnInit {
     this.store.dispatch(solutionsActions.load());
   }
 
-  loadMore() {
+  loadMore(): void {
     this.store.dispatch(solutionsActions.loadMore())
   }
 }

@@ -8,6 +8,9 @@ module.exports = {
         about: 'url("/assets/images/about.webp")'
       },
     },
+    fontFamily: {
+      'roboto': ['Roboto', 'sans-serif'],
+    }
   },
   plugins: [],
 };
