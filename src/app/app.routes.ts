@@ -1,7 +1,5 @@
 import {Routes} from '@angular/router';
 import {HomeComponent} from './home/home.component';
-import {authGuard} from './shared/auth/auth.guard';
-import {authenticatedRedirectGuard} from "./shared/auth/authenticated-redirect.guard";
 
 export const routes: Routes = [
   {
@@ -17,19 +15,16 @@ export const routes: Routes = [
   {
     path: 'register',
     title: 'Signup',
-    canActivate: [authenticatedRedirectGuard],
     loadComponent: () => import('./register/register.component').then((c) => c.RegisterComponent),
   },
   {
     path: 'login',
     title: 'Signin',
-    canActivate: [authenticatedRedirectGuard],
     loadComponent: () => import('./login/login.component').then((c) => c.LoginComponent),
   },
   {
     path: 'profile',
     title: 'Profile',
-    canActivate: [authGuard],
     loadComponent: () => import('./profile/profile.component').then((c) => c.ProfileComponent),
   },
   {
