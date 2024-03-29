@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy} from '@angular/core';
 import {FormCardComponent} from '../shared/components/form-card/form-card.component';
 import {ButtonComponent} from '../shared/ui/button/button.component';
 import {InputComponent} from '../shared/ui/input/input.component';
@@ -55,5 +55,4 @@ export class LoginComponent implements OnDestroy {
   ngOnDestroy(): void {
     this.store.dispatch(authActions.deleteError());
   }
-
 }
