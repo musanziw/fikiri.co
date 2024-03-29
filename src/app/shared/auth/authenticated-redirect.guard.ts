@@ -4,7 +4,8 @@ import {catchError, map, Observable, of} from "rxjs";
 import {User} from "../types/models-interfaces";
 import {AuthService} from "./auth.service";
 
-export const authGuard: CanActivateFn = () => {
+
+export const authenticatedRedirectGuard: CanActivateFn = () => {
   const authService: AuthService = inject(AuthService);
   const router: Router = inject(Router);
 
@@ -12,12 +13,12 @@ export const authGuard: CanActivateFn = () => {
 
   return user$.pipe(
     map((user) => {
-      if (!user) {
-        router.navigate(['/login']);
+      if (user) {
+        router.navigate(['/profile']);
         return false;
       }
       return true;
     }),
-    catchError(() => of(false))
+    catchError(() => of(true))
   );
 };

@@ -1,11 +1,10 @@
-import {Component, signal, WritableSignal,} from '@angular/core';
+import {Component,} from '@angular/core';
 import {CommonModule, NgOptimizedImage} from '@angular/common';
-import {Router, RouterModule} from '@angular/router';
+import {RouterModule} from '@angular/router';
 import {select, Store} from '@ngrx/store';
-import {AppStoreInterface} from '../../types/app-store.interface';
-import {Observable, tap} from 'rxjs';
+import {Observable} from 'rxjs';
 import {authActions} from "../../auth/store/auth.actions";
-import {selectUser} from "../../auth/store/auth.reducers";
+import {selectUser as selectAuthUser} from "../../auth/store/auth.reducers";
 import {User} from "../../types/models-interfaces";
 import {LinkInterface} from "./types/link.interface";
 import {FormsModule} from "@angular/forms";
@@ -17,18 +16,11 @@ import {FormsModule} from "@angular/forms";
   templateUrl: './topbar.component.html',
 })
 export class TopbarComponent {
-  isOpen: WritableSignal<boolean> = signal(false);
+  isOpen: boolean = false
   user$: Observable<User | null>
 
-  constructor(private store: Store<AppStoreInterface>, private router: Router) {
-    this.user$ = this.store.pipe(select(selectUser))
-  }
-
-  setUsername(): Observable<User | null> {
-    return this.user$.pipe(tap((user) => {
-      if (!user) return ''
-      return this.userLinks[0].name = this.trimName(user.name);
-    }))
+  constructor(private store: Store) {
+    this.user$ = this.store.pipe(select(selectAuthUser));
   }
 
   commonLinks: LinkInterface[] = [
@@ -53,24 +45,33 @@ export class TopbarComponent {
     },
   ];
 
-  userLinks: LinkInterface[] = [
-    {
-      name: '',
-      path: '/profile',
-    },
-  ];
-
-  logOut(): Promise<boolean> {
-    this.store.dispatch(authActions.logout());
-    return this.router.navigate(['/'])
+  unAuthenticatedUserLinks(): LinkInterface[] {
+    return [
+      ...this.commonLinks,
+      ...this.authLinks
+    ];
   }
 
-  trimName(name: string): string {
+  authenticatedUserLinks(username: string): LinkInterface[] {
+    return [
+      ...this.commonLinks,
+      {
+        name: this.trimName(username),
+        path: '/profile',
+      },
+    ];
+  }
+
+  logOut(): void {
+    return this.store.dispatch(authActions.logout());
+  }
+
+  private trimName(name: string): string {
     return name.length > 15 ? name.substring(0, 15) + '...' : name;
   }
 
-  toggleMenu(): void {
-    this.isOpen.update((isOpen) => !isOpen);
+  protected toggleMenu(): boolean {
+    return this.isOpen = !this.isOpen
   }
 
 }

@@ -3,7 +3,7 @@ import {RouterStateSnapshot, TitleStrategy} from "@angular/router";
 import {Title} from "@angular/platform-browser";
 
 @Injectable({providedIn: 'root'})
-export class TemplatePageTitleStrategy extends TitleStrategy {
+export class PageTitleStrategy extends TitleStrategy {
   constructor(private readonly title: Title) {
     super();
   }

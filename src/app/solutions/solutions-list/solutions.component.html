@@ -5,12 +5,12 @@
     </h2>
     <div class="grid grid-cols-1 gap-x-6 gap-y-10 md:grid-cols-2 lg:grid-cols-4">
       @for (solution of state.solutions; track solution.id) {
-      <component-solution-card [solution]="solution"/>
+        <component-solution-card [solution]="solution"/>
       }
       @if (state.isLoading && state.solutions.length <= 0) {
-      @for (i of [1, 2, 3, 4, 5, 6, 7, 8]; track i) {
-      <component-solution-card-skeleton/>
-      }
+        @for (i of [1, 2, 3, 4, 5, 6, 7, 8]; track i) {
+          <component-solution-card-skeleton/>
+        }
       }
     </div>
     <div class="flex mt-8 w-full justify-center items-center text-sm">
@@ -19,9 +19,9 @@
               class="bg-none border w-1/2 rounded-full py-2 px-8 text-gray-950 hover:bg-gray-300/40 duration-75 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed"
               (click)="loadMore()">
         @if (state.isLoadingMore) {
-        <ui-spinner/>
+          <ui-spinner class="text-gray-700"/>
         } @else {
-        Voir plus
+          Plus
         }
       </button>
       <hr class="w-full border-gray-300"/>

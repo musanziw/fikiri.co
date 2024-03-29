@@ -1,10 +1,11 @@
-<ui-form-card formTitle="Se connecter">
+<component-form-card formTitle="Se connecter" *ngIf="state$ | async as state" [error]="state.error || ''">
   <form [formGroup]="form" (ngSubmit)="onSubmit()" class="gap-8 flex flex-col justify-center">
     <ui-input type="email" label="Email" placeholder="Entrez votre email" name="email"/>
     <ui-input type="password" label="Mot de passe" placeholder="Entrez votre mot de passe" name="password"/>
-    <ui-button type="submit" [loading]="isLoading"> Se connecter</ui-button>
+    <ui-button type="submit" [loading]="state.isLoading" [disabled]="form.status === 'INVALID'"> Se connecter
+    </ui-button>
     <hr class="border-gray-300 w-full"/>
-    <ui-button-outline>
+    <ui-button-outline (click)="loginWithGoogle()">
       <img ngSrc="assets/images/google.svg" alt="google" class="mr-2 h-4 w-4" width="10" height="10"/>
       <span class="text-gray-950 text-sm">Se connecter avec Google</span>
     </ui-button-outline>
@@ -12,4 +13,4 @@
       Pas encore de compte ? Inscrivez-vous
     </a>
   </form>
-</ui-form-card>
+</component-form-card>

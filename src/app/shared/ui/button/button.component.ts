@@ -11,4 +11,5 @@ import {SpinnerComponent} from '../spinner/spinner.component';
 export class ButtonComponent {
   @Input() type: 'button' | 'submit' | 'reset' = 'submit';
   @Input() loading: boolean | null = false;
+  @Input() disabled: boolean | null = false;
 }

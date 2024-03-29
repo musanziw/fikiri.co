@@ -22,11 +22,10 @@ import {LoadingBarRouterModule} from "@ngx-loading-bar/router";
   templateUrl: './app.component.html',
 })
 export class AppComponent implements OnInit {
-
   constructor(private store: Store) {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(authActions.authenticatedUser());
+    this.store.dispatch(authActions.authentication());
   }
 }

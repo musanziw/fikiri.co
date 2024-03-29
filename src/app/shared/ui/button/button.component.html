@@ -1,6 +1,6 @@
 <button
-  class="inline-flex w-full justify-center items-center px-4 py-2 font-semibold leading-6 text-sm shadow rounded-md text-white bg-indigo-500 hover:bg-indigo-400 transition ease-in-out duration-150 disabled:cursor-not-allowed"
-  [disabled]="loading" [type]="type">
+  class="inline-flex w-full justify-center items-center px-4 py-2 font-semibold leading-6 text-sm shadow rounded-md text-white bg-indigo-500 hover:bg-indigo-700/90 transition ease-in-out duration-150 disabled:bg-indigo-400/80 disabled:cursor-not-allowed"
+  [disabled]="loading || disabled" [type]="type">
   @if (loading) {
     <ui-spinner/>
     En cours..

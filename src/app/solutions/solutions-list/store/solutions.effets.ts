@@ -8,11 +8,12 @@ import {select, Store} from "@ngrx/store";
 import {selectCursor} from "./solutions.reducers";
 
 export const solutionsEffet = createEffect(
-  (actions$ = inject(Actions), solutionsService = inject(SolutionsService)) => {
+  (actions$ = inject(Actions), solutionsService = inject(SolutionsService), store$ = inject(Store)) => {
     return actions$.pipe(
       ofType(solutionsActions.load),
-      switchMap(() => {
-        return solutionsService.getMappedSolutions().pipe(
+      withLatestFrom(store$.pipe(select(selectCursor))),
+      switchMap(([_, cursor]) => {
+        return solutionsService.getMappedSolutions(cursor).pipe(
           map((solutions) => solutionsActions.loadSuccess({solutions})),
           catchError((error) => of(solutionsActions.loadFailure({error})))
         )

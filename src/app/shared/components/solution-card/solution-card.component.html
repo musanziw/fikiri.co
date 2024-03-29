@@ -1,6 +1,6 @@
-<div class="flex flex-col">
+<div class="flex flex-col relative">
   <div class="w-auto h-40 mb-4 bject-cover relative">
-    <img [ngSrc]="displayImage(solution) || '/assets/images/default-placeholder.png'" class="rounded-md" [alt]="solution.name" fill/>
+    <img [ngSrc]="displayImage(solution)" class="rounded-md" [alt]="solution.name" fill/>
   </div>
   <div class="flex flex-col gap-3">
     <h3 class="font-semibold text-lg text-gray-800">

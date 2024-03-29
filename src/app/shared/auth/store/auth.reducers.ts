@@ -6,14 +6,28 @@ const initialState: AuthStoreInterface = {
   isLoading: false,
   user: null,
   error: null,
+  validationErrors: []
 };
 
 const authFeature = createFeature({
   name: 'auth',
   reducer: createReducer(
     initialState,
-    on(authActions.authenticatedUser, (state) => ({...state})),
-    on(authActions.authenticateUser, (state, actions) => ({...state, user: actions.user, isLoading: false})),
+    on(authActions.authentication, (state) => ({...state})),
+    on(authActions.login, (state) => ({...state, isLoading: true})),
+    on(authActions.register, (state) => ({...state, isLoading: true, validationErrors: []})),
+    on(authActions.deleteError, (state) => ({...state, error: null})),
+    on(authActions.validationErrors, (state, actions) => ({
+      ...state,
+      error: null,
+      isLoading: false,
+      validationErrors: actions.validationErrors
+    })),
+    on(authActions.authenticateUser, (state, actions) => ({
+      ...state,
+      user: actions.user,
+      error: null
+    })),
     on(authActions.authenticationFailure, (state, actions) => ({
       ...state,
       user: null,
@@ -24,4 +38,4 @@ const authFeature = createFeature({
   ),
 })
 
-export const {name: authFeatureKey, reducer: authReducers, selectUser, selectAuthState} = authFeature
+export const {reducer: authReducers, selectUser, selectAuthState} = authFeature
