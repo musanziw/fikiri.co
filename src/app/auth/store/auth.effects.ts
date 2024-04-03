@@ -32,6 +32,51 @@ export const loginEffect = createEffect(
   }, {functional: true}
 )
 
+export const resetPasswordRequestEffect = createEffect(
+  (actions$ = inject(Actions), authService = inject(AuthService), router = inject(Router)) => {
+    return actions$.pipe(ofType(authActions.resetPasswordRequest),
+      mergeMap(({payload}) => {
+        return authService.resetPasswordRequest(payload)
+          .pipe(map(() => {
+              router.navigate(['/reset-password']);
+              return authActions.resetPasswordRequestSuccess()
+            }),
+            catchError((err) => {
+              const error = err.error.message;
+              if (typeof error === 'string') {
+                router.navigate(['/reset-password-request']);
+                return of(authActions.authenticationFailure({error}))
+              }
+              return of(authActions.validationErrors({validationErrors: error}))
+            })
+          )
+      }))
+  }, {functional: true}
+)
+
+export const resetPasswordEffect = createEffect(
+  (actions$ = inject(Actions), authService = inject(AuthService), router = inject(Router)) => {
+    return actions$.pipe(ofType(authActions.resetPassword),
+      mergeMap(({payload}) => {
+        return authService.resetPassword(payload).pipe(
+          map(() => {
+            router.navigate(['/login']);
+            return authActions.resetPasswordSuccess()
+          }),
+          catchError((err) => {
+            const error = err.error.message;
+            if (typeof error === 'string') {
+              router.navigate(['/reset-password']);
+              return of(authActions.authenticationFailure({error}))
+            }
+            return of(authActions.validationErrors({validationErrors: error}))
+          })
+        )
+      }))
+  }, {functional: true}
+)
+
+
 export const registerEffect = createEffect(
   (actions$ = inject(Actions), authService = inject(AuthService), router = inject(Router)) => {
     return actions$.pipe(ofType(authActions.register),

@@ -3,8 +3,8 @@ import {NgOptimizedImage} from '@angular/common';
 import {RouterLink} from '@angular/router';
 import {Solution} from '../../types/models-interfaces';
 import {ImagesService} from '../../services/images.service';
-import {cutParagraph} from "../../pipes/cut-paragraph.pipe";
-import {CapitalizeFirstLetterPipe} from "../../pipes/capitalize-first-letter.pipe";
+import {cutParagraph} from "../../pipes/cutParagraph.pipe";
+import {CapitalizeFirstLetterPipe} from "../../pipes/capitalizeFirstLetter.pipe";
 
 @Component({
   selector: 'component-solution-card',

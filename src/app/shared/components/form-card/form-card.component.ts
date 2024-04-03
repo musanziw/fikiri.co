@@ -9,5 +9,5 @@ import {CommonModule} from "@angular/common";
 })
 export class FormCardComponent {
   @Input() formTitle: string = '';
-  @Input() error: string = ''
+  @Input() error: string | null = ''
 }

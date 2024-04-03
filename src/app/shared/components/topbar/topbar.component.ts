@@ -3,8 +3,8 @@ import {CommonModule, NgOptimizedImage} from '@angular/common';
 import {RouterModule} from '@angular/router';
 import {select, Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
-import {authActions} from "../../auth/store/auth.actions";
-import {selectUser as selectAuthUser} from "../../auth/store/auth.reducers";
+import {authActions} from "../../../auth/store/auth.actions";
+import {selectUser as selectAuthUser} from "../../../auth/store/auth.reducers";
 import {User} from "../../types/models-interfaces";
 import {LinkInterface} from "./types/link.interface";
 import {FormsModule} from "@angular/forms";
@@ -26,7 +26,7 @@ export class TopbarComponent {
   commonLinks: LinkInterface[] = [
     {
       name: 'Appels',
-      path: '/calls',
+      path: '/call/1',
     },
     {
       name: 'Solutions',

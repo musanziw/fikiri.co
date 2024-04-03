@@ -11,13 +11,7 @@ export const solutionEffets = createEffect(
       ofType(solutionActions.load),
       switchMap(({id}) => {
         return solutionService.getSolution(id).pipe(
-          map((solutionResponse) => {
-            return solutionActions.loadSuccess({
-              solution: solutionResponse.solution,
-              prev: solutionResponse.prev,
-              next: solutionResponse.next
-            })
-          }),
+          map((solutionResponse) => solutionActions.loadSuccess(solutionResponse)),
           catchError((error: HttpErrorResponse) => of(solutionActions.loadFailure({error: error.error.message})))
         )
       })

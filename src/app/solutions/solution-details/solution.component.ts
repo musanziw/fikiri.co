@@ -8,10 +8,10 @@ import {Observable} from 'rxjs';
 import {AppStoreInterface} from '../../shared/types/app-store.interface';
 import {SolutionStoreInterface} from "./types/solution-store.interface";
 import {selectSolutionState} from "./store/solution.reducers";
-import {CapitalizeFirstLetterPipe} from "../../shared/pipes/capitalize-first-letter.pipe";
+import {CapitalizeFirstLetterPipe} from "../../shared/pipes/capitalizeFirstLetter.pipe";
 import {solutionActions} from "./store/solution.actions";
 import {NotFoundComponent} from "../../shared/components/not-found/not-found.component";
-import {cutParagraph} from "../../shared/pipes/cut-paragraph.pipe";
+import {cutParagraph} from "../../shared/pipes/cutParagraph.pipe";
 
 @Component({
   selector: 'fk-solution-details-details',
@@ -47,7 +47,7 @@ export class SolutionComponent implements OnInit {
     return this.imagesService.diplayImage(solution);
   }
 
-  loadPrevOrNext(id: number | null): void {
+  loadPrevOrNext(id: number | null | undefined): void {
     if (!id) return
     this.store.dispatch(solutionActions.load({id}));
     this.router.navigate(['/solutions', id])

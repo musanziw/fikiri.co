@@ -4,10 +4,8 @@ import {solutionActions} from "./solution.actions";
 
 const initialState: SolutionStoreInterface = {
   isLoading: false,
-  solution: null,
+  solutionResponse: null,
   error: null,
-  prev: null,
-  next: null,
 };
 
 const solutionFeature = createFeature({
@@ -15,13 +13,7 @@ const solutionFeature = createFeature({
   reducer: createReducer(
     initialState,
     on(solutionActions.load, (state) => ({...state, isLoading: true})),
-    on(solutionActions.loadSuccess, (state, actions) => ({
-      ...state,
-      isLoading: false,
-      solution: actions.solution,
-      prev: actions.prev,
-      next: actions.next
-    })),
+    on(solutionActions.loadSuccess, (state, solutionResponse) => ({...state, isLoading: false, solutionResponse,})),
     on(solutionActions.loadFailure, (state, actions) => ({...state, isLoading: false, error: actions.error}))
   ),
 })

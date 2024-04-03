@@ -10,20 +10,22 @@ import {
 import {provideClientHydration} from '@angular/platform-browser';
 import {provideHttpClient, withFetch} from '@angular/common/http';
 import {provideAnimations} from '@angular/platform-browser/animations';
+import {PageTitleStrategy} from "./page-title.strategy";
+import {provideStore} from "@ngrx/store";
 import {routes} from './app.routes';
 import {provideToastr} from 'ngx-toastr';
 import {provideEffects} from '@ngrx/effects';
 import {provideStoreDevtools} from '@ngrx/store-devtools';
-import {authReducers} from './shared/auth/store/auth.reducers';
+import {authReducers} from './auth/store/auth.reducers';
 import {winningSolutionsReducers} from './home/components/winning-solutions/store/winning-solutions.reducers';
 import {solutionsReducers} from './solutions/solutions-list/store/solutions.reducers';
 import {solutionReducers} from './solutions/solution-details/store/solution.reducers';
-import * as authEffects from './shared/auth/store/auth.effects';
+import {callReducers} from "./call/store/call.reducers";
+import * as authEffects from './auth/store/auth.effects';
 import * as winningSolutionsEffects from "./home/components/winning-solutions/store/winning-solutions.effets";
 import * as solutionEffets from "./solutions/solution-details/store/solution.effets";
 import * as solutionsEffets from "./solutions/solutions-list/store/solutions.effets";
-import {PageTitleStrategy} from "./page-title.strategy";
-import {provideStore} from "@ngrx/store";
+import * as callsEffets from "./call/store/call.effets";
 
 const scrollConfig: InMemoryScrollingOptions = {
   scrollPositionRestoration: 'top',
@@ -45,12 +47,14 @@ export const appConfig: ApplicationConfig = {
     }),
     provideEffects(
       authEffects,
+      callsEffets,
       winningSolutionsEffects,
       solutionEffets,
       solutionsEffets
     ),
     provideStore({
       auth: authReducers,
+      call: callReducers,
       winningSolutions: winningSolutionsReducers,
       solutions: solutionsReducers,
       solution: solutionReducers,

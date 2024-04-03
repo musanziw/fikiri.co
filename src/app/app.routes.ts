@@ -15,17 +15,32 @@ export const routes: Routes = [
   {
     path: 'register',
     title: 'Signup',
-    loadComponent: () => import('./register/register.component').then((c) => c.RegisterComponent),
+    loadComponent: () => import('./auth/register/register.component').then((c) => c.RegisterComponent),
   },
   {
     path: 'login',
     title: 'Signin',
-    loadComponent: () => import('./login/login.component').then((c) => c.LoginComponent),
+    loadComponent: () => import('./auth/login/login.component').then((c) => c.LoginComponent),
+  },
+  {
+    path: 'reset-password-request',
+    title: 'Reset password',
+    loadComponent: () => import('./auth/reset-password-request/resetPasswordRequest.component').then((c) => c.ResetPasswordRequestComponent),
+  },
+  {
+    path: 'reset-password',
+    title: 'Reset password',
+    loadComponent: () => import('./auth/reset-password/reset-password.component').then((c) => c.ResetPasswordComponent),
   },
   {
     path: 'profile',
     title: 'Profile',
     loadComponent: () => import('./profile/profile.component').then((c) => c.ProfileComponent),
+  },
+  {
+    path: 'call/:id',
+    title: 'Calls',
+    loadComponent: () => import('./call/call.component').then((c) => c.CallComponent),
   },
   {
     path: '',

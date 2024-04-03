@@ -8,6 +8,9 @@ export interface Call {
   updatedAt: Date;
   solutions?: Solution[];
   thematics: Thematic[];
+  _count?: {
+    solutions: number;
+  }
 }
 
 export interface Role {

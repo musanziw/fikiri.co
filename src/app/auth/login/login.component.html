@@ -1,4 +1,4 @@
-<component-form-card formTitle="Se connecter" *ngIf="state$ | async as state" [error]="state.error || ''">
+<component-form-card formTitle="Se connecter" *ngIf="state$ | async as state" [error]="state.error">
   <form [formGroup]="form" (ngSubmit)="onSubmit()" class="gap-8 flex flex-col justify-center">
     <ui-input type="email" label="Email" placeholder="Entrez votre email" name="email"/>
     <ui-input type="password" label="Mot de passe" placeholder="Entrez votre mot de passe" name="password"/>
@@ -6,11 +6,11 @@
     </ui-button>
     <hr class="border-gray-300 w-full"/>
     <ui-button-outline (click)="loginWithGoogle()">
-      <img ngSrc="assets/images/google.svg" alt="google" class="mr-2 h-4 w-4" width="10" height="10"/>
+      <img ngSrc="../../../assets/images/google.svg" alt="google" class="mr-2 h-4 w-4" width="10" height="10"/>
       <span class="text-gray-950 text-sm">Se connecter avec Google</span>
     </ui-button-outline>
-    <a routerLink="/signup" class="text-gray-950 text-sm">
-      Pas encore de compte ? Inscrivez-vous
+    <a routerLink="/reset-password-request" class="text-gray-950 text-sm">
+      Mot de passe oublié ? Récupérez-le
     </a>
   </form>
 </component-form-card>

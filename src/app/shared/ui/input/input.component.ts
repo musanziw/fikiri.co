@@ -1,5 +1,6 @@
 import {Component, inject, Input} from "@angular/core";
 import {ControlContainer, ReactiveFormsModule} from "@angular/forms";
+import {ApiValiationsErrorsInterface} from "../../../auth/types/api-valiations-errors.interface";
 
 @Component({
   selector: 'ui-input',
@@ -20,5 +21,11 @@ export class InputComponent {
   @Input() label: string = ''
   @Input() type: 'email' | 'password' | 'text' | 'number' = 'text'
   @Input() placeholder: string = ''
-  @Input() error: string = ''
+  @Input() validationErrors: ApiValiationsErrorsInterface[] = []
+
+  getError(field: string): string {
+    const error = this.validationErrors.find((error: ApiValiationsErrorsInterface) => error.property === field);
+    if (!error) return "";
+    return error.message;
+  }
 }

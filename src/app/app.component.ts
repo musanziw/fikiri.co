@@ -1,7 +1,7 @@
 import {Store} from '@ngrx/store';
 import {Component, OnInit} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
-import {authActions} from "./shared/auth/store/auth.actions";
+import {authActions} from "./auth/store/auth.actions";
 import {TopbarComponent} from "./shared/components/topbar/topbar.component";
 import {FooterComponent} from "./shared/components/footer/footer.component";
 import {LoadingBarModule} from "@ngx-loading-bar/core";

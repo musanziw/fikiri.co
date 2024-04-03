@@ -1,9 +1,7 @@
-import {Solution} from '../../../shared/types/models-interfaces';
+import {SolutionResponseInterface} from "./solution-response.interface";
 
 export interface SolutionStoreInterface {
   isLoading: boolean;
-  solution: Solution | null;
+  solutionResponse: SolutionResponseInterface | null;
   error: string | null;
-  prev: number | null;
-  next: number | null;
 }

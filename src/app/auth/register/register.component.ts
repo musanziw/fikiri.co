@@ -2,16 +2,15 @@ import {Component, OnDestroy} from '@angular/core';
 import {AsyncPipe, NgIf, NgOptimizedImage} from '@angular/common';
 import {RouterLink} from '@angular/router';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
-import {FormCardComponent} from '../shared/components/form-card/form-card.component';
-import {ButtonComponent} from '../shared/ui/button/button.component';
-import {ButtonOutlineComponent} from '../shared/ui/button-outline/button-outline.component';
-import {InputComponent} from '../shared/ui/input/input.component';
+import {FormCardComponent} from '../../shared/components/form-card/form-card.component';
+import {ButtonComponent} from '../../shared/ui/button/button.component';
+import {ButtonOutlineComponent} from '../../shared/ui/button-outline/button-outline.component';
+import {InputComponent} from '../../shared/ui/input/input.component';
 import {select, Store} from "@ngrx/store";
-import {authActions} from "../shared/auth/store/auth.actions";
-import {selectAuthState} from "../shared/auth/store/auth.reducers";
+import {authActions} from "../store/auth.actions";
+import {selectAuthState} from "../store/auth.reducers";
 import {Observable} from "rxjs";
-import {AuthStoreInterface} from "../shared/auth/types/auth-store.interface";
-import {ApiValiationsErrorsInterface} from "../shared/auth/types/api-valiations-errors.interface";
+import {AuthStoreInterface} from "../types/auth-store.interface";
 
 @Component({
   selector: 'app-register',
@@ -26,7 +25,7 @@ import {ApiValiationsErrorsInterface} from "../shared/auth/types/api-valiations-
     FormsModule,
     ReactiveFormsModule,
     AsyncPipe,
-    NgIf,
+    NgIf
   ],
   templateUrl: './register.component.html',
 })
@@ -38,7 +37,7 @@ export class RegisterComponent implements OnDestroy {
     this.state$ = this.store.pipe(select(selectAuthState))
     this.form = this.formBuilder.nonNullable.group({
       name: ['', Validators.required],
-      email: ['', Validators.pattern(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/)],
+      email: ['', Validators.required],
       address: ['', Validators.required],
       phoneNumber: ['', Validators.required],
       passwordConfirm: ['', Validators.required],
@@ -52,11 +51,5 @@ export class RegisterComponent implements OnDestroy {
 
   ngOnDestroy(): void {
     this.store.dispatch(authActions.deleteError());
-  }
-
-  getError(errors: ApiValiationsErrorsInterface[], field: string): string {
-    const error = errors.find((error: ApiValiationsErrorsInterface) => error.property === field);
-    if (!error) return "";
-    return error.message;
   }
 }

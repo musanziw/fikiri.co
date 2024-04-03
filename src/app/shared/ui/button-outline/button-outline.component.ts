@@ -9,6 +9,6 @@ import {SpinnerComponent} from "../spinner/spinner.component";
   templateUrl: './button-outline.component.html'
 })
 export class ButtonOutlineComponent {
-  @Input() type: 'button' | 'submit' | 'reset' = 'submit'
+  @Input() type: 'button' | 'submit' | 'reset' = 'button'
   @Input() loading: boolean = false
 }
