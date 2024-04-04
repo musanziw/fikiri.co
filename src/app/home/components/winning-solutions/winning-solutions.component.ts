@@ -10,7 +10,6 @@ import {
 import {WinningSolutionsStoreInterface} from "./types/winning-solutions-store.interface";
 import {selectWinningSolutionsState} from "./store/winning-solutions.reducers";
 import {winningSolutionsActions} from "./store/winning-solutions.actions";
-import {User} from "../../../shared/types/models-interfaces";
 
 @Component({
   selector: 'component-winning-solutions',
