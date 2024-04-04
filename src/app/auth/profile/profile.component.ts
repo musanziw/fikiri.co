@@ -1,17 +1,18 @@
 import {Component, Input, OnInit, signal, WritableSignal} from '@angular/core';
 import {select, Store} from "@ngrx/store";
 import {Observable} from "rxjs";
-import {selectAuthState} from "../auth/store/auth.reducers";
-import {AuthStoreInterface} from "../auth/types/auth-store.interface";
+import {selectAuthState} from "../store/auth.reducers";
+import {AuthStoreInterface} from "../types/auth-store.interface";
 import {AsyncPipe, DatePipe, NgClass, NgIf, NgOptimizedImage} from "@angular/common";
 import {RouterLink} from "@angular/router";
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
-import {Solution, User} from "../shared/types/models-interfaces";
-import {InputComponent} from "../shared/ui/input/input.component";
-import {ButtonComponent} from "../shared/ui/button/button.component";
+import {Solution, User} from "../../shared/types/models-interfaces";
+import {InputComponent} from "../../shared/ui/input/input.component";
+import {ButtonComponent} from "../../shared/ui/button/button.component";
 import {HttpClient} from "@angular/common/http";
-import {CapitalizeFirstLetterPipe} from "../shared/pipes/capitalizeFirstLetter.pipe";
-import {ImagesService} from "../shared/services/images.service";
+import {CapitalizeFirstLetterPipe} from "../../shared/pipes/capitalizeFirstLetter.pipe";
+import {ImagesService} from "../../shared/services/images.service";
+import {authActions} from "../store/auth.actions";
 
 @Component({
   selector: 'fk-profile',
@@ -67,18 +68,13 @@ export class ProfileComponent implements OnInit {
   }
 
   displayProfile(user: User | null): string {
-    if (!user) return ''
-    if (user.profile) {
-      return 'https://api.fikiri.co/uploads/' + user.profile
-    } else if (user.googleImage) {
-      return user.googleImage
-    } else {
-      return ''
-    }
+    if (user?.profile) return 'https://api.fikiri.co/uploads/' + user.profile
+    if (user?.googleImage && !user?.profile) return user.googleImage
+    return ''
   }
 
   onSubmit(): void {
-    console.log(this.form.value)
+    this.store.dispatch(authActions.updateProfile({payload: this.form.value}))
   }
 
   onTabChange(tab: string): void {
@@ -86,16 +82,13 @@ export class ProfileComponent implements OnInit {
   }
 
   onFileSelected(event: Event) {
-    const fileInput = event.target as HTMLInputElement;
-    const file: File | undefined = fileInput.files?.[0];
+    const fileInput: HTMLInputElement = event.target as HTMLInputElement;
+    const file: File | undefined = fileInput.files?.[0]
     if (file) {
       this.fileName = file.name;
       const formData = new FormData();
       formData.append("thumb", file);
-      this.http.post("/api/thumbnail-upload", formData, {
-        reportProgress: true,
-        observe: 'events'
-      })
+      this.store.dispatch(authActions.updateImage({payload: formData}))
     }
   }
 

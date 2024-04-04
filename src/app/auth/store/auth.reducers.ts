@@ -60,6 +60,32 @@ const authFeature = createFeature({
       validationErrors: []
     })),
 
+    // update the profile
+    on(authActions.updateProfile, (state) => ({...state, isLoading: true})),
+    on(authActions.updateProfileSuccess, (state, actions) => ({
+      ...state,
+      user: actions.user,
+      isLoading: false,
+      error: null,
+      validationErrors: []
+    })),
+    on(authActions.updateProfileFailure, (state, actions) => ({
+      ...state,
+      isLoading: false,
+      error: actions.error,
+      validationErrors: []
+    })),
+
+    // update the image
+    on(authActions.updateImage, (state) => ({...state, isLoading: true})),
+    on(authActions.updateImageSuccess, (state) => ({...state, isLoading: false})),
+    on(authActions.updateImageFailure, (state, actions) => ({
+      ...state,
+      isLoading: false,
+      error: actions.error,
+      validationErrors: []
+    })),
+
     // delete the error message
     on(authActions.deleteError, (state) => ({...state, error: null, validationErrors: []})),
 

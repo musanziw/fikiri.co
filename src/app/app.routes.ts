@@ -35,7 +35,7 @@ export const routes: Routes = [
   {
     path: 'profile',
     title: 'Profile',
-    loadComponent: () => import('./profile/profile.component').then((c) => c.ProfileComponent),
+    loadComponent: () => import('./auth/profile/profile.component').then((c) => c.ProfileComponent),
   },
   {
     path: 'call/:id',

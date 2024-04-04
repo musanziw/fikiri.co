@@ -1,9 +1,11 @@
 import {inject} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
-import {catchError, map, mergeMap, of} from 'rxjs';
+import {catchError, combineLatestWith, map, mergeMap, of} from 'rxjs';
 import {AuthService} from '../auth.service';
 import {authActions} from "./auth.actions";
 import {Router} from "@angular/router";
+import {select, Store} from "@ngrx/store";
+import {selectUser} from "./auth.reducers";
 
 export const authenticateEffect = createEffect(
   (actions$ = inject(Actions), authService = inject(AuthService)) => {
@@ -94,6 +96,40 @@ export const registerEffect = createEffect(
             }
             return of(authActions.validationErrors({validationErrors: error}))
           })
+        )
+      }))
+  }, {functional: true}
+)
+export const updateProfileEffect = createEffect(
+  (actions$ = inject(Actions), authService = inject(AuthService), router = inject(Router)) => {
+    return actions$.pipe(ofType(authActions.updateProfile),
+      mergeMap(({payload}) => {
+        return authService.updateProfile(payload).pipe(
+          map((user) => {
+            router.navigate(['/profile']);
+            return authActions.authenticateUser({user})
+          }),
+          catchError((err) => {
+            const error = err.error.message;
+            if (typeof error === 'string') {
+              return of(authActions.authenticationFailure({error}))
+            }
+            router.navigate(['/profile']);
+            return of(authActions.validationErrors({validationErrors: error}))
+          })
+        )
+      }))
+  }, {functional: true}
+)
+
+export const updateImageEffect = createEffect(
+  (actions$ = inject(Actions), store$ = inject(Store), authService = inject(AuthService), router = inject(Router)) => {
+    return actions$.pipe(ofType(authActions.updateImage),
+      combineLatestWith(store$.pipe(select(selectUser))),
+      mergeMap(([actions, user]) => {
+        return authService.updateImage(user?.id, actions.payload).pipe(
+          map(() => authActions.updateImageSuccess()),
+          catchError((err) => of(authActions.authenticationFailure({error: err.error.message})))
         )
       }))
   }, {functional: true}
