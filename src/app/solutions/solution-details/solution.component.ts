@@ -29,12 +29,7 @@ import {cutParagraph} from "../../shared/pipes/cutParagraph.pipe";
 export class SolutionComponent implements OnInit {
   state$: Observable<SolutionStoreInterface>;
 
-  constructor(
-    private store: Store<AppStoreInterface>,
-    private imagesService: ImagesService,
-    private route: ActivatedRoute,
-    private router: Router
-  ) {
+  constructor(private store: Store<AppStoreInterface>, private imagesService: ImagesService, private route: ActivatedRoute, private router: Router) {
     this.state$ = this.store.pipe(select(selectSolutionState));
   }
 
