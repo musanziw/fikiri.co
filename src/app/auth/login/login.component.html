@@ -2,7 +2,7 @@
   <form [formGroup]="form" (ngSubmit)="onSubmit()" class="gap-8 flex flex-col justify-center">
     <ui-input type="email" label="Email" placeholder="Entrez votre email" name="email"/>
     <ui-input type="password" label="Mot de passe" placeholder="Entrez votre mot de passe" name="password"/>
-    <ui-button type="submit" [loading]="state.isLoading" [disabled]="form.status === 'INVALID'"> Se connecter
+    <ui-button type="submit" [loading]="state.isLoading" [disabled]="form.invalid"> Se connecter
     </ui-button>
     <hr class="border-gray-300 w-full"/>
     <ui-button-outline (click)="loginWithGoogle()">
