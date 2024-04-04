@@ -3,7 +3,7 @@
     <h2 class="text-xl md:text-2xl mb-8 text-gray-950 font-bold pt-20 md:w-2/3">
       Les solutions innovantes de la communauté.
     </h2>
-    <div class="grid grid-cols-1 gap-x-6 gap-y-10 md:grid-cols-2 lg:grid-cols-4">
+    <div class="grid grid-cols-1 gap-x-6 gap-y-10 md:grid-cols-3 lg:grid-cols-4">
       @for (solution of state.solutions; track solution.id) {
         <component-solution-card [solution]="solution"/>
       }

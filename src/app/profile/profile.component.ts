@@ -38,7 +38,7 @@ export class ProfileComponent implements OnInit {
   @Input() requiredFileType: string = 'image/png';
   fileName: string = '';
 
-  constructor(private store: Store, private formBuilder: FormBuilder, private http: HttpClient,  private imagesService: ImagesService) {
+  constructor(private store: Store, private formBuilder: FormBuilder, private http: HttpClient, private imagesService: ImagesService) {
     this.authState$ = this.store.pipe(select(selectAuthState))
     this.form = this.formBuilder.nonNullable.group({
       name: ['', Validators.required],
@@ -73,7 +73,7 @@ export class ProfileComponent implements OnInit {
     } else if (user.googleImage) {
       return user.googleImage
     } else {
-      return user.name.slice(0, 2).toUpperCase()
+      return ''
     }
   }
 
@@ -98,6 +98,7 @@ export class ProfileComponent implements OnInit {
       })
     }
   }
+
   displayImage(solution: Solution): string {
     return this.imagesService.diplayImage(solution);
   }

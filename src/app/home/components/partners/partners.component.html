@@ -1,13 +1,9 @@
-<div class="p-8 bg-white" id="about">
-  <div
-    class="lg:mx-auto p-8 lg:py-8 lg:px-0 border-t flex flex-col gap-4 lg:items-start items-center justify-center w-full overflow-hidden lg:max-w-screen-lg pt-10">
-    <h3 class="font-bold text-2xl mb-3">Découvrez les acteurs</h3>
-    <div class="flex gap-4 flex-wrap justify-center lg:justify-start">
-      @for (partainer of partainers; track partainer.id) {
-      <div class="h-24 w-28 relative object-contain bg-gray-200 rounded-md shadow-md">
-          <img [ngSrc]="partainer.src" class="" [alt]="partainer.name" fill/>
-      </div>
-      }
+<h3 class="font-bold text-2xl mb-6 mt-20">Découvrez les acteurs</h3>
+<div class="flex gap-4 flex-wrap justify-center lg:justify-start">
+  @for (partainer of partainers; track partainer.id) {
+    <div class="h-24 w-28 relative object-contain bg-gray-200 rounded-md shadow-md">
+      <img [ngSrc]="partainer.src" class="" [alt]="partainer.name" fill/>
     </div>
-  </div>
+  }
 </div>
+
