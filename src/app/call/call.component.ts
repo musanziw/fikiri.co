@@ -9,6 +9,7 @@ import {selectCallState} from './store/call.reducers';
 import {callActions} from './store/call.actions';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {solutionActions} from '../solutions/solution-details/store/solution.actions';
+import {YouTubePlayer} from "@angular/youtube-player";
 
 @Component({
   selector: 'app-call',
@@ -21,6 +22,7 @@ import {solutionActions} from '../solutions/solution-details/store/solution.acti
     NotFoundComponent,
     RouterLink,
     DatePipe,
+    YouTubePlayer,
   ],
   templateUrl: './call.component.html',
 })
