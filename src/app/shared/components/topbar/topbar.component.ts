@@ -1,6 +1,6 @@
 import {Component,} from '@angular/core';
 import {CommonModule, NgOptimizedImage} from '@angular/common';
-import {RouterModule} from '@angular/router';
+import {ActivatedRoute, RouterModule} from '@angular/router';
 import {select, Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
 import {authActions} from "../../../auth/store/auth.actions";
@@ -18,15 +18,18 @@ import {FormsModule} from "@angular/forms";
 export class TopbarComponent {
   isOpen: boolean = false
   user$: Observable<User | null>
+  activePath: string = ''
 
-  constructor(private store: Store) {
+  constructor(private store: Store, private route: ActivatedRoute) {
     this.user$ = this.store.pipe(select(selectAuthUser));
+    // this.activePath = this.route.snapshot.url[0].path
+    // console.log(this.route.snapshot.url[0].path)
   }
 
   commonLinks: LinkInterface[] = [
     {
-      name: 'Appels',
-      path: '/call/1',
+      name: 'Accueil',
+      path: '/',
     },
     {
       name: 'Solutions',
@@ -70,8 +73,7 @@ export class TopbarComponent {
     return name.length > 15 ? name.substring(0, 15) + '...' : name;
   }
 
-  protected toggleMenu(): boolean {
+  toggleMenu(): boolean {
     return this.isOpen = !this.isOpen
   }
-
 }

@@ -1,0 +1,26 @@
+<ng-container *ngIf="state$ | async as state">
+  @if (state.call; as call) {
+    <div class="flex flex-col gap-4">
+      <h2 class="font-bold text-gray-800 text-2xl mb-4">Appel à solution récent</h2>
+      <h2 class="text-xl text-gray-950 mb-3">
+        {{ call.name | capitalizeFirstLetter }}
+      </h2>
+
+<!--      <youtube-player [height]="600" [width]="1080" videoId="Pq28wgrdyA0"/>-->
+
+      <h2 class="font-bold text-gray-950 text-xl">Durée de l'appel</h2>
+      <p class="text-gray-800">
+        Date de début : {{ call.startedAt | date : "dd/MM/yyyy" }}
+      </p>
+      <p class="text-gray-800 mb-2">
+        Date de fin : {{ call.endedAt | date : "dd/MM/yyyy" }}
+      </p>
+    </div>
+    <h2 class="font-bold text-gray-950 text-xl mt-4 mb-6">Les thématiques</h2>
+    <div class="flex flex-col gap-4">
+      @for (thematic of call.thematics; track thematic.id) {
+        <p class="mr-2">&mdash; {{ thematic.name }}</p>
+      }
+    </div>
+  }
+</ng-container>

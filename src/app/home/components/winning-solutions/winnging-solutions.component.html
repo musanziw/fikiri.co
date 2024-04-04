@@ -1,6 +1,6 @@
 <ng-container *ngIf="states$ | async as state">
   @if (state.solutions.length > 0) {
-    <h2 class="font-bold text-2xl mb-3">Les solutions awards</h2>
+    <h2 class="font-bold text-2xl mb-3 mt-16">Les solutions awards</h2>
     <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-12 mt-8">
       @for (solution of state.solutions; track solution.id) {
         <component-solution-card [solution]="solution"/>

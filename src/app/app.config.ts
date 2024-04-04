@@ -20,12 +20,12 @@ import {authReducers} from './auth/store/auth.reducers';
 import {winningSolutionsReducers} from './home/components/winning-solutions/store/winning-solutions.reducers';
 import {solutionsReducers} from './solutions/solutions-list/store/solutions.reducers';
 import {solutionReducers} from './solutions/solution-details/store/solution.reducers';
-import {callReducers} from "./call/store/call.reducers";
+import {recentCallReducers} from "./home/components/recent-call/store/recent-call.reducers";
 import * as authEffects from './auth/store/auth.effects';
 import * as winningSolutionsEffects from "./home/components/winning-solutions/store/winning-solutions.effets";
 import * as solutionEffets from "./solutions/solution-details/store/solution.effets";
 import * as solutionsEffets from "./solutions/solutions-list/store/solutions.effets";
-import * as callsEffets from "./call/store/call.effets";
+import * as callsEffets from "./home/components/recent-call/store/recent-call.effets";
 
 const scrollConfig: InMemoryScrollingOptions = {
   scrollPositionRestoration: 'top',
@@ -54,7 +54,7 @@ export const appConfig: ApplicationConfig = {
     ),
     provideStore({
       auth: authReducers,
-      call: callReducers,
+      recentCall: recentCallReducers,
       winningSolutions: winningSolutionsReducers,
       solutions: solutionsReducers,
       solution: solutionReducers,

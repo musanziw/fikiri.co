@@ -38,11 +38,6 @@ export const routes: Routes = [
     loadComponent: () => import('./auth/profile/profile.component').then((c) => c.ProfileComponent),
   },
   {
-    path: 'call/:id',
-    title: 'Calls',
-    loadComponent: () => import('./call/call.component').then((c) => c.CallComponent),
-  },
-  {
     path: '',
     title: 'home',
     component: HomeComponent,
