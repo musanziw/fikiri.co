@@ -4,9 +4,6 @@ import {RouterOutlet} from '@angular/router';
 import {authActions} from "./auth/store/auth.actions";
 import {TopbarComponent} from "./shared/components/topbar/topbar.component";
 import {FooterComponent} from "./shared/components/footer/footer.component";
-import {LoadingBarModule} from "@ngx-loading-bar/core";
-import {LoadingBarHttpClientModule} from "@ngx-loading-bar/http-client";
-import {LoadingBarRouterModule} from "@ngx-loading-bar/router";
 
 @Component({
   selector: 'app-root',
@@ -14,10 +11,7 @@ import {LoadingBarRouterModule} from "@ngx-loading-bar/router";
   imports: [
     RouterOutlet,
     TopbarComponent,
-    FooterComponent,
-    LoadingBarModule,
-    LoadingBarHttpClientModule,
-    LoadingBarRouterModule,
+    FooterComponent
   ],
   templateUrl: './app.component.html',
 })
