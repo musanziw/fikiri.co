@@ -3,7 +3,6 @@ import {ComponentStore} from "@ngrx/component-store";
 import {LoginStoreInterface} from "../types/login-store.interface";
 import {catchError, map, Observable, of, switchMap, tap} from "rxjs";
 import {LoginPayloadInterface} from "../types/login-payload.interface";
-import {AuthService} from "../../auth.service";
 import {Router} from "@angular/router";
 import {authActions} from "../../store/auth.actions";
 import {LoginService} from "./login.service";
