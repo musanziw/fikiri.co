@@ -4,7 +4,9 @@ import {ProfilePayloadInterface} from "../types/profile-payload.interface";
 import {Observable} from "rxjs";
 import {User} from "../../../shared/types/models-interfaces";
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class ProfileService {
   constructor(private httpClient: HttpClientService) {
   }

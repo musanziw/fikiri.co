@@ -1,11 +1,17 @@
 <component-form-card formTitle="Inscrivez-vous" *ngIf="state$ | async as state" [error]="state.error">
   <form [formGroup]="form" (ngSubmit)="onSubmit()" class="gap-8 flex flex-col justify-center">
-    <ui-input type="text" name="name" label="Nom complet" placeholder="Entrez votre nom" [validationErrors]="state.validationErrors"/>
-    <ui-input type="email" name="email" label="Email" placeholder="Entrez votre email" [validationErrors]="state.validationErrors"/>
-    <ui-input type="text" name="phoneNumber" label="Numéro téléphonique" placeholder="Entrez votre numéro" [validationErrors]="state.validationErrors"/>
-    <ui-input type="text" name="address" label="Votre adresse" placeholder="Entrez votre adresse" [validationErrors]="state.validationErrors"/>
-    <ui-input type="password" name="password" label="Mot de passe" placeholder="Entrez votre mot de passe" [validationErrors]="state.validationErrors"/>
-    <ui-input type="password" name="passwordConfirm" label="Confirmez votre mot de passe" placeholder="Entrez votre confirmation" [validationErrors]="state.validationErrors"/>
+    <ui-input type="text" name="name" label="Nom complet" placeholder="Entrez votre nom"
+              [validationErrors]="state.validationErrors"/>
+    <ui-input type="email" name="email" label="Email" placeholder="Entrez votre email"
+              [validationErrors]="state.validationErrors"/>
+    <ui-input type="text" name="phone_number" label="Numéro téléphonique" placeholder="Entrez votre numéro"
+              [validationErrors]="state.validationErrors"/>
+    <ui-input type="text" name="address" label="Votre adresse" placeholder="Entrez votre adresse"
+              [validationErrors]="state.validationErrors"/>
+    <ui-input type="password" name="password" label="Mot de passe" placeholder="Entrez votre mot de passe"
+              [validationErrors]="state.validationErrors"/>
+    <ui-input type="password" name="passwordConfirm" label="Confirmez votre mot de passe"
+              placeholder="Entrez votre confirmation" [validationErrors]="state.validationErrors"/>
     <ui-button type="submit" [loading]="state.isLoading" [disabled]="form.invalid">
       S'inscrire
     </ui-button>

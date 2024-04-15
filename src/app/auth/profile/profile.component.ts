@@ -9,7 +9,6 @@ import {ButtonComponent} from "../../shared/ui/button/button.component";
 import {CapitalizeFirstLetterPipe} from "../../shared/pipes/capitalizeFirstLetter.pipe";
 import {ProfileStore} from "./data-access/profile.store";
 import {ProfileStoreInterface} from "./types/profile-store.interface";
-import {ProfileService} from "./data-access/profile.service";
 
 @Component({
   selector: 'fk-profile',
@@ -27,7 +26,7 @@ import {ProfileService} from "./data-access/profile.service";
     NgClass,
     CapitalizeFirstLetterPipe
   ],
-  providers: [ProfileService, ProfileStore],
+  providers: [ProfileStore],
   templateUrl: './profile.component.html',
 })
 export class ProfileComponent implements OnInit {
@@ -40,7 +39,7 @@ export class ProfileComponent implements OnInit {
     this.form = this.formBuilder.nonNullable.group({
       name: ['', Validators.required],
       address: ['', Validators.required],
-      phoneNumber: ['', Validators.required],
+      phone_number: ['', Validators.required],
       oldPassword: [''],
       password: [''],
       passwordConfirm: [''],

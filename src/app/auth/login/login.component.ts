@@ -11,7 +11,6 @@ import {environment} from "../../../environments/environment";
 import {Observable} from "rxjs";
 import {LoginStore} from "./data-access/login.store";
 import {LoginStoreInterface} from "./types/login-store.interface";
-import {LoginService} from "./data-access/login.service";
 
 @Component({
   selector: 'fk-login',
@@ -28,7 +27,7 @@ import {LoginService} from "./data-access/login.service";
     AsyncPipe,
     NgIf,
   ],
-  providers: [LoginService, LoginStore],
+  providers: [LoginStore],
   templateUrl: './login.component.html',
 })
 export class LoginComponent {

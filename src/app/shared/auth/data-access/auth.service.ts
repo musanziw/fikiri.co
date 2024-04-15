@@ -3,7 +3,9 @@ import {HttpClientService} from '../../services/http-client.service';
 import {User} from '../../types/models-interfaces';
 import {Observable} from 'rxjs';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class AuthService {
   constructor(private http: HttpClientService) {
   }

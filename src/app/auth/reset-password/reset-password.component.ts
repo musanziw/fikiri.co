@@ -11,7 +11,6 @@ import {environment} from "../../../environments/environment";
 import {Observable} from "rxjs";
 import {ResetPasswordStore} from "./data-access/reset-password.store";
 import {ResetPasswordStoreInterface} from "./types/reset-password-store.interface";
-import {ResetPasswordService} from "./data-access/reset-pasword.service";
 
 @Component({
   selector: 'fk-login',
@@ -28,7 +27,7 @@ import {ResetPasswordService} from "./data-access/reset-pasword.service";
     AsyncPipe,
     NgIf,
   ],
-  providers: [ResetPasswordService, ResetPasswordStore],
+  providers: [ResetPasswordStore],
   templateUrl: './reset-password.component.html',
 })
 export class ResetPasswordComponent {

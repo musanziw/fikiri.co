@@ -1,20 +1,14 @@
 <ng-container *ngIf="state$ | async as state">
   @if (state.solutionResponse?.solution; as solution) {
     <div class="flex flex-col text-lg mx-6 justify-center max-w-screen-md md:mx-auto border-x border-dashed pt-24">
-      <h2 class="font-bold text-gray-800 text-2xl mb-2 p-3">
-        Titre de la solution
-      </h2>
       @if (solution && solution.name) {
-        <h2 class="text-xl text-gray-950 mb-6 p-4">
+        <h2 class="font-bold text-gray-800 text-2xl mb-2 p-3">
           {{ solution.name | capitalizeFirstLetter }}
         </h2>
       }
       <div class="mb-8 h-48 lg:h-96 w-full relative">
         <img [ngSrc]="displayImage(solution)" [alt]="solution.name" priority fill/>
       </div>
-      <h2 class="font-bold text-gray-800 text-2xl mb-2 p-3">
-        Desciption de la solution
-      </h2>
       <p class="mb-4 p-4 hyphens-auto">{{ solution.description }}</p>
       <h2 class="font-bold text-gray-800 text-2xl mb-2 p-3">Problème résolu</h2>
       <p class="mb-8 p-4 hyphens-auto">{{ solution.targeted_problem }}</p>
@@ -22,51 +16,48 @@
       <p class="p-4">
         {{ solution.user.name }} &mdash; {{ solution.user.email }}
       </p>
-      <h2 class="font-bold text-gray-800 text-2xl mb-2 p-3">Thématique</h2>
       <p class="p-4">
         {{ solution.thematic.name }}
       </p>
-      <h2 class="font-bold text-gray-800 text-2xl mb-2 p-3">Défis</h2>
       <div class="p-4 mb-6">
         @for (challenge of solution.challenges; track challenge.id) {
           <p class="mr-2"> &mdash; {{ challenge.name }}</p>
         }
       </div>
 
-      @if (state.solutionResponse?.prev || state.solutionResponse?.next) {
-        <div class="flex justify-between mb-8 pt-8 px-8 border-t">
-          <button [disabled]="!state.solutionResponse?.prev"
-                  (click)="loadPrevOrNext(state.solutionResponse?.prev)"
-                  class="font-medium text-sm flex items-center text-indigo-600 justify-center gap-1 disabled:text-gray-600 disabled:cursor-not-allowed">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                 class="bi bi-chevron-double-left w-3 h-3" viewBox="0 0 16 16">
-              <path fill-rule="evenodd"
-                    d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"/>
-              <path fill-rule="evenodd"
-                    d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"/>
-            </svg>
-            Précédent
-          </button>
+      <!--      @if (state.solutionResponse?.prev || state.solutionResponse?.next) {-->
+      <!--        <div class="flex justify-between mb-8 pt-8 px-8 border-t">-->
+      <!--          <button [disabled]="!state.solutionResponse?.prev"-->
+      <!--                  (click)="loadPrevOrNext(state.solutionResponse?.prev)"-->
+      <!--                  class="font-medium text-sm flex items-center text-indigo-600 justify-center gap-1 disabled:text-gray-600 disabled:cursor-not-allowed">-->
+      <!--            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"-->
+      <!--                 class="bi bi-chevron-double-left w-3 h-3" viewBox="0 0 16 16">-->
+      <!--              <path fill-rule="evenodd"-->
+      <!--                    d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"/>-->
+      <!--              <path fill-rule="evenodd"-->
+      <!--                    d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"/>-->
+      <!--            </svg>-->
+      <!--            Précédent-->
+      <!--          </button>-->
 
-          <button [disabled]="!state.solutionResponse?.next"
-                  (click)="loadPrevOrNext(state.solutionResponse?.next)"
-                  class="font-medium text-sm flex items-center text-indigo-600 justify-center gap-1 disabled:text-gray-600 disabled:cursor-not-allowed">
-            Suivant
-            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                 class="bi bi-chevron-double-right w-3 h-3" viewBox="0 0 16 16">
-              <path fill-rule="evenodd"
-                    d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708"/>
-              <path fill-rule="evenodd"
-                    d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708"/>
-            </svg>
-          </button>
-        </div>
-      }
+      <!--          <button [disabled]="!state.solutionResponse?.next"-->
+      <!--                  (click)="loadPrevOrNext(state.solutionResponse?.next)"-->
+      <!--                  class="font-medium text-sm flex items-center text-indigo-600 justify-center gap-1 disabled:text-gray-600 disabled:cursor-not-allowed">-->
+      <!--            Suivant-->
+      <!--            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"-->
+      <!--                 class="bi bi-chevron-double-right w-3 h-3" viewBox="0 0 16 16">-->
+      <!--              <path fill-rule="evenodd"-->
+      <!--                    d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708"/>-->
+      <!--              <path fill-rule="evenodd"-->
+      <!--                    d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708"/>-->
+      <!--            </svg>-->
+      <!--          </button>-->
+      <!--        </div>-->
+      <!--      }-->
     </div>
   }
   @if (!state.isLoading && !state.solutionResponse?.solution) {
-    <component-not-found title="404" description="Page non trouvée" link="/solutions"
-                         linkText="Liste des solutions"/>
+    <component-not-found title="404" description="Page non trouvée" link="/solutions" linkText="Liste des solutions"/>
   }
 </ng-container>
 

@@ -1,17 +1,20 @@
 import {Injectable} from "@angular/core";
-import {ComponentStore} from "@ngrx/component-store";
+import {ComponentStore, tapResponse} from "@ngrx/component-store";
 import {LoginStoreInterface} from "../types/login-store.interface";
-import {catchError, map, Observable, of, switchMap, tap} from "rxjs";
+import {exhaustMap, Observable, tap} from "rxjs";
 import {LoginPayloadInterface} from "../types/login-payload.interface";
 import {Router} from "@angular/router";
 import {authActions} from "../../../shared/auth/data-access/auth.actions";
 import {LoginService} from "./login.service";
+import {HttpErrorResponse} from "@angular/common/http";
+import {Store} from "@ngrx/store";
+import {AppStoreInterface} from "../../../shared/types/app-store.interface";
 
 @Injectable()
 export class LoginStore extends ComponentStore<LoginStoreInterface> {
   vm$: Observable<LoginStoreInterface> = this.select((state) => state)
 
-  constructor(private loginService: LoginService, private router: Router) {
+  constructor(private loginService: LoginService, private router: Router, private store: Store<AppStoreInterface>) {
     super({isLoading: false, error: null});
   }
 
@@ -21,14 +24,16 @@ export class LoginStore extends ComponentStore<LoginStoreInterface> {
   readonly login = this.effect((payload$: Observable<LoginPayloadInterface>) => {
     return payload$.pipe(
       tap(() => this.setLoading(true)),
-      switchMap((payload: LoginPayloadInterface) => this.loginService.login(payload).pipe(
-        map((user) => {
-          authActions.authenticateUser({user})
-          return this.router.navigate(['/profile']);
-        }),
-        catchError((httpError) => of(this.setError(httpError.error.message))),
+      exhaustMap((payload: LoginPayloadInterface) => this.loginService.login(payload).pipe(
+        tapResponse({
+          next: (user) => {
+            this.router.navigateByUrl('/profile')
+            this.store.dispatch(authActions.authenticateUser({user}))
+          },
+          error: (error: HttpErrorResponse) => this.setError(error.error.message),
+          finalize: () => this.setLoading(false)
+        })
       )),
-      tap(() => this.setLoading(false)),
     )
   })
 }

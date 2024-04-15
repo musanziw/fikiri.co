@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {ComponentStore} from "@ngrx/component-store";
 import {SolutionStoreInterface} from "../types/solution-store.interface";
-import {catchError, map, Observable, of, switchMap, tap} from "rxjs";
+import {catchError, map, mergeMap, Observable, of, tap} from "rxjs";
 import {SolutionResponseInterface} from "../types/solution-response.interface";
 import {HttpErrorResponse} from "@angular/common/http";
 import {SolutionService} from "./solution.service";
@@ -22,10 +22,9 @@ export class SolutionStore extends ComponentStore<SolutionStoreInterface> {
     solutionResponse
   }));
 
-
   getSolution = this.effect((id$: Observable<number>) => id$.pipe(
     tap(() => this.setIsLoading(true)),
-    switchMap(id => this.solutionService.getSolution(id).pipe(
+    mergeMap(id => this.solutionService.getSolution(id).pipe(
       map((solutionResponse) => this.setSolutionResponse(solutionResponse)),
       catchError((error: HttpErrorResponse) => of(this.setError(error.error.message)))
     )),

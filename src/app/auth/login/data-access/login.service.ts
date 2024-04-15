@@ -4,7 +4,9 @@ import {LoginPayloadInterface} from "../types/login-payload.interface";
 import {Observable} from "rxjs";
 import {User} from "../../../shared/types/models-interfaces";
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class LoginService {
   constructor(private httpClient: HttpClientService) {
   }

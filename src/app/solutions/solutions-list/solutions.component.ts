@@ -3,41 +3,32 @@ import {CommonModule, NgComponentOutlet} from '@angular/common';
 import {RouterModule} from '@angular/router';
 import {SolutionCardComponent} from '../../shared/components/solution-card/solution-card.component';
 import {Observable} from 'rxjs';
-import {select, Store} from '@ngrx/store';
-import {AppStoreInterface} from '../../shared/types/app-store.interface';
 import {SpinnerComponent} from '../../shared/ui/spinner/spinner.component';
 import {
   SolutionCardSkeletonComponent
 } from '../../shared/components/solution-card-skeleton/solution-card-skeleton.component';
-import {solutionsActions} from "./store/solutions.actions";
 import {SolutionsStoreInterface} from "./types/solutions-store.interface";
-import {selectSolutionsState} from "./store/solutions.reducers";
+import {SolutionsStore} from "./data-access/solutions.store";
 
 @Component({
   selector: 'fk-solutions-list',
   standalone: true,
   templateUrl: './solutions.component.html',
-  imports: [
-    CommonModule,
-    RouterModule,
-    SolutionCardComponent,
-    SpinnerComponent,
-    SolutionCardSkeletonComponent,
-    NgComponentOutlet,
-  ],
+  providers: [SolutionsStore],
+  imports: [CommonModule, RouterModule, SolutionCardComponent, SpinnerComponent, SolutionCardSkeletonComponent, NgComponentOutlet],
 })
 export class SolutionsComponent implements OnInit {
   state$: Observable<SolutionsStoreInterface>;
 
-  constructor(private store: Store<AppStoreInterface>) {
-    this.state$ = this.store.pipe(select(selectSolutionsState));
+  constructor(private store: SolutionsStore) {
+    this.state$ = this.store.vm$
   }
 
   ngOnInit(): void {
-    this.store.dispatch(solutionsActions.load());
+    this.store.load()
   }
 
   loadMore(): void {
-    this.store.dispatch(solutionsActions.loadMore())
+    this.store.loadMore()
   }
 }

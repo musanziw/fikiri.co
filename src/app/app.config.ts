@@ -17,13 +17,7 @@ import {provideToastr} from 'ngx-toastr';
 import {provideEffects} from '@ngrx/effects';
 import {provideStoreDevtools} from '@ngrx/store-devtools';
 import {authReducers} from './shared/auth/data-access/auth.reducers';
-import {winningSolutionsReducers} from './home/components/winning-solutions/store/winning-solutions.reducers';
-import {solutionsReducers} from './solutions/solutions-list/store/solutions.reducers';
-import {recentCallReducers} from "./home/components/recent-call/store/recent-call.reducers";
 import * as authEffects from './shared/auth/data-access/auth.effects';
-import * as winningSolutionsEffects from "./home/components/winning-solutions/store/winning-solutions.effets";
-import * as solutionsEffets from "./solutions/solutions-list/store/solutions.effets";
-import * as callsEffets from "./home/components/recent-call/store/recent-call.effets";
 
 const scrollConfig: InMemoryScrollingOptions = {
   scrollPositionRestoration: 'top',
@@ -43,17 +37,9 @@ export const appConfig: ApplicationConfig = {
       positionClass: 'toast-top-center',
       preventDuplicates: true,
     }),
-    provideEffects(
-      authEffects,
-      callsEffets,
-      winningSolutionsEffects,
-      solutionsEffets
-    ),
+    provideEffects(authEffects),
     provideStore({
       auth: authReducers,
-      recentCall: recentCallReducers,
-      winningSolutions: winningSolutionsReducers,
-      solutions: solutionsReducers,
     }),
     provideStoreDevtools({
       maxAge: 25,

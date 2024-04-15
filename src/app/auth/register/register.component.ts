@@ -9,7 +9,6 @@ import {InputComponent} from '../../shared/ui/input/input.component';
 import {Observable} from "rxjs";
 import {RegisterStore} from "./data-access/register.store";
 import {RegisterStoreInterface} from "./types/register-store.interface";
-import {RegisterService} from "./data-access/register.service";
 
 @Component({
   selector: 'app-register',
@@ -26,7 +25,7 @@ import {RegisterService} from "./data-access/register.service";
     AsyncPipe,
     NgIf
   ],
-  providers: [RegisterService, RegisterStore],
+  providers: [RegisterStore],
   templateUrl: './register.component.html',
 })
 export class RegisterComponent {

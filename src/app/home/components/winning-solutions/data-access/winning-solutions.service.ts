@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
-import {HttpClientService} from '../../../shared/services/http-client.service';
-import {Solution} from '../../../shared/types/models-interfaces';
+import {HttpClientService} from '../../../../shared/services/http-client.service';
+import {Solution} from '../../../../shared/types/models-interfaces';
 import {Observable} from "rxjs";
 
 @Injectable({
@@ -11,6 +11,6 @@ export class WinningSolutionsService {
   }
 
   getWinningSolutions(): Observable<Solution[]> {
-    return this.http.get<Solution[]>('solutions/mapped/all?cursor=1');
+    return this.http.get<Solution[]>('solutions/mapped?cursor=1');
   }
 }

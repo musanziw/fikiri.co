@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
-import {ComponentStore} from "@ngrx/component-store";
+import {ComponentStore, tapResponse} from "@ngrx/component-store";
 import {ProfileStoreInterface} from "../types/profile-store.interface";
-import {catchError, combineLatestWith, map, mergeMap, Observable, of, tap} from "rxjs";
+import {combineLatestWith, exhaustMap, Observable, of, tap} from "rxjs";
 import {ProfilePayloadInterface} from "../types/profile-payload.interface";
 import {ProfileService} from "./profile.service";
 import {authActions} from "../../../shared/auth/data-access/auth.actions";
@@ -9,6 +9,7 @@ import {Store} from "@ngrx/store";
 import {selectUser} from "../../../shared/auth/data-access/auth.reducers";
 import {User} from "../../../shared/types/models-interfaces";
 import {ApiValiationsErrorsInterface} from "../../../shared/auth/types/api-valiations-errors.interface";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Injectable()
 export class ProfileStore extends ComponentStore<ProfileStoreInterface> {
@@ -37,31 +38,35 @@ export class ProfileStore extends ComponentStore<ProfileStoreInterface> {
   upatedProfile = this.effect((payload$: Observable<ProfilePayloadInterface>) => {
     return payload$.pipe(
       tap(() => this.setIsLoading(true)),
-      mergeMap((payload) => this.profileService.updateProfile(payload).pipe(
-        map((user) => {
-          this.setSuccess('Profil mis à jour avec succès')
-          return authActions.authenticateUser({user})
-        }),
-        catchError((error) => {
-          const message = error.error.message
-          if (typeof message === 'string')
-            return of(this.setError(error.error.message))
-          return of(this.setValidationErrors(error.error.message))
-        })
-      )),
-      tap(() => this.setIsLoading(false))
-    )
+      exhaustMap((payload) => this.profileService.updateProfile(payload).pipe(
+          tapResponse({
+            next: (user) => {
+              this.setSuccess('Profil mis à jour avec succès')
+              this.store.dispatch(authActions.authenticateUser({user}))
+            },
+            error: (error: HttpErrorResponse) => {
+              const message = error.error.message
+              if (typeof message === 'string')
+                return of(this.setError(error.error.message))
+              return of(this.setValidationErrors(error.error.message))
+            },
+            finalize: () => this.setIsLoading(false)
+          })
+        )
+      ))
   })
 
   updateImage = this.effect((payload: Observable<FormData>) => {
     return payload.pipe(
       tap(() => this.setIsLoading(true)),
       combineLatestWith(this.user$),
-      mergeMap(([payload, user]) => this.profileService.updateImage(user?.id, payload).pipe(
-        map(() => this.setSuccess('Image de profil mise à jour avec succès')),
-        catchError((err) => of(this.setError(err.error.message)))
+      exhaustMap(([payload, user]) => this.profileService.updateImage(user?.id, payload).pipe(
+        tapResponse({
+          next: () => this.setSuccess('Image de profil mise à jour avec succès'),
+          error: (err: HttpErrorResponse) => of(this.setError(err.error.message)),
+          finalize: () => this.setIsLoading(false)
+        })
       )),
-      tap(() => this.setIsLoading(false)),
     )
   })
 }

@@ -3,7 +3,9 @@ import {HttpClientService} from "../../../shared/services/http-client.service";
 import {ResetPasswordRequestPayloadInterface} from "../types/reset-password-request-payload.interface";
 import {Observable} from "rxjs";
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class ResetPasswordRequestService {
   constructor(private httpClient: HttpClientService) {
   }

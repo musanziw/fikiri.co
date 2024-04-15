@@ -4,7 +4,9 @@ import {RegisterPayloadInterface} from "../types/register-payload.interface";
 import {Observable} from "rxjs";
 import {User} from "../../../shared/types/models-interfaces";
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class RegisterService {
   constructor(private httpClient: HttpClientService) {
   }

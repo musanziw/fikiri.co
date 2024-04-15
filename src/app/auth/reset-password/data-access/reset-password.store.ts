@@ -1,11 +1,12 @@
 import {Injectable} from "@angular/core";
-import {ComponentStore} from "@ngrx/component-store";
-import {catchError, map, mergeMap, Observable, of, tap} from "rxjs";
+import {ComponentStore, tapResponse} from "@ngrx/component-store";
+import {exhaustMap, Observable, of, tap} from "rxjs";
 import {Router} from "@angular/router";
 import {ApiValiationsErrorsInterface} from "../../../shared/auth/types/api-valiations-errors.interface";
 import {ResetPasswordStoreInterface} from "../types/reset-password-store.interface";
 import {ResetPasswordService} from "./reset-pasword.service";
 import {ResetPasswordPayloadInterface} from "../types/reset-password-payload.interface";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Injectable()
 export class ResetPasswordStore extends ComponentStore<ResetPasswordStoreInterface> {
@@ -26,16 +27,18 @@ export class ResetPasswordStore extends ComponentStore<ResetPasswordStoreInterfa
   resetPassword = this.effect((payload$: Observable<ResetPasswordPayloadInterface>) => {
     return payload$.pipe(
       tap(() => this.setIsLoading(true)),
-      mergeMap((payload) => this.resetPasswordService.resetPassword(payload).pipe(
-        map(() => this.router.navigateByUrl('/login')),
-        catchError((error) => {
-          const message = error.err.message
-          if (typeof message === 'string')
-            return of(this.setError(error.error.message))
-          return of(this.setValidationErrors(error.error.message))
+      exhaustMap((payload) => this.resetPasswordService.resetPassword(payload).pipe(
+        tapResponse({
+          next: () => this.router.navigateByUrl('/login'),
+          error: (error: HttpErrorResponse) => {
+            const message = error.error.message
+            if (typeof message === 'string')
+              return of(this.setError(error.error.message))
+            return of(this.setValidationErrors(error.error.message))
+          },
+          finalize: () => this.setIsLoading(false)
         })
       )),
-      tap(() => this.setIsLoading(false)),
     )
   })
 }
