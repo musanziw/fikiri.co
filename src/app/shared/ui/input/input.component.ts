@@ -1,6 +1,6 @@
 import {Component, inject, Input} from "@angular/core";
 import {ControlContainer, ReactiveFormsModule} from "@angular/forms";
-import {ApiValiationsErrorsInterface} from "../../../auth/types/api-valiations-errors.interface";
+import {ApiValiationsErrorsInterface} from "../../auth/types/api-valiations-errors.interface";
 
 @Component({
   selector: 'ui-input',

@@ -1,15 +1,15 @@
 import {Injectable} from "@angular/core";
 import {HttpClientService} from "../../../shared/services/http-client.service";
-import {LoginPayloadInterface} from "../types/login-payload.interface";
+import {RegisterPayloadInterface} from "../types/register-payload.interface";
 import {Observable} from "rxjs";
 import {User} from "../../../shared/types/models-interfaces";
 
 @Injectable()
-export class LoginService {
+export class RegisterService {
   constructor(private httpClient: HttpClientService) {
   }
 
-  login(payload: LoginPayloadInterface): Observable<User> {
-    return this.httpClient.post<User, LoginPayloadInterface>('auth/login', payload);
+  register(payload: RegisterPayloadInterface): Observable<User> {
+    return this.httpClient.post<User, RegisterPayloadInterface>('auth/register', payload);
   }
 }

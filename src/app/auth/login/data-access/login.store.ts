@@ -4,12 +4,10 @@ import {LoginStoreInterface} from "../types/login-store.interface";
 import {catchError, map, Observable, of, switchMap, tap} from "rxjs";
 import {LoginPayloadInterface} from "../types/login-payload.interface";
 import {Router} from "@angular/router";
-import {authActions} from "../../store/auth.actions";
+import {authActions} from "../../../shared/auth/data-access/auth.actions";
 import {LoginService} from "./login.service";
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class LoginStore extends ComponentStore<LoginStoreInterface> {
   vm$: Observable<LoginStoreInterface> = this.select((state) => state)
 
@@ -24,16 +22,13 @@ export class LoginStore extends ComponentStore<LoginStoreInterface> {
     return payload$.pipe(
       tap(() => this.setLoading(true)),
       switchMap((payload: LoginPayloadInterface) => this.loginService.login(payload).pipe(
-          map((user) => {
-            authActions.authenticateUser({user})
-            this.setLoading(false);
-            return this.router.navigate(['/profile']);
-          }),
-          catchError((httpError) => {
-            this.setLoading(false);
-            return of(this.setError(httpError.error.message))
-          })
-        )
-      ))
+        map((user) => {
+          authActions.authenticateUser({user})
+          return this.router.navigate(['/profile']);
+        }),
+        catchError((httpError) => of(this.setError(httpError.error.message))),
+      )),
+      tap(() => this.setLoading(false)),
+    )
   })
 }

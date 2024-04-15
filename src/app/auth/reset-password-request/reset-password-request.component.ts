@@ -1,4 +1,4 @@
-import {Component, OnDestroy} from '@angular/core';
+import {Component} from '@angular/core';
 import {FormCardComponent} from '../../shared/components/form-card/form-card.component';
 import {ButtonComponent} from '../../shared/ui/button/button.component';
 import {InputComponent} from '../../shared/ui/input/input.component';
@@ -7,12 +7,10 @@ import {AsyncPipe, NgIf, NgOptimizedImage} from '@angular/common';
 import {ButtonOutlineComponent} from '../../shared/ui/button-outline/button-outline.component';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators,} from '@angular/forms';
 import {ToastContainerDirective} from 'ngx-toastr';
-import {select, Store} from '@ngrx/store';
-import {AuthStoreInterface} from '../types/auth-store.interface';
 import {environment} from "../../../environments/environment";
 import {Observable} from "rxjs";
-import {authActions} from "../store/auth.actions";
-import {selectAuthState} from "../store/auth.reducers";
+import {ResetPasswordRequestStore} from "./data-access/reset-password-request.store";
+import {ResetPasswordRequestStoreInterface} from "./types/reset-password-request-store.interface";
 
 @Component({
   selector: 'fk-login',
@@ -29,29 +27,26 @@ import {selectAuthState} from "../store/auth.reducers";
     AsyncPipe,
     NgIf,
   ],
-  templateUrl: './resetPasswordRequest.component.html'
+  providers: [ResetPasswordRequestStore],
+  templateUrl: './reset-password-request.component.html'
 })
-export class ResetPasswordRequestComponent implements OnDestroy {
+export class ResetPasswordRequestComponent {
   form: FormGroup;
   apiUrl: string = environment.apiUrl
-  state$: Observable<AuthStoreInterface>
+  state$: Observable<ResetPasswordRequestStoreInterface>
 
-  constructor(private store: Store, private formBuilder: FormBuilder) {
+  constructor(private store: ResetPasswordRequestStore, private formBuilder: FormBuilder) {
+    this.state$ = this.store.vm$
     this.form = this.formBuilder.group({
       email: ['', Validators.required],
     });
-    this.state$ = this.store.pipe(select(selectAuthState))
   }
 
   onSubmit(): void {
-    this.store.dispatch(authActions.resetPasswordRequest({payload: this.form.value}))
+    this.store.resetPassword(this.form.value);
   }
 
   loginWithGoogle(): void {
     return window.location.replace(`${this.apiUrl}auth/google/redirect`);
-  }
-
-  ngOnDestroy(): void {
-    this.store.dispatch(authActions.deleteError());
   }
 }

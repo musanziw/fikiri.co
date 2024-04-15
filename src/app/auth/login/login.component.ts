@@ -11,6 +11,7 @@ import {environment} from "../../../environments/environment";
 import {Observable} from "rxjs";
 import {LoginStore} from "./data-access/login.store";
 import {LoginStoreInterface} from "./types/login-store.interface";
+import {LoginService} from "./data-access/login.service";
 
 @Component({
   selector: 'fk-login',
@@ -27,7 +28,7 @@ import {LoginStoreInterface} from "./types/login-store.interface";
     AsyncPipe,
     NgIf,
   ],
-  providers: [LoginStore],
+  providers: [LoginService, LoginStore],
   templateUrl: './login.component.html',
 })
 export class LoginComponent {
@@ -36,11 +37,11 @@ export class LoginComponent {
   vm$: Observable<LoginStoreInterface>
 
   constructor(private store: LoginStore, private formBuilder: FormBuilder) {
+    this.vm$ = this.store.vm$
     this.form = this.formBuilder.group({
       email: ['', Validators.required],
       password: ['', Validators.required],
     });
-    this.vm$ = this.store.vm$
   }
 
   onSubmit(): void {

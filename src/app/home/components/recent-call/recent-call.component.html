@@ -10,10 +10,10 @@
 
       <h2 class="font-bold text-gray-950 text-xl">Durée de l'appel</h2>
       <p class="text-gray-800">
-        Date de début : {{ call.startedAt | date : "dd/MM/yyyy" }}
+        Date de début : {{ call.started_at | date : "dd/MM/yyyy" }}
       </p>
       <p class="text-gray-800 mb-2">
-        Date de fin : {{ call.endedAt | date : "dd/MM/yyyy" }}
+        Date de fin : {{ call.ended_at | date : "dd/MM/yyyy" }}
       </p>
     </div>
     <h2 class="font-bold text-gray-950 text-xl mt-4 mb-6">Les thématiques</h2>

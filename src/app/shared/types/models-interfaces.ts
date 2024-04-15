@@ -1,82 +1,72 @@
 export interface Call {
   id: number;
   name: string;
-  startedAt: Date;
-  endedAt: Date;
+  started_at: Date;
+  ended_at: Date;
   description: string;
-  createdAt: Date;
-  updatedAt: Date;
+  created_at: Date;
+  updated_at: Date;
   solutions?: Solution[];
   thematics: Thematic[];
-  _count?: {
-    solutions: number;
-  }
 }
 
 export interface Role {
   id: number;
   name: string;
-  createdAt: Date;
-  updatedAt: Date;
+  created_at: Date;
+  updated_at: Date;
   users?: User[];
 }
 
 export interface Solution {
   id: number;
   name: string;
-  videoLink: string;
-  imageLink: string;
+  video_link: string;
+  image_link: string;
   description: string;
-  callId: number;
-  thematicId: number;
-  targetedProblem: string;
-  statusId: string;
-  createdAt: Date;
-  updatedAt: Date;
-  userId: number;
-  call?: Call;
+  targeted_problem: string;
+  created_at: Date;
+  updated_at: Date;
+  call: Call;
   status: Status;
-  thematic?: Thematic;
+  thematic: Thematic;
   user: User;
-  challenges?: Challenge[];
-  images: SolutionImages[];
+  challenges: Challenge[];
+  images: Image[];
 }
 
-export interface SolutionImages {
+export interface Image {
   id: number;
-  imageLink: string;
-  solution?: Solution;
-  solutionId: number;
-  createdAt: Date;
-  updatedAt: Date;
+  image_link: string;
+  created_at: Date;
+  updated_at: Date;
 }
 
 export interface Status {
   id: number;
   name: string;
-  createdAt: Date;
-  updatedAt: Date;
-  solutions?: Solution[];
+  created_at: Date;
+  updated_at: Date;
 }
 
 export interface Thematic {
   id: number;
   name: string;
   odds: string;
-  createdAt: Date;
-  updatedAt: Date;
-  solutions?: Solution[];
-  calls?: Call[];
-  challenges?: Challenge[];
+  created_at: Date;
+  updated_at: Date;
+  solutions: Solution[];
+  calls: Call[];
+  challenges: Challenge[];
 }
 
 export interface Challenge {
   id: number;
   name: string;
-  createdAt: Date;
-  updatedAt: Date;
-  solutions?: Solution[];
-  thematics?: Thematic[];
+  created_at: Date;
+  updated_at: Date;
+  solutions: Solution[];
+  thematics: Thematic[];
 }
 
 export interface User {
@@ -84,13 +74,13 @@ export interface User {
   email: string;
   name: string;
   password: string;
-  phoneNumber?: string;
-  address?: string;
-  token?: string;
-  googleImage?: string;
+  phone_number: string;
+  address: string;
+  token: string;
+  googleImage: string;
   profile: string;
-  createdAt: Date;
-  updatedAt: Date;
-  solutions?: Solution[];
+  created_at: Date;
+  updated_at: Date;
+  solutions: Solution[];
   roles: Role[];
 }

@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
-import {HttpClientService} from '../../shared/services/http-client.service';
+import {HttpClientService} from '../../../shared/services/http-client.service';
 import {Observable} from 'rxjs';
-import {SolutionResponseInterface} from "./types/solution-response.interface";
+import {SolutionResponseInterface} from "../types/solution-response.interface";
 
 @Injectable({
   providedIn: 'root',

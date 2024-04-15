@@ -16,14 +16,12 @@ import {routes} from './app.routes';
 import {provideToastr} from 'ngx-toastr';
 import {provideEffects} from '@ngrx/effects';
 import {provideStoreDevtools} from '@ngrx/store-devtools';
-import {authReducers} from './auth/store/auth.reducers';
+import {authReducers} from './shared/auth/data-access/auth.reducers';
 import {winningSolutionsReducers} from './home/components/winning-solutions/store/winning-solutions.reducers';
 import {solutionsReducers} from './solutions/solutions-list/store/solutions.reducers';
-import {solutionReducers} from './solutions/solution-details/store/solution.reducers';
 import {recentCallReducers} from "./home/components/recent-call/store/recent-call.reducers";
-import * as authEffects from './auth/store/auth.effects';
+import * as authEffects from './shared/auth/data-access/auth.effects';
 import * as winningSolutionsEffects from "./home/components/winning-solutions/store/winning-solutions.effets";
-import * as solutionEffets from "./solutions/solution-details/store/solution.effets";
 import * as solutionsEffets from "./solutions/solutions-list/store/solutions.effets";
 import * as callsEffets from "./home/components/recent-call/store/recent-call.effets";
 
@@ -49,7 +47,6 @@ export const appConfig: ApplicationConfig = {
       authEffects,
       callsEffets,
       winningSolutionsEffects,
-      solutionEffets,
       solutionsEffets
     ),
     provideStore({
@@ -57,7 +54,6 @@ export const appConfig: ApplicationConfig = {
       recentCall: recentCallReducers,
       winningSolutions: winningSolutionsReducers,
       solutions: solutionsReducers,
-      solution: solutionReducers,
     }),
     provideStoreDevtools({
       maxAge: 25,

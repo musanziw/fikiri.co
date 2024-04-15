@@ -1,4 +1,4 @@
-import {Component, OnDestroy} from '@angular/core';
+import {Component} from '@angular/core';
 import {AsyncPipe, NgIf, NgOptimizedImage} from '@angular/common';
 import {RouterLink} from '@angular/router';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
@@ -6,11 +6,10 @@ import {FormCardComponent} from '../../shared/components/form-card/form-card.com
 import {ButtonComponent} from '../../shared/ui/button/button.component';
 import {ButtonOutlineComponent} from '../../shared/ui/button-outline/button-outline.component';
 import {InputComponent} from '../../shared/ui/input/input.component';
-import {select, Store} from "@ngrx/store";
-import {authActions} from "../store/auth.actions";
-import {selectAuthState} from "../store/auth.reducers";
 import {Observable} from "rxjs";
-import {AuthStoreInterface} from "../types/auth-store.interface";
+import {RegisterStore} from "./data-access/register.store";
+import {RegisterStoreInterface} from "./types/register-store.interface";
+import {RegisterService} from "./data-access/register.service";
 
 @Component({
   selector: 'app-register',
@@ -27,29 +26,26 @@ import {AuthStoreInterface} from "../types/auth-store.interface";
     AsyncPipe,
     NgIf
   ],
+  providers: [RegisterService, RegisterStore],
   templateUrl: './register.component.html',
 })
-export class RegisterComponent implements OnDestroy {
+export class RegisterComponent {
   form: FormGroup;
-  state$: Observable<AuthStoreInterface>;
+  state$: Observable<RegisterStoreInterface>;
 
-  constructor(private store: Store, private formBuilder: FormBuilder) {
-    this.state$ = this.store.pipe(select(selectAuthState))
+  constructor(private store: RegisterStore, private formBuilder: FormBuilder) {
+    this.state$ = this.store.vm$
     this.form = this.formBuilder.nonNullable.group({
       name: ['', Validators.required],
       email: ['', Validators.required],
       address: ['', Validators.required],
-      phoneNumber: ['', Validators.required],
-      passwordConfirm: ['', Validators.required],
+      phone_number: ['', Validators.required],
       password: ['', Validators.required],
+      password_confirm: ['', Validators.required],
     });
   }
 
   onSubmit(): void {
-    this.store.dispatch(authActions.register({payload: this.form.value}));
-  }
-
-  ngOnDestroy(): void {
-    this.store.dispatch(authActions.deleteError());
+    this.store.register(this.form.value);
   }
 }
