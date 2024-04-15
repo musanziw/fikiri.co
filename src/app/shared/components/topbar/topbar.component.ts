@@ -1,6 +1,6 @@
 import {Component,} from '@angular/core';
 import {CommonModule, NgOptimizedImage} from '@angular/common';
-import {ActivatedRoute, RouterModule} from '@angular/router';
+import {RouterModule} from '@angular/router';
 import {select, Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
 import {authActions} from "../../auth/data-access/auth.actions";
@@ -20,7 +20,7 @@ export class TopbarComponent {
   user$: Observable<User | null>
   activePath: string = ''
 
-  constructor(private store: Store, private route: ActivatedRoute) {
+  constructor(private store: Store) {
     this.user$ = this.store.pipe(select(selectAuthUser));
     // this.activePath = this.route.snapshot.url[0].path
     // console.log(this.route.snapshot.url[0].path)
