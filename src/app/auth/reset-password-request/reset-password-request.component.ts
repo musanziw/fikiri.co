@@ -33,10 +33,10 @@ import {ResetPasswordRequestStoreInterface} from "./types/reset-password-request
 export class ResetPasswordRequestComponent {
   form: FormGroup;
   apiUrl: string = environment.apiUrl
-  state$: Observable<ResetPasswordRequestStoreInterface>
+  vm$: Observable<ResetPasswordRequestStoreInterface>
 
   constructor(private store: ResetPasswordRequestStore, private formBuilder: FormBuilder) {
-    this.state$ = this.store.vm$
+    this.vm$ = this.store.vm$
     this.form = this.formBuilder.group({
       email: ['', Validators.required],
     });

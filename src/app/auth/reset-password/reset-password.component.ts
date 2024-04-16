@@ -33,7 +33,7 @@ import {ResetPasswordStoreInterface} from "./types/reset-password-store.interfac
 export class ResetPasswordComponent {
   form: FormGroup;
   apiUrl: string = environment.apiUrl
-  state$: Observable<ResetPasswordStoreInterface>
+  vm$: Observable<ResetPasswordStoreInterface>
 
   constructor(private store: ResetPasswordStore, private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
@@ -41,7 +41,7 @@ export class ResetPasswordComponent {
       password: ['', Validators.required],
       passwordConfirm: ['', Validators.required],
     });
-    this.state$ = this.store.vm$
+    this.vm$ = this.store.vm$
   }
 
   onSubmit(): void {

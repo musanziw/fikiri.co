@@ -1,4 +1,4 @@
-<ng-container *ngIf="state$ | async as state">
+<ng-container *ngIf="vm$ | async as state">
   @if (state.solutionResponse?.solution; as solution) {
     <div class="flex flex-col text-lg mx-6 justify-center max-w-screen-md md:mx-auto border-x border-dashed pt-24">
       @if (solution && solution.name) {

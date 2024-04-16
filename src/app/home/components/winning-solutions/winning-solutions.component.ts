@@ -17,10 +17,10 @@ import {WinningSolutionsService} from "./data-access/winning-solutions.service";
   templateUrl: './winnging-solutions.component.html',
 })
 export class WinningSolutionsComponent implements OnInit {
-  states$: Observable<WinningSolutionsStoreInterface>
+  vm$: Observable<WinningSolutionsStoreInterface>
 
   constructor(private store: WinningSolutionsStore) {
-    this.states$ = this.store.vm$
+    this.vm$ = this.store.vm$
   }
 
   ngOnInit(): void {

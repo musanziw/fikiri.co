@@ -32,10 +32,10 @@ import {ProfileStoreInterface} from "./types/profile-store.interface";
 export class ProfileComponent implements OnInit {
   form: FormGroup;
   fileName: string = '';
-  state$: Observable<{ profileState: ProfileStoreInterface, user: User | null }>
+  vm$: Observable<{ profileState: ProfileStoreInterface, user: User | null }>
 
   constructor(private store: ProfileStore, private formBuilder: FormBuilder) {
-    this.state$ = this.store.vm$
+    this.vm$ = this.store.vm$
     this.form = this.formBuilder.nonNullable.group({
       name: ['', Validators.required],
       address: ['', Validators.required],
@@ -47,7 +47,7 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.state$.subscribe((state) => {
+    this.vm$.subscribe((state) => {
       this.form.patchValue({
         name: state.user?.name,
         address: state.user?.address,

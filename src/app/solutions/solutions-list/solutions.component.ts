@@ -18,10 +18,10 @@ import {SolutionsStore} from "./data-access/solutions.store";
   imports: [CommonModule, RouterModule, SolutionCardComponent, SpinnerComponent, SolutionCardSkeletonComponent, NgComponentOutlet],
 })
 export class SolutionsComponent implements OnInit {
-  state$: Observable<SolutionsStoreInterface>;
+  vm$: Observable<SolutionsStoreInterface>;
 
   constructor(private store: SolutionsStore) {
-    this.state$ = this.store.vm$
+    this.vm$ = this.store.vm$
   }
 
   ngOnInit(): void {

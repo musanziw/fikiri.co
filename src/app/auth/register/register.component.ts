@@ -30,10 +30,10 @@ import {RegisterStoreInterface} from "./types/register-store.interface";
 })
 export class RegisterComponent {
   form: FormGroup;
-  state$: Observable<RegisterStoreInterface>;
+  vm$: Observable<RegisterStoreInterface>;
 
   constructor(private store: RegisterStore, private formBuilder: FormBuilder) {
-    this.state$ = this.store.vm$
+    this.vm$ = this.store.vm$
     this.form = this.formBuilder.nonNullable.group({
       name: ['', Validators.required],
       email: ['', Validators.required],

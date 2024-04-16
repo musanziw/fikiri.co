@@ -19,10 +19,10 @@ import {SolutionService} from "./data-access/solution.service";
   templateUrl: './solution.component.html',
 })
 export class SolutionComponent implements OnInit {
-  state$: Observable<SolutionStoreInterface>;
+  vm$: Observable<SolutionStoreInterface>;
 
   constructor(private store: SolutionStore, private imagesService: ImagesService, private route: ActivatedRoute) {
-    this.state$ = this.store.vm$
+    this.vm$ = this.store.vm$
   }
 
   ngOnInit(): void {
