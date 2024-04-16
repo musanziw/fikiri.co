@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {ComponentStore, tapResponse} from "@ngrx/component-store";
 import {WinningSolutionsStoreInterface} from "../types/winning-solutions-store.interface";
-import {exhaustMap, Observable, of, tap} from "rxjs";
+import {exhaustMap, Observable, tap} from "rxjs";
 import {Solution} from "../../../../shared/types/models-interfaces";
 import {WinningSolutionsService} from "./winning-solutions.service";
 import {HttpErrorResponse} from "@angular/common/http";
@@ -24,7 +24,7 @@ export class WinningSolutionsStore extends ComponentStore<WinningSolutionsStoreI
       exhaustMap(() => this.winningSolutionsService.getWinningSolutions().pipe(
         tapResponse({
           next: (solutions) => this.setSolutions(solutions),
-          error: (error: HttpErrorResponse) => of(this.setError(error.error.message)),
+          error: (error: HttpErrorResponse) => this.setError(error.error.message),
           finalize: () => this.setIsLoading(false)
         })
       ))

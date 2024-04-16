@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {ComponentStore, tapResponse} from "@ngrx/component-store";
-import {exhaustMap, Observable, of, tap} from "rxjs";
+import {exhaustMap, Observable, tap} from "rxjs";
 import {Router} from "@angular/router";
 import {ApiValiationsErrorsInterface} from "../../../shared/auth/types/api-valiations-errors.interface";
 import {ResetPasswordStoreInterface} from "../types/reset-password-store.interface";
@@ -33,8 +33,8 @@ export class ResetPasswordStore extends ComponentStore<ResetPasswordStoreInterfa
           error: (error: HttpErrorResponse) => {
             const message = error.error.message
             if (typeof message === 'string')
-              return of(this.setError(error.error.message))
-            return of(this.setValidationErrors(error.error.message))
+              return this.setError(error.error.message)
+            return this.setValidationErrors(error.error.message)
           },
           finalize: () => this.setIsLoading(false)
         })

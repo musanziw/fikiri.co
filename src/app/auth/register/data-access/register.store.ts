@@ -3,7 +3,7 @@ import {ComponentStore, tapResponse} from "@ngrx/component-store";
 import {RegisterStoreInterface} from "../types/register-store.interface";
 import {ApiValiationsErrorsInterface} from "../../../shared/auth/types/api-valiations-errors.interface";
 import {RegisterPayloadInterface} from "../types/register-payload.interface";
-import {exhaustMap, Observable, of, tap} from "rxjs";
+import {exhaustMap, Observable, tap} from "rxjs";
 import {RegisterService} from "./register.service";
 import {Router} from "@angular/router";
 import {HttpErrorResponse} from "@angular/common/http";
@@ -33,8 +33,8 @@ export class RegisterStore extends ComponentStore<RegisterStoreInterface> {
           error: (error: HttpErrorResponse) => {
             const message = error.error.message
             if (typeof message === 'string')
-              return of(this.setError(error.error.message))
-            return of(this.setValidationErrors(error.error.message))
+              return this.setError(error.error.message)
+            return this.setValidationErrors(error.error.message)
           },
           finalize: () => this.setIsLoading(false)
         })

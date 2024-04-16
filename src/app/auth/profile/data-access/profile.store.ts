@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {ComponentStore, tapResponse} from "@ngrx/component-store";
 import {ProfileStoreInterface} from "../types/profile-store.interface";
-import {combineLatestWith, exhaustMap, Observable, of, tap} from "rxjs";
+import {combineLatestWith, exhaustMap, Observable, tap} from "rxjs";
 import {ProfilePayloadInterface} from "../types/profile-payload.interface";
 import {ProfileService} from "./profile.service";
 import {authActions} from "../../../shared/auth/data-access/auth.actions";
@@ -47,8 +47,8 @@ export class ProfileStore extends ComponentStore<ProfileStoreInterface> {
             error: (error: HttpErrorResponse) => {
               const message = error.error.message
               if (typeof message === 'string')
-                return of(this.setError(error.error.message))
-              return of(this.setValidationErrors(error.error.message))
+                return this.setError(error.error.message)
+              return this.setValidationErrors(error.error.message)
             },
             finalize: () => this.setIsLoading(false)
           })
@@ -63,7 +63,7 @@ export class ProfileStore extends ComponentStore<ProfileStoreInterface> {
       exhaustMap(([payload, user]) => this.profileService.updateImage(user?.id, payload).pipe(
         tapResponse({
           next: () => this.setSuccess('Image de profil mise à jour avec succès'),
-          error: (err: HttpErrorResponse) => of(this.setError(err.error.message)),
+          error: (err: HttpErrorResponse) => this.setError(err.error.message),
           finalize: () => this.setIsLoading(false)
         })
       )),

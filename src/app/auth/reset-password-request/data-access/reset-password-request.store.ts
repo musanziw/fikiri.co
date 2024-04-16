@@ -3,7 +3,7 @@ import {ComponentStore, tapResponse} from "@ngrx/component-store";
 import {ResetPasswordRequestStoreInterface} from "../types/reset-password-request-store.interface";
 import {ApiValiationsErrorsInterface} from "../../../shared/auth/types/api-valiations-errors.interface";
 import {Router} from "@angular/router";
-import {mergeMap, Observable, of, tap} from "rxjs";
+import {mergeMap, Observable, tap} from "rxjs";
 import {ResetPasswordRequestService} from "./reset-password-request.service";
 import {ResetPasswordRequestPayloadInterface} from "../types/reset-password-request-payload.interface";
 import {HttpErrorResponse} from "@angular/common/http";
@@ -36,8 +36,8 @@ export class ResetPasswordRequestStore extends ComponentStore<ResetPasswordReque
             error: (err: HttpErrorResponse) => {
               const message = err.error.message;
               if (typeof message === 'string')
-                return of(this.setError(message))
-              return of(this.setValidationErrors(message))
+                return this.setError(message)
+              return this.setValidationErrors(message)
             },
             finalize: () => this.setIsLoading(false)
           })
