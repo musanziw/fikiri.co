@@ -9,7 +9,8 @@ module.exports = {
       },
     },
     fontFamily: {
-      'roboto': ['Roboto', 'sans-serif'],
+      'dmSans': ['DM Sans', 'sans-serif'],
+      'bondiMono': ['Bodoni Moda', ' serif']
     }
   },
   plugins: [],
