@@ -83,7 +83,7 @@ export class TopbarComponent {
   }
 
   @HostListener('window:scroll', ['$event'])
-  onWindowScroll(event: Event) {
+  onWindowScroll() {
     const scrollY = window.scrollY;
     this.isFixed = scrollY > 0
   }
