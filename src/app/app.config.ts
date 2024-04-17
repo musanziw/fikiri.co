@@ -18,6 +18,7 @@ import {provideEffects} from '@ngrx/effects';
 import {provideStoreDevtools} from '@ngrx/store-devtools';
 import {authReducers} from './shared/auth/data-access/auth.reducers';
 import * as authEffects from './shared/auth/data-access/auth.effects';
+import {topbarReducer} from "./shared/components/topbar/store/topbar.reducers";
 
 const scrollConfig: InMemoryScrollingOptions = {
   scrollPositionRestoration: 'top',
@@ -40,6 +41,7 @@ export const appConfig: ApplicationConfig = {
     provideEffects(authEffects),
     provideStore({
       auth: authReducers,
+      topbar: topbarReducer
     }),
     provideStoreDevtools({
       maxAge: 25,
