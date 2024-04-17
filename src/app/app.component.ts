@@ -2,7 +2,6 @@ import {Store} from '@ngrx/store';
 import {Component, OnInit} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
 import {authActions} from "./shared/auth/data-access/auth.actions";
-import {TopbarComponent} from "./shared/components/topbar/topbar.component";
 import {FooterComponent} from "./shared/components/footer/footer.component";
 
 @Component({
@@ -10,7 +9,6 @@ import {FooterComponent} from "./shared/components/footer/footer.component";
   standalone: true,
   imports: [
     RouterOutlet,
-    TopbarComponent,
     FooterComponent
   ],
   templateUrl: './app.component.html',
