@@ -1,13 +1,16 @@
-import {Component,} from '@angular/core';
+import {Component, HostListener,} from '@angular/core';
 import {CommonModule, NgOptimizedImage} from '@angular/common';
 import {RouterModule} from '@angular/router';
 import {select, Store} from '@ngrx/store';
-import {Observable} from 'rxjs';
+import {combineLatest, Observable} from 'rxjs';
 import {authActions} from "../../auth/data-access/auth.actions";
 import {selectUser as selectAuthUser} from "../../auth/data-access/auth.reducers";
 import {User} from "../../types/models-interfaces";
 import {LinkInterface} from "./types/link.interface";
 import {FormsModule} from "@angular/forms";
+import {AppStoreInterface} from "../../types/app-store.interface";
+import {TopbarStoreInterface} from "./types/topbar-store.interface";
+import {topbarActions} from "./store/topbar.actions";
 
 @Component({
   selector: 'component-topbar',
@@ -16,14 +19,15 @@ import {FormsModule} from "@angular/forms";
   templateUrl: './topbar.component.html',
 })
 export class TopbarComponent {
-  isOpen: boolean = false
+  topbarState$: Observable<TopbarStoreInterface>
   user$: Observable<User | null>
-  activePath: string = ''
+  vm$: Observable<[User | null, TopbarStoreInterface]>
+  isFixed: boolean = false
 
-  constructor(private store: Store) {
+  constructor(private store: Store<AppStoreInterface>) {
     this.user$ = this.store.pipe(select(selectAuthUser));
-    // this.activePath = this.route.snapshot.url[0].path
-    // console.log(this.route.snapshot.url[0].path)
+    this.topbarState$ = this.store.pipe(select(state => state.topbar));
+    this.vm$ = combineLatest([this.user$, this.topbarState$])
   }
 
   commonLinks: LinkInterface[] = [
@@ -73,7 +77,14 @@ export class TopbarComponent {
     return name.length > 15 ? name.substring(0, 15) + '...' : name;
   }
 
-  toggleMenu(): boolean {
-    return this.isOpen = !this.isOpen
+
+  toogleNavbar(): void {
+    this.store.dispatch(topbarActions.toogleNavbar())
+  }
+
+  @HostListener('window:scroll', ['$event'])
+  onWindowScroll(event: Event) {
+    const scrollY = window.scrollY;
+    this.isFixed = scrollY > 0
   }
 }

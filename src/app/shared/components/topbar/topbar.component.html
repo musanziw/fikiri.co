@@ -1,31 +1,32 @@
-<header class="fixed w-full text-gray-800 bg-white shadow-md px-10 py-4 z-10 flex items-center justify-between">
-  <a routerLink="/" class="inline-block" aria-label="logo" (click)="isOpen = false">
-    <img ngSrc="/assets/images/logo.webp" alt="logo" class="cursor-pointer w-24" width="96" height="31" priority/>
-  </a>
-  <div class="flex flex-col gap-2 lg:hidden" [ngClass]="{'active': isOpen}" (click)="toggleMenu()">
-    <div class="h-[1px] w-6 bg-black transition-transform duration-300"></div>
-    <div class="h-[1px] w-6 bg-black transition-transform duration-300"></div>
-  </div>
-  <div
-    class="absolute top-14 z-30 w-screen h-screen bg-white transition-transform shadow-xl duration-500 right-0 py-20 px-16 flex flex-col items-start gap-6 justify-start lg:flex lg:translate-y-0 lg:w-auto lg:h-auto lg:static lg:p-0 lg:gap-4 lg:flex-row lg:items-center lg:justify-end lg:shadow-none"
-    [ngClass]="{ '-translate-y-[200%]': !isOpen }">
-    @if (user$ | async; as user) {
-      @for (link of authenticatedUserLinks(user.name); track link.path) {
-        <a [routerLink]="link.path" (click)="isOpen = false" class="transition-colors duration-300"
-           [ngClass]="activePath === link.path ? 'text-blue-800' : ''">
-          {{ link.name }}
-        </a>
+<header *ngIf="vm$ | async as vm">
+  <nav [ngClass]="isFixed ? 'fixed-nav' : 'nav'">
+    <a routerLink="/" class="flex items-center gap-3" aria-label="logo" (click)="toogleNavbar()">
+      <img ngSrc="/assets/images/favicon.png" alt="logo" class="cursor-pointer w-8" width="64" height="68" priority/>
+      <h1 class="font-bold text-2xl">fikiri<span class="text-emerald-400 animate-ping">.</span></h1>
+    </a>
+    <div class="flex flex-col gap-2 lg:hidden" [ngClass]="vm[1].isMenuOpen ? 'nav-open' : ''"
+         (click)="toogleNavbar()">
+      <div class="h-[1px] w-6 bg-current transition-transform duration-300"></div>
+      <div class="h-[1px] w-6 bg-current transition-transform duration-300"></div>
+    </div>
+    <div
+      class="absolute top-20 left-10 right-10 z-50 font-medium bg-transparent transition-transform shadow-xl duration-300 py-20 px-16 flex flex-col items-start gap-6 justify-start lg:flex lg:h-auto lg:static lg:p-0 lg:flex-row lg:items-center lg:justify-end lg:shadow-none lg:translate-y-0"
+      [ngClass]="vm[1].isMenuOpen  ? '' : '-translate-x-[200%] lg:translate-x-0'">
+      @if (vm[0]?.name; as name) {
+        @for (link of authenticatedUserLinks(name); track link.path) {
+          <a [routerLink]="link.path" (click)="toogleNavbar()" class="inline-block transition-colors duration-300">
+            {{ link.name }}
+          </a>
+        }
+        <button (click)="logOut()">Déconnexion</button>
+      } @else {
+        @for (link of unAuthenticatedUserLinks(); track link.path) {
+          <a [routerLink]="link.path" class="inline-block transition-colors duration-300">
+            {{ link.name }}
+          </a>
+        }
       }
-      <button (click)="logOut()">Déconnexion</button>
-    } @else {
-      @for (link of unAuthenticatedUserLinks(); track link.path) {
-        <a [routerLink]="link.path" class="transition-colors duration-300"
-           [ngClass]="activePath === link.path ? 'text-blue-800' : ''"
-           (click)="isOpen = false">
-          {{ link.name }}
-        </a>
-      }
-    }
-  </div>
+    </div>
+  </nav>
 </header>
 
