@@ -1,4 +1,4 @@
-import {Component, HostListener, Renderer2,} from '@angular/core';
+import {Component, HostListener,} from '@angular/core';
 import {CommonModule, NgOptimizedImage} from '@angular/common';
 import {RouterModule} from '@angular/router';
 import {select, Store} from '@ngrx/store';
@@ -21,7 +21,7 @@ export class TopbarComponent {
   isFixed: boolean = false
   isOpen: boolean = false
 
-  constructor(private store: Store<AppStoreInterface>, private renderer: Renderer2) {
+  constructor(private store: Store<AppStoreInterface>) {
     this.user$ = this.store.pipe(select(selectAuthUser));
   }
 
