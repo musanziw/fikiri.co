@@ -1,9 +1,11 @@
-<h3 class="font-bold text-2xl mb-6 mt-20">Découvrez les acteurs</h3>
-<div class="grid grid-cols-3 md:flex gap-4 flex-wrap justify-center lg:justify-start">
-  @for (partainer of partainers; track partainer.id) {
-    <div class="h-20 w-24 relative object-contain bg-gray-200 rounded-md shadow-md">
-      <img [ngSrc]="partainer.src" [alt]="partainer.name" fill/>
-    </div>
-  }
-</div>
+<section class="px-8 mt-20 max-w-screen-lg mx-auto">
+  <h1 class="text-xl md:text-2xl lg:text-3xl font-semibold mb-6">Découvrez <span class="inline-block after:block after:w-full after:h-2 after:-mt-2 after:bg-emerald-300">les acteurs</span></h1>
+  <div class="grid grid-cols-3 md:flex gap-4 flex-wrap justify-center lg:justify-start">
+    @for (partainer of partainers; track partainer.id) {
+      <div class="h-20 w-24 relative object-contain bg-gray-200 rounded-md shadow-md">
+        <img [ngSrc]="partainer.src" [alt]="partainer.name" fill/>
+      </div>
+    }
+  </div>
+</section>
 

@@ -6,7 +6,6 @@ import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} fr
 import {User} from "../../shared/types/models-interfaces";
 import {InputComponent} from "../../shared/ui/input/input.component";
 import {ButtonComponent} from "../../shared/ui/button/button.component";
-import {CapitalizeFirstLetterPipe} from "../../shared/pipes/capitalizeFirstLetter.pipe";
 import {ProfileStore} from "./data-access/profile.store";
 import {ProfileStoreInterface} from "./types/profile-store.interface";
 
@@ -24,7 +23,6 @@ import {ProfileStoreInterface} from "./types/profile-store.interface";
     ButtonComponent,
     FormsModule,
     NgClass,
-    CapitalizeFirstLetterPipe
   ],
   providers: [ProfileStore],
   templateUrl: './profile.component.html',

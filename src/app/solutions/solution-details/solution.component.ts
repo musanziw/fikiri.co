@@ -5,16 +5,14 @@ import {ActivatedRoute, RouterLink} from '@angular/router';
 import {ImagesService} from '../../shared/services/images.service';
 import {Observable} from 'rxjs';
 import {SolutionStoreInterface} from "./types/solution-store.interface";
-import {CapitalizeFirstLetterPipe} from "../../shared/pipes/capitalizeFirstLetter.pipe";
 import {NotFoundComponent} from "../../shared/components/not-found/not-found.component";
-import {cutParagraph} from "../../shared/pipes/cutParagraph.pipe";
 import {SolutionStore} from "./data-access/solution.store";
 import {SolutionService} from "./data-access/solution.service";
 
 @Component({
   selector: 'fk-solution-details-details',
   standalone: true,
-  imports: [NgOptimizedImage, CommonModule, CapitalizeFirstLetterPipe, RouterLink, NotFoundComponent, cutParagraph],
+  imports: [NgOptimizedImage, CommonModule, RouterLink, NotFoundComponent],
   providers: [SolutionService, SolutionStore],
   templateUrl: './solution.component.html',
 })

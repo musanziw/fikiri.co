@@ -6,7 +6,6 @@ import {RouterLink} from '@angular/router';
 import {AsyncPipe, NgIf, NgOptimizedImage} from '@angular/common';
 import {ButtonOutlineComponent} from '../../shared/ui/button-outline/button-outline.component';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators,} from '@angular/forms';
-import {ToastContainerDirective} from 'ngx-toastr';
 import {environment} from "../../../environments/environment";
 import {Observable} from "rxjs";
 import {ResetPasswordStore} from "./data-access/reset-password.store";
@@ -23,7 +22,6 @@ import {ResetPasswordStoreInterface} from "./types/reset-password-store.interfac
     NgOptimizedImage,
     ButtonOutlineComponent,
     ReactiveFormsModule,
-    ToastContainerDirective,
     AsyncPipe,
     NgIf,
   ],

@@ -1,12 +1,14 @@
 import {Component} from '@angular/core';
-import {NgOptimizedImage} from "@angular/common";
+import {AsyncPipe, NgIf, NgOptimizedImage} from "@angular/common";
 
 @Component({
   selector: 'component-partners',
   standalone: true,
-  imports: [
-    NgOptimizedImage
-  ],
+    imports: [
+        NgOptimizedImage,
+        AsyncPipe,
+        NgIf
+    ],
   templateUrl: './partners.component.html',
 })
 export class PartnersComponent {

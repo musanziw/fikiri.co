@@ -13,7 +13,6 @@ import {provideAnimations} from '@angular/platform-browser/animations';
 import {PageTitleStrategy} from "./page-title.strategy";
 import {provideStore} from "@ngrx/store";
 import {routes} from './app.routes';
-import {provideToastr} from 'ngx-toastr';
 import {provideEffects} from '@ngrx/effects';
 import {provideStoreDevtools} from '@ngrx/store-devtools';
 import {authReducers} from './shared/auth/data-access/auth.reducers';
@@ -32,11 +31,6 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(),
     provideHttpClient(withFetch()),
     provideAnimations(),
-    provideToastr({
-      timeOut: 6000,
-      positionClass: 'toast-top-center',
-      preventDuplicates: true,
-    }),
     provideEffects(authEffects),
     provideStore({
       auth: authReducers,
