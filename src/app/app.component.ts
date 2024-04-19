@@ -3,13 +3,17 @@ import {Component, OnInit} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
 import {authActions} from "./shared/auth/data-access/auth.actions";
 import {FooterComponent} from "./shared/components/footer/footer.component";
+import {AsyncPipe, NgClass, NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
     RouterOutlet,
-    FooterComponent
+    FooterComponent,
+    NgIf,
+    AsyncPipe,
+    NgClass
   ],
   templateUrl: './app.component.html',
 })

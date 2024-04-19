@@ -1,27 +1,27 @@
-<header *ngIf="vm$ | async as vm">
+<header>
   <nav [ngClass]="isFixed ? 'fixed-nav' : 'nav'">
-    <a routerLink="/" class="flex items-center gap-3" aria-label="logo" (click)="toogleNavbar()">
+    <a routerLink="/" class="flex items-center gap-3 cursor-pointer" aria-label="logo" (click)="closeNavbar()">
       <img ngSrc="/assets/images/favicon.png" alt="logo" class="cursor-pointer w-8" width="64" height="68" priority/>
       <h1 class="font-bold text-2xl">fikiri<span class="text-emerald-400 animate-ping">.</span></h1>
     </a>
-    <div class="flex flex-col gap-2 lg:hidden" [ngClass]="vm[1].isMenuOpen ? 'nav-open' : ''"
-         (click)="toogleNavbar()">
+    <div class="flex flex-col cursor-pointer gap-2 lg:hidden" [ngClass]="isOpen ? 'nav-open' : ''"
+         (click)="isOpen ? closeNavbar() : openNavbar()">
       <div class="h-[1px] w-6 bg-current transition-transform duration-300"></div>
       <div class="h-[1px] w-6 bg-current transition-transform duration-300"></div>
     </div>
     <div
-      class="absolute top-20 left-10 right-10 z-50 font-medium bg-transparent transition-transform shadow-xl duration-300 py-20 px-16 flex flex-col items-start gap-6 justify-start lg:flex lg:h-auto lg:static lg:p-0 lg:flex-row lg:items-center lg:justify-end lg:shadow-none lg:translate-y-0"
-      [ngClass]="vm[1].isMenuOpen  ? '' : '-translate-x-[200%] lg:translate-x-0'">
-      @if (vm[0]?.name; as name) {
-        @for (link of authenticatedUserLinks(name); track link.path) {
-          <a [routerLink]="link.path" (click)="toogleNavbar()" class="inline-block transition-colors duration-300">
+      class="absolute top-20 left-10 right-10 z-50 font-medium bg-transparent transition-transform duration-300 py-20 px-16 flex flex-col items-start gap-6 justify-start lg:flex lg:h-auto lg:static lg:p-0 lg:flex-row lg:items-center lg:justify-end lg:shadow-none lg:translate-y-0"
+      [ngClass]="isOpen  ? 'shadow-none  bg-white text-gray-800' : '-translate-x-[200%] shadow-xl lg:translate-x-0'">
+      @if (user$ | async; as user) {
+        @for (link of authenticatedUserLinks(user.name); track link.path) {
+          <a [routerLink]="link.path" (click)="closeNavbar()" class="inline-block transition-colors duration-300">
             {{ link.name }}
           </a>
         }
         <button (click)="logOut()">Déconnexion</button>
       } @else {
         @for (link of unAuthenticatedUserLinks(); track link.path) {
-          <a [routerLink]="link.path" class="inline-block transition-colors duration-300">
+          <a [routerLink]="link.path" class="inline-block transition-colors duration-300" (click)="closeNavbar()">
             {{ link.name }}
           </a>
         }

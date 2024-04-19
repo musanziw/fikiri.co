@@ -1,16 +1,14 @@
-import {Component, HostListener,} from '@angular/core';
+import {Component, HostListener, Renderer2,} from '@angular/core';
 import {CommonModule, NgOptimizedImage} from '@angular/common';
 import {RouterModule} from '@angular/router';
 import {select, Store} from '@ngrx/store';
-import {combineLatest, Observable} from 'rxjs';
+import {Observable} from 'rxjs';
 import {authActions} from "../../auth/data-access/auth.actions";
 import {selectUser as selectAuthUser} from "../../auth/data-access/auth.reducers";
 import {User} from "../../types/models-interfaces";
 import {LinkInterface} from "./types/link.interface";
 import {FormsModule} from "@angular/forms";
 import {AppStoreInterface} from "../../types/app-store.interface";
-import {TopbarStoreInterface} from "./types/topbar-store.interface";
-import {topbarActions} from "./store/topbar.actions";
 
 @Component({
   selector: 'component-topbar',
@@ -19,15 +17,12 @@ import {topbarActions} from "./store/topbar.actions";
   templateUrl: './topbar.component.html',
 })
 export class TopbarComponent {
-  topbarState$: Observable<TopbarStoreInterface>
   user$: Observable<User | null>
-  vm$: Observable<[User | null, TopbarStoreInterface]>
   isFixed: boolean = false
+  isOpen: boolean = false
 
-  constructor(private store: Store<AppStoreInterface>) {
+  constructor(private store: Store<AppStoreInterface>, private renderer: Renderer2) {
     this.user$ = this.store.pipe(select(selectAuthUser));
-    this.topbarState$ = this.store.pipe(select(state => state.topbar));
-    this.vm$ = combineLatest([this.user$, this.topbarState$])
   }
 
   commonLinks: LinkInterface[] = [
@@ -77,9 +72,12 @@ export class TopbarComponent {
     return name.length > 15 ? name.substring(0, 15) + '...' : name;
   }
 
+  openNavbar(): void {
+    this.isOpen = true
+  }
 
-  toogleNavbar(): void {
-    this.store.dispatch(topbarActions.toogleNavbar())
+  closeNavbar(): void {
+    this.isOpen = false
   }
 
   @HostListener('window:scroll', ['$event'])
