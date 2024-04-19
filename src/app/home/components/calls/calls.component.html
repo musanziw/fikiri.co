@@ -1,0 +1,22 @@
+<section class="px-8 mt-20 max-w-screen-lg mx-auto" *ngIf="vm$ | async as vm">
+  <h1 class="text-xl md:text-2xl lg:text-3xl font-semibold mb-6">Appels <span
+    class="inline-block after:block after:w-full after:h-2 after:-mt-2 after:bg-emerald-300">fikiri</span></h1>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    @for (call of vm.calls; track call.id) {
+      <div class="relative p-8 bg-emerald-300/40 flex flex-col gap-3 rounded-md mb-4">
+              <span class="absolute h-3 w-3 -top-1 -right-1 rounded-full"
+                    [ngClass]="isActive(call.ended_at) ? 'bg-red-600' : 'bg-emerald-300 animate-ping'"></span>
+        <h2 class="text-xl lowercase font-medium">{{ call.name }}</h2>
+        <p>
+          {{ call.description | slice:0:100 }}
+          @if (call.description.length >= 100) {
+            ...
+          }
+        </p>
+        <p class="place-self-end">
+          Du {{ call.started_at | date: 'longDate' }} au {{ call.ended_at | date: 'longDate' }}
+        </p>
+      </div>
+    }
+  </div>
+</section>
