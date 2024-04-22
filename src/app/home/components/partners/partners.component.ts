@@ -4,21 +4,30 @@ import {AsyncPipe, NgIf, NgOptimizedImage} from "@angular/common";
 @Component({
   selector: 'component-partners',
   standalone: true,
-    imports: [
-        NgOptimizedImage,
-        AsyncPipe,
-        NgIf
-    ],
+  imports: [
+    NgOptimizedImage,
+    AsyncPipe,
+    NgIf
+  ],
   templateUrl: './partners.component.html',
 })
 export class PartnersComponent {
   partainers = [
     {
-      id: 11,
-      name: "habariRDC",
-      src: "/assets/images/partainers/11.png",
+      id: 1,
+      name: "ingenious city",
+      src: "/assets/images/partainers/1.png",
     },
-
+    {
+      id: 2,
+      name: "Un jour nouveau",
+      src: "/assets/images/partainers/2.png",
+    },
+    {
+      id: 3,
+      name: "waza",
+      src: "/assets/images/partainers/3.png",
+    },
     {
       id: 4,
       name: "ukamili",
@@ -40,21 +49,6 @@ export class PartnersComponent {
       src: "/assets/images/partainers/7.png",
     },
     {
-      id: 1,
-      name: "ingenious city",
-      src: "/assets/images/partainers/1.png",
-    },
-    {
-      id: 2,
-      name: "Un jour nouveau",
-      src: "/assets/images/partainers/2.png",
-    },
-    {
-      id: 3,
-      name: "waza",
-      src: "/assets/images/partainers/3.png",
-    },
-    {
       id: 8,
       name: "kivuTech",
       src: "/assets/images/partainers/8.png",
@@ -68,6 +62,11 @@ export class PartnersComponent {
       id: 10,
       name: "innovation hub",
       src: "/assets/images/partainers/10.png",
+    },
+    {
+      id: 11,
+      name: "habariRDC",
+      src: "/assets/images/partainers/11.png",
     },
     {
       id: 12,
