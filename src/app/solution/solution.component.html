@@ -57,7 +57,9 @@
     </div>
   }
   @if (!state.isLoading && !state.solutionResponse?.solution) {
-    <component-not-found title="404" description="Page non trouvée" link="/solutions" linkText="Liste des solutions"/>
+    <h4>
+      Aucune solution trouvée
+    </h4>
   }
 </ng-container>
 

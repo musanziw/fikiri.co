@@ -6,7 +6,7 @@ import {PartnersComponent} from "./components/partners/partners.component";
 import {CallsComponent} from "./components/calls/calls.component";
 
 @Component({
-  selector: 'fk-home',
+  selector: 'app-home',
   standalone: true,
   imports: [HeroComponent, WinningSolutionsComponent, AboutComponent, PartnersComponent, CallsComponent],
   templateUrl: './home.component.html',

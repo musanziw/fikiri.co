@@ -12,7 +12,7 @@ import {ResetPasswordStore} from "./data-access/reset-password.store";
 import {ResetPasswordStoreInterface} from "./types/reset-password-store.interface";
 
 @Component({
-  selector: 'fk-login',
+  selector: 'app-reset-passowrd',
   standalone: true,
   imports: [
     FormCardComponent,

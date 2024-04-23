@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {AsyncPipe, NgIf, NgOptimizedImage} from "@angular/common";
 
 @Component({
-  selector: 'component-partners',
+  selector: 'app-partners',
   standalone: true,
   imports: [
     NgOptimizedImage,

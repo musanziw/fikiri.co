@@ -11,7 +11,7 @@ import {FormsModule} from "@angular/forms";
 import {AppStoreInterface} from "../../types/app-store.interface";
 
 @Component({
-  selector: 'component-topbar',
+  selector: 'app-topbar',
   standalone: true,
   imports: [CommonModule, RouterModule, NgOptimizedImage, FormsModule],
   templateUrl: './topbar.component.html',
@@ -32,7 +32,7 @@ export class TopbarComponent {
     },
     {
       name: 'Solutions',
-      path: '/solutions',
+      path: '/sol',
     },
   ];
 

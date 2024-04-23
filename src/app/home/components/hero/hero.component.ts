@@ -7,7 +7,7 @@ import {HeroStoreInterfce} from "./types/hero-store.interfce";
 import {TopbarComponent} from "../../../shared/components/topbar/topbar.component";
 
 @Component({
-  selector: 'component-hero',
+  selector: 'app-hero',
   standalone: true,
   imports: [RouterLink, NgOptimizedImage, NgIf, AsyncPipe, TopbarComponent],
   providers: [HeroStore],

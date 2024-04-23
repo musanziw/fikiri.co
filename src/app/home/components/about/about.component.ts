@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {NgOptimizedImage} from '@angular/common';
 
 @Component({
-  selector: 'component-about',
+  selector: 'app-about',
   standalone: true,
   imports: [NgOptimizedImage],
   templateUrl: './about.component.html',

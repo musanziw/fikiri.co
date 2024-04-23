@@ -1,16 +1,16 @@
 import {Component, OnInit} from '@angular/core';
-import {Solution} from '../../shared/types/models-interfaces';
+import {Solution} from '../shared/types/models-interfaces';
 import {CommonModule, NgOptimizedImage} from '@angular/common';
 import {ActivatedRoute, RouterLink} from '@angular/router';
-import {ImagesService} from '../../shared/services/images.service';
+import {ImagesService} from '../shared/services/images.service';
 import {Observable} from 'rxjs';
 import {SolutionStoreInterface} from "./types/solution-store.interface";
-import {NotFoundComponent} from "../../shared/components/not-found/not-found.component";
+import {NotFoundComponent} from "../not-found/not-found.component";
 import {SolutionStore} from "./data-access/solution.store";
 import {SolutionService} from "./data-access/solution.service";
 
 @Component({
-  selector: 'fk-solution-details-details',
+  selector: 'app-solution',
   standalone: true,
   imports: [NgOptimizedImage, CommonModule, RouterLink, NotFoundComponent],
   providers: [SolutionService, SolutionStore],

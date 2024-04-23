@@ -12,7 +12,7 @@ import {LoginStore} from "./data-access/login.store";
 import {LoginStoreInterface} from "./types/login-store.interface";
 
 @Component({
-  selector: 'fk-login',
+  selector: 'app-login',
   standalone: true,
   imports: [
     FormCardComponent,

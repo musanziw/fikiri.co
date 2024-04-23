@@ -10,7 +10,7 @@ import {ProfileStore} from "./data-access/profile.store";
 import {ProfileStoreInterface} from "./types/profile-store.interface";
 
 @Component({
-  selector: 'fk-profile',
+  selector: 'app-profile',
   standalone: true,
   imports: [
     AsyncPipe,
@@ -38,9 +38,6 @@ export class ProfileComponent implements OnInit {
       name: ['', Validators.required],
       address: ['', Validators.required],
       phone_number: ['', Validators.required],
-      oldPassword: [''],
-      password: [''],
-      passwordConfirm: [''],
     });
   }
 
@@ -74,7 +71,7 @@ export class ProfileComponent implements OnInit {
     const file: File | undefined = fileInput.files?.[0]
     if (file) {
       this.fileName = file.name;
-      const formData = new FormData();
+      const formData: FormData = new FormData();
       formData.append("thumb", file);
       this.store.updateImage(formData)
     }

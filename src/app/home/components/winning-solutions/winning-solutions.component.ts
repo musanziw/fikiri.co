@@ -10,7 +10,7 @@ import {WinningSolutionsStore} from "./data-access/winning-solutions.store";
 import {WinningSolutionsService} from "./data-access/winning-solutions.service";
 
 @Component({
-  selector: 'component-winning-solutions',
+  selector: 'app-winning-solutions',
   standalone: true,
   imports: [SolutionCardComponent, CommonModule, SolutionCardSkeletonComponent],
   providers: [WinningSolutionsService, WinningSolutionsStore],

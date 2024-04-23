@@ -6,7 +6,7 @@ import {AsyncPipe, DatePipe, NgClass, NgForOf, NgIf, SlicePipe} from "@angular/c
 import {CarouselModule} from "ngx-owl-carousel-o";
 
 @Component({
-  selector: 'component-calls',
+  selector: 'app-calls',
   standalone: true,
   imports: [NgIf, AsyncPipe, CarouselModule, SlicePipe, DatePipe, NgClass, NgForOf],
   providers: [CallsStore],

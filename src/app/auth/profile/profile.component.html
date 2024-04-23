@@ -2,10 +2,9 @@
   <div class="mx-auto  max-w-screen-md border-x border-dashed grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
     <div
       class="flex lg:min-h-screen flex-col gap-5 items-center pb-10 pt-24 md:pt-28 p-8 border-x bg-gradient-to-b from-gray-100/10 to-gray-600/40 md:bg-none">
-      <!--    <h2 class="text-gray-950 capitalize font-bold">{{ activeTab() }}</h2>-->
       <div
         class="w-28 h-28 bg-gray-200 relative rounded-full overflow-hidden cursor-pointer border-2 border-indigo-400/20 group"
-        (click)="file.click()">
+      (click)="file.click()">
         @if (!(state.user) || state.user.googleImage || state.user.profile) {
           <img [ngSrc]="displayProfile(state.user)" alt="Profile Picture" class="relative object-cover" fill priority>
           <div
@@ -22,24 +21,18 @@
           <h2 class="text-gray-950 font-bold">{{ username(state.user) }}</h2>
         }
       </div>
-
       <input type="file" (change)="uploadFIle($event)" class="hidden" accept="image/*" #file>
       <div class="flex gap-3">
         <button class="font-medium text-xs p-2 px-3 rounded-full border">
-          <!--              [ngClass]="activeTab() === 'profil' ? ' bg-gray-300/30' : '' " (click)="onTabChange('profil')">-->
           Mon profil
         </button>
         <button class="font-medium text-xs p-2 px-3 rounded-full border">
-          <!--              [ngClass]="activeTab() === 'solutions' ? ' bg-gray-300/30' : '' " (click)="onTabChange('solutions')">-->
           Solutions
         </button>
       </div>
     </div>
-
     <div class="w-full flex flex-col gap-3 lg:col-span-2 px-8 md:py-28">
-
       <h3 class="text-lg font-bold text-gray-950 mb-4">Modifier mes informations</h3>
-
       @if (state.profileState.error) {
         <div class="duration-300 mb-6"
              [ngClass]="state.profileState.error ? 'flex py-6 items-center gap-4 p-4 bg-gray-100  border-l-4 border-red-500' : 'hidden'">
@@ -51,64 +44,20 @@
           {{ state.profileState.error }}
         </div>
       }
-
       <form [formGroup]="form" (ngSubmit)="onSubmit()" class="gap-8 flex flex-col">
-        <ui-input type="text" name="name" label="Nom complet" placeholder="Entrez votre nom"
-                  [validationErrors]="state.profileState.validationErrors"/>
-        <ui-input type="text" name="phone_number" label="Numéro téléphonique" placeholder="Entrez votre numéro"
-                  [validationErrors]="state.profileState.validationErrors"/>
-        <ui-input type="text" name="address" label="Adresse" placeholder="Entrez votre adresse"
-                  [validationErrors]="state.profileState.validationErrors"/>
+        <app-input type="text" name="name" label="Nom complet" placeholder="Entrez votre nom"
+                   [validationErrors]="state.profileState.validationErrors"/>
+        <app-input type="text" name="phone_number" label="Numéro téléphonique" placeholder="Entrez votre numéro"
+                   [validationErrors]="state.profileState.validationErrors"/>
+        <app-input type="text" name="address" label="Adresse" placeholder="Entrez votre adresse"
+                   [validationErrors]="state.profileState.validationErrors"/>
 
-        <ui-button type="submit" [loading]="state.profileState.isLoading" [disabled]="form.invalid">
+        <app-button type="submit" [loading]="state.profileState.isLoading" [disabled]="form.invalid">
           Mettre à jour
-        </ui-button>
+        </app-button>
       </form>
-      <!--    @else if (activeTab() === 'solutions') {-->
-      <!--      @if (state.user?.solutions?.[0]; as solution) {-->
-
-      <!--        <h2 class="font-bold text-gray-800 text-2xl mb-2 p-3">-->
-      <!--          Titre de la solution-->
-      <!--        </h2>-->
-      <!--        @if (solution && solution.name) {-->
-      <!--          <h2 class="text-xl text-gray-950 mb-6 p-4">-->
-      <!--            {{ solution.name | capitalizeFirstLetter }}-->
-      <!--          </h2>-->
-      <!--        }-->
-      <!--        <div class="mb-8 h-48 lg:h-96 w-full relative">-->
-      <!--          <img [ngSrc]="displayImage(solution)" [alt]="solution.name" priority fill/>-->
-      <!--        </div>-->
-      <!--        <h2 class="font-bold text-gray-800 text-2xl mb-2 p-3">-->
-      <!--          Desciption de la solution-->
-      <!--        </h2>-->
-      <!--        <p class="mb-4 p-4 hyphens-auto">{{ solution.description }}</p>-->
-      <!--        <h2 class="font-bold text-gray-800 text-2xl mb-2 p-3">Problème résolu</h2>-->
-      <!--        <p class="mb-8 p-4 hyphens-auto">{{ solution.targeted_problem }}</p>-->
-      <!--        <h2 class="font-bold text-2xl mb-2 p-3">Innovateur</h2>-->
-      <!--        <p class="p-4">-->
-      <!--          {{ solution.user.name }} &mdash; {{ solution.user.email }}-->
-      <!--        </p>-->
-      <!--        <h2 class="font-bold text-gray-800 text-2xl mb-2 p-3">Thématique</h2>-->
-      <!--        <p class="p-4">-->
-      <!--          {{ solution.thematic?.name }}-->
-      <!--        </p>-->
-      <!--        <h2 class="font-bold text-gray-800 text-2xl mb-2 p-3">Status</h2>-->
-      <!--        <p class="p-4">-->
-      <!--          {{ solution.status.name }}-->
-      <!--        </p>-->
-      <!--        <h2 class="font-bold text-gray-800 text-2xl mb-2 p-3">Défis</h2>-->
-      <!--        <div class="p-4 mb-6">-->
-      <!--          @for (challenge of solution.challenges; track challenge.id) {-->
-      <!--            <p class="mr-2"> &mdash; {{ challenge.name }}</p>-->
-      <!--          }-->
-      <!--        </div>-->
-      <!--      } @else {-->
-      <!--        <h2 class="text-gray-950 font-bold">Aucune solution enregistrée</h2>-->
-      <!--      }-->
-      <!--    }-->
     </div>
   </div>
-
 </ng-container>
 
 

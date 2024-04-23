@@ -1,9 +1,10 @@
 import {Injectable} from "@angular/core";
-import {ComponentStore, tapResponse} from "@ngrx/component-store";
+import {ComponentStore} from "@ngrx/component-store";
+import {tapResponse} from "@ngrx/operators";
 import {SolutionsStoreInterface} from "../types/solutions-store.interface";
 import {combineLatestWith, exhaustMap, Observable, tap} from "rxjs";
 import {SolutionsService} from "./solutions.service";
-import {Solution} from "../../../shared/types/models-interfaces";
+import {Solution} from "../../shared/types/models-interfaces";
 import {HttpErrorResponse} from "@angular/common/http";
 
 @Injectable()

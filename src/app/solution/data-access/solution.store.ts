@@ -1,5 +1,6 @@
 import {Injectable} from "@angular/core";
-import {ComponentStore, tapResponse} from "@ngrx/component-store";
+import {ComponentStore} from "@ngrx/component-store";
+import {tapResponse} from "@ngrx/operators";
 import {SolutionStoreInterface} from "../types/solution-store.interface";
 import {exhaustMap, Observable, tap} from "rxjs";
 import {SolutionResponseInterface} from "../types/solution-response.interface";

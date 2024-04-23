@@ -1,5 +1,6 @@
 import {Injectable} from "@angular/core";
-import {ComponentStore, tapResponse} from "@ngrx/component-store";
+import {ComponentStore} from "@ngrx/component-store";
+import {tapResponse} from "@ngrx/operators";
 import {RegisterStoreInterface} from "../types/register-store.interface";
 import {ApiValiationsErrorsInterface} from "../../../shared/auth/types/api-valiations-errors.interface";
 import {RegisterPayloadInterface} from "../types/register-payload.interface";

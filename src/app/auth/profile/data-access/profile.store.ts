@@ -1,7 +1,8 @@
 import {Injectable} from "@angular/core";
-import {ComponentStore, tapResponse} from "@ngrx/component-store";
+import {ComponentStore} from "@ngrx/component-store";
+import {tapResponse} from "@ngrx/operators";
 import {ProfileStoreInterface} from "../types/profile-store.interface";
-import {combineLatestWith, exhaustMap, Observable, tap} from "rxjs";
+import {exhaustMap, map, Observable, switchMap, tap} from "rxjs";
 import {ProfilePayloadInterface} from "../types/profile-payload.interface";
 import {ProfileService} from "./profile.service";
 import {authActions} from "../../../shared/auth/data-access/auth.actions";
@@ -59,13 +60,14 @@ export class ProfileStore extends ComponentStore<ProfileStoreInterface> {
   updateImage = this.effect((payload: Observable<FormData>) => {
     return payload.pipe(
       tap(() => this.setIsLoading(true)),
-      combineLatestWith(this.user$),
-      exhaustMap(([payload, user]) => this.profileService.updateImage(user?.id, payload).pipe(
-        tapResponse({
-          next: () => this.setSuccess('Image de profil mise à jour avec succès'),
-          error: (err: HttpErrorResponse) => this.setError(err.error.message),
-          finalize: () => this.setIsLoading(false)
-        })
+      switchMap((payload) => this.user$.pipe(
+        map((user) => this.profileService.updateImage(user?.id, payload).pipe(
+          tapResponse({
+            next: () => this.setSuccess('Image de profil mise à jour avec succès'),
+            error: (err: HttpErrorResponse) => this.setError(err.error.message),
+            finalize: () => this.setIsLoading(false)
+          })
+        ))
       )),
     )
   })

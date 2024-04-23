@@ -3,7 +3,7 @@ import {ControlContainer, ReactiveFormsModule} from "@angular/forms";
 import {ApiValiationsErrorsInterface} from "../../auth/types/api-valiations-errors.interface";
 
 @Component({
-  selector: 'ui-input',
+  selector: 'app-input',
   standalone: true,
   viewProviders: [
     {

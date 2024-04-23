@@ -5,7 +5,7 @@ import {Solution, User} from '../../types/models-interfaces';
 import {ImagesService} from '../../services/images.service';
 
 @Component({
-  selector: 'component-solution-card',
+  selector: 'app-solution-card',
   standalone: true,
   imports: [NgOptimizedImage, RouterLink, DatePipe],
   templateUrl: './solution-card.component.html',

@@ -14,7 +14,7 @@ export class AuthService {
     return this.http.get<User>('auth/profile');
   }
 
-  logout(): Observable<null> {
-    return this.http.post<null, {}>('auth/logout', {});
+  logout(): Observable<void> {
+    return this.http.logout();
   }
 }

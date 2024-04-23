@@ -3,7 +3,7 @@ import {NgOptimizedImage} from "@angular/common";
 import {RouterLink} from "@angular/router";
 
 @Component({
-  selector: 'component-solution-card-skeleton',
+  selector: 'app-solution-card-skeleton',
   standalone: true,
   imports: [
     NgOptimizedImage,
