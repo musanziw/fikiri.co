@@ -3,12 +3,12 @@ import {AsyncPipe, NgIf, NgOptimizedImage} from "@angular/common";
 import {SdgInterface} from "./types/sdg.interface";
 
 @Component({
-  selector: 'app-sdg',
+  selector: 'app-sdgs',
   standalone: true,
   imports: [NgOptimizedImage, AsyncPipe, NgIf],
-  templateUrl: './sdg.component.html',
+  templateUrl: './sdgs.component.html',
 })
-export class SdgComponent {
+export class SdgsComponent {
   sdgs: SdgInterface[] = [
     {
       name: "Pas de pauvreté",
