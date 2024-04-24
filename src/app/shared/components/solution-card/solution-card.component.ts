@@ -22,4 +22,9 @@ export class SolutionCardComponent {
     if (!user) return ''
     return user.name.slice(0, 2).toUpperCase()
   }
+
+  displayProfileImage(user: User | null): string {
+    if (!user) return ''
+    return `${environment.apiUrl}/uploads/${user.profile}`
+  }
 }

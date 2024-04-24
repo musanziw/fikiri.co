@@ -1,11 +1,11 @@
 <a [routerLink]="['/solutions', solution.id]" class="flex flex-col">
-  <div class="w-auto h-44 mb-2 bject-cover relative">
-    <img [ngSrc]="displayImage(solution) || 'assets/asset/default-placeholder.png'" class="rounded-md"
+  <div class="w-auto h-40 mb-2 bject-cover relative">
+    <img [ngSrc]="displayImage(solution)" class="rounded-md"
          [alt]="solution.name" fill/>
   </div>
   <div class="flex gap-3 items-center">
     <div class="w-10 h-10 bg-gray-200 relative rounded-full overflow-hidden flex items-center justify-center">
-      <h2 class="text-gray-950 font-medium">{{ username(solution.user) }}</h2>
+      <img [ngSrc]="displayProfileImage(solution.user) || 'assets/images/default-placeholder.png'" [alt]="solution.user.name" fill/>
     </div>
     <p class="text-gray-950 font-medium text-sm flex flex-col capitalize">
       {{ solution.user.name }}
