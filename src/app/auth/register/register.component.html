@@ -1,6 +1,6 @@
 <app-form-card formTitle="Inscrivez-vous" *ngIf="vm$ | async as state" [error]="state.error">
   <form [formGroup]="form" (ngSubmit)="onSubmit()" class="gap-8 flex flex-col justify-center">
-    <app-input type="text" name="name" label="Nom complet" placeholder="Entrez votre nom"
+    <app-input type="text" name="name" label="Nom complet" placeholder="Entrez votre name"
               [validationErrors]="state.validationErrors"/>
     <app-input type="email" name="email" label="Email" placeholder="Entrez votre email"
               [validationErrors]="state.validationErrors"/>

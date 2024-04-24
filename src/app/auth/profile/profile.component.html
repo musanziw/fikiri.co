@@ -45,7 +45,7 @@
         </div>
       }
       <form [formGroup]="form" (ngSubmit)="onSubmit()" class="gap-8 flex flex-col">
-        <app-input type="text" name="name" label="Nom complet" placeholder="Entrez votre nom"
+        <app-input type="text" name="name" label="Nom complet" placeholder="Entrez votre name"
                    [validationErrors]="state.profileState.validationErrors"/>
         <app-input type="text" name="phone_number" label="Numéro téléphonique" placeholder="Entrez votre numéro"
                    [validationErrors]="state.profileState.validationErrors"/>

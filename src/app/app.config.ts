@@ -4,8 +4,7 @@ import {
   InMemoryScrollingOptions,
   provideRouter,
   TitleStrategy,
-  withInMemoryScrolling,
-  withViewTransitions,
+  withInMemoryScrolling, withViewTransitions,
 } from '@angular/router';
 import {provideClientHydration} from '@angular/platform-browser';
 import {provideHttpClient, withFetch} from '@angular/common/http';

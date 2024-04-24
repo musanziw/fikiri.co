@@ -1,23 +1,22 @@
-<div class="bg-hero bg-center bg-cover text-white flex flex-col" *ngIf="vm$ | async as vm">
-  <app-topbar/>
+<div class="bg-hero bg-cover bg-no-repeat text-white flex flex-col" *ngIf="vm$ | async as vm">
   <div
-    class="px-8 md:px-16 py-48 lg:px-32 h-full w-full flex flex-col justify-center items-start bg-black bg-opacity-80 gap-6 text-2xl md:text-4xl">
-   <div class="mx-auto max-w-screen-md">
+    class="px-8 md:px-16 py-48 lg:px-32 h-full w-full flex flex-col bg-black bg-opacity-80 gap-6 text-2xl md:text-4xl">
+   <div class="mx-auto max-w-screen-md flex flex-col items-start justify-center">
      <h1 class="font-bold mt-20 mb-10">Atteindre les objectifs de développement durable
-       <span class="inline-block after:block after:w-full after:h-2 after:-mt-2 after:bg-emerald-300">fikiri</span>
+       <span class="inline-block after:block after:w-full after:h-2 after:-mt-2 after:bg-green-400">avec fikiri</span>
        <span class="text-emerald-300 animate-pulse">.</span>
      </h1>
      <p class="font-light">
        Une plateforme d'accompagnement d'idées et de solutions
      </p>
-     <div class="flex gap-10 text-xl mt-10 font-semibold">
+     <div class="flex gap-10 mt-10 font-semibold">
        <div class="flex flex-col gap-3 items-center">
          <h1 class="">Utilisateurs</h1>
-         <p class="font-bondiMono">+ {{ vm.totals?.totalUsers }}</p>
+         <p class="">+{{ vm.totals?.totalUsers }}</p>
        </div>
        <div class="flex flex-col gap-3 items-center">
          <h1 class="">Solutions</h1>
-         <p class="font-bondiMono">+ {{ vm.totals?.totalSolutions }}</p>
+         <p class="">+{{ vm.totals?.totalSolutions }}</p>
        </div>
      </div>
    </div>

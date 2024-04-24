@@ -9,6 +9,6 @@ export class SolutionService {
   }
 
   getSolution(id: number): Observable<SolutionResponseInterface> {
-    return this.http.get<SolutionResponseInterface>(`solutions/mapped/one/${id}`);
+    return this.http.get<SolutionResponseInterface>(`solutions/mapped/${id}`);
   }
 }

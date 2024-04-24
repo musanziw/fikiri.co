@@ -1,4 +1,4 @@
-import {Component, HostListener,} from '@angular/core';
+import {Component,} from '@angular/core';
 import {CommonModule, NgOptimizedImage} from '@angular/common';
 import {RouterModule} from '@angular/router';
 import {select, Store} from '@ngrx/store';
@@ -18,7 +18,6 @@ import {AppStoreInterface} from "../../types/app-store.interface";
 })
 export class TopbarComponent {
   user$: Observable<User | null>
-  isFixed: boolean = false
   isOpen: boolean = false
 
   constructor(private store: Store<AppStoreInterface>) {
@@ -32,7 +31,7 @@ export class TopbarComponent {
     },
     {
       name: 'Solutions',
-      path: '/sol',
+      path: '/solutions',
     },
   ];
 
@@ -78,11 +77,5 @@ export class TopbarComponent {
 
   closeNavbar(): void {
     this.isOpen = false
-  }
-
-  @HostListener('window:scroll', ['$event'])
-  onWindowScroll() {
-    const scrollY = window.scrollY;
-    this.isFixed = scrollY > 0
   }
 }

@@ -14,13 +14,5 @@
   .nav-open div:last-child {
     @apply -rotate-45 -translate-y-1;
   }
-
-  .fixed-nav {
-    @apply fixed w-full top-0 left-0 right-0 translate-y-0 lg:px-20 px-10 py-4 transition-transform duration-300 text-gray-800 bg-white shadow-md z-10 flex items-center justify-between;
-  }
-
-  .nav {
-    @apply absolute top-20 left-0 right-0 -translate-y-10 w-full text-neutral-50 px-10 lg:px-20 transform bg-transparent flex items-center justify-between;
-  }
 }
 

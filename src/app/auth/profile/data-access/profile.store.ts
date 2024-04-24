@@ -36,39 +36,33 @@ export class ProfileStore extends ComponentStore<ProfileStoreInterface> {
     validationErrors
   }))
 
-  upatedProfile = this.effect((payload$: Observable<ProfilePayloadInterface>) => {
-    return payload$.pipe(
-      tap(() => this.setIsLoading(true)),
-      exhaustMap((payload) => this.profileService.updateProfile(payload).pipe(
-          tapResponse({
-            next: (user) => {
-              this.setSuccess('Profil mis à jour avec succès')
-              this.store.dispatch(authActions.authenticateUser({user}))
-            },
-            error: (error: HttpErrorResponse) => {
-              const message = error.error.message
-              if (typeof message === 'string')
-                return this.setError(error.error.message)
-              return this.setValidationErrors(error.error.message)
-            },
-            finalize: () => this.setIsLoading(false)
-          })
-        )
-      ))
-  })
+  upatedProfile = this.effect((payload$: Observable<ProfilePayloadInterface>) => payload$.pipe(
+    tap(() => this.setIsLoading(true)),
+    exhaustMap((payload) => this.profileService.updateProfile(payload).pipe(
+      tapResponse({
+        next: (user) => {
+          this.setSuccess('Profil mis à jour avec succès')
+          this.store.dispatch(authActions.authenticateUser({user}))
+        },
+        error: (error: HttpErrorResponse) => {
+          const message = error.error.message
+          if (typeof message === 'string')
+            return this.setError(error.error.message)
+          return this.setValidationErrors(error.error.message)
+        },
+        finalize: () => this.setIsLoading(false)
+      })
+    ))))
 
-  updateImage = this.effect((payload: Observable<FormData>) => {
-    return payload.pipe(
-      tap(() => this.setIsLoading(true)),
-      switchMap((payload) => this.user$.pipe(
-        map((user) => this.profileService.updateImage(user?.id, payload).pipe(
-          tapResponse({
-            next: () => this.setSuccess('Image de profil mise à jour avec succès'),
-            error: (err: HttpErrorResponse) => this.setError(err.error.message),
-            finalize: () => this.setIsLoading(false)
-          })
-        ))
-      )),
-    )
-  })
+  updateImage = this.effect((payload: Observable<FormData>) => payload.pipe(
+    tap(() => this.setIsLoading(true)),
+    switchMap((payload) => this.user$.pipe(
+      map((user) => this.profileService.updateImage(user?.id, payload).pipe(
+        tapResponse({
+          next: () => this.setSuccess('Image de profil mise à jour avec succès'),
+          error: (err: HttpErrorResponse) => this.setError(err.error.message),
+          finalize: () => this.setIsLoading(false)
+        })
+      ))
+    ))))
 }

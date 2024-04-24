@@ -6,6 +6,7 @@ import {FooterComponent} from "./shared/components/footer/footer.component";
 import {AsyncPipe, NgClass, NgIf} from "@angular/common";
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
+import {TopbarComponent} from "./shared/components/topbar/topbar.component";
 
 registerLocaleData(localeFr, 'fr');
 
@@ -19,7 +20,8 @@ registerLocaleData(localeFr, 'fr');
     FooterComponent,
     NgIf,
     AsyncPipe,
-    NgClass
+    NgClass,
+    TopbarComponent
   ],
   templateUrl: './app.component.html',
 })

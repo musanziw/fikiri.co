@@ -3,7 +3,7 @@ import {HomeComponent} from './home/home.component';
 
 export const routes: Routes = [
   {
-    path: 'sol/:id',
+    path: 'solutions/:id',
     title: 'Solution - details',
     loadComponent: () => import('./solution/solution.component').then((c) => c.SolutionComponent),
   },

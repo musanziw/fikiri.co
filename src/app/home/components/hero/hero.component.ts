@@ -4,12 +4,11 @@ import {AsyncPipe, NgIf, NgOptimizedImage} from "@angular/common";
 import {HeroStore} from "./data-access/hero.store";
 import {Observable} from "rxjs";
 import {HeroStoreInterfce} from "./types/hero-store.interfce";
-import {TopbarComponent} from "../../../shared/components/topbar/topbar.component";
 
 @Component({
   selector: 'app-hero',
   standalone: true,
-  imports: [RouterLink, NgOptimizedImage, NgIf, AsyncPipe, TopbarComponent],
+  imports: [RouterLink, NgOptimizedImage, NgIf, AsyncPipe],
   providers: [HeroStore],
   templateUrl: './hero.component.html',
 })

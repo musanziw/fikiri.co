@@ -2,7 +2,7 @@ import {Component, Input} from '@angular/core';
 import {DatePipe, NgOptimizedImage} from '@angular/common';
 import {RouterLink} from '@angular/router';
 import {Solution, User} from '../../types/models-interfaces';
-import {ImagesService} from '../../services/images.service';
+import {environment} from "../../../../environments/environment";
 
 @Component({
   selector: 'app-solution-card',
@@ -13,11 +13,9 @@ import {ImagesService} from '../../services/images.service';
 export class SolutionCardComponent {
   @Input() solution!: Solution;
 
-  constructor(private imageService: ImagesService) {
-  }
-
   displayImage(solution: Solution): string {
-    return this.imageService.diplayImage(solution);
+    if (!solution.images.length) return ''
+    return `${environment.apiUrl}/uploads/${solution.images.at(-1)?.image_link}`
   }
 
   username(user: User | null): string {

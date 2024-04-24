@@ -1,15 +1,20 @@
 <ng-container *ngIf="vm$ | async as state">
-  @if (state.solutions.length > 0) {
-    <h2 class="font-bold text-2xl mb-3 mt-16">Les solutions awards</h2>
-    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-12 mt-8">
-      @for (solution of state.solutions; track solution.id) {
-        <app-solution-card [solution]="solution"/>
-      }
-      @if (state.isLoading && state.solutions.length <= 0) {
-        @for (i of [1, 2, 3, 4, 5, 6, 7, 8]; track i) {
-          <app-solution-card-skeleton/>
-        }
-      }
-    </div>
-  }
+ <section class="bg-neutral-50">
+   <div class="p-8 max-w-screen-lg mx-auto">
+     @if (state.solutions.length > 0) {
+       <h1 class="text-xl md:text-2xl lg:text-3xl font-semibold mb-6 mt-10">Les solutions <span
+         class="inline-block after:block after:w-full after:h-2 after:-mt-2 after:bg-green-300">awards</span></h1>
+       <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-12 mt-8">
+         @for (solution of state.solutions; track solution.id) {
+           <app-solution-card [solution]="solution"/>
+         }
+         @if (state.isLoading && state.solutions.length <= 0) {
+           @for (i of [1, 2, 3, 4, 5, 6, 7, 8]; track i) {
+             <app-solution-card-skeleton/>
+           }
+         }
+       </div>
+     }
+   </div>
+ </section>
 </ng-container>

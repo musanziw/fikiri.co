@@ -1,6 +1,7 @@
-<a [routerLink]="['/sol', solution.id]" class="flex flex-col">
+<a [routerLink]="['/solutions', solution.id]" class="flex flex-col">
   <div class="w-auto h-44 mb-2 bject-cover relative">
-    <img [ngSrc]="displayImage(solution)" class="rounded-md" [alt]="solution.name" fill/>
+    <img [ngSrc]="displayImage(solution) || 'assets/asset/default-placeholder.png'" class="rounded-md"
+         [alt]="solution.name" fill/>
   </div>
   <div class="flex gap-3 items-center">
     <div class="w-10 h-10 bg-gray-200 relative rounded-full overflow-hidden flex items-center justify-center">
@@ -8,9 +9,7 @@
     </div>
     <p class="text-gray-950 font-medium text-sm flex flex-col capitalize">
       {{ solution.user.name }}
-      <span class="block text-xs text-gray-700">
-        {{ solution.created_at | date : 'dd/MM/yyyy' }}
-     </span>
+      <span class="text-gray-500 font-normal">{{ solution.created_at | date: 'longDate' }}</span>
     </p>
   </div>
 </a>

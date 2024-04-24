@@ -35,6 +35,9 @@ dependencies:
   '@angular/ssr':
     specifier: ^17.2.3
     version: 17.3.5(@angular/common@17.3.5)(@angular/core@17.3.5)
+  '@angular/youtube-player':
+    specifier: 17.3.5
+    version: 17.3.5(@angular/common@17.3.5)(@angular/core@17.3.5)(rxjs@7.8.1)
   '@ngrx/component-store':
     specifier: ^17.1.1
     version: 17.2.0(@angular/core@17.3.5)(rxjs@7.8.1)
@@ -662,6 +665,20 @@ packages:
       '@angular/common': 17.3.5(@angular/core@17.3.5)(rxjs@7.8.1)
       '@angular/core': 17.3.5(rxjs@7.8.1)(zone.js@0.14.4)
       critters: 0.0.22
+      tslib: 2.6.2
+    dev: false
+
+  /@angular/youtube-player@17.3.5(@angular/common@17.3.5)(@angular/core@17.3.5)(rxjs@7.8.1):
+    resolution: {integrity: sha512-utHqEI0Wwrjac5DOjmQG6uFHDSvwX/Iutxj0W6jzlJE+P1eKPX9QjOgzFyKYSg+dtL2oGxvmKVBNJMIHPnVAag==}
+    peerDependencies:
+      '@angular/common': ^17.0.0 || ^18.0.0
+      '@angular/core': ^17.0.0 || ^18.0.0
+      rxjs: ^6.5.3 || ^7.4.0
+    dependencies:
+      '@angular/common': 17.3.5(@angular/core@17.3.5)(rxjs@7.8.1)
+      '@angular/core': 17.3.5(rxjs@7.8.1)(zone.js@0.14.4)
+      '@types/youtube': 0.0.42
+      rxjs: 7.8.1
       tslib: 2.6.2
     dev: false
 
@@ -3394,6 +3411,10 @@ packages:
     dependencies:
       '@types/node': 18.19.31
     dev: true
+
+  /@types/youtube@0.0.42:
+    resolution: {integrity: sha512-Nqo3HMPFPcNyZ7HNFZJjpH+N4yXqpxBItG+41e7nL9zednovMRZMXWj36CctSznbBcbj6ucvkJDo5iZ8SKqLIw==}
+    dev: false
 
   /@typescript-eslint/eslint-plugin@7.2.0(@typescript-eslint/parser@7.2.0)(eslint@8.57.0)(typescript@5.3.3):
     resolution: {integrity: sha512-mdekAHOqS9UjlmyF/LSs6AIEvfceV749GFxoBAjwAv0nkevfKHWQFDMcBZWUiIC5ft6ePWivXoS36aKQ0Cy3sw==}
