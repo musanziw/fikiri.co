@@ -1,6 +1,6 @@
 import {Component,} from '@angular/core';
 import {CommonModule, NgOptimizedImage} from '@angular/common';
-import {RouterModule} from '@angular/router';
+import {Router, RouterModule} from '@angular/router';
 import {select, Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
 import {authActions} from "../../auth/data-access/auth.actions";
@@ -20,7 +20,7 @@ export class TopbarComponent {
   user$: Observable<User | null>
   isOpen: boolean = false
 
-  constructor(private store: Store<AppStoreInterface>) {
+  constructor(private store: Store<AppStoreInterface>, private router: Router) {
     this.user$ = this.store.pipe(select(selectAuthUser));
   }
 
@@ -77,5 +77,9 @@ export class TopbarComponent {
 
   closeNavbar(): void {
     this.isOpen = false
+  }
+
+  isActive(path: string): boolean {
+    return this.router.url === path;
   }
 }
