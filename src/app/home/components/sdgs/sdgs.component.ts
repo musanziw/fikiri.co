@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { AsyncPipe, NgIf, NgOptimizedImage } from '@angular/common';
+import { AsyncPipe, NgIf, NgOptimizedImage, SlicePipe } from '@angular/common';
 import { SdgInterface } from './types/sdg.interface';
 
 @Component({
   selector: 'app-sdgs',
   standalone: true,
-  imports: [NgOptimizedImage, AsyncPipe, NgIf],
+  imports: [NgOptimizedImage, AsyncPipe, NgIf, SlicePipe],
   templateUrl: './sdgs.component.html',
 })
 export class SdgsComponent {
@@ -14,7 +14,7 @@ export class SdgsComponent {
       name: 'Pas de pauvreté',
       description: 'Éliminer la pauvreté sous toutes ses formes et partout dans le monde.',
       image: 'assets/images/goals/F-WEB-Goal-1.png',
-      isOpen: false,
+      isOpen: true,
     },
     {
       name: 'Faim zéro',
