@@ -4,12 +4,12 @@ import { environment } from '../../../environments/environment';
 import { map, Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class HttpClientService {
   apiUrl: string = environment.apiUrl;
   options = {
-    withCredentials: true,
+    withCredentials: true
   };
 
   constructor(private http: HttpClient) {}
@@ -30,5 +30,9 @@ export class HttpClientService {
 
   logout(): Observable<void> {
     return this.http.post<void>(this.apiUrl + 'auth/logout', null, this.options);
+  }
+
+  uploadFile(uri: string, payload: FormData): Observable<void> {
+    return this.http.post<void>(this.apiUrl + uri, payload, this.options);
   }
 }

@@ -8,6 +8,7 @@ import { InputComponent } from '../../shared/ui/input/input.component';
 import { ButtonComponent } from '../../shared/ui/button/button.component';
 import { ProfileStore } from './data-access/profile.store';
 import { ProfileStoreInterface } from './types/profile-store.interface';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-profile',
@@ -22,25 +23,31 @@ import { ProfileStoreInterface } from './types/profile-store.interface';
     InputComponent,
     ButtonComponent,
     FormsModule,
-    NgClass,
+    NgClass
   ],
   providers: [ProfileStore],
-  templateUrl: './profile.component.html',
+  templateUrl: './profile.component.html'
 })
 export class ProfileComponent implements OnInit {
   form: FormGroup;
+  updatePasswordForm: FormGroup;
   fileName: string = '';
   vm$: Observable<{ profileState: ProfileStoreInterface; user: User | null }>;
 
   constructor(
     private store: ProfileStore,
-    private formBuilder: FormBuilder,
+    private formBuilder: FormBuilder
   ) {
     this.vm$ = this.store.vm$;
     this.form = this.formBuilder.nonNullable.group({
       name: ['', Validators.required],
       address: ['', Validators.required],
-      phone_number: ['', Validators.required],
+      phone_number: ['', Validators.required]
+    });
+    this.updatePasswordForm = this.formBuilder.nonNullable.group({
+      old_password: ['', Validators.required],
+      password: ['', Validators.required],
+      password_confirm: ['', Validators.required]
     });
   }
 
@@ -50,7 +57,7 @@ export class ProfileComponent implements OnInit {
         this.form.patchValue({
           name: state.user?.name,
           address: state.user?.address,
-          phone_number: state.user?.phone_number,
+          phone_number: state.user?.phone_number
         });
       })
       .unsubscribe();
@@ -62,8 +69,8 @@ export class ProfileComponent implements OnInit {
   }
 
   displayProfile(user: User | null): string {
-    if (user?.profile) return 'https://api.fikiri.co/uploads/' + user.profile;
-    if (user?.googleImage && !user?.profile) return user.googleImage;
+    if (user?.profile) return environment.apiUrl + 'uploads/' + user.profile;
+    if (user?.googleImage) return user.googleImage;
     return '';
   }
 
@@ -80,5 +87,9 @@ export class ProfileComponent implements OnInit {
       formData.append('thumb', file);
       this.store.updateImage(formData);
     }
+  }
+
+  submitPasswordForm(): void {
+    this.store.updatePassword(this.updatePasswordForm.value);
   }
 }
