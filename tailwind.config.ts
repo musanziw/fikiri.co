@@ -9,15 +9,6 @@ module.exports = {
         footer: 'url("/assets/images/footer.png")',
       },
     },
-    animation: {
-      'infinite-scroll': 'infinite-scroll 25s linear infinite',
-    },
-    keyframes: {
-      'infinite-scroll': {
-        from: { transform: 'translateX(0)' },
-        to: { transform: 'translateX(-100%)' },
-      },
-    },
     fontFamily: {
       dmSans: ['DM Sans', 'sans-serif'],
       bondiMono: ['Bodoni Moda', ' serif'],
