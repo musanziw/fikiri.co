@@ -1,4 +1,4 @@
 export interface TotalsInterface {
-    totalUsers: number;
-    totalSolutions: number;
+  totalUsers: number;
+  totalSolutions: number;
 }

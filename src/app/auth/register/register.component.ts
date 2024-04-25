@@ -1,14 +1,14 @@
-import {Component} from '@angular/core';
-import {AsyncPipe, NgIf, NgOptimizedImage} from '@angular/common';
-import {RouterLink} from '@angular/router';
-import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
-import {FormCardComponent} from '../../shared/components/form-card/form-card.component';
-import {ButtonComponent} from '../../shared/ui/button/button.component';
-import {ButtonOutlineComponent} from '../../shared/ui/button-outline/button-outline.component';
-import {InputComponent} from '../../shared/ui/input/input.component';
-import {Observable} from "rxjs";
-import {RegisterStore} from "./data-access/register.store";
-import {RegisterStoreInterface} from "./types/register-store.interface";
+import { Component } from '@angular/core';
+import { AsyncPipe, NgIf, NgOptimizedImage } from '@angular/common';
+import { RouterLink } from '@angular/router';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormCardComponent } from '../../shared/components/form-card/form-card.component';
+import { ButtonComponent } from '../../shared/ui/button/button.component';
+import { ButtonOutlineComponent } from '../../shared/ui/button-outline/button-outline.component';
+import { InputComponent } from '../../shared/ui/input/input.component';
+import { Observable } from 'rxjs';
+import { RegisterStore } from './data-access/register.store';
+import { RegisterStoreInterface } from './types/register-store.interface';
 
 @Component({
   selector: 'app-register',
@@ -23,7 +23,7 @@ import {RegisterStoreInterface} from "./types/register-store.interface";
     FormsModule,
     ReactiveFormsModule,
     AsyncPipe,
-    NgIf
+    NgIf,
   ],
   providers: [RegisterStore],
   templateUrl: './register.component.html',
@@ -32,8 +32,11 @@ export class RegisterComponent {
   form: FormGroup;
   vm$: Observable<RegisterStoreInterface>;
 
-  constructor(private store: RegisterStore, private formBuilder: FormBuilder) {
-    this.vm$ = this.store.vm$
+  constructor(
+    private store: RegisterStore,
+    private formBuilder: FormBuilder,
+  ) {
+    this.vm$ = this.store.vm$;
     this.form = this.formBuilder.nonNullable.group({
       name: ['', Validators.required],
       email: ['', Validators.required],

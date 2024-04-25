@@ -1,5 +1,5 @@
-import {Component} from '@angular/core';
-import {RouterLink} from '@angular/router';
+import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-not-found',
@@ -7,5 +7,4 @@ import {RouterLink} from '@angular/router';
   imports: [RouterLink],
   templateUrl: './not-found.component.html',
 })
-export class NotFoundComponent {
-}
+export class NotFoundComponent {}

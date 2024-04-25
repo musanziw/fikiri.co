@@ -1,5 +1,5 @@
-import {Component, Input} from '@angular/core';
-import {CommonModule} from "@angular/common";
+import { Component, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-form-card',
@@ -9,5 +9,5 @@ import {CommonModule} from "@angular/common";
 })
 export class FormCardComponent {
   @Input() formTitle: string = '';
-  @Input() error: string | null = ''
+  @Input() error: string | null = '';
 }

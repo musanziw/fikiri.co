@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {CallsStore} from "./data-access/calls.store";
-import {Observable} from "rxjs";
-import {CallsStoreInterface} from "./types/calls-store.interface";
-import {AsyncPipe, DatePipe, NgClass, NgForOf, NgIf, SlicePipe} from "@angular/common";
-import {CarouselModule} from "ngx-owl-carousel-o";
+import { Component, OnInit } from '@angular/core';
+import { CallsStore } from './data-access/calls.store';
+import { Observable } from 'rxjs';
+import { CallsStoreInterface } from './types/calls-store.interface';
+import { AsyncPipe, DatePipe, NgClass, NgForOf, NgIf, SlicePipe } from '@angular/common';
+import { CarouselModule } from 'ngx-owl-carousel-o';
 
 @Component({
   selector: 'app-calls',
@@ -26,6 +26,6 @@ export class CallsComponent implements OnInit {
   isActive(ended_at: Date): boolean {
     const current = new Date();
     const end = new Date(ended_at);
-    return current > end
+    return current > end;
   }
 }

@@ -1,4 +1,4 @@
-import {SolutionResponseInterface} from "./solution-response.interface";
+import { SolutionResponseInterface } from './solution-response.interface';
 
 export interface SolutionStoreInterface {
   isLoading: boolean;

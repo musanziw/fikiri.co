@@ -1,4 +1,4 @@
-import {TotalsInterface} from "./totals.interface";
+import { TotalsInterface } from './totals.interface';
 
 export interface HeroStoreInterfce {
   isLoading: boolean;

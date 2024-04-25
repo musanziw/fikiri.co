@@ -9,6 +9,7 @@ A platform where innovators can connect and upload their projects in relation to
 - [NestJS](https://docs.nestjs.com/#installation) >= 10
 
 ### Clone
+
 ```bash
 $ gh repo clone musanziw/fikiri-web
 ```
@@ -28,4 +29,3 @@ $ ng serve
 # build
 $ ng build
 ```
-

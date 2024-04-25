@@ -5,26 +5,28 @@
     </h2>
     <div class="grid grid-cols-1 gap-x-6 gap-y-10 md:grid-cols-3 lg:grid-cols-4">
       @for (solution of state.solutions; track solution.id) {
-        <app-solution-card [solution]="solution"/>
+        <app-solution-card [solution]="solution" />
       }
       @if (state.isLoading && state.solutions.length <= 0) {
         @for (i of [1, 2, 3, 4, 5, 6, 7, 8]; track i) {
-          <app-solution-card-skeleton/>
+          <app-solution-card-skeleton />
         }
       }
     </div>
     <div class="flex mt-8 w-full justify-center items-center text-sm">
-      <hr class="w-full border-gray-300"/>
-      <button type="button" [disabled]="state.isLoadingMore"
-              class="bg-none border w-1/2 rounded-full py-2 px-8 text-gray-950 hover:bg-gray-300/40 duration-75 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed"
-              (click)="loadMore()">
+      <hr class="w-full border-gray-300" />
+      <button
+        type="button"
+        [disabled]="state.isLoadingMore"
+        class="bg-none border w-1/2 rounded-full py-2 px-8 text-gray-950 hover:bg-gray-300/40 duration-75 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed"
+        (click)="loadMore()">
         @if (state.isLoadingMore) {
-          <app-spinner class="text-gray-700"/>
+          <app-spinner class="text-gray-700" />
         } @else {
           Plus
         }
       </button>
-      <hr class="w-full border-gray-300"/>
+      <hr class="w-full border-gray-300" />
     </div>
   </div>
 </div>

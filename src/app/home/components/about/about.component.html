@@ -1,21 +1,18 @@
 <section
   class="p-8 lg:mx-auto lg:p-4 flex flex-col gap-4 justify-center w-full overflow-hidden lg:max-w-screen-lg mb-20">
-  <h1 class="text-xl md:text-2xl lg:text-3xl font-semibold mb-6 mt-10">Qui <span
-    class="inline-block after:block after:w-full after:h-2 after:-mt-2 after:bg-green-300">sommes-nous</span> ?</h1>
+  <h1 class="text-xl md:text-2xl lg:text-3xl font-semibold mb-6 mt-10">
+    Fikiri, de quoi
+    <span class="inline-block after:block after:w-full after:h-2 after:-mt-2 after:bg-green-300">s'agit-il</span> ?
+  </h1>
   <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8">
     <div class="flex flex-col justify-center items-start gap-6">
-      <h2 class="text-xl md:text-3xl font-semibold md:w-2/3">
-        Fikiri : Cartographie des solutions locales en RDC
-      </h2>
+      <h2 class="text-xl md:text-3xl font-semibold md:w-2/3">Fikiri : Cartographie des solutions locales en RDC</h2>
       <p class="md:text-lg font-medium mb-3">
-        Fikiri est une plateforme web qui vise à cartographier les solutions
-        locales en République Démocratique du Congo pour accélérer
-        l&apos;atteinte des Objectifs de Développement Durable (ODD).
-        L&apos;objectif de Fikiri est de mettre en lumière les solutions
-        locales qui contribuent à l&apos;atteinte des ODD en RDC.
+        Une plateforme dédiée à la cartographie, l'exploration et l'expérimentation des solutions innovantes locales
+        pour accélérer l'atteinte des Objectifsde Développement durables . En savoir plus? Regardez la vidéo ci-dessous.
       </p>
     </div>
-    <youtube-player videoId="xuCLFkqhZAs" width="fill" height="400"/>
+    <youtube-player videoId="xuCLFkqhZAs" width="fill" height="400" />
   </div>
   <div
     class="w-full inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)]">
@@ -23,15 +20,16 @@
       class="flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-infinite-scroll">
       @for (partainer of partainers; track partainer.id) {
         <div class="h-32 w-32 relative object-contain">
-          <img [ngSrc]="partainer.src" [alt]="partainer.name" class="partner-logo" fill/>
+          <img [ngSrc]="partainer.src" [alt]="partainer.name" class="partner-logo" fill />
         </div>
       }
     </ul>
-    <ul class="flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-infinite-scroll"
-        aria-hidden="true">
+    <ul
+      class="flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-infinite-scroll"
+      aria-hidden="true">
       @for (partainer of partainers; track partainer.id) {
         <div class="h-32 w-32 relative object-contain">
-          <img [ngSrc]="partainer.src" [alt]="partainer.name" class="partner-logo" fill/>
+          <img [ngSrc]="partainer.src" [alt]="partainer.name" class="partner-logo" fill />
         </div>
       }
     </ul>

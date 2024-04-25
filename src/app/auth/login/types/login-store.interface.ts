@@ -1,4 +1,4 @@
 export interface LoginStoreInterface {
-  isLoading: boolean
-  error: string | null
+  isLoading: boolean;
+  error: string | null;
 }

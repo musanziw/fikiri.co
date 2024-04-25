@@ -1,15 +1,15 @@
-import {Component} from '@angular/core';
-import {FormCardComponent} from '../../shared/components/form-card/form-card.component';
-import {ButtonComponent} from '../../shared/ui/button/button.component';
-import {InputComponent} from '../../shared/ui/input/input.component';
-import {RouterLink} from '@angular/router';
-import {AsyncPipe, NgIf, NgOptimizedImage} from '@angular/common';
-import {ButtonOutlineComponent} from '../../shared/ui/button-outline/button-outline.component';
-import {FormBuilder, FormGroup, ReactiveFormsModule, Validators,} from '@angular/forms';
-import {environment} from "../../../environments/environment";
-import {Observable} from "rxjs";
-import {ResetPasswordRequestStore} from "./data-access/reset-password-request.store";
-import {ResetPasswordRequestStoreInterface} from "./types/reset-password-request-store.interface";
+import { Component } from '@angular/core';
+import { FormCardComponent } from '../../shared/components/form-card/form-card.component';
+import { ButtonComponent } from '../../shared/ui/button/button.component';
+import { InputComponent } from '../../shared/ui/input/input.component';
+import { RouterLink } from '@angular/router';
+import { AsyncPipe, NgIf, NgOptimizedImage } from '@angular/common';
+import { ButtonOutlineComponent } from '../../shared/ui/button-outline/button-outline.component';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { environment } from '../../../environments/environment';
+import { Observable } from 'rxjs';
+import { ResetPasswordRequestStore } from './data-access/reset-password-request.store';
+import { ResetPasswordRequestStoreInterface } from './types/reset-password-request-store.interface';
 
 @Component({
   selector: 'app-reset-password-request',
@@ -26,15 +26,18 @@ import {ResetPasswordRequestStoreInterface} from "./types/reset-password-request
     NgIf,
   ],
   providers: [ResetPasswordRequestStore],
-  templateUrl: './reset-password-request.component.html'
+  templateUrl: './reset-password-request.component.html',
 })
 export class ResetPasswordRequestComponent {
   form: FormGroup;
-  apiUrl: string = environment.apiUrl
-  vm$: Observable<ResetPasswordRequestStoreInterface>
+  apiUrl: string = environment.apiUrl;
+  vm$: Observable<ResetPasswordRequestStoreInterface>;
 
-  constructor(private store: ResetPasswordRequestStore, private formBuilder: FormBuilder) {
-    this.vm$ = this.store.vm$
+  constructor(
+    private store: ResetPasswordRequestStore,
+    private formBuilder: FormBuilder,
+  ) {
+    this.vm$ = this.store.vm$;
     this.form = this.formBuilder.group({
       email: ['', Validators.required],
     });
