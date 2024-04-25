@@ -41,7 +41,7 @@ export class SolutionsStore extends ComponentStore<SolutionsStoreInterface> {
     trigger$.pipe(
       tap(() => this.setIsLoadingMore(true)),
       combineLatestWith(this.select((state) => state.cursor)),
-      exhaustMap(([_, cursor]) =>
+      exhaustMap(([, cursor]) =>
         this.solutionService.getSolutions(cursor + 1).pipe(
           tapResponse({
             next: (solutions) => {
