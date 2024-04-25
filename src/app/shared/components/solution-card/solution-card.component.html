@@ -1,5 +1,5 @@
 <a [routerLink]="['/solutions', solution.id]" class="flex flex-col">
-  <div class="w-auto h-40 mb-2 bject-cover relative">
+  <div class="w-auto h-44 lg:h-36 mb-2 bject-cover relative">
     <img [ngSrc]="displayImage(solution)" class="rounded-md" [alt]="solution.name" fill />
   </div>
   <div class="flex gap-3 items-center">
@@ -9,9 +9,9 @@
         [alt]="solution.user.name"
         fill />
     </div>
-    <p class="text-gray-950 font-medium text-sm flex flex-col capitalize">
-      {{ solution.user.name }}
-      <span class="text-gray-500 font-normal">{{ solution.created_at | date: 'longDate' }}</span>
-    </p>
+    <div class="text-gray-950 font-medium text-sm flex flex-col capitalize">
+      <p>{{ solution.user.name }}</p>
+      <p class="inline-block text-gray-500 font-normal">{{ solution.created_at | date: 'longDate' }}</p>
+    </div>
   </div>
 </a>
