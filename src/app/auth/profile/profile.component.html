@@ -3,11 +3,11 @@
     <div
       class="flex lg:min-h-screen flex-col gap-5 items-center pb-10 pt-24 md:pt-28 p-8 border-x bg-gradient-to-b from-gray-100/10 to-gray-600/40 md:bg-none">
       <div
-        class="w-28 h-28 bg-gray-200 relative rounded-full overflow-hidden cursor-pointer border-2 border-indigo-400/20 group"
-        (click)="file.click()">
+        class="w-28 h-28 bg-gray-200 relative rounded-full overflow-hidden cursor-pointer border-2 border-indigo-400/20 group">
         @if (!state.user || state.user.googleImage || state.user.profile) {
           <img [ngSrc]="displayProfile(state.user)" alt="Profile Picture" class="relative object-cover" fill priority />
-          <div
+          <button
+            (click)="file.click()"
             class="w-full h-1/3 bottom-0 absolute duration-300 translate-y-16 group-hover:translate-y-0 bg-gray-200/80 flex items-center justify-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -20,7 +20,7 @@
                 fill-rule="evenodd"
                 d="M7.646 4.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V14.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708z" />
             </svg>
-          </div>
+          </button>
         } @else {
           <h2 class="text-gray-950 font-bold">{{ username(state.user) }}</h2>
         }
