@@ -9,6 +9,7 @@ import { ButtonComponent } from '../../shared/ui/button/button.component';
 import { ProfileStore } from './data-access/profile.store';
 import { ProfileStoreInterface } from './types/profile-store.interface';
 import { environment } from '../../../environments/environment';
+import { MessageComponent } from '../../shared/components/message/message.component';
 
 @Component({
   selector: 'app-profile',
@@ -23,7 +24,8 @@ import { environment } from '../../../environments/environment';
     InputComponent,
     ButtonComponent,
     FormsModule,
-    NgClass
+    NgClass,
+    MessageComponent
   ],
   providers: [ProfileStore],
   templateUrl: './profile.component.html'
@@ -45,7 +47,7 @@ export class ProfileComponent implements OnInit {
       phone_number: ['', Validators.required]
     });
     this.updatePasswordForm = this.formBuilder.nonNullable.group({
-      old_password: ['', Validators.required],
+      old_password: [''],
       password: ['', Validators.required],
       password_confirm: ['', Validators.required]
     });
