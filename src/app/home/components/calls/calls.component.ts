@@ -3,12 +3,11 @@ import { CallsStore } from './data-access/calls.store';
 import { Observable } from 'rxjs';
 import { CallsStoreInterface } from './types/calls-store.interface';
 import { AsyncPipe, DatePipe, NgClass, NgForOf, NgIf, SlicePipe } from '@angular/common';
-import { CarouselModule } from 'ngx-owl-carousel-o';
 
 @Component({
   selector: 'app-calls',
   standalone: true,
-  imports: [NgIf, AsyncPipe, CarouselModule, SlicePipe, DatePipe, NgClass, NgForOf],
+  imports: [NgIf, AsyncPipe, SlicePipe, DatePipe, NgClass, NgForOf],
   providers: [CallsStore],
   templateUrl: './calls.component.html'
 })
