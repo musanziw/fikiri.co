@@ -1,14 +1,12 @@
 import { ApiValiationsErrorsInterface } from '../../../shared/auth/types/api-valiations-errors.interface';
+import { MessageInterface } from '../../../shared/auth/types/message.interface';
 
 export interface ProfileStoreInterface {
   isUpdatingInfo: boolean;
   isUpdatingPassword: boolean;
-  infoUpdateSuccess: string | null;
-  passwordUpdateSucess: string | null;
-  infoUpdateError: string | null;
-  passwordUpdateError: string | null;
+  infoUpdateMessage: MessageInterface;
+  passwordUpdateMessage: MessageInterface;
   isUpdatingImage: boolean;
-  updateImageSuccess: string | null;
-  updateImageError: string | null;
+  updateImageMessage: MessageInterface;
   validationErrors: ApiValiationsErrorsInterface[];
 }
