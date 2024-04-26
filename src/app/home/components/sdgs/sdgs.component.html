@@ -6,14 +6,14 @@
   <div class="relative grid lg:grid-cols-5 sm:grid-cols-4 grid-cols-2 gap-x-4 gap-y-6 mt-4 pb-1">
     @for (sdg of sdgs; track sdg.name) {
       <div class="p-2 border rounded-sm border-gray-300 hover:-translate-y-2 duration-300 transition-transform">
-        <div class="relative h-36 w-36 md:h-32 md:w-32 lg:h-44 lg:w-44 group border border-gray-300">
+        <div class="relative h-36 w-36 md:h-32 md:w-32 lg:h-44 lg:w-44 group">
           <img
             [ngSrc]="sdg.image"
             class="transition-opacity duration-300 group-hover:opacity-0 rounded-sm"
             alt="{{ sdg.name }}"
             fill />
           <div
-            class="absolute z-10 bottom-0 right-0 left-0 top-0 p-2 overflow-hidden rounded-sm bg-neutral-100 flex flex-col gap-2 items-start justify-center opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-opacity duration-300">
+            class="absolute z-10 bottom-0 right-0 left-0 top-0 p-2 overflow-hidden shadow-sm rounded-sm bg-neutral-100 flex flex-col gap-2 items-start justify-center opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-opacity duration-300">
             <h3 class="text-sm">{{ $index + 1 }}. {{ sdg.name }}</h3>
             <p class="text-sm">
               {{ sdg.description | slice: 0 : 50 }}
