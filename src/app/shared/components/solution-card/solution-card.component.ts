@@ -8,7 +8,7 @@ import { environment } from '../../../../environments/environment';
   selector: 'app-solution-card',
   standalone: true,
   imports: [NgOptimizedImage, RouterLink, DatePipe],
-  templateUrl: './solution-card.component.html',
+  templateUrl: './solution-card.component.html'
 })
 export class SolutionCardComponent {
   @Input() solution!: Solution;

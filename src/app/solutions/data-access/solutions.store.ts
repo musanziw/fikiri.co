@@ -30,11 +30,11 @@ export class SolutionsStore extends ComponentStore<SolutionsStoreInterface> {
           tapResponse({
             next: (solutions) => this.setSolutions(solutions),
             error: (error: HttpErrorResponse) => this.setError(error.error.message),
-            finalize: () => this.setIsLoading(false),
-          }),
-        ),
-      ),
-    ),
+            finalize: () => this.setIsLoading(false)
+          })
+        )
+      )
+    )
   );
 
   loadMore = this.effect<void>((trigger$: Observable<void>) =>
@@ -49,10 +49,10 @@ export class SolutionsStore extends ComponentStore<SolutionsStoreInterface> {
               this.setIsCursor(cursor + 1);
             },
             error: (error: HttpErrorResponse) => this.setError(error.error.message),
-            finalize: () => this.setIsLoadingMore(false),
-          }),
-        ),
-      ),
-    ),
+            finalize: () => this.setIsLoadingMore(false)
+          })
+        )
+      )
+    )
   );
 }

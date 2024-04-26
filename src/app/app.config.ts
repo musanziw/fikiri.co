@@ -5,7 +5,7 @@ import {
   provideRouter,
   TitleStrategy,
   withInMemoryScrolling,
-  withViewTransitions,
+  withViewTransitions
 } from '@angular/router';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideHttpClient, withFetch } from '@angular/common/http';
@@ -20,7 +20,7 @@ import * as authEffects from './shared/auth/data-access/auth.effects';
 
 const scrollConfig: InMemoryScrollingOptions = {
   scrollPositionRestoration: 'top',
-  anchorScrolling: 'enabled',
+  anchorScrolling: 'enabled'
 };
 const inMemoryScrollingFeature: InMemoryScrollingFeature = withInMemoryScrolling(scrollConfig);
 
@@ -33,14 +33,14 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
     provideEffects(authEffects),
     provideStore({
-      auth: authReducers,
+      auth: authReducers
     }),
     provideStoreDevtools({
       maxAge: 25,
       logOnly: !isDevMode(),
       autoPause: true,
       trace: false,
-      traceLimit: 75,
-    }),
-  ],
+      traceLimit: 75
+    })
+  ]
 };

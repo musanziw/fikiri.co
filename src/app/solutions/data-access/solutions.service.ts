@@ -4,7 +4,7 @@ import { HttpClientService } from '../../shared/services/http-client.service';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class SolutionsService {
   constructor(private http: HttpClientService) {}

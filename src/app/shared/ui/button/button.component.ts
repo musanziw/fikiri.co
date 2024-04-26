@@ -6,7 +6,7 @@ import { SpinnerComponent } from '../spinner/spinner.component';
   selector: 'app-button',
   standalone: true,
   imports: [CommonModule, SpinnerComponent],
-  templateUrl: './button.component.html',
+  templateUrl: './button.component.html'
 })
 export class ButtonComponent {
   @Input() type: 'button' | 'submit' | 'reset' = 'submit';

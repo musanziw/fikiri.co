@@ -23,10 +23,10 @@ import { LoginStoreInterface } from './types/login-store.interface';
     ButtonOutlineComponent,
     ReactiveFormsModule,
     AsyncPipe,
-    NgIf,
+    NgIf
   ],
   providers: [LoginStore],
-  templateUrl: './login.component.html',
+  templateUrl: './login.component.html'
 })
 export class LoginComponent {
   form: FormGroup;
@@ -35,12 +35,12 @@ export class LoginComponent {
 
   constructor(
     private store: LoginStore,
-    private formBuilder: FormBuilder,
+    private formBuilder: FormBuilder
   ) {
     this.vm$ = this.store.vm$;
     this.form = this.formBuilder.group({
       email: ['', Validators.required],
-      password: ['', Validators.required],
+      password: ['', Validators.required]
     });
   }
 

@@ -12,7 +12,7 @@ import { WinningSolutionsService } from './data-access/winning-solutions.service
   standalone: true,
   imports: [SolutionCardComponent, CommonModule, SolutionCardSkeletonComponent],
   providers: [WinningSolutionsService, WinningSolutionsStore],
-  templateUrl: './winnging-solutions.component.html',
+  templateUrl: './winnging-solutions.component.html'
 })
 export class WinningSolutionsComponent implements OnInit {
   vm$: Observable<WinningSolutionsStoreInterface>;

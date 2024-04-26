@@ -15,7 +15,7 @@ registerLocaleData(localeFr, 'fr');
   standalone: true,
   providers: [{ provide: LOCALE_ID, useValue: 'fr' }],
   imports: [RouterOutlet, FooterComponent, NgIf, AsyncPipe, NgClass, TopbarComponent],
-  templateUrl: './app.component.html',
+  templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
   constructor(private store: Store) {}

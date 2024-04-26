@@ -9,6 +9,6 @@ import { SdgsComponent } from './components/sdgs/sdgs.component';
   selector: 'app-home',
   standalone: true,
   imports: [HeroComponent, WinningSolutionsComponent, AboutComponent, CallsComponent, SdgsComponent],
-  templateUrl: './home.component.html',
+  templateUrl: './home.component.html'
 })
 export class HomeComponent {}

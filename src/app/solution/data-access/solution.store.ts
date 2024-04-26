@@ -20,7 +20,7 @@ export class SolutionStore extends ComponentStore<SolutionStoreInterface> {
   setError = this.updater((state, error: string) => ({ ...state, error }));
   setSolutionResponse = this.updater((state, solutionResponse: SolutionResponseInterface | null) => ({
     ...state,
-    solutionResponse,
+    solutionResponse
   }));
 
   getSolution = this.effect((id$: Observable<number>) =>
@@ -31,11 +31,11 @@ export class SolutionStore extends ComponentStore<SolutionStoreInterface> {
           tapResponse({
             next: (solutionResponse) => this.setSolutionResponse(solutionResponse),
             error: (error: HttpErrorResponse) => this.setError(error.error.message),
-            finalize: () => this.setIsLoading(false),
-          }),
-        ),
+            finalize: () => this.setIsLoading(false)
+          })
+        )
       ),
-      tap(() => this.setIsLoading(false)),
-    ),
+      tap(() => this.setIsLoading(false))
+    )
   );
 }

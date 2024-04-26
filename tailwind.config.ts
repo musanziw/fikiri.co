@@ -6,13 +6,13 @@ module.exports = {
       backgroundImage: {
         hero: 'url("/assets/images/hero.webp")',
         about: 'url("/assets/images/about.webp")',
-        footer: 'url("/assets/images/footer.png")',
-      },
+        footer: 'url("/assets/images/footer.png")'
+      }
     },
     fontFamily: {
       dmSans: ['DM Sans', 'sans-serif'],
-      bondiMono: ['Bodoni Moda', ' serif'],
-    },
+      bondiMono: ['Bodoni Moda', ' serif']
+    }
   },
-  plugins: [],
+  plugins: []
 };

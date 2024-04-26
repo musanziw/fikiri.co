@@ -23,10 +23,10 @@ import { ResetPasswordRequestStoreInterface } from './types/reset-password-reque
     ButtonOutlineComponent,
     ReactiveFormsModule,
     AsyncPipe,
-    NgIf,
+    NgIf
   ],
   providers: [ResetPasswordRequestStore],
-  templateUrl: './reset-password-request.component.html',
+  templateUrl: './reset-password-request.component.html'
 })
 export class ResetPasswordRequestComponent {
   form: FormGroup;
@@ -35,11 +35,11 @@ export class ResetPasswordRequestComponent {
 
   constructor(
     private store: ResetPasswordRequestStore,
-    private formBuilder: FormBuilder,
+    private formBuilder: FormBuilder
   ) {
     this.vm$ = this.store.vm$;
     this.form = this.formBuilder.group({
-      email: ['', Validators.required],
+      email: ['', Validators.required]
     });
   }
 

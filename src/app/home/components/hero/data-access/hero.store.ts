@@ -27,10 +27,10 @@ export class HeroStore extends ComponentStore<HeroStoreInterfce> {
           tapResponse({
             next: (totals) => this.setTotals(totals),
             error: (error: HttpErrorResponse) => this.setError(error.error.message),
-            finalize: () => this.setIsLoading(false),
-          }),
-        ),
-      ),
-    ),
+            finalize: () => this.setIsLoading(false)
+          })
+        )
+      )
+    )
   );
 }

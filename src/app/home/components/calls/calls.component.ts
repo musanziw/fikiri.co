@@ -10,7 +10,7 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
   standalone: true,
   imports: [NgIf, AsyncPipe, CarouselModule, SlicePipe, DatePipe, NgClass, NgForOf],
   providers: [CallsStore],
-  templateUrl: './calls.component.html',
+  templateUrl: './calls.component.html'
 })
 export class CallsComponent implements OnInit {
   vm$: Observable<CallsStoreInterface>;

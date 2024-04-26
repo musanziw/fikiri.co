@@ -3,7 +3,7 @@ import { AuthStoreInterface } from '../types/auth-store.interface';
 import { authActions } from './auth.actions';
 
 const initialState: AuthStoreInterface = {
-  user: null,
+  user: null
 };
 
 const authFeature = createFeature({
@@ -12,8 +12,8 @@ const authFeature = createFeature({
     initialState,
     on(authActions.authentication, (state) => ({ ...state })),
     on(authActions.authenticateUser, (state, actions) => ({ user: actions.user })),
-    on(authActions.logout, (state) => ({ ...state, user: null })),
-  ),
+    on(authActions.logout, (state) => ({ ...state, user: null }))
+  )
 });
 
 export const { reducer: authReducers, selectUser, selectAuthState } = authFeature;

@@ -4,7 +4,7 @@ import { TotalsInterface } from '../types/totals.interface';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class HeroService {
   constructor(private httpClient: HttpClientService) {}

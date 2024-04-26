@@ -4,7 +4,7 @@ import { Call } from '../../../../shared/types/models-interfaces';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class CallsService {
   constructor(private httpClient: HttpClientService) {}

@@ -6,7 +6,7 @@ import { SpinnerComponent } from '../spinner/spinner.component';
   selector: 'app-button-outline',
   standalone: true,
   imports: [CommonModule, SpinnerComponent],
-  templateUrl: './button-outline.component.html',
+  templateUrl: './button-outline.component.html'
 })
 export class ButtonOutlineComponent {
   @Input() type: 'button' | 'submit' | 'reset' = 'button';

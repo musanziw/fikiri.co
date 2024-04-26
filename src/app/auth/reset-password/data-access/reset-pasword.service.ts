@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { HttpClientService } from '../../../shared/services/http-client.service';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class ResetPasswordService {
   constructor(private httpClient: HttpClientService) {}

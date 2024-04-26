@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { User } from '../../../shared/types/models-interfaces';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class RegisterService {
   constructor(private httpClient: HttpClientService) {}

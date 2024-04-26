@@ -14,7 +14,7 @@ import { AppStoreInterface } from '../../types/app-store.interface';
   selector: 'app-topbar',
   standalone: true,
   imports: [CommonModule, RouterModule, NgOptimizedImage, FormsModule],
-  templateUrl: './topbar.component.html',
+  templateUrl: './topbar.component.html'
 })
 export class TopbarComponent {
   user$: Observable<User | null>;
@@ -22,7 +22,7 @@ export class TopbarComponent {
 
   constructor(
     private store: Store<AppStoreInterface>,
-    private router: Router,
+    private router: Router
   ) {
     this.user$ = this.store.pipe(select(selectAuthUser));
   }
@@ -30,23 +30,23 @@ export class TopbarComponent {
   commonLinks: LinkInterface[] = [
     {
       name: 'Accueil',
-      path: '/',
+      path: '/'
     },
     {
       name: 'Solutions',
-      path: '/solutions',
-    },
+      path: '/solutions'
+    }
   ];
 
   authLinks: LinkInterface[] = [
     {
       name: 'Se connecter',
-      path: '/login',
+      path: '/login'
     },
     {
       name: "S'inscrire",
-      path: '/register',
-    },
+      path: '/register'
+    }
   ];
 
   unAuthenticatedUserLinks(): LinkInterface[] {
@@ -58,8 +58,8 @@ export class TopbarComponent {
       ...this.commonLinks,
       {
         name: this.trimName(username),
-        path: '/profile',
-      },
+        path: '/profile'
+      }
     ];
   }
 

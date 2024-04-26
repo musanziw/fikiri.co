@@ -15,7 +15,7 @@ export class RegisterStore extends ComponentStore<RegisterStoreInterface> {
 
   constructor(
     private registerService: RegisterService,
-    private router: Router,
+    private router: Router
   ) {
     super({ isLoading: false, error: null, validationErrors: [] });
     this.vm$ = this.select((state) => state);
@@ -25,7 +25,7 @@ export class RegisterStore extends ComponentStore<RegisterStoreInterface> {
   setError = this.updater((state, error: string) => ({ ...state, error }));
   setValidationErrors = this.updater((state, validationErrors: ApiValiationsErrorsInterface[]) => ({
     ...state,
-    validationErrors,
+    validationErrors
   }));
 
   register = this.effect((payload$: Observable<RegisterPayloadInterface>) => {
@@ -40,10 +40,10 @@ export class RegisterStore extends ComponentStore<RegisterStoreInterface> {
               if (typeof message === 'string') return this.setError(error.error.message);
               return this.setValidationErrors(error.error.message);
             },
-            finalize: () => this.setIsLoading(false),
-          }),
-        ),
-      ),
+            finalize: () => this.setIsLoading(false)
+          })
+        )
+      )
     );
   });
 }

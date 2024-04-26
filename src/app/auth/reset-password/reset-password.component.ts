@@ -23,10 +23,10 @@ import { ResetPasswordStoreInterface } from './types/reset-password-store.interf
     ButtonOutlineComponent,
     ReactiveFormsModule,
     AsyncPipe,
-    NgIf,
+    NgIf
   ],
   providers: [ResetPasswordStore],
-  templateUrl: './reset-password.component.html',
+  templateUrl: './reset-password.component.html'
 })
 export class ResetPasswordComponent {
   form: FormGroup;
@@ -35,12 +35,12 @@ export class ResetPasswordComponent {
 
   constructor(
     private store: ResetPasswordStore,
-    private formBuilder: FormBuilder,
+    private formBuilder: FormBuilder
   ) {
     this.form = this.formBuilder.group({
       token: ['', Validators.minLength(6)],
       password: ['', Validators.required],
-      passwordConfirm: ['', Validators.required],
+      passwordConfirm: ['', Validators.required]
     });
     this.vm$ = this.store.vm$;
   }

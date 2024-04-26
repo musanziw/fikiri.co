@@ -14,7 +14,7 @@ import { environment } from '../../environments/environment';
   standalone: true,
   imports: [NgOptimizedImage, CommonModule, RouterLink, NotFoundComponent],
   providers: [SolutionService, SolutionStore],
-  templateUrl: './solution.component.html',
+  templateUrl: './solution.component.html'
 })
 export class SolutionComponent implements OnInit {
   vm$: Observable<SolutionStoreInterface>;
@@ -22,7 +22,7 @@ export class SolutionComponent implements OnInit {
   constructor(
     private store: SolutionStore,
     private route: ActivatedRoute,
-    private router: Router,
+    private router: Router
   ) {
     this.vm$ = this.store.vm$;
   }

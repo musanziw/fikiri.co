@@ -26,10 +26,10 @@ export class CallsStore extends ComponentStore<CallsStoreInterface> {
           tapResponse({
             next: (calls) => this.setCalls(calls),
             error: (error: HttpErrorResponse) => this.setError(error.error.message),
-            finalize: () => this.setIsLoading(false),
-          }),
-        ),
-      ),
+            finalize: () => this.setIsLoading(false)
+          })
+        )
+      )
     );
   });
 }

@@ -4,7 +4,7 @@ import { Solution } from '../../../../shared/types/models-interfaces';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class WinningSolutionsService {
   constructor(private http: HttpClientService) {}

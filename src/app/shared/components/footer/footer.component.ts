@@ -6,7 +6,7 @@ import { NgOptimizedImage } from '@angular/common';
   selector: 'app-footer',
   standalone: true,
   imports: [RouterLink, NgOptimizedImage],
-  templateUrl: './footer.component.html',
+  templateUrl: './footer.component.html'
 })
 export class FooterComponent {
   getYear(): number {

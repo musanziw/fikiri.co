@@ -15,7 +15,7 @@ export class ResetPasswordRequestStore extends ComponentStore<ResetPasswordReque
 
   constructor(
     private resetPasswordRequestService: ResetPasswordRequestService,
-    private router: Router,
+    private router: Router
   ) {
     super({ isLoading: false, error: null, validationErrors: [] });
     this.vm$ = this.select((state) => state);
@@ -25,7 +25,7 @@ export class ResetPasswordRequestStore extends ComponentStore<ResetPasswordReque
   private setError = this.updater((state, error: string) => ({ ...state, error }));
   private setValidationErrors = this.updater((state, validationErrors: ApiValiationsErrorsInterface[]) => ({
     ...state,
-    validationErrors,
+    validationErrors
   }));
 
   resetPassword = this.effect((payload$: Observable<ResetPasswordRequestPayloadInterface>) => {
@@ -40,10 +40,10 @@ export class ResetPasswordRequestStore extends ComponentStore<ResetPasswordReque
               if (typeof message === 'string') return this.setError(message);
               return this.setValidationErrors(message);
             },
-            finalize: () => this.setIsLoading(false),
-          }),
-        ),
-      ),
+            finalize: () => this.setIsLoading(false)
+          })
+        )
+      )
     );
   });
 }

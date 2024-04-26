@@ -10,7 +10,7 @@ import { HeroStoreInterfce } from './types/hero-store.interfce';
   standalone: true,
   imports: [RouterLink, NgOptimizedImage, NgIf, AsyncPipe],
   providers: [HeroStore],
-  templateUrl: './hero.component.html',
+  templateUrl: './hero.component.html'
 })
 export class HeroComponent implements OnInit {
   vm$: Observable<HeroStoreInterfce>;

@@ -19,8 +19,8 @@ import { SolutionsStore } from './data-access/solutions.store';
     SolutionCardComponent,
     SpinnerComponent,
     SolutionCardSkeletonComponent,
-    NgComponentOutlet,
-  ],
+    NgComponentOutlet
+  ]
 })
 export class SolutionsComponent implements OnInit {
   vm$: Observable<SolutionsStoreInterface>;

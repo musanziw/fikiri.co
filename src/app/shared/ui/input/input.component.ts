@@ -8,11 +8,11 @@ import { ApiValiationsErrorsInterface } from '../../auth/types/api-valiations-er
   viewProviders: [
     {
       provide: ControlContainer,
-      useFactory: () => inject(ControlContainer, { skipSelf: true }),
-    },
+      useFactory: () => inject(ControlContainer, { skipSelf: true })
+    }
   ],
   imports: [ReactiveFormsModule],
-  templateUrl: './input.component.html',
+  templateUrl: './input.component.html'
 })
 export class InputComponent {
   @Input() name: string = '';

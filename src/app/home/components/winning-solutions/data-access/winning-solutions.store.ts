@@ -28,10 +28,10 @@ export class WinningSolutionsStore extends ComponentStore<WinningSolutionsStoreI
           tapResponse({
             next: (solutions) => this.setSolutions(solutions),
             error: (error: HttpErrorResponse) => this.setError(error.error.message),
-            finalize: () => this.setIsLoading(false),
-          }),
-        ),
-      ),
-    ),
+            finalize: () => this.setIsLoading(false)
+          })
+        )
+      )
+    )
   );
 }

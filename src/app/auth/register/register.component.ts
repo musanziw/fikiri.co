@@ -23,10 +23,10 @@ import { RegisterStoreInterface } from './types/register-store.interface';
     FormsModule,
     ReactiveFormsModule,
     AsyncPipe,
-    NgIf,
+    NgIf
   ],
   providers: [RegisterStore],
-  templateUrl: './register.component.html',
+  templateUrl: './register.component.html'
 })
 export class RegisterComponent {
   form: FormGroup;
@@ -34,7 +34,7 @@ export class RegisterComponent {
 
   constructor(
     private store: RegisterStore,
-    private formBuilder: FormBuilder,
+    private formBuilder: FormBuilder
   ) {
     this.vm$ = this.store.vm$;
     this.form = this.formBuilder.nonNullable.group({
@@ -43,7 +43,7 @@ export class RegisterComponent {
       address: ['', Validators.required],
       phone_number: ['', Validators.required],
       password: ['', Validators.required],
-      password_confirm: ['', Validators.required],
+      password_confirm: ['', Validators.required]
     });
   }
 

@@ -15,7 +15,7 @@ export class ResetPasswordStore extends ComponentStore<ResetPasswordStoreInterfa
 
   constructor(
     private resetPasswordService: ResetPasswordService,
-    private router: Router,
+    private router: Router
   ) {
     super({ isLoading: false, error: null, validationErrors: [] });
     this.vm$ = this.select((state) => state);
@@ -25,7 +25,7 @@ export class ResetPasswordStore extends ComponentStore<ResetPasswordStoreInterfa
   private setError = this.updater((state, error: string) => ({ ...state, error }));
   private setValidationErrors = this.updater((state, validationErrors: ApiValiationsErrorsInterface[]) => ({
     ...state,
-    validationErrors,
+    validationErrors
   }));
 
   resetPassword = this.effect((payload$: Observable<ResetPasswordPayloadInterface>) => {
@@ -40,10 +40,10 @@ export class ResetPasswordStore extends ComponentStore<ResetPasswordStoreInterfa
               if (typeof message === 'string') return this.setError(error.error.message);
               return this.setValidationErrors(error.error.message);
             },
-            finalize: () => this.setIsLoading(false),
-          }),
-        ),
-      ),
+            finalize: () => this.setIsLoading(false)
+          })
+        )
+      )
     );
   });
 }

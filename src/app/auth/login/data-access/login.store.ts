@@ -18,7 +18,7 @@ export class LoginStore extends ComponentStore<LoginStoreInterface> {
   constructor(
     private loginService: LoginService,
     private router: Router,
-    private store: Store<AppStoreInterface>,
+    private store: Store<AppStoreInterface>
   ) {
     super({ isLoading: false, error: null });
   }
@@ -37,10 +37,10 @@ export class LoginStore extends ComponentStore<LoginStoreInterface> {
               this.store.dispatch(authActions.authenticateUser({ user }));
             },
             error: (error: HttpErrorResponse) => this.setError(error.error.message),
-            finalize: () => this.setLoading(false),
-          }),
-        ),
-      ),
+            finalize: () => this.setLoading(false)
+          })
+        )
+      )
     );
   });
 }
