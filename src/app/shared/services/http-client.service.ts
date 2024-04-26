@@ -19,22 +19,12 @@ export class HttpClientService {
   }
 
   post<T, U>(uri: string, payload: U): Observable<T> {
-    return this.http
-      .post<{ data: T }>(this.apiUrl + uri, payload, this.options)
-      .pipe(map((response) => response?.data));
+    return this.http.post<{ data: T }>(this.apiUrl + uri, payload, this.options).pipe(map((response) => response.data));
   }
 
   patch<T, U>(uri: string, payload: U): Observable<T> {
     return this.http
       .patch<{ data: T }>(this.apiUrl + uri, payload, this.options)
-      .pipe(map((response) => response?.data));
-  }
-
-  logout(): Observable<void> {
-    return this.http.post<void>(this.apiUrl + 'auth/logout', null, this.options);
-  }
-
-  uploadFile(uri: string, payload: FormData): Observable<void> {
-    return this.http.post<void>(this.apiUrl + uri, payload, this.options);
+      .pipe(map((response) => response.data));
   }
 }

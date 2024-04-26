@@ -14,6 +14,6 @@ export class AuthService {
   }
 
   logout(): Observable<void> {
-    return this.http.logout();
+    return this.http.post('auth/logout', {});
   }
 }

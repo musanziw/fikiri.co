@@ -15,9 +15,8 @@ export class ProfileService {
     return this.httpClient.patch<User, InfoPayloadInterface>('auth/profile', payload);
   }
 
-  updateImage(userId: number | undefined, file: FormData): Observable<void> {
-    if (!userId) return new Observable<void>();
-    return this.httpClient.uploadFile(`users/${userId}/image`, file);
+  updateImage(userId: number | undefined, file: FormData): Observable<User> {
+    return this.httpClient.post<User, FormData>(`users/${userId}/image`, file);
   }
 
   updatePassword(payload: PasswordPayloadInterface): Observable<null> {

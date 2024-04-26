@@ -100,9 +100,13 @@ export class ProfileStore extends ComponentStore<ProfileStoreInterface> {
       exhaustMap(([payload, user]) =>
         this.profileService.updateImage(user?.id, payload).pipe(
           tapResponse({
-            next: () => this.setUpdateImageMessage({ type: 'success', message: 'Image mise à jour avec succès' }),
-            error: (err: HttpErrorResponse) =>
-              this.setUpdateImageMessage({ type: 'error', message: err.error.message }),
+            next: (user) => {
+              this.setUpdateImageMessage({ type: 'success', message: 'Image mise à jour avec succès' });
+              this.store.dispatch(authActions.authenticateUser({ user }));
+            },
+            error: (err: HttpErrorResponse) => {
+              this.setUpdateImageMessage({ type: 'error', message: err.error.message });
+            },
             finalize: () => this.setIsUpdatingImage(false)
           })
         )
