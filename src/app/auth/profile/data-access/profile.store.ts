@@ -25,14 +25,20 @@ export class ProfileStore extends ComponentStore<ProfileStoreInterface> {
   ) {
     super({
       isUpdatingInfo: false,
-      infoUpdateSuccess: null,
-      infoUpdateError: null,
+      infoUpdateMessage: {
+        type: null,
+        message: null
+      },
       isUpdatingPassword: false,
-      passwordUpdateSucess: null,
-      passwordUpdateError: null,
+      passwordUpdateMessage: {
+        type: null,
+        message: null
+      },
       isUpdatingImage: false,
-      updateImageSuccess: null,
-      updateImageError: null,
+      updateImageMessage: {
+        type: null,
+        message: null
+      },
       validationErrors: []
     });
     this.profileState$ = this.select((state) => state);
@@ -44,14 +50,22 @@ export class ProfileStore extends ComponentStore<ProfileStoreInterface> {
   }
 
   setIsUpdatingInfo = this.updater((state, isUpdatingInfo: boolean) => ({ ...state, isUpdatingInfo }));
-  setInfoUpdateSuccess = this.updater((state, infoUpdateSuccess: string) => ({ ...state, infoUpdateSuccess }));
-  setInfoUpdateError = this.updater((state, infoUpdateError: string) => ({ ...state, infoUpdateError }));
   setIsUpdatingPassword = this.updater((state, isUpdatingPassword: boolean) => ({ ...state, isUpdatingPassword }));
-  setPasswordUpdateSucess = this.updater((state, passwordUpdateSucess: string) => ({ ...state, passwordUpdateSucess }));
-  setPasswordUpdateError = this.updater((state, passwordUpdateError: string) => ({ ...state, passwordUpdateError }));
   setIsUpdatingImage = this.updater((state, isUpdatingImage: boolean) => ({ ...state, isUpdatingImage }));
-  setUpdateImageSuccess = this.updater((state, updateImageSuccess: string) => ({ ...state, updateImageSuccess }));
-  setUpdateImageError = this.updater((state, updateImageError: string) => ({ ...state, updateImageError }));
+  setInfoUpdateMessage = this.updater((state, infoUpdateMessage: ProfileStoreInterface['infoUpdateMessage']) => ({
+    ...state,
+    infoUpdateMessage
+  }));
+  setPasswordUpdateMessage = this.updater(
+    (state, passwordUpdateMessage: ProfileStoreInterface['passwordUpdateMessage']) => ({
+      ...state,
+      passwordUpdateMessage
+    })
+  );
+  setUpdateImageMessage = this.updater((state, updateImageMessage: ProfileStoreInterface['updateImageMessage']) => ({
+    ...state,
+    updateImageMessage
+  }));
   setValidationErrors = this.updater((state, validationErrors: ApiValiationsErrorsInterface[]) => ({
     ...state,
     validationErrors
@@ -64,12 +78,12 @@ export class ProfileStore extends ComponentStore<ProfileStoreInterface> {
         this.profileService.updateProfile(payload).pipe(
           tapResponse({
             next: (user) => {
-              this.setInfoUpdateSuccess('Profil mis à jour avec succès');
+              this.setInfoUpdateMessage({ type: 'success', message: 'Informations mises à jour avec succès' });
               this.store.dispatch(authActions.authenticateUser({ user }));
             },
             error: (error: HttpErrorResponse) => {
               const message = error.error.message;
-              if (typeof message === 'string') return this.setInfoUpdateError(error.error.message);
+              if (typeof message === 'string') return this.setInfoUpdateMessage({ type: 'error', message });
               return this.setValidationErrors(error.error.message);
             },
             finalize: () => this.setIsUpdatingInfo(false)
@@ -86,8 +100,9 @@ export class ProfileStore extends ComponentStore<ProfileStoreInterface> {
       exhaustMap(([payload, user]) =>
         this.profileService.updateImage(user?.id, payload).pipe(
           tapResponse({
-            next: () => this.setUpdateImageSuccess('Image de profil mise à jour avec succès'),
-            error: (err: HttpErrorResponse) => this.setUpdateImageError(err.error.message),
+            next: () => this.setUpdateImageMessage({ type: 'success', message: 'Image mise à jour avec succès' }),
+            error: (err: HttpErrorResponse) =>
+              this.setUpdateImageMessage({ type: 'error', message: err.error.message }),
             finalize: () => this.setIsUpdatingImage(false)
           })
         )
@@ -101,11 +116,12 @@ export class ProfileStore extends ComponentStore<ProfileStoreInterface> {
       exhaustMap((payload) =>
         this.profileService.updatePassword(payload).pipe(
           tapResponse({
-            next: () => this.setPasswordUpdateSucess('Mot de passe mis à jour avec succès'),
+            next: () =>
+              this.setPasswordUpdateMessage({ type: 'success', message: 'Mot de passe mis à jour avec succès' }),
             error: (error: HttpErrorResponse) => {
               const message = error.error.message;
-              if (typeof message === 'string') return this.setPasswordUpdateError(error.error.message);
-              return this.setValidationErrors(error.error.message);
+              if (typeof message === 'string') return this.setPasswordUpdateMessage({ type: 'error', message });
+              return this.setValidationErrors(message);
             },
             finalize: () => this.setIsUpdatingPassword(false)
           })
