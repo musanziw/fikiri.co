@@ -1,7 +1,7 @@
 <ng-container *ngIf="vm$ | async as state">
   @if (state.user; as user) {
-    <div class="mx-auto max-w-screen-md grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-      <div class="flex lg:min-h-screen flex-col gap-3 items-start pb-10 pt-24 md:pt-28 p-8 border-r bg-gradient-to-b">
+    <div class="mx-auto max-w-screen-lg grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-5">
+      <div class="flex flex-col gap-3 items-start pb-10 pt-24 md:pt-28 p-8 lg:col-span-2 border-r bg-gradient-to-b">
         <div class="w-32 h-32 bg-gray-200 relative rounded-full overflow-hidden border-2 group">
           @if (user.googleImage || user.profile) {
             <img [ngSrc]="displayProfile(user)" [alt]="user.name" fill priority />
@@ -10,7 +10,7 @@
           }
           <button
             (click)="file.click()"
-            class="w-full h-1/3 bottom-0 absolute duration-300 translate-y-16 group-hover:translate-y-0 bg-gray-200/80 flex items-center justify-center">
+            class="w-full h-1/3 bottom-0 absolute duration-300 translate-y-16 group-hover:translate-y-0 bg-gray-200/60 flex items-center justify-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               class="bi bi-cloud-upload h-5 w-5 fill-black stroke-black"
@@ -25,50 +25,25 @@
           </button>
         </div>
         <input type="file" (change)="uploadFIle($event)" class="hidden" accept="image/*" #file />
-
         <h3 class="text-gray-900 text-xl font-semibold">Mon compte</h3>
         <p class="text-gray-800 font-medium">Inscrit le {{ user.created_at | date: 'longDate' }}</p>
+        <p class="text-gray-800 font-medium bg-gray-100 p-1 rounded-md">{{ user.email }}</p>
       </div>
-      <div class="w-full flex flex-col gap-3 lg:col-span-2 px-8 md:py-28">
-        <h3 class="text-lg font-bold text-gray-950 mb-4">
-          Modifier mes
-          <span class="inline-block after:block after:w-full after:h-1 after:-mt-2 after:bg-green-300">
-            informations
-          </span>
-        </h3>
-        @if (state.profileState.infoUpdateError || state.profileState.updateImageError) {
-          <div
-            class="duration-300 mb-6"
-            [ngClass]="
-              state.profileState.infoUpdateError || state.profileState.updateImageError
-                ? 'flex py-6 items-center gap-4 p-4 bg-gray-100  border-l-4 border-red-500'
-                : 'hidden'
-            ">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="bi bi-exclamation-triangle-fill fill-red-500 h-5 w-5"
-              viewBox="0 0 16 16">
-              <path
-                d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5m.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
-            </svg>
-            {{ state.profileState.infoUpdateError }} {{ state.profileState.updateImageError }}
-          </div>
+
+      <div class="w-full flex flex-col gap-3 lg:col-span-3 px-8 md:py-28">
+        <h3 class="text-lg font-bold text-gray-950 mb-4">Modifier mes informations</h3>
+        @if (state.profileState.infoUpdateMessage.message) {
+          <app-message
+            [message]="state.profileState.infoUpdateMessage.message"
+            [type]="state.profileState.infoUpdateMessage.type"></app-message>
         }
-        @if (state.profileState.infoUpdateSuccess || state.profileState.updateImageSuccess) {
-          <div
-            class="duration-300 mb-6"
-            [ngClass]="
-              state.profileState.infoUpdateSuccess || state.profileState.updateImageSuccess
-                ? 'flex py-6 items-center gap-4 p-4 bg-gray-100  border-l-4 border-green-300'
-                : 'hidden'
-            ">
-            <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-check fill-green-300 h-5 w-5" viewBox="0 0 16 16">
-              <path
-                d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z" />
-            </svg>
-            {{ state.profileState.infoUpdateSuccess }} {{ state.profileState.updateImageSuccess }}
-          </div>
+
+        @if (state.profileState.updateImageMessage.message) {
+          <app-message
+            [message]="state.profileState.updateImageMessage.message"
+            [type]="state.profileState.updateImageMessage.type"></app-message>
         }
+
         <form [formGroup]="form" (ngSubmit)="onSubmit()" class="gap-8 flex flex-col">
           <app-input
             type="text"
@@ -93,44 +68,11 @@
           </app-button>
         </form>
 
-        <h3 class="text-lg font-bold text-gray-950 mb-4 mt-8">
-          Modifier mon
-          <span class="inline-block after:block after:w-full after:h-1 after:-mt-2 after:bg-green-300">
-            mot de passe
-          </span>
-        </h3>
-        @if (state.profileState.passwordUpdateError) {
-          <div
-            class="duration-300 mb-6"
-            [ngClass]="
-              state.profileState.passwordUpdateError
-                ? 'flex py-6 items-center gap-4 p-4 bg-gray-100  border-l-4 border-red-500'
-                : 'hidden'
-            ">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="bi bi-exclamation-triangle-fill fill-red-500 h-5 w-5"
-              viewBox="0 0 16 16">
-              <path
-                d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5m.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
-            </svg>
-            {{ state.profileState.passwordUpdateError }}
-          </div>
-        }
-        @if (state.profileState.passwordUpdateSucess) {
-          <div
-            class="duration-300 mb-6"
-            [ngClass]="
-              state.profileState.passwordUpdateError
-                ? 'flex py-6 items-center gap-4 p-4 bg-gray-100  border-l-4 border-green-300'
-                : 'hidden'
-            ">
-            <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-check fill-green-300 h-5 w-5" viewBox="0 0 16 16">
-              <path
-                d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z" />
-            </svg>
-            {{ state.profileState.passwordUpdateError }}
-          </div>
+        <h3 class="text-lg font-bold text-gray-950 mb-4 mt-8">Modifier mon mot de passe</h3>
+        @if (state.profileState.passwordUpdateMessage.message) {
+          <app-message
+            [message]="state.profileState.passwordUpdateMessage.message"
+            [type]="state.profileState.passwordUpdateMessage.type"></app-message>
         }
         <form [formGroup]="updatePasswordForm" (ngSubmit)="submitPasswordForm()" class="gap-8 flex flex-col pb-20">
           <app-input
