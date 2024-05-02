@@ -82,4 +82,11 @@ export class TopbarComponent {
   isActive(path: string): boolean {
     return this.router.url === path;
   }
+
+  linkClass(path: string) {
+    const isActive = this.isActive(path);
+    return isActive
+      ? 'inline-block after:block after:w-full after:h-[2px] after:bg-green-400'
+      : 'inline-block after:block after:w-0 after:h-[2px] after:bg-green-400 hover:after:w-full after:transition-[width] after:duration-150 after:ease-linear';
+  }
 }

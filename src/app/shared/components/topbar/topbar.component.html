@@ -17,33 +17,19 @@
       [ngClass]="isOpen ? 'shadow-none  bg-white text-gray-800' : '-translate-x-[200%] shadow-xl lg:translate-x-0'">
       @if (user$ | async; as user) {
         @for (link of authenticatedUserLinks(user.name); track link.path) {
-          <a
-            [routerLink]="link.path"
-            (click)="closeNavbar()"
-            [ngClass]="
-              isActive(link.path)
-                ? 'inline-block after:block after:w-full after:h-1 after:bg-green-400'
-                : 'inline-block after:block after:w-0 after:h-1 after:bg-green-400/70 hover:after:w-full after:transition-[width] after:duration-150 after:ease-linear'
-            ">
+          <a [routerLink]="link.path" (click)="closeNavbar()" [ngClass]="linkClass(link.path)">
             {{ link.name }}
           </a>
         }
         <button
           href=""
-          class="inline-block after:block after:w-0 after:h-1 after:bg-green-400/70 hover:after:w-full after:transition-[width] after:duration-150 after:ease-linear"
+          class="inline-block after:block after:w-0 after:h-[2px] after:bg-green-400/70 hover:after:w-full after:transition-[width] after:duration-150 after:ease-linear"
           (click)="logOut()">
           Déconnexion
         </button>
       } @else {
         @for (link of unAuthenticatedUserLinks(); track link.path) {
-          <a
-            [routerLink]="link.path"
-            (click)="closeNavbar()"
-            [ngClass]="
-              isActive(link.path)
-                ? 'inline-block after:block after:w-full after:h-1 after:bg-green-400'
-                : 'inline-block after:block after:w-0 after:h-1 after:bg-green-400 hover:after:w-full after:transition-[width] after:duration-150 after:ease-linear'
-            ">
+          <a [routerLink]="link.path" (click)="closeNavbar()" [ngClass]="linkClass(link.path)">
             {{ link.name }}
           </a>
         }
