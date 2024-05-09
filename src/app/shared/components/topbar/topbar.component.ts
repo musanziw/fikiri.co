@@ -86,7 +86,7 @@ export class TopbarComponent {
   linkClass(path: string) {
     const isActive = this.isActive(path);
     return isActive
-      ? 'inline-block after:block after:w-full after:h-[2px] after:bg-green-400'
-      : 'inline-block after:block after:w-0 after:h-[2px] after:bg-green-400 hover:after:w-full after:transition-[width] after:duration-150 after:ease-linear';
+      ? 'inline-block after:block after:w-0 after:h-[2px] text-green-400'
+      : 'inline-block after:block after:w-0 after:h-[2px] after:bg-green-300 hover:after:w-full after:transition-[width] after:duration-150 after:ease-linear';
   }
 }

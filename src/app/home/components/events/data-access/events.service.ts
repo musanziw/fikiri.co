@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClientService } from '../../../../shared/services/http-client.service';
-import { Call } from '../../../../shared/types/models-interfaces';
+import { Event } from '../../../../shared/types/models-interfaces';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 export class CallsService {
   constructor(private httpClient: HttpClientService) {}
 
-  getCalls(): Observable<Call[]> {
-    return this.httpClient.get<Call[]>('calls');
+  getCalls(): Observable<Event[]> {
+    return this.httpClient.get<Event[]>('events');
   }
 }

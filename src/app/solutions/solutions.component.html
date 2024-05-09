@@ -1,7 +1,8 @@
 <div class="relative" *ngIf="vm$ | async as state">
   <div class="p-8 text-gray-600 border-x border-dashed lg:mx-auto lg:max-w-screen-lg">
     <h2 class="text-xl md:text-2xl mb-8 text-gray-950 font-bold pt-20 md:w-2/3">
-      Les solutions innovantes de la communauté.
+      Les solutions innovantes de
+      <span class="inline-block after:block after:w-full after:h-2 after:-mt-2 after:bg-green-300">la communauté.</span>
     </h2>
     <div class="grid grid-cols-1 gap-x-6 gap-y-10 md:grid-cols-3 lg:grid-cols-4">
       @for (solution of state.solutions; track solution.id) {

@@ -1,4 +1,4 @@
-export interface Call {
+export interface Event {
   id: number;
   name: string;
   started_at: Date;
@@ -27,7 +27,7 @@ export interface Solution {
   targeted_problem: string;
   created_at: Date;
   updated_at: Date;
-  call: Call;
+  call: Event;
   status: Status;
   thematic: Thematic;
   user: User;
@@ -56,7 +56,7 @@ export interface Thematic {
   created_at: Date;
   updated_at: Date;
   solutions: Solution[];
-  calls: Call[];
+  calls: Event[];
   challenges: Challenge[];
 }
 

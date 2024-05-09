@@ -8,16 +8,18 @@ import { NotFoundComponent } from '../not-found/not-found.component';
 import { SolutionStore } from './data-access/solution.store';
 import { SolutionService } from './data-access/solution.service';
 import { environment } from '../../environments/environment';
+import { SpinnerComponent } from '../shared/ui/spinner/spinner.component';
 
 @Component({
   selector: 'app-solution',
   standalone: true,
-  imports: [NgOptimizedImage, CommonModule, RouterLink, NotFoundComponent],
   providers: [SolutionService, SolutionStore],
-  templateUrl: './solution.component.html'
+  templateUrl: './solution.component.html',
+  imports: [NgOptimizedImage, CommonModule, RouterLink, NotFoundComponent, SpinnerComponent]
 })
 export class SolutionComponent implements OnInit {
   vm$: Observable<SolutionStoreInterface>;
+  currentImageIndex: number = -1;
 
   constructor(
     private store: SolutionStore,
@@ -29,16 +31,20 @@ export class SolutionComponent implements OnInit {
 
   ngOnInit(): void {
     const id: number = Number(this.route.snapshot.paramMap.get('id'));
-    this.store.getSolution(id);
+    this.load(id);
   }
 
   displayImage(solution: Solution): string {
-    return `${environment.apiUrl}/uploads/${solution.images.at(-1)?.image_link}`;
+    return `${environment.apiUrl}/uploads/${solution.images.at(this.currentImageIndex)?.image_link}`;
   }
 
-  load(id: number | null): void {
-    if (!id) return;
+  displayNextImage(solution: Solution): void {
+    this.currentImageIndex = (this.currentImageIndex + 1) % solution.images.length;
+  }
+
+  load(id: number): void {
     this.router.navigate(['/solutions', id]);
     this.store.getSolution(id);
+    this.currentImageIndex = -1;
   }
 }

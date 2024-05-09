@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ComponentStore, tapResponse } from '@ngrx/component-store';
-import { CallsStoreInterface } from '../types/calls-store.interface';
-import { CallsService } from './calls.service';
+import { CallsStoreInterface } from '../types/events-store.interface';
+import { CallsService } from './events.service';
 import { exhaustMap, Observable, tap } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 

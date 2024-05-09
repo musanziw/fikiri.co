@@ -1,13 +1,43 @@
 <ng-container *ngIf="vm$ | async as state">
-  @if (state.solutionResponse?.solution; as solution) {
-    <div class="flex flex-col text-lg mx-6 justify-center max-w-screen-md md:mx-auto border-x border-dashed pt-24">
+  <div class="flex flex-col text-lg mx-6 justify-center max-w-screen-md md:mx-auto border-x border-dashed">
+    @if (state.solutionResponse?.solution; as solution) {
       @if (solution && solution.name) {
-        <h2 class="font-bold text-gray-800 text-2xl mb-2 p-3">
+        <h2 class="font-bold text-gray-800 text-2xl mb-2 p-3 pt-24">
           {{ solution.name }}
         </h2>
       }
-      <div class="mb-8 h-48 lg:h-96 w-full relative">
-        <img [ngSrc]="displayImage(solution)" [alt]="solution.name" priority fill />
+
+      <div class="relative">
+        <div class="mb-8 h-auto w-full relative aspect-video">
+          <img [ngSrc]="displayImage(solution)" [alt]="solution.name" priority fill />
+        </div>
+        @if (solution.images.length > 1) {
+          <button
+            (click)="displayNextImage(solution)"
+            class="bg-white rounded-full shadow-md p-2 absolute top-1/2 left-6 cursor-pointer">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="bi bi-chevron-left h-5 w-5 fill-black stroke-black"
+              viewBox="0 0 16 16">
+              <path
+                fill-rule="evenodd"
+                d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0" />
+            </svg>
+          </button>
+
+          <button
+            (click)="displayNextImage(solution)"
+            class="bg-white rounded-full shadow-md p-2 absolute top-1/2 right-6 cursor-pointerr">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="bi bi-chevron-right h-5 w-5 fill-black stroke-black"
+              viewBox="0 0 16 16">
+              <path
+                fill-rule="evenodd"
+                d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708" />
+            </svg>
+          </button>
+        }
       </div>
       <p class="mb-4 p-4 hyphens-auto">{{ solution.description }}</p>
       <h2 class="font-bold text-gray-800 text-2xl mb-2 p-3">Problème résolu</h2>
@@ -23,12 +53,12 @@
         }
       </div>
 
-      <div class="flex justify-between mb-8 pt-8 px-8 border-t">
+      <div class="flex justify-between mb-8 pt-8 px-4 md:px-8 border-t">
         @if (state.solutionResponse?.prev; as prev) {
           <button
             [disabled]="!prev"
             (click)="load(prev)"
-            class="font-medium text-sm flex items-center text-black bg-green-400/80 rounded-md px-6 py-2 justify-center gap-1 disabled:text-gray-600 disabled:cursor-not-allowed">
+            class="font-medium text-sm flex items-center text-black bg-green-400/70 rounded-md px-6 py-2 justify-center gap-1 disabled:text-gray-600 disabled:cursor-not-allowed">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="currentColor"
@@ -49,7 +79,7 @@
           <button
             [disabled]="!next"
             (click)="load(next)"
-            class="font-medium text-sm flex items-center text-black bg-green-400/80 rounded-md px-6 py-2 justify-center gap-1 disabled:text-gray-600 disabled:cursor-not-allowed">
+            class="font-medium text-sm flex items-center text-black bg-green-400/70 rounded-md px-6 py-2 justify-center gap-1 disabled:text-gray-600 disabled:cursor-not-allowed">
             Suivant
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -66,9 +96,19 @@
           </button>
         }
       </div>
-    </div>
-  }
-  @if (!state.isLoading && !state.solutionResponse?.solution) {
-    <h4>Aucune solution trouvée</h4>
-  }
+    }
+    @if (state.isLoading) {
+      <div class="h-screen flex flex-col items-center gap-4 justify-center">
+        <app-spinner class="text-green-400" />
+        En cours de chargement...
+      </div>
+    }
+    @if (!state.isLoading && !state.solutionResponse?.solution) {
+      <div class="h-screen flex flex-col items-center gap-4 justify-center">
+        <h4>Aucune solution trouvée</h4>
+        <p class="text-4xl font-bondiMono font-black">404</p>
+        <a routerLink="/solutions" class="text-base inline-block text-green-400">Voir toutes les solutions</a>
+      </div>
+    }
+  </div>
 </ng-container>

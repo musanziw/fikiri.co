@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { CallsStore } from './data-access/calls.store';
+import { CallsStore } from './data-access/events.store';
 import { Observable } from 'rxjs';
-import { CallsStoreInterface } from './types/calls-store.interface';
+import { CallsStoreInterface } from './types/events-store.interface';
 import { AsyncPipe, DatePipe, NgClass, NgForOf, NgIf, SlicePipe } from '@angular/common';
 
 @Component({
@@ -9,9 +9,9 @@ import { AsyncPipe, DatePipe, NgClass, NgForOf, NgIf, SlicePipe } from '@angular
   standalone: true,
   imports: [NgIf, AsyncPipe, SlicePipe, DatePipe, NgClass, NgForOf],
   providers: [CallsStore],
-  templateUrl: './calls.component.html'
+  templateUrl: './events.component.html'
 })
-export class CallsComponent implements OnInit {
+export class EventsComponent implements OnInit {
   vm$: Observable<CallsStoreInterface>;
 
   constructor(private store: CallsStore) {
