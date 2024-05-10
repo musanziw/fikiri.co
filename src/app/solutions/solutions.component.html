@@ -1,15 +1,15 @@
 <div class="relative" *ngIf="vm$ | async as state">
   <style>
-    .my-pagination ::ng-deep .ngx-pagination .current {
+    .pagination ::ng-deep .ngx-pagination .current {
       background-color: rgb(74 222 128 / 0.7);
-      color: #fff;
+      color: white;
       font-size: large;
     }
 
-    .my-pagination ::ng-deep .ngx-pagination a {
+    .pagination ::ng-deep .ngx-pagination a {
       color: #4a4a4a;
       font-size: large;
-      background: #f7f7f7;
+      background: hsla(0, 0%, 97%, 0.92);
       display: inline-block;
       margin: 0 2px;
       box-shadow:
@@ -20,7 +20,9 @@
   <div class="p-8 text-gray-600 border-x border-dashed lg:mx-auto lg:max-w-screen-lg">
     <h2 class="text-xl md:text-2xl mb-8 text-gray-950 font-bold pt-20 md:w-2/3">
       Les solutions innovantes de
-      <span class="inline-block after:block after:w-full after:h-2 after:-mt-2 after:bg-green-300">la communauté.</span>
+      <span class="inline-block after:block after:w-full after:h-2 after:-mt-2 after:bg-green-300"
+        >la communauté.
+      </span>
     </h2>
     <div class="grid grid-cols-1 gap-x-6 gap-y-10 md:grid-cols-3 lg:grid-cols-4">
       @for (
@@ -42,11 +44,11 @@
     }
     <div class="flex justify-center items-center mt-20">
       <pagination-controls
+        nextLabel=""
         previousLabel=""
         [maxSize]="6"
-        nextLabel=""
         (pageChange)="onPageChange($event)"
-        class="my-pagination">
+        class="pagination">
       </pagination-controls>
     </div>
   </div>
