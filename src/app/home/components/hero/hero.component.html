@@ -11,11 +11,19 @@
       <div class="flex gap-10 mt-10 font-semibold">
         <div class="flex flex-col gap-3 items-center">
           <h1 class="">Utilisateurs</h1>
-          <p class="">+{{ vm.totals?.totalUsers }}</p>
+          @if (vm.isLoading) {
+            <app-spinner />
+          } @else {
+            <p class="">+{{ vm.totals?.totalUsers }}</p>
+          }
         </div>
         <div class="flex flex-col gap-3 items-center">
           <h1 class="">Solutions</h1>
-          <p class="">+{{ vm.totals?.totalSolutions }}</p>
+          @if (vm.isLoading) {
+            <app-spinner />
+          } @else {
+            <p class="">+{{ vm.totals?.totalSolutions }}</p>
+          }
         </div>
       </div>
     </div>

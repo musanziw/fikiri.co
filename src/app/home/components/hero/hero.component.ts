@@ -4,13 +4,14 @@ import { AsyncPipe, NgIf, NgOptimizedImage } from '@angular/common';
 import { HeroStore } from './data-access/hero.store';
 import { Observable } from 'rxjs';
 import { HeroStoreInterfce } from './types/hero-store.interfce';
+import { SpinnerComponent } from '../../../shared/ui/spinner/spinner.component';
 
 @Component({
   selector: 'app-hero',
   standalone: true,
-  imports: [RouterLink, NgOptimizedImage, NgIf, AsyncPipe],
   providers: [HeroStore],
-  templateUrl: './hero.component.html'
+  templateUrl: './hero.component.html',
+  imports: [RouterLink, NgOptimizedImage, NgIf, AsyncPipe, SpinnerComponent]
 })
 export class HeroComponent implements OnInit {
   vm$: Observable<HeroStoreInterfce>;
