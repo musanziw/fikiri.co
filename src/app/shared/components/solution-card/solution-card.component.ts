@@ -14,7 +14,6 @@ export class SolutionCardComponent {
   @Input() solution!: Solution;
 
   displayImage(solution: Solution): string {
-    if (!solution.images.length) return '';
     return `${environment.apiUrl}/uploads/${solution.images.at(-1)?.image_link}`;
   }
 
@@ -23,8 +22,7 @@ export class SolutionCardComponent {
     return user.name.slice(0, 2).toUpperCase();
   }
 
-  displayProfileImage(user: User | null): string {
-    if (!user) return '';
+  displayProfileImage(user: User): string {
     return `${environment.apiUrl}/uploads/${user.profile}`;
   }
 }

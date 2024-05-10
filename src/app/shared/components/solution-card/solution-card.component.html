@@ -1,13 +1,23 @@
 <a [routerLink]="['/solutions', solution.id]" class="flex flex-col">
-  <div class="w-auto h-44 lg:h-36 mb-2 bject-cover relative">
-    <img [ngSrc]="displayImage(solution)" class="rounded-md" [alt]="solution.name" fill />
+  <div class="w-auto h-44 lg:h-36 mb-2 bject-cover relative aspect-video">
+    @if (solution.images.length > 0) {
+      <img [ngSrc]="displayImage(solution)" class="rounded-md" alt="solution image" fill />
+    } @else {
+      <img ngSrc="assets/images/default-placeholder.png" class="rounded-md" alt="solution image" fill />
+    }
   </div>
   <div class="flex gap-3 items-center">
     <div class="w-10 h-10 bg-gray-200 relative rounded-full overflow-hidden flex items-center justify-center">
-      <img
-        [ngSrc]="displayProfileImage(solution.user) || 'assets/images/default-placeholder.png'"
-        [alt]="solution.user.name"
-        fill />
+      @if (solution.user.profile) {
+        <img
+          [ngSrc]="displayProfileImage(solution.user) || 'assets/images/default-placeholder.png'"
+          alt="profile picture"
+          fill />
+      } @else {
+        <p class="font-black text-sm text-gray-950">
+          {{ username(solution.user) }}
+        </p>
+      }
     </div>
     <div class="text-gray-950 font-medium text-sm flex flex-col capitalize">
       <p>{{ solution.user.name }}</p>
