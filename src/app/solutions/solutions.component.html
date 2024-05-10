@@ -57,7 +57,7 @@
       ) {
         <app-solution-card [solution]="solution" />
       }
-      @if (state.isLoading && state.solutions.length <= 0) {
+      @if (state.isLoading) {
         @for (i of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]; track $index) {
           <app-solution-card-skeleton />
         }
@@ -65,7 +65,7 @@
     </div>
     @if (filterSolutions(state.solutions).length <= 0 && state.isLoading === false) {
       <div class="flex justify-start items-center mt-20 py-28">
-        <p class="text-gray-950 text-center text-xl font-bold">Aucune solution trouvée sur cette page.</p>
+        <p class="text-gray-950 text-center text-xl font-bold">Aucune solution trouvée.</p>
       </div>
     }
     <div class="flex justify-start items-center mt-20">
