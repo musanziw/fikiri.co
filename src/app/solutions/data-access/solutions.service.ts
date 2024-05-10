@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Solution } from '../../shared/types/models-interfaces';
-import { HttpClientService } from '../../shared/services/http-client.service';
 import { Observable } from 'rxjs';
+import { SolutionsReponseInterface } from '../types/solutions-response.interface';
+import { HttpClientService } from '../../shared/services/http-client.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 export class SolutionsService {
   constructor(private http: HttpClientService) {}
 
-  getSolutions(cursor: number = 0): Observable<Solution[]> {
-    return this.http.get<Solution[]>(`solutions/mapped?cursor=${cursor}`);
+  getSolutions(page: number = 1): Observable<SolutionsReponseInterface> {
+    return this.http.get<SolutionsReponseInterface>(`solutions/mapped?page=${page}`);
   }
 }

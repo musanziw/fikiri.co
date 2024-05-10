@@ -2,54 +2,38 @@ import { Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
 import { tapResponse } from '@ngrx/operators';
 import { SolutionsStoreInterface } from '../types/solutions-store.interface';
-import { combineLatestWith, exhaustMap, Observable, tap } from 'rxjs';
+import { exhaustMap, Observable, tap } from 'rxjs';
 import { SolutionsService } from './solutions.service';
 import { Solution } from '../../shared/types/models-interfaces';
 import { HttpErrorResponse } from '@angular/common/http';
+import { SolutionsReponseInterface } from '../types/solutions-response.interface';
 
 @Injectable()
 export class SolutionsStore extends ComponentStore<SolutionsStoreInterface> {
   vm$: Observable<SolutionsStoreInterface>;
 
   constructor(private solutionService: SolutionsService) {
-    super({ cursor: 1, isLoading: false, isLoadingMore: false, solutions: [], error: null });
+    super({ isLoading: false, solutions: [], count: 1, error: null });
     this.vm$ = this.select((state) => state);
   }
 
   setIsLoading = this.updater((state, isLoading: boolean) => ({ ...state, isLoading }));
-  setIsCursor = this.updater((state, cursor: number) => ({ ...state, cursor }));
-  setIsLoadingMore = this.updater((state, isLoadingMore: boolean) => ({ ...state, isLoadingMore }));
+  setCount = this.updater((state, count: number) => ({ ...state, count }));
   setSolutions = this.updater((state, solutions: Solution[]) => ({ ...state, solutions }));
   setError = this.updater((state, error: string) => ({ ...state, error }));
 
-  load = this.effect<void>((trigger$: Observable<void>) =>
+  load = this.effect((trigger$: Observable<number>) =>
     trigger$.pipe(
       tap(() => this.setIsLoading(true)),
-      exhaustMap(() =>
-        this.solutionService.getSolutions().pipe(
+      exhaustMap((page) =>
+        this.solutionService.getSolutions(page).pipe(
           tapResponse({
-            next: (solutions) => this.setSolutions(solutions),
-            error: (error: HttpErrorResponse) => this.setError(error.error.message),
-            finalize: () => this.setIsLoading(false)
-          })
-        )
-      )
-    )
-  );
-
-  loadMore = this.effect<void>((trigger$: Observable<void>) =>
-    trigger$.pipe(
-      tap(() => this.setIsLoadingMore(true)),
-      combineLatestWith(this.select((state) => state.cursor)),
-      exhaustMap(([, cursor]) =>
-        this.solutionService.getSolutions(cursor + 1).pipe(
-          tapResponse({
-            next: (solutions) => {
-              this.setSolutions(solutions);
-              this.setIsCursor(cursor + 1);
+            next: (solutionsResponse: SolutionsReponseInterface) => {
+              this.setSolutions(solutionsResponse.solutions);
+              this.setCount(solutionsResponse.count);
             },
             error: (error: HttpErrorResponse) => this.setError(error.error.message),
-            finalize: () => this.setIsLoadingMore(false)
+            finalize: () => this.setIsLoading(false)
           })
         )
       )
