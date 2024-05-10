@@ -35,6 +35,7 @@ export class SolutionComponent implements OnInit {
   }
 
   displayImage(solution: Solution): string {
+    if (solution.images.length === 0) return 'assets/images/default-placeholder.png';
     return `${environment.apiUrl}/uploads/${solution.images.at(this.currentImageIndex)?.image_link}`;
   }
 

@@ -6,7 +6,6 @@
           {{ solution.name }}
         </h2>
       }
-
       <div class="relative">
         <div class="mb-8 h-auto w-full relative aspect-video">
           <img [ngSrc]="displayImage(solution)" [alt]="solution.name" priority fill />
@@ -52,7 +51,6 @@
           <p class="mr-2">&mdash; {{ challenge.name }}</p>
         }
       </div>
-
       <div class="flex justify-between mb-8 pt-8 px-4 md:px-8 border-t">
         @if (state.solutionResponse?.prev; as prev) {
           <button
@@ -74,7 +72,6 @@
             Précédent
           </button>
         }
-
         @if (state.solutionResponse?.next; as next) {
           <button
             [disabled]="!next"
