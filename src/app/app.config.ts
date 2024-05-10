@@ -8,7 +8,7 @@ import {
   withViewTransitions
 } from '@angular/router';
 import { provideClientHydration } from '@angular/platform-browser';
-import { provideHttpClient, withFetch } from '@angular/common/http';
+import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { PageTitleStrategy } from './page-title.strategy';
 import { provideStore } from '@ngrx/store';
@@ -17,6 +17,7 @@ import { provideEffects } from '@ngrx/effects';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { authReducers } from './shared/auth/data-access/auth.reducers';
 import * as authEffects from './shared/auth/data-access/auth.effects';
+import { httpInterceptor } from './shared/interceptors/http.interceptor';
 
 const scrollConfig: InMemoryScrollingOptions = {
   scrollPositionRestoration: 'top',
@@ -29,7 +30,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes, inMemoryScrollingFeature, withViewTransitions()),
     { provide: TitleStrategy, useClass: PageTitleStrategy },
     provideClientHydration(),
-    provideHttpClient(withFetch()),
+    provideHttpClient(withFetch(), withInterceptors([httpInterceptor])),
     provideAnimations(),
     provideEffects(authEffects),
     provideStore({
