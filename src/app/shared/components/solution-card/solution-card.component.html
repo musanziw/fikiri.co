@@ -1,9 +1,9 @@
 <a [routerLink]="['/solutions', solution.id]" class="flex flex-col">
   <div class="w-auto h-44 lg:h-36 mb-2 bject-cover relative aspect-video">
     @if (solution.images.length > 0) {
-      <img [ngSrc]="displayImage(solution)" class="rounded-md" alt="solution image" fill />
+      <img [ngSrc]="displayImage(solution)" class="rounded-md object-cover" alt="solution image" fill />
     } @else {
-      <img ngSrc="assets/images/default-placeholder.png" class="rounded-md" alt="solution image" fill />
+      <img ngSrc="assets/images/default-placeholder.png" class="rounded-md object-cover" alt="solution image" fill />
     }
   </div>
   <div class="flex gap-3 items-center">
@@ -14,7 +14,7 @@
           alt="profile picture"
           fill />
       } @else {
-        <p class="font-black text-sm text-gray-950">
+        <p class="text-sm text-gray-800 font-medium">
           {{ username(solution.user) }}
         </p>
       }

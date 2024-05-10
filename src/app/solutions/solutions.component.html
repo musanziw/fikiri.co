@@ -5,7 +5,6 @@
       color: white;
       font-size: large;
     }
-
     .pagination ::ng-deep .ngx-pagination a {
       color: #4a4a4a;
       font-size: large;
@@ -24,9 +23,36 @@
         >la communauté.
       </span>
     </h2>
+
+    <form class="mb-10 flex flex-col gap-4 lg:grid lg:grid-cols-3">
+      <select
+        #sdg
+        id="countries"
+        (change)="onSdgChange(sdg.value)"
+        class="bg-gray-100 border border-gray-100 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-green-300 focus:border-green-400 block w-full p-2.5">
+        <option value="">Selectionner un ODD</option>
+        @for (sdg of sdgs; track $index) {
+          <option [value]="$index + 1" [selected]="+queryParams.sdg === $index + 1">{{ sdg }}</option>
+        }
+      </select>
+      <select
+        #thematics
+        (change)="onThematicChange(thematics.value)"
+        id="countries"
+        class="bg-gray-100 border border-gray-100 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-green-300 focus:border-green-400 block w-full p-2.5">
+        <option value="">Choississez une thématique</option>
+        @for (thematic of state.thematics; track thematic.id) {
+          <option [value]="thematic.name" [selected]="queryParams.thematic === thematic.name">
+            {{ thematic.name }}
+          </option>
+        }
+      </select>
+    </form>
+
     <div class="grid grid-cols-1 gap-x-6 gap-y-10 md:grid-cols-3 lg:grid-cols-4">
       @for (
-        solution of state.solutions | paginate: { itemsPerPage: 20, currentPage, totalItems: state.count };
+        solution of filterSolutions(state.solutions)
+          | paginate: { itemsPerPage: 20, currentPage: queryParams.page, totalItems: state.count };
         track solution.id
       ) {
         <app-solution-card [solution]="solution" />
@@ -37,12 +63,12 @@
         }
       }
     </div>
-    @if (state.solutions.length <= 0 && state.isLoading === false) {
-      <div class="flex justify-center items-center mt-20">
-        <p class="text-gray-600 text-center text-xl font-bold">Aucune solution trouvée sur cette page.</p>
+    @if (filterSolutions(state.solutions).length <= 0 && state.isLoading === false) {
+      <div class="flex justify-start items-center mt-20 py-28">
+        <p class="text-gray-950 text-center text-xl font-bold">Aucune solution trouvée sur cette page.</p>
       </div>
     }
-    <div class="flex justify-center items-center mt-20">
+    <div class="flex justify-start items-center mt-20">
       <pagination-controls
         nextLabel=""
         previousLabel=""

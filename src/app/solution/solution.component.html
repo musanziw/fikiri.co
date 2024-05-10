@@ -6,37 +6,8 @@
           {{ solution.name }}
         </h2>
       }
-      <div class="relative">
-        <div class="mb-8 h-auto w-full relative aspect-video">
-          <img [ngSrc]="displayImage(solution)" [alt]="solution.name" priority fill />
-        </div>
-        @if (solution.images.length > 1) {
-          <button
-            (click)="displayNextImage(solution)"
-            class="bg-white rounded-full shadow-md p-2 absolute top-1/2 left-6 cursor-pointer">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="bi bi-chevron-left h-5 w-5 fill-black stroke-black"
-              viewBox="0 0 16 16">
-              <path
-                fill-rule="evenodd"
-                d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0" />
-            </svg>
-          </button>
-
-          <button
-            (click)="displayNextImage(solution)"
-            class="bg-white rounded-full shadow-md p-2 absolute top-1/2 right-6 cursor-pointerr">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="bi bi-chevron-right h-5 w-5 fill-black stroke-black"
-              viewBox="0 0 16 16">
-              <path
-                fill-rule="evenodd"
-                d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708" />
-            </svg>
-          </button>
-        }
+      <div class="relative mb-8 h-auto w-full aspect-video">
+        <img [ngSrc]="displayImage(solution)" [alt]="solution.name" class="object-cover" priority fill />
       </div>
       <p class="mb-4 p-4 hyphens-auto">{{ solution.description }}</p>
       <h2 class="font-bold text-gray-800 text-2xl mb-2 p-3">Problème résolu</h2>
