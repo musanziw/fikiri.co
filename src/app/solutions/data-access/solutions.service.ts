@@ -12,7 +12,7 @@ export class SolutionsService {
   constructor(private httpClient: HttpClient) {}
 
   getSolutions(queryParams: QueryParams): Observable<SolutionsReponseInterface> {
-    const { page, event, odd, thematic, name } = queryParams;
+    const { page, event, odd, thematic } = queryParams;
     let params: HttpParams = new HttpParams();
     if (page) params = params.append('page', page);
     if (event) params = params.append('event', event);
