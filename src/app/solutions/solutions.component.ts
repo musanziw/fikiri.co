@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, NgComponentOutlet } from '@angular/common';
-import { Router, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { SolutionCardComponent } from '../shared/components/solution-card/solution-card.component';
 import { Observable } from 'rxjs';
 import { SpinnerComponent } from '../shared/ui/spinner/spinner.component';
@@ -31,7 +31,7 @@ import { ButtonComponent } from '../shared/ui/button/button.component';
 })
 export class SolutionsComponent implements OnInit {
   vm$: Observable<SolutionsStoreInterface>;
-  queryParams: QueryParams = { page: null, event: null, odd: null, thematic: null, name: null };
+  queryParams: QueryParams = { page: null, event: null, odd: null, thematic: null };
   sdgs: string[] = [
     'Pas de pauvreté',
     'Faim zéro',
@@ -52,21 +52,8 @@ export class SolutionsComponent implements OnInit {
     'Partenariats pour la réalisation des objectifs'
   ];
 
-  constructor(
-    private store: SolutionsStore,
-    private router: Router
-  ) {
+  constructor(private store: SolutionsStore) {
     this.vm$ = this.store.vm$;
-    const page = Number(this.router.parseUrl(this.router.url).queryParamMap.get('page'));
-    const event = Number(this.router.parseUrl(this.router.url).queryParamMap.get('event'));
-    const odd = Number(this.router.parseUrl(this.router.url).queryParamMap.get('odd'));
-    const thematic = Number(this.router.parseUrl(this.router.url).queryParamMap.get('thematic'));
-    const name = this.router.parseUrl(this.router.url).queryParamMap.get('name');
-    if (page) this.queryParams.page = page;
-    if (event) this.queryParams.event = event;
-    if (odd) this.queryParams.odd = odd;
-    if (thematic) this.queryParams.thematic = thematic;
-    if (name) this.queryParams.name = name;
   }
 
   ngOnInit(): void {
@@ -74,29 +61,29 @@ export class SolutionsComponent implements OnInit {
     this.store.getSolutions(this.queryParams);
   }
 
-  onPageChange(page: number): void {
-    this.queryParams.page = page;
+  loadFilteredSolutions(key: string, value: number): void {
+    if (key !== 'page') {
+      this.queryParams = { ...this.queryParams, page: 1 };
+    }
+    this.queryParams = { ...this.queryParams, [key]: value };
     this.store.getSolutions(this.queryParams);
+  }
+
+  onPageChange(page: number): void {
+    this.loadFilteredSolutions('page', page);
     window.scrollTo({ top: 0 });
-    this.router.navigate(['/solutions'], { queryParams: this.queryParams });
   }
 
   onOddChange(odd: number): void {
-    this.queryParams.odd = odd;
-    this.store.getSolutions(this.queryParams);
-    this.router.navigate(['/solutions'], { queryParams: this.queryParams });
+    this.loadFilteredSolutions('odd', odd);
   }
 
   onThematicChange(thematic: number): void {
-    this.queryParams.thematic = thematic;
-    this.store.getSolutions(this.queryParams);
-    this.router.navigate(['/solutions'], { queryParams: this.queryParams });
+    this.loadFilteredSolutions('thematic', thematic);
   }
 
   onEventChange(event: number): void {
-    this.queryParams.event = event;
     this.store.getThematics(event);
-    this.store.getSolutions(this.queryParams);
-    this.router.navigate(['/solutions'], { queryParams: this.queryParams });
+    this.loadFilteredSolutions('event', event);
   }
 }

@@ -14,11 +14,12 @@ export class SolutionsStore extends ComponentStore<SolutionsStoreInterface> {
   vm$: Observable<SolutionsStoreInterface>;
 
   constructor(private solutionService: SolutionsService) {
-    super({ isLoading: false, solutions: [], events: [], thematics: [], count: 1, error: null });
+    super({ isLoading: false, solutions: [], events: [], thematics: [], isFiltering: false, count: 1, error: null });
     this.vm$ = this.select((state) => state);
   }
 
   setIsLoading = this.updater((state, isLoading: boolean) => ({ ...state, isLoading }));
+  setIsFiltering = this.updater((state, isFiltering: boolean) => ({ ...state, isFiltering }));
   setCount = this.updater((state, count: number) => ({ ...state, count }));
   setThematics = this.updater((state, thematics: Thematic[]) => ({ ...state, thematics }));
   setEvents = this.updater((state, events: Event[]) => ({ ...state, events }));
@@ -27,16 +28,22 @@ export class SolutionsStore extends ComponentStore<SolutionsStoreInterface> {
 
   getSolutions = this.effect((trigger$: Observable<QueryParams>) =>
     trigger$.pipe(
-      tap(() => this.setIsLoading(true)),
+      tap((queryParams) => {
+        if (queryParams.odd || queryParams.event || queryParams.thematic) this.setIsFiltering(true);
+        else this.setIsLoading(true);
+      }),
       exhaustMap((queryParams) =>
         this.solutionService.getSolutions(queryParams).pipe(
           tapResponse({
-            next: (solutionsResponse: SolutionsReponseInterface) => {
-              this.setSolutions(solutionsResponse.solutions);
-              this.setCount(solutionsResponse.count);
+            next: (res: SolutionsReponseInterface) => {
+              this.setSolutions(res.solutions);
+              this.setCount(res.count);
             },
             error: (error: HttpErrorResponse) => this.setError(error.error.message),
-            finalize: () => this.setIsLoading(false)
+            finalize: () => {
+              this.setIsLoading(false);
+              this.setIsFiltering(false);
+            }
           })
         )
       )
@@ -45,13 +52,11 @@ export class SolutionsStore extends ComponentStore<SolutionsStoreInterface> {
 
   getThematics = this.effect((trigger$: Observable<number>) =>
     trigger$.pipe(
-      tap(() => this.setIsLoading(true)),
       exhaustMap((eventId) =>
         this.solutionService.getThematics(eventId).pipe(
           tapResponse({
             next: (thematics) => this.setThematics(thematics),
-            error: (error: HttpErrorResponse) => this.setError(error.error.message),
-            finalize: () => this.setIsLoading(false)
+            error: (error: HttpErrorResponse) => this.setError(error.error.message)
           })
         )
       )
@@ -60,13 +65,11 @@ export class SolutionsStore extends ComponentStore<SolutionsStoreInterface> {
 
   getEvents = this.effect<void>((trigger$: Observable<void>) =>
     trigger$.pipe(
-      tap(() => this.setIsLoading(true)),
       exhaustMap(() =>
         this.solutionService.getEvents().pipe(
           tapResponse({
             next: (events) => this.setEvents(events),
-            error: (error: HttpErrorResponse) => this.setError(error.error.message),
-            finalize: () => this.setIsLoading(false)
+            error: (error: HttpErrorResponse) => this.setError(error.error.message)
           })
         )
       )

@@ -1,19 +1,22 @@
 <div class="relative" *ngIf="vm$ | async as state">
   <style>
     .pagination ::ng-deep .ngx-pagination .current {
-      background-color: rgb(74 222 128 / 0.7);
-      color: white;
-      font-size: large;
+      background-color: rgba(82, 185, 120, 0.7);
+      border-radius: 2px;
+      font-size: small;
+      margin: 0 4px;
+      padding: auto;
     }
     .pagination ::ng-deep .ngx-pagination a {
       color: #4a4a4a;
-      font-size: large;
+      font-size: small;
       background: hsla(0, 0%, 97%, 0.92);
-      display: inline-block;
-      margin: 0 2px;
+      border-radius: 2px;
+      margin: 0 4px;
       box-shadow:
-        0 1px 0 rgba(255, 255, 255, 0.5) inset,
-        0 1px 2px rgba(0, 0, 0, 0.1);
+        0 5px 0 rgba(255, 255, 255, 0.5) inset,
+        0 1px 4px rgba(0, 0, 0, 0.1);
+      padding: auto;
     }
   </style>
   <div class="p-8 text-gray-600 border-x border-dashed lg:mx-auto lg:max-w-screen-lg">
@@ -22,6 +25,9 @@
       <span class="inline-block after:block after:w-full after:h-2 after:-mt-2 after:bg-green-300">
         la communauté.
       </span>
+      @if (state.isFiltering) {
+        <app-spinner class="text-green-500 ml-4" />
+      }
     </h2>
 
     <form class="flex flex-col gap-4 lg:grid lg:grid-cols-3 mb-10">
@@ -37,18 +43,6 @@
         }
       </select>
       <select
-        #odd
-        id="odd"
-        name="odd"
-        (change)="onOddChange(+odd.value)"
-        class="bg-gray-100 border border-gray-100 text-gray-900 text-sm rounded-lg focus:outline-none block w-full p-2.5">
-        <option value="0">Selectionner un ODD</option>
-        @for (sdg of sdgs; track $index) {
-          <option [value]="$index + 1" [selected]="queryParams.odd === $index + 1">{{ sdg }}</option>
-        }
-      </select>
-
-      <select
         #thematics
         (change)="onThematicChange(+thematics.value)"
         id="thematics"
@@ -61,6 +55,17 @@
           </option>
         }
       </select>
+      <select
+        #odd
+        id="odd"
+        name="odd"
+        (change)="onOddChange(+odd.value)"
+        class="bg-gray-100 border border-gray-100 text-gray-900 text-sm rounded-lg focus:outline-none block w-full p-2.5">
+        <option value="0">Selectionner un ODD</option>
+        @for (sdg of sdgs; track $index) {
+          <option [value]="$index + 1" [selected]="queryParams.odd === $index + 1">{{ sdg }}</option>
+        }
+      </select>
     </form>
 
     <div class="grid grid-cols-1 gap-x-6 gap-y-10 md:grid-cols-3 lg:grid-cols-4">
@@ -71,22 +76,27 @@
       ) {
         <app-solution-card [solution]="solution" />
       }
-      @if (state.isLoading) {
-        @for (i of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]; track $index) {
+      @if (state.isLoading && !state.isFiltering) {
+        @for (i of [1, 2, 3, 4, 5, 6, 7, 8]; track $index) {
           <app-solution-card-skeleton />
         }
       }
     </div>
-    @if (state.solutions.length <= 0 && state.isLoading === false) {
-      <div class="flex justify-start items-center mt-20 py-28">
-        <p class="text-gray-950 text-center text-xl font-bold">Aucune solution trouvée.</p>
+    @if (state.count === 0 || state.solutions.length === 0) {
+      <div class="py-8 max-w-screen-xl lg:py-20">
+        <h1 class="mb-4 text-7xl tracking-tight font-extrabold lg:text-9xl text-primary-600">404</h1>
+        <p class="mb-4 text-3xl tracking-tight font-bold text-gray-900 md:text-4xl">Aucune solution trouvée</p>
+        <p class="mb-4 text-lg font-light text-gray-500">
+          Nous n'avons pas trouvé de solution correspondant à votre recherche.
+        </p>
       </div>
     }
-    <div class="flex justify-start items-center mt-20">
+    <div class="flex justify-center items-center mt-20">
       <pagination-controls
         nextLabel=""
         previousLabel=""
-        [maxSize]="6"
+        [autoHide]="true"
+        [maxSize]="5"
         (pageChange)="onPageChange($event)"
         class="pagination">
       </pagination-controls>
