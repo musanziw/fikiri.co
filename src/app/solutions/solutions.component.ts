@@ -8,7 +8,9 @@ import { SolutionCardSkeletonComponent } from '../shared/components/solution-car
 import { SolutionsStoreInterface } from './types/solutions-store.interface';
 import { SolutionsStore } from './data-access/solutions.store';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { Solution } from '../shared/types/models-interfaces';
+import { QueryParams } from './types/query-params.interface';
+import { InputComponent } from '../shared/ui/input/input.component';
+import { ButtonComponent } from '../shared/ui/button/button.component';
 
 @Component({
   selector: 'app-solutions',
@@ -22,16 +24,14 @@ import { Solution } from '../shared/types/models-interfaces';
     SpinnerComponent,
     SolutionCardSkeletonComponent,
     NgComponentOutlet,
-    NgxPaginationModule
+    NgxPaginationModule,
+    InputComponent,
+    ButtonComponent
   ]
 })
 export class SolutionsComponent implements OnInit {
   vm$: Observable<SolutionsStoreInterface>;
-  queryParams: { sdg: string; thematic: string; page: number } = {
-    sdg: '',
-    thematic: '',
-    page: 1
-  };
+  queryParams: QueryParams = { page: null, event: null, odd: null, thematic: null, name: null };
   sdgs: string[] = [
     'Pas de pauvreté',
     'Faim zéro',
@@ -57,41 +57,46 @@ export class SolutionsComponent implements OnInit {
     private router: Router
   ) {
     this.vm$ = this.store.vm$;
-    this.queryParams = {
-      page: Number(this.router.parseUrl(this.router.url).queryParamMap.get('page')) || 1,
-      sdg: this.router.parseUrl(this.router.url).queryParamMap.get('sdg') || '',
-      thematic: this.router.parseUrl(this.router.url).queryParamMap.get('thematic') || ''
-    };
+    const page = Number(this.router.parseUrl(this.router.url).queryParamMap.get('page'));
+    const event = Number(this.router.parseUrl(this.router.url).queryParamMap.get('event'));
+    const odd = Number(this.router.parseUrl(this.router.url).queryParamMap.get('odd'));
+    const thematic = Number(this.router.parseUrl(this.router.url).queryParamMap.get('thematic'));
+    const name = this.router.parseUrl(this.router.url).queryParamMap.get('name');
+    if (page) this.queryParams.page = page;
+    if (event) this.queryParams.event = event;
+    if (odd) this.queryParams.odd = odd;
+    if (thematic) this.queryParams.thematic = thematic;
+    if (name) this.queryParams.name = name;
   }
 
   ngOnInit(): void {
-    this.store.getThematics();
-    this.store.getSolutions(this.queryParams.page);
+    this.store.getEvents();
+    this.store.getSolutions(this.queryParams);
   }
 
-  setQueryParams(key: string, value: string | number) {
-    this.queryParams = { ...this.queryParams, [key]: value };
-    this.router.navigate(['solutions'], { queryParams: this.queryParams });
-  }
-
-  onPageChange(value: number) {
-    this.setQueryParams('page', value);
-    this.store.getSolutions(value);
+  onPageChange(page: number): void {
+    this.queryParams.page = page;
+    this.store.getSolutions(this.queryParams);
     window.scrollTo({ top: 0 });
+    this.router.navigate(['/solutions'], { queryParams: this.queryParams });
   }
 
-  onSdgChange(value: string): void {
-    this.setQueryParams('sdg', value);
+  onOddChange(odd: number): void {
+    this.queryParams.odd = odd;
+    this.store.getSolutions(this.queryParams);
+    this.router.navigate(['/solutions'], { queryParams: this.queryParams });
   }
 
-  onThematicChange(thematic: string): void {
-    this.setQueryParams('thematic', thematic);
+  onThematicChange(thematic: number): void {
+    this.queryParams.thematic = thematic;
+    this.store.getSolutions(this.queryParams);
+    this.router.navigate(['/solutions'], { queryParams: this.queryParams });
   }
 
-  filterSolutions(Solutions: Solution[]): Solution[] {
-    return Solutions.filter((solution) => {
-      const { sdg, thematic } = this.queryParams;
-      return (!sdg || solution.thematic.odds.includes(sdg)) && (!thematic || solution.thematic.name === thematic);
-    });
+  onEventChange(event: number): void {
+    this.queryParams.event = event;
+    this.store.getThematics(event);
+    this.store.getSolutions(this.queryParams);
+    this.router.navigate(['/solutions'], { queryParams: this.queryParams });
   }
 }
