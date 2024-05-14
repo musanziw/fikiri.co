@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, NgComponentOutlet } from '@angular/common';
-import { RouterModule } from '@angular/router';
 import { SolutionCardComponent } from '../shared/components/solution-card/solution-card.component';
 import { Observable } from 'rxjs';
 import { SpinnerComponent } from '../shared/ui/spinner/spinner.component';
@@ -19,7 +18,6 @@ import { ButtonComponent } from '../shared/ui/button/button.component';
   providers: [SolutionsStore],
   imports: [
     CommonModule,
-    RouterModule,
     SolutionCardComponent,
     SpinnerComponent,
     SolutionCardSkeletonComponent,
