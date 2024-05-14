@@ -1,5 +1,5 @@
 <ng-container *ngIf="vm$ | async as state">
-  <div class="flex flex-col text-lg mx-6 justify-center max-w-screen-md md:mx-auto border-x border-dashed">
+  <div class="flex flex-col mx-6 justify-center max-w-screen-md md:mx-auto border-x border-dashed">
     @if (state.solutionResponse?.solution; as solution) {
       @if (solution && solution.name) {
         <h2 class="font-bold text-gray-800 text-2xl mb-2 p-3 pt-24">
