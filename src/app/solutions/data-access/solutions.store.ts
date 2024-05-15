@@ -89,11 +89,13 @@ export class SolutionsStore extends ComponentStore<SolutionsStoreInterface> {
 
   searchSolutions = this.effect((trigger$: Observable<string>) =>
     trigger$.pipe(
+      tap(() => this.setIsFiltering(true)),
       exhaustMap((query) =>
         this.solutionService.searchSolutions(query).pipe(
           tapResponse({
             next: (searchResults) => this.setSearchResults(searchResults),
-            error: (error: HttpErrorResponse) => this.setError(error.error.message)
+            error: (error: HttpErrorResponse) => this.setError(error.error.message),
+            finalize: () => this.setIsFiltering(false)
           })
         )
       )
