@@ -10,7 +10,7 @@ module.exports = {
       }
     },
     fontFamily: {
-      dmSans: ['DM Sans', 'sans-serif'],
+      poppins: ['Poppins', 'sans-serif'],
       bondiMono: ['Bodoni Moda', ' serif']
     }
   },
