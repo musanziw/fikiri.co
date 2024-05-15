@@ -38,6 +38,9 @@ dependencies:
   '@angular/youtube-player':
     specifier: 17.3.5
     version: 17.3.5(@angular/common@17.3.8)(@angular/core@17.3.8)(rxjs@7.8.1)
+  '@ng-select/ng-select':
+    specifier: ^12.0.7
+    version: 12.0.7(@angular/common@17.3.8)(@angular/core@17.3.8)(@angular/forms@17.3.8)
   '@ngrx/component-store':
     specifier: ^17.1.1
     version: 17.2.0(@angular/core@17.3.8)(rxjs@7.8.1)
@@ -2700,6 +2703,20 @@ packages:
     dependencies:
       call-bind: 1.0.7
     dev: true
+
+  /@ng-select/ng-select@12.0.7(@angular/common@17.3.8)(@angular/core@17.3.8)(@angular/forms@17.3.8):
+    resolution: {integrity: sha512-Eht1zlLP0DJxiXcKnq3aY/EJ8odomgU0hM0BJoPY6oX3XFHndtFtdPxlZfhVtQn+FwyDEh7306rRx6digxVssA==}
+    engines: {node: '>= 16', npm: '>= 8'}
+    peerDependencies:
+      '@angular/common': ^17.0.0-rc.0
+      '@angular/core': ^17.0.0-rc.0
+      '@angular/forms': ^17.0.0-rc.0
+    dependencies:
+      '@angular/common': 17.3.8(@angular/core@17.3.8)(rxjs@7.8.1)
+      '@angular/core': 17.3.8(rxjs@7.8.1)(zone.js@0.14.5)
+      '@angular/forms': 17.3.8(@angular/common@17.3.8)(@angular/core@17.3.8)(@angular/platform-browser@17.3.8)(rxjs@7.8.1)
+      tslib: 2.6.2
+    dev: false
 
   /@ngrx/component-store@17.2.0(@angular/core@17.3.8)(rxjs@7.8.1):
     resolution: {integrity: sha512-ywhyoZpkbVIY1t5zf7xfWLGkY0A/fQdMjPehHloDI6bRLrmbllBhQRazwZ+FAGIi2myx1+mGcmAc6FbtIikedA==}
