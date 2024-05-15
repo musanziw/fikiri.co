@@ -43,10 +43,10 @@
   }
 
   .pg .ngx-pagination .current {
-    @apply bg-green-500 bg-opacity-70 rounded-sm text-sm m-0 px-2 py-0.5;
+    @apply bg-green-500 bg-opacity-70 rounded-sm m-0 px-2 py-0.5;
   }
   .pg .ngx-pagination a {
-    @apply bg-gray-200/40 text-gray-700 mx-1 shadow-sm shadow-gray-300 bg-opacity-70 rounded-sm text-sm m-0 px-2 py-0.5;
+    @apply bg-gray-200/40 text-gray-700 mx-1 shadow-sm shadow-gray-300 bg-opacity-70 rounded-sm m-0 px-2 py-0.5;
   }
 
   .ng-select.ng-select-focused:not(.ng-select-opened) > .ng-select-container {
