@@ -17,7 +17,7 @@
   }
 
   em {
-    @apply font-black text-gray-950 not-italic;
+    @apply font-semibold text-gray-900 not-italic;
   }
 }
 
