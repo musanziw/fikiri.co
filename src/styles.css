@@ -1,3 +1,4 @@
+@import '@ng-select/ng-select/themes/default.theme.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -14,17 +15,41 @@
   .nav-open div:last-child {
     @apply -rotate-45 -translate-y-1;
   }
-}
 
-@keyframes infinite-scroll {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-100%);
+  em {
+    @apply font-black text-gray-950 not-italic;
   }
 }
 
-.scroll {
-  animation: infinite-scroll 25s linear infinite;
+@layer utilities {
+  @keyframes infinite-scroll {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-100%);
+    }
+  }
+  .scroll {
+    animation: infinite-scroll 25s linear infinite;
+  }
+
+  ::-webkit-scrollbar {
+    @apply w-2;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-neutral-400/50 rounded-md;
+  }
+
+  .pg .ngx-pagination .current {
+    @apply bg-green-500 bg-opacity-70 rounded-sm text-sm m-0 px-2 py-0.5;
+  }
+  .pg .ngx-pagination a {
+    @apply bg-gray-200/40 text-gray-700 mx-1 shadow-sm shadow-gray-300 bg-opacity-70 rounded-sm text-sm m-0 px-2 py-0.5;
+  }
+
+  .ng-select.ng-select-focused:not(.ng-select-opened) > .ng-select-container {
+    @apply border-green-400;
+  }
 }
