@@ -8,13 +8,23 @@ import { Event, Solution, Thematic } from '../../shared/types/models-interfaces'
 import { HttpErrorResponse } from '@angular/common/http';
 import { SolutionsReponseInterface } from '../types/solutions-response.interface';
 import { QueryParams } from '../types/query-params.interface';
+import { SearchResponseInterface } from '../types/search-response.interface';
 
 @Injectable()
 export class SolutionsStore extends ComponentStore<SolutionsStoreInterface> {
   vm$: Observable<SolutionsStoreInterface>;
 
   constructor(private solutionService: SolutionsService) {
-    super({ isLoading: false, solutions: [], events: [], thematics: [], isFiltering: false, count: 1, error: null });
+    super({
+      isLoading: false,
+      solutions: [],
+      events: [],
+      thematics: [],
+      searchResults: null,
+      isFiltering: false,
+      count: 1,
+      error: null
+    });
     this.vm$ = this.select((state) => state);
   }
 
@@ -25,11 +35,12 @@ export class SolutionsStore extends ComponentStore<SolutionsStoreInterface> {
   setEvents = this.updater((state, events: Event[]) => ({ ...state, events }));
   setSolutions = this.updater((state, solutions: Solution[]) => ({ ...state, solutions }));
   setError = this.updater((state, error: string) => ({ ...state, error }));
+  setSearchResults = this.updater((state, searchResults: SearchResponseInterface) => ({ ...state, searchResults }));
 
   getSolutions = this.effect((trigger$: Observable<QueryParams>) =>
     trigger$.pipe(
       tap((queryParams) => {
-        if (queryParams.odd || queryParams.event || queryParams.thematic) this.setIsFiltering(true);
+        if (queryParams.event || queryParams.thematic) this.setIsFiltering(true);
         else this.setIsLoading(true);
       }),
       exhaustMap((queryParams) =>
@@ -69,6 +80,19 @@ export class SolutionsStore extends ComponentStore<SolutionsStoreInterface> {
         this.solutionService.getEvents().pipe(
           tapResponse({
             next: (events) => this.setEvents(events),
+            error: (error: HttpErrorResponse) => this.setError(error.error.message)
+          })
+        )
+      )
+    )
+  );
+
+  searchSolutions = this.effect((trigger$: Observable<string>) =>
+    trigger$.pipe(
+      exhaustMap((query) =>
+        this.solutionService.searchSolutions(query).pipe(
+          tapResponse({
+            next: (searchResults) => this.setSearchResults(searchResults),
             error: (error: HttpErrorResponse) => this.setError(error.error.message)
           })
         )
