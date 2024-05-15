@@ -1,88 +1,84 @@
-<div class="relative" *ngIf="vm$ | async as state">
-  <style>
-    .pagination ::ng-deep .ngx-pagination .current {
-      background-color: rgba(82, 185, 120, 0.7);
-      border-radius: 2px;
-      font-size: small;
-      margin: 0 4px;
-      padding: auto;
-    }
-    .pagination ::ng-deep .ngx-pagination a {
-      color: #4a4a4a;
-      font-size: small;
-      background: hsla(0, 0%, 97%, 0.92);
-      border-radius: 2px;
-      margin: 0 4px;
-      box-shadow:
-        0 5px 0 rgba(255, 255, 255, 0.5) inset,
-        0 1px 4px rgba(0, 0, 0, 0.1);
-      padding: auto;
-    }
-  </style>
+<div class="relative" *ngIf="vm$ | async as vm">
   <div class="p-8 text-gray-600 border-x border-dashed lg:mx-auto lg:max-w-screen-lg">
     <h2 class="text-xl md:text-2xl mb-8 text-gray-950 font-bold pt-20 md:w-2/3">
       Les solutions innovantes de
       <span class="inline-block after:block after:w-full after:h-2 after:-mt-2 after:bg-green-300">
         la communauté.
       </span>
-      @if (state.isFiltering) {
+
+      @if (vm.isFiltering) {
         <app-spinner class="text-green-500 ml-4" />
       }
     </h2>
 
     <form class="flex flex-col gap-4 lg:grid lg:grid-cols-3 mb-10">
-      <select
-        #event
-        id="event"
-        name="event"
-        (change)="onEventChange(+event.value)"
-        class="bg-gray-100 border border-gray-100 text-gray-900 text-sm rounded-lg focus:outline-none block w-full p-2.5">
-        <option value="0">Selectionner un appel</option>
-        @for (event of state.events; track $index) {
-          <option [value]="event.id" [selected]="queryParams.event === event.id">{{ event.name }}</option>
+      <div class="relative">
+        <input
+          #search
+          (input)="onSearch(search.value)"
+          type="text"
+          id="search"
+          name="search"
+          class="border border-gray-300 text-gray-900 text-sm rounded-md focus:outline-green-400/40 inset-3 block w-full px-3 p-2"
+          placeholder="Rechercher une solution" />
+
+        <span class="cursor-pointer absolute top-2 right-3">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="bi bi-search fill-current h-3 w-3 inline-block"
+            viewBox="0 0 16 16">
+            <path
+              d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+          </svg>
+        </span>
+
+        <div
+          class="absolute top-12 left-0 bg-white duration-300 max-h-96 overflow-y-scroll right-0 py-4 shadow-lg border border-gray-300 rounded-md z-10"
+          [ngClass]="
+            vm.searchResults?.hits && search.value.length > 0 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
+          ">
+          @for (hit of vm.searchResults?.hits; track hit.id) {
+            <a
+              [routerLink]="['/solutions', hit.id]"
+              class="flex flex-col items-start text-gray-900 gap-1 mb-3 hover:bg-gray-100 transition-colors duration-300 px-4 py-2">
+              <p class="text-base" [innerHTML]="hit._formatted.name">{{ hit._formatted.name }}</p>
+              <p class="text-sm" [innerHTML]="hit._formatted.description | safeHtml">
+                {{ hit._formatted.description }}
+              </p>
+            </a>
+          }
+        </div>
+      </div>
+
+      <ng-select placeholder="Choisir un appel" (change)="onEventChange($event)" id="event">
+        @for (event of vm.events; track $index) {
+          <ng-option [value]="event.id">{{ event.name }}</ng-option>
         }
-      </select>
-      <select
-        #thematics
-        (change)="onThematicChange(+thematics.value)"
-        id="thematics"
-        name="thematics"
-        class="bg-gray-100 border border-gray-100 text-gray-900 text-sm rounded-lg focus:outline-none block w-full p-2.5">
-        <option value="">Choississez une thématique</option>
-        @for (thematic of state.thematics; track thematic.id) {
-          <option [value]="thematic.id" [selected]="queryParams.thematic === thematic.id">
-            {{ thematic.name }}
-          </option>
-        }
-      </select>
-      <select
-        #odd
-        id="odd"
-        name="odd"
-        (change)="onOddChange(+odd.value)"
-        class="bg-gray-100 border border-gray-100 text-gray-900 text-sm rounded-lg focus:outline-none block w-full p-2.5">
-        <option value="0">Selectionner un ODD</option>
-        @for (sdg of sdgs; track $index) {
-          <option [value]="$index + 1" [selected]="queryParams.odd === $index + 1">{{ sdg }}</option>
-        }
-      </select>
+      </ng-select>
+      <div class="duration-300" [ngClass]="vm.thematics.length > 0 ? 'opacity-100' : 'opacity-0'">
+        <ng-select placeholder="Choisir une thématique" (change)="onThematicChange($event)" id="thematic">
+          @for (thematic of vm.thematics; track $index) {
+            <ng-option [value]="thematic.id">{{ thematic.name }}</ng-option>
+          }
+        </ng-select>
+      </div>
     </form>
 
     <div class="grid grid-cols-1 gap-x-6 gap-y-10 md:grid-cols-3 lg:grid-cols-4">
       @for (
-        solution of state.solutions
-          | paginate: { itemsPerPage: 20, currentPage: queryParams.page || 1, totalItems: state.count };
+        solution of vm.solutions
+          | paginate: { itemsPerPage: 20, currentPage: queryParams.page || 1, totalItems: vm.count };
         track solution.id
       ) {
         <app-solution-card [solution]="solution" />
       }
-      @if (state.isLoading && !state.isFiltering) {
+      @if (vm.isLoading && !vm.isFiltering) {
         @for (i of [1, 2, 3, 4, 5, 6, 7, 8]; track $index) {
           <app-solution-card-skeleton />
         }
       }
     </div>
-    @if (state.count === 0 || state.solutions.length === 0) {
+    @if (vm.count === 0 || vm.solutions.length === 0) {
       <div class="py-8 max-w-screen-xl lg:py-20">
         <h1 class="mb-4 text-7xl tracking-tight font-extrabold lg:text-9xl text-primary-600">404</h1>
         <p class="mb-4 text-3xl tracking-tight font-bold text-gray-900 md:text-4xl">Aucune solution trouvée</p>
@@ -98,7 +94,7 @@
         [autoHide]="true"
         [maxSize]="5"
         (pageChange)="onPageChange($event)"
-        class="pagination">
+        class="pg">
       </pagination-controls>
     </div>
   </div>

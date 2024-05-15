@@ -10,6 +10,9 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { QueryParams } from './types/query-params.interface';
 import { InputComponent } from '../shared/ui/input/input.component';
 import { ButtonComponent } from '../shared/ui/button/button.component';
+import { RouterLink } from '@angular/router';
+import { SafeHtmlPipe } from '../shared/pipes/safe-html.pipe';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @Component({
   selector: 'app-solutions',
@@ -17,6 +20,7 @@ import { ButtonComponent } from '../shared/ui/button/button.component';
   templateUrl: './solutions.component.html',
   providers: [SolutionsStore],
   imports: [
+    RouterLink,
     CommonModule,
     SolutionCardComponent,
     SpinnerComponent,
@@ -24,32 +28,14 @@ import { ButtonComponent } from '../shared/ui/button/button.component';
     NgComponentOutlet,
     NgxPaginationModule,
     InputComponent,
-    ButtonComponent
+    ButtonComponent,
+    SafeHtmlPipe,
+    NgSelectModule
   ]
 })
 export class SolutionsComponent implements OnInit {
   vm$: Observable<SolutionsStoreInterface>;
-  queryParams: QueryParams = { page: null, event: null, odd: null, thematic: null };
-  sdgs: string[] = [
-    'Pas de pauvreté',
-    'Faim zéro',
-    'Bonne santé et bien-être',
-    'Éducation de qualité',
-    'Égalité entre les sexes',
-    'Eau propre et assainissement',
-    "Énergie propre et d'un coût abordable",
-    'Travail décent et croissance économique',
-    'Industrie, innovation et infrastructure',
-    'Réduction des inégalités',
-    'Villes et communautés durables',
-    'Consommation et production responsables',
-    'Lutte contre les changements climatiques',
-    'Vie aquatique',
-    'Vie terrestre',
-    'Paix, justice et institutions efficaces',
-    'Partenariats pour la réalisation des objectifs'
-  ];
-
+  queryParams: QueryParams = { page: null, event: null, thematic: null };
   constructor(private store: SolutionsStore) {
     this.vm$ = this.store.vm$;
   }
@@ -72,16 +58,16 @@ export class SolutionsComponent implements OnInit {
     window.scrollTo({ top: 0 });
   }
 
-  onOddChange(odd: number): void {
-    this.loadFilteredSolutions('odd', odd);
+  onThematicChange(e: Event): void {
+    this.loadFilteredSolutions('thematic', +e);
   }
 
-  onThematicChange(thematic: number): void {
-    this.loadFilteredSolutions('thematic', thematic);
+  onEventChange(e: Event): void {
+    this.store.getThematics(+e);
+    this.loadFilteredSolutions('event', +e);
   }
 
-  onEventChange(event: number): void {
-    this.store.getThematics(event);
-    this.loadFilteredSolutions('event', event);
+  onSearch(query: string): void {
+    this.store.searchSolutions(query);
   }
 }
