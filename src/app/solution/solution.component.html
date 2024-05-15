@@ -2,17 +2,17 @@
   <div class="flex flex-col mx-6 justify-center max-w-screen-md md:mx-auto border-x border-dashed">
     @if (state.solutionResponse?.solution; as solution) {
       @if (solution && solution.name) {
-        <h2 class="font-bold text-gray-800 text-2xl mb-2 p-3 pt-24">
+        <h2 class="font-semibold text-gray-800 text-2xl mb-2 p-3 pt-24">
           {{ solution.name }}
         </h2>
       }
-      <div class="relative mb-8 h-auto w-full aspect-video">
+      <div class="relative mb-4 h-auto w-full aspect-video">
         <img [ngSrc]="displayImage(solution)" [alt]="solution.name" class="object-cover" priority fill />
       </div>
       <p class="mb-4 p-4 hyphens-auto">{{ solution.description }}</p>
-      <h2 class="font-bold text-gray-800 text-2xl mb-2 p-3">Problème résolu</h2>
+      <h2 class="font-semibold text-gray-800 text-2xl mb-2 p-3">Problème résolu</h2>
       <p class="mb-8 p-4 hyphens-auto">{{ solution.targeted_problem }}</p>
-      <h2 class="font-bold text-2xl mb-2 p-3">Innovateur</h2>
+      <h2 class="font-semibold text-2xl mb-2 p-3">Innovateur</h2>
       <p class="p-4">{{ solution.user.name }} &mdash; {{ solution.user.email }}</p>
       <p class="p-4">
         {{ solution.thematic.name }}

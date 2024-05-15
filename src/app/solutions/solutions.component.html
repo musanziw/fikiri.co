@@ -81,7 +81,7 @@
         }
       }
     </div>
-    @if (vm.count === 0 || vm.solutions.length === 0) {
+    @if (vm.count === 0 || ((!vm.isLoading || !vm.isFiltering) && vm.solutions.length === 0)) {
       <div class="py-8 max-w-screen-xl lg:py-20">
         <h1 class="mb-4 text-7xl tracking-tight font-extrabold lg:text-9xl text-primary-600">404</h1>
         <p class="mb-4 text-3xl tracking-tight font-bold text-gray-900 md:text-4xl">Aucune solution trouvée</p>
