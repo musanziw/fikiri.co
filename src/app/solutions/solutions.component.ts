@@ -35,6 +35,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 })
 export class SolutionsComponent implements OnInit {
   vm$: Observable<SolutionsStoreInterface>;
+  isFocused = false;
   queryParams: QueryParams = { page: null, event: null, thematic: null };
   constructor(private store: SolutionsStore) {
     this.vm$ = this.store.vm$;
