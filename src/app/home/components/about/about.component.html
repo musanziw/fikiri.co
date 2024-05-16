@@ -1,10 +1,10 @@
-<section class="lg:mx-auto lg:p-4 flex flex-col justify-center w-full overflow-hidden lg:max-w-screen-lg mb-10">
-  <h1 class="px-8 text-xl md:text-2xl lg:text-3xl font-semibold mt-8">
+<section class="px-8 mt-20 mb-20 max-w-screen-lg mx-auto">
+  <h1 class="text-xl md:text-2xl lg:text-3xl font-semibold mt-8 mb-3">
     Fikiri, de quoi
-    <span class="inline-block after:block after:w-full after:h-2 after:-mt-2 after:bg-green-300">s'agit-il</span> ?
+    <span class="inline-block after:block after:w-full after:h-1 after:-mt-2 after:bg-green-300">s'agit-il</span> ?
   </h1>
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 p-8 mb-10">
-    <div class="flex flex-col justify-center items-start gap-4">
+  <div class="grid grid-cols-1 md:grid-cols-2 mb-10">
+    <div class="flex flex-col justify-center items-start gap-4 gap-x-6">
       <h2 class="text-xl font-semibold">Cartographie des solutions locales en RDC</h2>
       <p class="md:text-lg mb-3">
         Une plateforme dédiée à la cartographie, l'exploration et l'expérimentation des solutions innovantes locales
@@ -16,17 +16,17 @@
     </div>
   </div>
 
-  <div class="relative flex flex-col items-center overflow-hidden">
-    <div class="container relative z-[1] m-auto px-8 md:px-12">
-      <h1 class="text-xl md:text-2xl lg:text-3xl font-semibold mb-10">
-        Partenaires
-        <span class="inline-block after:block after:w-full after:h-2 after:-mt-2 after:bg-green-300"> écosystème </span>
-      </h1>
+  <h1 class="text-xl md:text-2xl lg:text-3xl font-semibold mb-8">
+    Partenaires
+    <span class="inline-block after:block after:w-full after:h-1 after:-mt-1 after:bg-green-300">écosystème </span>
+  </h1>
 
+  <div class="relative flex flex-col items-center overflow-hidden bg-green-200/70 py-16 px-10 rounded-md">
+    <div class="container relative z-[1] m-auto">
       <div class="flex flex-wrap justify-start gap-6">
         @for (partainer of partainers; track partainer.id) {
           <div
-            class="h-auto w-32 relative aspect-video object-cover p-4 group rounded-xl border border-gray-200 bg-white bg-opacity-5 py-2 px-4 hover:bg-opacity-1">
+            class="h-auto w-32 relative aspect-video object-cover p-4 group rounded-xl border border-green-300/60 bg-white bg-opacity-5 py-2 px-4 hover:bg-opacity-1">
             <img [ngSrc]="partainer.src" [alt]="partainer.name" class="object-cover" fill />
           </div>
         }
