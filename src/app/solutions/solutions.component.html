@@ -11,7 +11,7 @@
       }
     </h2>
 
-    <form class="flex flex-col gap-4 lg:grid lg:grid-cols-3 mb-10">
+    <form class="flex flex-col gap-4 lg:grid lg:grid-cols-3 mb-6">
       <div class="relative">
         <input
           #search
@@ -58,20 +58,26 @@
           <ng-option [value]="event.id">{{ event.name }}</ng-option>
         }
       </ng-select>
-      <div class="transition-[display] duration-300" [ngClass]="vm.thematics.length > 0 ? 'block' : 'hidden'">
-        <ng-select
-          placeholder="Choisir une thématique"
-          [searchable]="false"
-          (change)="onThematicChange($event)"
-          id="thematic">
-          @for (thematic of vm.thematics; track $index) {
-            <ng-option [value]="thematic.id">{{ thematic.name }}</ng-option>
-          }
-        </ng-select>
+      <div class="relative">
+        <div
+          class="absolute top-0 left-0 w-full duration-300"
+          [ngClass]="vm.thematics.length > 0 && queryParams.event ? 'opacity-100' : 'opacity-0'">
+          <ng-select
+            placeholder="Choisir une thématique"
+            [searchable]="false"
+            (change)="onThematicChange($event)"
+            id="thematic">
+            @for (thematic of vm.thematics; track $index) {
+              <ng-option [value]="thematic.id">{{ thematic.name }}</ng-option>
+            }
+          </ng-select>
+        </div>
       </div>
     </form>
 
-    <div class="grid grid-cols-1 gap-x-6 gap-y-10 md:grid-cols-3 lg:grid-cols-4">
+    <div
+      class="grid grid-cols-1 gap-x-6 gap-y-10 md:grid-cols-3 lg:grid-cols-4 transition-transform duration-300 ease-in-out"
+      [ngClass]="vm.thematics.length > 0 && queryParams.event ? 'translate-y-8 lg:translate-y-0' : 'translate-y-0'">
       @for (
         solution of vm.solutions
           | paginate: { itemsPerPage: 20, currentPage: queryParams.page || 1, totalItems: vm.count };
