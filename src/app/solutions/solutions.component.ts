@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { CommonModule, NgComponentOutlet } from '@angular/common';
 import { SolutionCardComponent } from '../shared/components/solution-card/solution-card.component';
 import { Observable } from 'rxjs';
@@ -11,8 +11,8 @@ import { QueryParams } from './types/query-params.interface';
 import { InputComponent } from '../shared/ui/input/input.component';
 import { ButtonComponent } from '../shared/ui/button/button.component';
 import { RouterLink } from '@angular/router';
-import { SafeHtmlPipe } from '../shared/pipes/safe-html.pipe';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { SearchResult } from './types/search-response.interface';
 
 @Component({
   selector: 'app-solutions',
@@ -29,13 +29,12 @@ import { NgSelectModule } from '@ng-select/ng-select';
     NgxPaginationModule,
     InputComponent,
     ButtonComponent,
-    SafeHtmlPipe,
     NgSelectModule
   ]
 })
 export class SolutionsComponent implements OnInit {
   vm$: Observable<SolutionsStoreInterface>;
-  isFocused = false;
+  openSearchResult = true;
   queryParams: QueryParams = { page: null, event: null, thematic: null };
   constructor(private store: SolutionsStore) {
     this.vm$ = this.store.vm$;
@@ -70,5 +69,20 @@ export class SolutionsComponent implements OnInit {
 
   onSearch(query: string): void {
     this.store.searchSolutions(query);
+  }
+
+  convertKeyToLowercase(key: string, hits: SearchResult): string {
+    const value = hits[key as keyof SearchResult] as string;
+    const valueArray = value.split(' ');
+    return valueArray.map((word) => word.toLowerCase()).join(' ');
+  }
+
+  @HostListener('document:click', ['$event'])
+  onClick(event: MouseEvent): void {
+    const target = event.target as HTMLElement;
+    const isSearchInput = target.closest('.search-input');
+    if (!isSearchInput) {
+      this.openSearchResult = false;
+    }
   }
 }

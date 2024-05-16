@@ -14,13 +14,12 @@
         <input
           #search
           autocomplete="off"
-          (focus)="isFocused = true"
-          (blur)="isFocused = false"
+          (focus)="openSearchResult = true"
           (input)="onSearch(search.value)"
           type="text"
           id="search"
           name="search"
-          class="border border-gray-300 text-gray-900 text-sm rounded-md focus:outline-green-400/40 inset-3 block w-full px-3 p-2"
+          class="search-input border border-gray-300 text-gray-900 text-sm rounded-md focus:outline-green-400/40 inset-3 block w-full px-3 p-2"
           placeholder="Rechercher une solution" />
 
         <span class="cursor-pointer absolute top-2 right-3">
@@ -34,9 +33,12 @@
         </span>
 
         <div
-          class="absolute top-12 left-0 bg-white duration-300 max-h-96 overflow-y-scroll py-2 right-0 shadow-lg border border-gray-300 rounded-md"
+          class="absolute top-12 left-0 bg-gray-50 duration-300 max-h-96 overflow-y-scroll py-2 right-0 shadow-lg border border-gray-100 rounded-md"
           [ngClass]="
-            vm.searchResults?.hits && vm.searchResults?.estimatedTotalHits && isFocused && search.value.length > 0
+            vm.searchResults?.hits &&
+            vm.searchResults?.estimatedTotalHits &&
+            openSearchResult &&
+            search.value.length > 0
               ? 'opacity-100 translate-y-0 z-10'
               : 'opacity-0 translate-y-2'
           ">
@@ -44,15 +46,14 @@
             <a
               [routerLink]="['/solutions', hit.id]"
               class="flex flex-col items-start text-gray-900 gap-1 mb-3 hover:bg-gray-100 transition-colors duration-300 px-4 py-2">
-              <p class="text-base" [innerHTML]="hit._formatted.name">{{ hit._formatted.name }}</p>
-              <p class="text-sm" [innerHTML]="hit._formatted.description | safeHtml">
-                {{ hit._formatted.description }}
-              </p>
+              <p
+                class="text-base first-letter:capitalize"
+                [innerHTML]="convertKeyToLowercase('name', hit._formatted)"></p>
+              <p class="text-sm" [innerHTML]="convertKeyToLowercase('description', hit._formatted)"></p>
             </a>
           }
         </div>
       </div>
-
       <ng-select placeholder="Choisir un appel" [searchable]="false" (change)="onEventChange($event)" id="event">
         @for (event of vm.events; track $index) {
           <ng-option [value]="event.id">{{ event.name }}</ng-option>
@@ -74,7 +75,6 @@
         </div>
       </div>
     </form>
-
     <div
       class="grid grid-cols-1 gap-x-6 gap-y-10 md:grid-cols-3 lg:grid-cols-4 transition-transform duration-300 ease-in-out"
       [ngClass]="vm.thematics.length > 0 && queryParams.event ? 'translate-y-8 lg:translate-y-0' : 'translate-y-0'">

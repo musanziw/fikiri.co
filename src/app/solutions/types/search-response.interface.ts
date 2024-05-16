@@ -7,7 +7,7 @@ export interface SearchResponseInterface {
   estimatedTotalHits: number;
 }
 
-interface SearchResult {
+export interface SearchResult {
   id: 5;
   name: string;
   description: string;
