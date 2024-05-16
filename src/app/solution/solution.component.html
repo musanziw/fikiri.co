@@ -1,29 +1,33 @@
-<ng-container *ngIf="vm$ | async as state">
+<ng-container *ngIf="vm$ | async as vm">
   <div class="flex flex-col mx-6 justify-center max-w-screen-md md:mx-auto border-x border-dashed">
-    @if (state.solutionResponse?.solution; as solution) {
+    @if (vm.solutionResponse?.solution; as solution) {
       @if (solution && solution.name) {
-        <h2 class="font-semibold text-gray-800 text-2xl mb-2 p-3 pt-24">
-          {{ solution.name }}
+        <h2 class="font-semibold text-gray-800 text-2xl mb-2 p-3 pt-24 first-letter:capitalize">
+          {{ convertKeyToLowercase('name', solution) }}
         </h2>
       }
       <div class="relative mb-4 h-auto w-full aspect-video">
         <img [ngSrc]="displayImage(solution)" [alt]="solution.name" class="object-cover" priority fill />
       </div>
-      <p class="mb-4 p-4 hyphens-auto">{{ solution.description }}</p>
-      <h2 class="font-semibold text-gray-800 text-2xl mb-2 p-3">Problème résolu</h2>
-      <p class="mb-8 p-4 hyphens-auto">{{ solution.targeted_problem }}</p>
-      <h2 class="font-semibold text-2xl mb-2 p-3">Innovateur</h2>
-      <p class="p-4">{{ solution.user.name }} &mdash; {{ solution.user.email }}</p>
-      <p class="p-4">
-        {{ solution.thematic.name }}
-      </p>
-      <div class="p-4 mb-6">
-        @for (challenge of solution.challenges; track challenge.id) {
-          <p class="mr-2">&mdash; {{ challenge.name }}</p>
-        }
+      <div class="p-4">
+        <p class="mb-6 hyphens-auto first-letter:capitalize">{{ convertKeyToLowercase('description', solution) }}</p>
+        <h2 class="font-semibold text-gray-800 text-2xl mb-2">Problème résolu</h2>
+        <p class="mb-6 hyphens-auto first-letter:capitalize">
+          {{ convertKeyToLowercase('targeted_problem', solution) }}
+        </p>
+        <h2 class="font-semibold text-2xl mb-2">Innovateur</h2>
+        <p class="">{{ solution.user.name }} &mdash; {{ solution.user.email }}</p>
+        <p class="">
+          {{ solution.thematic.name }}
+        </p>
+        <div class="mb-6">
+          @for (challenge of solution.challenges; track challenge.id) {
+            <p class="mr-2">&mdash; {{ challenge.name }}</p>
+          }
+        </div>
       </div>
       <div class="flex justify-between mb-8 pt-8 px-4 md:px-8 border-t">
-        @if (state.solutionResponse?.prev; as prev) {
+        @if (vm.solutionResponse?.prev; as prev) {
           <button
             [disabled]="!prev"
             (click)="load(prev)"
@@ -43,7 +47,7 @@
             Précédent
           </button>
         }
-        @if (state.solutionResponse?.next; as next) {
+        @if (vm.solutionResponse?.next; as next) {
           <button
             [disabled]="!next"
             (click)="load(next)"
@@ -65,13 +69,13 @@
         }
       </div>
     }
-    @if (state.isLoading) {
+    @if (vm.isLoading) {
       <div class="h-screen flex flex-col items-center gap-4 justify-center">
         <app-spinner class="text-green-400" />
         En cours de chargement...
       </div>
     }
-    @if (!state.isLoading && !state.solutionResponse?.solution) {
+    @if (!vm.isLoading && !vm.solutionResponse?.solution) {
       <div class="h-screen flex flex-col items-center gap-4 justify-center">
         <h4>Aucune solution trouvée</h4>
         <p class="text-4xl font-bondiMono font-black">404</p>

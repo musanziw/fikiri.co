@@ -25,4 +25,9 @@ export class SolutionCardComponent {
   displayProfileImage(user: User): string {
     return `${environment.apiUrl}/uploads/${user.profile}`;
   }
+
+  splitUsername(user: User): string {
+    const name = user.name.split(' ');
+    return name[0].toLocaleLowerCase() + ' ' + (name[1] ? name[1].toLocaleLowerCase() : '');
+  }
 }

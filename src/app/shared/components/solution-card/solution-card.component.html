@@ -20,7 +20,7 @@
       }
     </div>
     <div class="text-gray-950 font-medium text-sm flex flex-col capitalize">
-      <p>{{ solution.user.name }}</p>
+      <p class="capitalize">{{ splitUsername(solution.user) }}</p>
       <p class="inline-block text-gray-500 font-normal">{{ solution.created_at | date: 'longDate' }}</p>
     </div>
   </div>

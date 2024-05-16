@@ -48,4 +48,10 @@ export class SolutionComponent implements OnInit {
     this.store.getSolution(id);
     this.currentImageIndex = -1;
   }
+
+  convertKeyToLowercase(key: string, solution: Solution): string {
+    const value = solution[key as keyof Solution] as string;
+    const valueArray = value.split(' ');
+    return valueArray.map((word) => word.toLowerCase()).join(' ');
+  }
 }

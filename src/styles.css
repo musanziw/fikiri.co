@@ -49,6 +49,10 @@
     @apply bg-gray-200/40 text-gray-700 mx-1 shadow-sm shadow-gray-300 bg-opacity-70 rounded-sm m-0 px-2 py-0.5;
   }
 
+  .ng-select {
+    @apply text-sm;
+  }
+
   .ng-select.ng-select-focused:not(.ng-select-opened) > .ng-select-container {
     @apply border-green-400;
   }
