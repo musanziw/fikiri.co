@@ -8,7 +8,7 @@
         <span
           class="absolute h-3 w-3 -top-1 -right-1 rounded-full"
           [ngClass]="isActive(call.ended_at) ? '' : 'bg-emerald-300 animate-ping'"></span>
-        <h2 class="capitalize font-semibold">{{ call.name }}</h2>
+        <h2 class="font-semibold">{{ call.name }}</h2>
         <p>
           {{ call.description | slice: 0 : 100 }}
           @if (call.description.length >= 100) {

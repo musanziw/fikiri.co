@@ -3,35 +3,34 @@
     Fikiri, de quoi
     <span class="inline-block after:block after:w-full after:h-2 after:-mt-2 after:bg-green-300">s'agit-il</span> ?
   </h1>
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8">
-    <div class="p-8 flex flex-col justify-center items-start gap-6">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 p-8 mb-10">
+    <div class="flex flex-col justify-center items-start gap-4">
       <h2 class="text-xl font-semibold">Cartographie des solutions locales en RDC</h2>
-      <p class="md:text-lg font-medium mb-3">
+      <p class="md:text-lg mb-3">
         Une plateforme dédiée à la cartographie, l'exploration et l'expérimentation des solutions innovantes locales
         pour accélérer l'atteinte des Objectifsde Développement durables . En savoir plus? Regardez la vidéo ci-dessous.
       </p>
     </div>
-    <div class="relative w-full min-h-80 aspect-video">
-      <youtube-player videoId="xuCLFkqhZAs" width="400" height="300" />
+    <div class="relative w-full h-48 md:h-60 mt-5 lg:mt-0">
+      <img ngSrc="assets/images/about.jpeg" alt="hero" class="object-cover rounded-md" fill />
     </div>
   </div>
-  <div
-    class="w-full inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)]">
-    <ul class="flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none scroll">
-      @for (partainer of partainers; track partainer.id) {
-        <div class="h-32 w-32 relative object-contain">
-          <img [ngSrc]="partainer.src" [alt]="partainer.name" class="partner-logo" fill />
-        </div>
-      }
-    </ul>
-    <ul
-      class="flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none scroll"
-      aria-hidden="true">
-      @for (partainer of partainers; track partainer.id) {
-        <div class="h-32 w-32 relative aspect-video object-cover">
-          <img [ngSrc]="partainer.src" [alt]="partainer.name" class="partner-logo" fill />
-        </div>
-      }
-    </ul>
+
+  <div class="relative flex flex-col items-center overflow-hidden">
+    <div class="container relative z-[1] m-auto px-8 md:px-12">
+      <h1 class="text-xl md:text-2xl lg:text-3xl font-semibold mb-10">
+        Partenaires
+        <span class="inline-block after:block after:w-full after:h-2 after:-mt-2 after:bg-green-300"> écosystème </span>
+      </h1>
+
+      <div class="flex flex-wrap justify-start gap-6">
+        @for (partainer of partainers; track partainer.id) {
+          <div
+            class="h-auto w-32 relative aspect-video object-cover p-4 group rounded-xl border border-gray-200 bg-white bg-opacity-5 py-2 px-4 hover:bg-opacity-1">
+            <img [ngSrc]="partainer.src" [alt]="partainer.name" class="object-cover" fill />
+          </div>
+        }
+      </div>
+    </div>
   </div>
 </section>
