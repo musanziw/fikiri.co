@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { select, Store } from '@ngrx/store';
@@ -88,5 +88,15 @@ export class TopbarComponent {
     return isActive
       ? 'inline-block text-green-400 hover:text-green-400'
       : 'inline-block hover:text-green-300 transition-colors duration-300';
+  }
+
+  // close navbar when user clicks outside
+  @HostListener('document:click', ['$event'])
+  onClick(event: MouseEvent): void {
+    const target = event.target as HTMLElement;
+    const isNavbar = target.closest('.navbar');
+    if (!isNavbar) {
+      this.isOpen = false;
+    }
   }
 }

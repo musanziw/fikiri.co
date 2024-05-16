@@ -1,6 +1,6 @@
 <header>
   <nav
-    class="fixed w-full top-0 left-0 right-0 translate-y-0 lg:px-20 px-10 py-3 transition-transform duration-300 text-gray-800 bg-white shadow-md z-20 flex items-center justify-between">
+    class="navbar fixed w-full top-0 left-0 right-0 translate-y-0 lg:px-20 px-10 py-3 transition-transform duration-300 text-gray-800 bg-gray-50 shadow-sm z-20 flex items-center justify-between">
     <a routerLink="/" class="flex items-center gap-3 cursor-pointer" aria-label="logo" (click)="closeNavbar()">
       <img ngSrc="/assets/images/favicon.png" alt="logo" class="cursor-pointer w-8" width="64" height="68" priority />
       <h1 class="font-bold text-2xl">fikiri<span class="text-emerald-400 animate-ping">.</span></h1>
@@ -13,8 +13,8 @@
       <div class="h-[1px] w-6 bg-current transition-transform duration-300"></div>
     </button>
     <div
-      class="absolute top-20 left-10 right-10 z-50 font-medium bg-transparent transition-transform duration-300 py-20 px-16 flex flex-col items-start gap-6 justify-start lg:flex lg:h-auto lg:static lg:p-0 lg:flex-row lg:items-center lg:justify-end lg:shadow-none lg:translate-y-0"
-      [ngClass]="isOpen ? 'shadow-none  bg-white text-gray-800' : '-translate-x-[200%] shadow-xl lg:translate-x-0'">
+      class="absolute top-14 left-10 right-10 z-50 font-medium bg-transparent transition-transform duration-300 py-20 px-16 flex flex-col items-start gap-6 justify-start lg:flex lg:h-auto lg:static lg:p-0 lg:flex-row lg:items-center lg:justify-end lg:shadow-none lg:translate-y-0"
+      [ngClass]="isOpen ? 'bg-white text-gray-800 shadow-lg' : 'translate-x-[200%] shadow-xl lg:translate-x-0'">
       @if (user$ | async; as user) {
         @for (link of authenticatedUserLinks(user.name); track link.path) {
           <a [routerLink]="link.path" (click)="closeNavbar()" [ngClass]="linkClass(link.path)">
