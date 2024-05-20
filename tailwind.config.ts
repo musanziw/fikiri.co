@@ -10,7 +10,7 @@ module.exports = {
       }
     },
     fontFamily: {
-      roboto: ['Roboto', 'sans-serif']
+      satoshi: ['Satoshi-Variable', 'system-ui']
     }
   },
   plugins: []

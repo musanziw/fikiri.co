@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { ComponentStore, tapResponse } from '@ngrx/component-store';
+import { ComponentStore } from '@ngrx/component-store';
 import { HeroStoreInterfce } from '../types/hero-store.interfce';
 import { exhaustMap, Observable, tap } from 'rxjs';
 import { TotalsInterface } from '../types/totals.interface';
 import { HeroService } from './hero-service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { tapResponse } from '@ngrx/operators';
 
 @Injectable()
 export class HeroStore extends ComponentStore<HeroStoreInterfce> {
