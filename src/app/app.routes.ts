@@ -14,17 +14,17 @@ export const routes: Routes = [
   },
   {
     path: 'register',
-    title: 'Signup',
+    title: 'Inscription',
     loadComponent: () => import('./auth/register/register.component').then((c) => c.RegisterComponent)
   },
   {
     path: 'login',
-    title: 'Signin',
+    title: 'Connexion',
     loadComponent: () => import('./auth/login/login.component').then((c) => c.LoginComponent)
   },
   {
     path: 'reset-password-request',
-    title: 'Reset password',
+    title: 'Réinitialisation du mot de passe',
     loadComponent: () =>
       import('./auth/reset-password-request/reset-password-request.component').then(
         (c) => c.ResetPasswordRequestComponent
@@ -32,17 +32,17 @@ export const routes: Routes = [
   },
   {
     path: 'reset-password',
-    title: 'Reset password',
+    title: 'Réinitialisation du mot de passe',
     loadComponent: () => import('./auth/reset-password/reset-password.component').then((c) => c.ResetPasswordComponent)
   },
   {
     path: 'profile',
-    title: 'Profile',
+    title: 'Profil',
     loadComponent: () => import('./auth/profile/profile.component').then((c) => c.ProfileComponent)
   },
   {
     path: '',
-    title: 'home',
+    title: 'Accueil',
     component: HomeComponent
   },
   {

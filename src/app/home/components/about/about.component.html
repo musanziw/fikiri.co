@@ -15,22 +15,4 @@
       <img ngSrc="assets/images/about.jpeg" alt="hero" class="object-cover" fill />
     </div>
   </div>
-
-  <h1 class="text-xl md:text-2xl lg:text-3xl font-semibold mb-8">
-    Partenaires
-    <span class="inline-block after:block after:w-full after:h-1 after:-mt-1 after:bg-green-300">écosystème </span>
-  </h1>
-
-  <div class="relative flex flex-col items-center overflow-hidden">
-    <div class="container relative z-[1] m-auto">
-      <div class="flex flex-wrap justify-start gap-6">
-        @for (partainer of partainers; track partainer.id) {
-          <div
-            class="h-auto w-32 relative aspect-video object-cover p-4 group rounded-xl border border-green-200/60 bg-white bg-opacity-5 py-2 px-4 hover:bg-opacity-1">
-            <img [ngSrc]="partainer.src" [alt]="partainer.name" class="object-cover" fill />
-          </div>
-        }
-      </div>
-    </div>
-  </div>
 </section>
