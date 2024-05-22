@@ -83,20 +83,10 @@ export class TopbarComponent {
     return this.router.url === path;
   }
 
-  linkClass(path: string) {
-    const isActive = this.isActive(path);
-    return isActive
-      ? 'inline-block text-green-400 hover:text-green-400'
-      : 'inline-block hover:text-green-300 transition-colors duration-300';
-  }
-
-  // close navbar when user clicks outside
   @HostListener('document:click', ['$event'])
   onClick(event: MouseEvent): void {
     const target = event.target as HTMLElement;
     const isNavbar = target.closest('.navbar');
-    if (!isNavbar) {
-      this.isOpen = false;
-    }
+    if (!isNavbar) this.isOpen = false;
   }
 }

@@ -10,7 +10,7 @@ module.exports = {
       }
     },
     fontFamily: {
-      satoshi: ['Satoshi-Variable', 'system-ui']
+      bevietnam: ['Be Vietnam Pro', 'sans-serif']
     }
   },
   plugins: []
