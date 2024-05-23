@@ -75,7 +75,8 @@
             [routerLinkActiveOptions]="{ exact: true }">
             {{ trimName(user.name) }}
           </a>
-          <button href="" class="hover:text-green-400 transition-colors duration-300" (click)="logOut()">
+
+          <button href="" class="inline-flex hover:text-green-400 transition-colors duration-300" (click)="logOut()">
             Déconnexion
           </button>
         } @else {

@@ -2,11 +2,12 @@
   @if (state.user; as user) {
     <div class="mx-auto max-w-screen-lg grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-5">
       <div class="flex flex-col gap-3 items-start pb-10 pt-24 md:pt-28 p-8 lg:col-span-2 border-r bg-gradient-to-b">
-        <div class="w-32 h-32 bg-gray-200 relative rounded-full overflow-hidden border-2 group">
-          @if (user.googleImage || user.profile) {
+        <div
+          class="w-32 h-32 bg-gray-200 relative rounded-full flex flex-col items-center justify-center overflow-hidden border-2 group">
+          @if (user.profile || user.google_image) {
             <img [ngSrc]="displayProfile(user)" [alt]="user.name" fill priority />
           } @else {
-            <h2 class="text-gray-950 font-bold">{{ username(user) }}</h2>
+            <h2 class="text-gray-950 font-bold text-xl">{{ sliceUsername(user) }}</h2>
           }
           <button
             (click)="file.click()"
@@ -35,13 +36,15 @@
         @if (state.profileState.infoUpdateMessage.message) {
           <app-message
             [message]="state.profileState.infoUpdateMessage.message"
-            [type]="state.profileState.infoUpdateMessage.type"></app-message>
+            [type]="state.profileState.infoUpdateMessage.type">
+          </app-message>
         }
 
         @if (state.profileState.updateImageMessage.message) {
           <app-message
             [message]="state.profileState.updateImageMessage.message"
-            [type]="state.profileState.updateImageMessage.type"></app-message>
+            [type]="state.profileState.updateImageMessage.type">
+          </app-message>
         }
 
         <form [formGroup]="form" (ngSubmit)="onSubmit()" class="gap-8 flex flex-col">
@@ -101,6 +104,11 @@
           </app-button>
         </form>
       </div>
+    </div>
+  } @else {
+    <div class="h-screen flex flex-col items-center gap-4 justify-center">
+      <app-spinner class="text-green-400" />
+      En cours de chargement...
     </div>
   }
 </ng-container>

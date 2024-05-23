@@ -10,10 +10,13 @@ import { ProfileStore } from './data-access/profile.store';
 import { ProfileStoreInterface } from './types/profile-store.interface';
 import { environment } from '../../../environments/environment';
 import { MessageComponent } from '../../shared/components/message/message.component';
+import { SpinnerComponent } from '../../shared/ui/spinner/spinner.component';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
+  providers: [ProfileStore],
+  templateUrl: './profile.component.html',
   imports: [
     AsyncPipe,
     RouterLink,
@@ -25,10 +28,9 @@ import { MessageComponent } from '../../shared/components/message/message.compon
     ButtonComponent,
     FormsModule,
     NgClass,
-    MessageComponent
-  ],
-  providers: [ProfileStore],
-  templateUrl: './profile.component.html'
+    MessageComponent,
+    SpinnerComponent
+  ]
 })
 export class ProfileComponent implements OnInit {
   form: FormGroup;
@@ -65,15 +67,14 @@ export class ProfileComponent implements OnInit {
       .unsubscribe();
   }
 
-  username(user: User | null): string {
+  sliceUsername(user: User | null): string {
     if (!user) return '';
     return user.name.slice(0, 2).toUpperCase();
   }
 
-  displayProfile(user: User | null): string {
-    if (user?.profile) return environment.apiUrl + 'uploads/' + user.profile;
-    if (user?.googleImage) return user.googleImage;
-    return '';
+  displayProfile(user: User): string {
+    if (user.profile) return environment.apiUrl + 'uploads/' + user.profile;
+    return user.google_image;
   }
 
   onSubmit(): void {

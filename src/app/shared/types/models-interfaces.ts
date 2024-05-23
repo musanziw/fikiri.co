@@ -77,7 +77,7 @@ export interface User {
   phone_number: string;
   address: string;
   token: string;
-  googleImage: string;
+  google_image: string;
   profile: string;
   created_at: Date;
   updated_at: Date;
