@@ -9,6 +9,7 @@ import { InputComponent } from '../../shared/ui/input/input.component';
 import { Observable } from 'rxjs';
 import { RegisterStore } from './data-access/register.store';
 import { RegisterStoreInterface } from './types/register-store.interface';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-register',
@@ -31,6 +32,7 @@ import { RegisterStoreInterface } from './types/register-store.interface';
 export class RegisterComponent {
   form: FormGroup;
   vm$: Observable<RegisterStoreInterface>;
+  apiUrl: string = environment.apiUrl;
 
   constructor(
     private store: RegisterStore,
@@ -49,5 +51,9 @@ export class RegisterComponent {
 
   onSubmit(): void {
     this.store.register(this.form.value);
+  }
+
+  loginWithGoogle(): void {
+    window.location.replace(`${this.apiUrl}auth/google/redirect`);
   }
 }

@@ -38,7 +38,7 @@
       [validationErrors]="state.validationErrors" />
     <app-button type="submit" [loading]="state.isLoading" [disabled]="form.invalid"> S'inscrire </app-button>
     <hr class="my-6 border-gray-300 w-full" />
-    <app-button-outline>
+    <app-button-outline (click)="loginWithGoogle()">
       <img ngSrc="../../../assets/images/google.svg" alt="googlr" class="mr-2 h-4 w-4" width="10" height="10" />
       <span class="text-gray-950 text-sm"> S'inscrire avec Google</span>
     </app-button-outline>
