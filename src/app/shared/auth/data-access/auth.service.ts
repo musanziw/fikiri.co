@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
-import { HttpClientService } from '../../services/http-client.service';
 import { User } from '../../types/models-interfaces';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  constructor(private http: HttpClientService) {}
+  constructor(private http: HttpClient) {}
 
   authenticatedUser(): Observable<User> {
-    return this.http.get<User>('auth/profile');
+    return this.http.get<{ data: User }>('auth/profile').pipe(map((response) => response.data));
   }
 
-  logout(): Observable<void> {
-    return this.http.post('auth/logout', {});
+  logout(): Observable<null> {
+    return this.http.post('auth/logout', {}).pipe(map(() => null));
   }
 }
