@@ -49,25 +49,13 @@ export class TopbarComponent {
     }
   ];
 
-  unAuthenticatedUserLinks(): LinkInterface[] {
-    return [...this.commonLinks, ...this.authLinks];
-  }
-
-  authenticatedUserLinks(username: string): LinkInterface[] {
-    return [
-      ...this.commonLinks,
-      {
-        name: this.trimName(username),
-        path: '/profile'
-      }
-    ];
-  }
+  unAuthenticatedUserLinks: LinkInterface[] = [...this.commonLinks, ...this.authLinks];
 
   logOut(): void {
     return this.store.dispatch(authActions.logout());
   }
 
-  private trimName(name: string): string {
+  trimName(name: string): string {
     return name.length > 15 ? name.substring(0, 15) + '...' : name;
   }
 

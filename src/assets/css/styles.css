@@ -17,7 +17,7 @@
   }
 
   em {
-    @apply font-semibold text-gray-900 not-italic;
+    @apply not-italic text-gray-950 bg-green-200/60;
   }
 }
 
