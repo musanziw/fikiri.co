@@ -1,6 +1,6 @@
 import { inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, exhaustMap, map, of } from 'rxjs';
+import { catchError, exhaustMap, map, of, tap } from 'rxjs';
 import { AuthService } from './auth.service';
 import { authActions } from './auth.actions';
 import { Router } from '@angular/router';
@@ -23,14 +23,8 @@ export const logoutEffect = createEffect(
   (actions$ = inject(Actions), authService = inject(AuthService), router = inject(Router)) =>
     actions$.pipe(
       ofType(authActions.logout),
-      exhaustMap(() =>
-        authService.logout().pipe(
-          map(() => {
-            router.navigate(['/']);
-            return authActions.logout();
-          })
-        )
-      ),
+      exhaustMap(() => authService.logout().pipe(map(() => authActions.logout()))),
+      tap(() => router.navigate(['/login'])),
       catchError(() => of())
     ),
   { functional: true }
