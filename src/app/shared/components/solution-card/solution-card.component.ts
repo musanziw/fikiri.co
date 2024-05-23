@@ -14,7 +14,7 @@ export class SolutionCardComponent {
   @Input() solution!: Solution;
 
   displayImage(solution: Solution): string {
-    return `${environment.apiUrl}/uploads/${solution.images.at(-1)?.image_link}`;
+    return `${environment.apiUrl}/uploads/solutions/${solution.images.at(-1)?.image_link}`;
   }
 
   username(user: User | null): string {
@@ -23,7 +23,7 @@ export class SolutionCardComponent {
   }
 
   displayProfileImage(user: User): string {
-    return `${environment.apiUrl}/uploads/${user.profile}`;
+    return `${environment.apiUrl}/uploads/profiles/${user.profile}`;
   }
 
   splitUsername(user: User): string {
