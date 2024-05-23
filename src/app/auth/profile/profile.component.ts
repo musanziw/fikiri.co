@@ -73,7 +73,7 @@ export class ProfileComponent implements OnInit {
   }
 
   displayProfile(user: User): string {
-    if (user.profile) return environment.apiUrl + 'uploads/' + user.profile;
+    if (user.profile) return environment.apiUrl + 'uploads/profiles/' + user.profile;
     return user.google_image;
   }
 
