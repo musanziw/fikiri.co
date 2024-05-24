@@ -4,13 +4,12 @@ import { Observable } from 'rxjs';
 import { EventsStoreInterface } from './types/events-store.interface';
 import { AsyncPipe, DatePipe, NgClass, NgForOf, NgIf, NgOptimizedImage, SlicePipe } from '@angular/common';
 import { environment } from '../../../../environments/environment';
-import { NgImageSliderModule } from 'ng-image-slider';
 import { Image } from '../../../shared/types/models-interfaces';
 
 @Component({
   selector: 'app-calls',
   standalone: true,
-  imports: [NgIf, AsyncPipe, SlicePipe, NgImageSliderModule, NgForOf, DatePipe, NgClass, NgOptimizedImage],
+  imports: [NgIf, AsyncPipe, SlicePipe, NgForOf, DatePipe, NgClass, NgOptimizedImage],
   providers: [eventsStore],
   templateUrl: './events.component.html'
 })
