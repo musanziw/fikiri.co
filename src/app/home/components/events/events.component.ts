@@ -14,6 +14,7 @@ import { Image } from '../../../shared/types/models-interfaces';
   templateUrl: './events.component.html'
 })
 export class EventsComponent implements OnInit {
+  currentImageIndex = 0;
   vm$: Observable<EventsStoreInterface>;
 
   constructor(private store: eventsStore) {
@@ -24,7 +25,23 @@ export class EventsComponent implements OnInit {
     this.store.getEvents();
   }
 
-  getImage(images: Image[]): string {
-    return environment.apiUrl + 'uploads/events/' + images[2].image_link;
+  displayImage(image: Image): string {
+    return `${environment.apiUrl}uploads/events/${image.image_link}`;
+  }
+
+  nextImage(images: Image[]): void {
+    if (this.currentImageIndex < images.length - 1) this.currentImageIndex++;
+  }
+
+  prevImage(): void {
+    if (this.currentImageIndex > 0) this.currentImageIndex--;
+  }
+
+  isFirstImage(): boolean {
+    return this.currentImageIndex === 0;
+  }
+
+  isLastImage(images: Image[]): boolean {
+    return this.currentImageIndex === images.length - 1;
   }
 }

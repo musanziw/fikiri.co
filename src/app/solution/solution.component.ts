@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Solution } from '../shared/types/models-interfaces';
+import { Image, Solution } from '../shared/types/models-interfaces';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -19,7 +19,7 @@ import { SpinnerComponent } from '../shared/ui/spinner/spinner.component';
 })
 export class SolutionComponent implements OnInit {
   vm$: Observable<SolutionStoreInterface>;
-  currentImageIndex: number = -1;
+  currentImageIndex: number = 0;
 
   constructor(
     private store: SolutionStore,
@@ -34,19 +34,29 @@ export class SolutionComponent implements OnInit {
     this.load(id);
   }
 
-  displayImage(solution: Solution): string {
-    if (solution.images.length === 0) return 'assets/images/default-placeholder.png';
-    return `${environment.apiUrl}/uploads/solutions/${solution.images.at(this.currentImageIndex)?.image_link}`;
+  displayImage(image: Image): string {
+    return `${environment.apiUrl}uploads/solutions/${image.image_link}`;
   }
 
-  displayNextImage(solution: Solution): void {
-    this.currentImageIndex = (this.currentImageIndex + 1) % solution.images.length;
+  nextImage(images: Image[]): void {
+    if (this.currentImageIndex < images.length - 1) this.currentImageIndex++;
+  }
+
+  prevImage(): void {
+    if (this.currentImageIndex > 0) this.currentImageIndex--;
+  }
+
+  isFirstImage(): boolean {
+    return this.currentImageIndex === 0;
+  }
+
+  isLastImage(images: Image[]): boolean {
+    return this.currentImageIndex === images.length - 1;
   }
 
   load(id: number): void {
     this.router.navigate(['/solutions', id]);
     this.store.getSolution(id);
-    this.currentImageIndex = -1;
   }
 
   convertKeyToLowercase(key: string, solution: Solution): string {
