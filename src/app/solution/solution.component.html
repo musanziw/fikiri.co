@@ -24,7 +24,7 @@
           }
           @if (solution.images.length > 1) {
             <button
-              class="absolute top-1/2 -left-10 p-2 rounded-full bg-green-300 shadow-lg cursor-pointer disabled:bg-green-300/60 disabled:cursor-not-allowed"
+              class="absolute top-1/2 -left-4 p-2 rounded-full bg-green-300 shadow-lg cursor-pointer disabled:bg-green-300/60 disabled:cursor-not-allowed"
               [disabled]="isFirstImage()"
               (click)="prevImage()">
               <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-arrow-left h-4 w-4 fill-black" viewBox="0 0 16 16">
@@ -36,7 +36,7 @@
 
             <button
               [disabled]="isLastImage(solution.images)"
-              class="absolute top-1/2 -right-10 p-2 rounded-full bg-green-300 shadow-lg cursor-pointer disabled:bg-green-300/60 disabled:cursor-not-allowed"
+              class="absolute top-1/2 -right-4 p-2 rounded-full bg-green-300 shadow-lg cursor-pointer disabled:bg-green-300/60 disabled:cursor-not-allowed"
               (click)="nextImage(solution.images)">
               <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-arrow-right h-4 w-4 fill-black" viewBox="0 0 16 16">
                 <path
