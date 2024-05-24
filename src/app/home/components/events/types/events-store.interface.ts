@@ -1,7 +1,7 @@
 import { Event } from '../../../../shared/types/models-interfaces';
 
-export interface CallsStoreInterface {
+export interface EventsStoreInterface {
   isLoading: boolean;
-  calls: Event[];
+  events: Event[];
   error: string | null;
 }

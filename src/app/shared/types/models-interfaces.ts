@@ -6,6 +6,7 @@ export interface Event {
   description: string;
   created_at: Date;
   updated_at: Date;
+  images: Image[];
   solutions?: Solution[];
   thematics: Thematic[];
 }

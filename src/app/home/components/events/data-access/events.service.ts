@@ -6,10 +6,10 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class CallsService {
+export class eventsService {
   constructor(private httpClient: HttpClientService) {}
 
-  getCalls(): Observable<Event[]> {
+  getEvents(): Observable<Event[]> {
     return this.httpClient.get<Event[]>('events');
   }
 }
