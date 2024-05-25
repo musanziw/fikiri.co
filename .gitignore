@@ -37,6 +37,7 @@ yarn-error.log
 testem.log
 /typings
 .nx
+.angular
 
 # System files
 .DS_Store
