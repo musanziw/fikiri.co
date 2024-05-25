@@ -5,8 +5,6 @@ import {
   CommonModule,
   DOCUMENT,
   NgClass,
-  NgForOf,
-  NgIf,
   NgTemplateOutlet
 } from "./chunk-4HJZX4QK.js";
 import {
@@ -33,13 +31,18 @@ import {
   TemplateRef,
   ViewChild,
   ViewEncapsulation$1,
+  booleanAttribute,
   forwardRef,
+  numberAttribute,
   setClassMetadata,
+  ɵɵInputTransformsFeature,
   ɵɵNgOnChangesFeature,
   ɵɵProvidersFeature,
   ɵɵadvance,
   ɵɵattribute,
   ɵɵclassProp,
+  ɵɵcomponentInstance,
+  ɵɵconditional,
   ɵɵcontentQuery,
   ɵɵdefineComponent,
   ɵɵdefineDirective,
@@ -68,6 +71,8 @@ import {
   ɵɵpureFunction4,
   ɵɵqueryRefresh,
   ɵɵreference,
+  ɵɵrepeater,
+  ɵɵrepeaterCreate,
   ɵɵresetView,
   ɵɵrestoreView,
   ɵɵtemplate,
@@ -96,7 +101,7 @@ import {
   __spreadValues
 } from "./chunk-J4B6MK7R.js";
 
-// node_modules/.pnpm/@ng-select+ng-select@13.0.4_@angular+common@18.0.0_@angular+core@18.0.0_rxjs@7.8.1_zone.js@0._iascqm6gh3vninow4chl7uc57e/node_modules/@ng-select/ng-select/fesm2022/ng-select-ng-select.mjs
+// node_modules/.pnpm/@ng-select+ng-select@13.2.0_@angular+common@18.0.0_@angular+core@18.0.0_rxjs@7.8.1_zone.js@0._asmhe3psrzmsa2fu6zzvbz3r7m/node_modules/@ng-select/ng-select/fesm2022/ng-select-ng-select.mjs
 var _c0 = ["content"];
 var _c1 = ["scroll"];
 var _c2 = ["padding"];
@@ -104,10 +109,10 @@ var _c3 = ["*"];
 var _c4 = (a0) => ({
   searchTerm: a0
 });
-function NgDropdownPanelComponent_div_0_Template(rf, ctx) {
+function NgDropdownPanelComponent_Conditional_0_Template(rf, ctx) {
   if (rf & 1) {
-    ɵɵelementStart(0, "div", 6);
-    ɵɵelementContainer(1, 7);
+    ɵɵelementStart(0, "div", 3);
+    ɵɵelementContainer(1, 6);
     ɵɵelementEnd();
   }
   if (rf & 2) {
@@ -116,10 +121,10 @@ function NgDropdownPanelComponent_div_0_Template(rf, ctx) {
     ɵɵproperty("ngTemplateOutlet", ctx_r0.headerTemplate)("ngTemplateOutletContext", ɵɵpureFunction1(2, _c4, ctx_r0.filterValue));
   }
 }
-function NgDropdownPanelComponent_div_8_Template(rf, ctx) {
+function NgDropdownPanelComponent_Conditional_8_Template(rf, ctx) {
   if (rf & 1) {
-    ɵɵelementStart(0, "div", 8);
-    ɵɵelementContainer(1, 7);
+    ɵɵelementStart(0, "div", 5);
+    ɵɵelementContainer(1, 6);
     ɵɵelementEnd();
   }
   if (rf & 2) {
@@ -145,11 +150,11 @@ var _c9 = (a0, a1, a2, a3) => ({
   index: a2,
   searchTerm: a3
 });
-function NgSelectComponent_ng_container_4_div_1_ng_template_1_Template(rf, ctx) {
+function NgSelectComponent_Conditional_4_For_1_ng_template_1_Template(rf, ctx) {
   if (rf & 1) {
     const _r2 = ɵɵgetCurrentView();
-    ɵɵelementStart(0, "span", 22);
-    ɵɵlistener("click", function NgSelectComponent_ng_container_4_div_1_ng_template_1_Template_span_click_0_listener() {
+    ɵɵelementStart(0, "span", 21);
+    ɵɵlistener("click", function NgSelectComponent_Conditional_4_For_1_ng_template_1_Template_span_click_0_listener() {
       ɵɵrestoreView(_r2);
       const item_r3 = ɵɵnextContext().$implicit;
       const ctx_r3 = ɵɵnextContext(2);
@@ -157,7 +162,7 @@ function NgSelectComponent_ng_container_4_div_1_ng_template_1_Template(rf, ctx) 
     });
     ɵɵtext(1, "×");
     ɵɵelementEnd();
-    ɵɵelement(2, "span", 23);
+    ɵɵelement(2, "span", 22);
   }
   if (rf & 2) {
     const item_r3 = ɵɵnextContext().$implicit;
@@ -166,12 +171,12 @@ function NgSelectComponent_ng_container_4_div_1_ng_template_1_Template(rf, ctx) 
     ɵɵproperty("ngItemLabel", item_r3.label)("escape", ctx_r3.escapeHTML);
   }
 }
-function NgSelectComponent_ng_container_4_div_1_ng_template_3_Template(rf, ctx) {
+function NgSelectComponent_Conditional_4_For_1_ng_template_3_Template(rf, ctx) {
 }
-function NgSelectComponent_ng_container_4_div_1_Template(rf, ctx) {
+function NgSelectComponent_Conditional_4_For_1_Template(rf, ctx) {
   if (rf & 1) {
     ɵɵelementStart(0, "div", 20);
-    ɵɵtemplate(1, NgSelectComponent_ng_container_4_div_1_ng_template_1_Template, 3, 2, "ng-template", null, 1, ɵɵtemplateRefExtractor)(3, NgSelectComponent_ng_container_4_div_1_ng_template_3_Template, 0, 0, "ng-template", 21);
+    ɵɵtemplate(1, NgSelectComponent_Conditional_4_For_1_ng_template_1_Template, 3, 2, "ng-template", null, 1, ɵɵtemplateRefExtractor)(3, NgSelectComponent_Conditional_4_For_1_ng_template_3_Template, 0, 0, "ng-template", 12);
     ɵɵelementEnd();
   }
   if (rf & 2) {
@@ -183,52 +188,47 @@ function NgSelectComponent_ng_container_4_div_1_Template(rf, ctx) {
     ɵɵproperty("ngTemplateOutlet", ctx_r3.labelTemplate || defaultLabelTemplate_r5)("ngTemplateOutletContext", ɵɵpureFunction3(4, _c7, item_r3.value, ctx_r3.clearItem, item_r3.label));
   }
 }
-function NgSelectComponent_ng_container_4_Template(rf, ctx) {
+function NgSelectComponent_Conditional_4_Template(rf, ctx) {
   if (rf & 1) {
-    ɵɵelementContainerStart(0);
-    ɵɵtemplate(1, NgSelectComponent_ng_container_4_div_1_Template, 4, 8, "div", 19);
-    ɵɵelementContainerEnd();
+    ɵɵrepeaterCreate(0, NgSelectComponent_Conditional_4_For_1_Template, 4, 8, "div", 19, ɵɵcomponentInstance().trackByOption, true);
   }
   if (rf & 2) {
     const ctx_r3 = ɵɵnextContext();
-    ɵɵadvance();
-    ɵɵproperty("ngForOf", ctx_r3.selectedItems)("ngForTrackBy", ctx_r3.trackByOption);
+    ɵɵrepeater(ctx_r3.selectedItems);
   }
 }
-function NgSelectComponent_5_ng_template_0_Template(rf, ctx) {
+function NgSelectComponent_Conditional_5_ng_template_0_Template(rf, ctx) {
 }
-function NgSelectComponent_5_Template(rf, ctx) {
+function NgSelectComponent_Conditional_5_Template(rf, ctx) {
   if (rf & 1) {
-    ɵɵtemplate(0, NgSelectComponent_5_ng_template_0_Template, 0, 0, "ng-template", 21);
+    ɵɵtemplate(0, NgSelectComponent_Conditional_5_ng_template_0_Template, 0, 0, "ng-template", 12);
   }
   if (rf & 2) {
     const ctx_r3 = ɵɵnextContext();
     ɵɵproperty("ngTemplateOutlet", ctx_r3.multiLabelTemplate)("ngTemplateOutletContext", ɵɵpureFunction2(2, _c8, ctx_r3.selectedValues, ctx_r3.clearItem));
   }
 }
-function NgSelectComponent_ng_container_9_ng_template_1_Template(rf, ctx) {
+function NgSelectComponent_Conditional_9_ng_template_0_Template(rf, ctx) {
   if (rf & 1) {
-    ɵɵelement(0, "div", 25);
+    ɵɵelement(0, "div", 24);
   }
 }
-function NgSelectComponent_ng_container_9_ng_template_3_Template(rf, ctx) {
+function NgSelectComponent_Conditional_9_ng_template_2_Template(rf, ctx) {
 }
-function NgSelectComponent_ng_container_9_Template(rf, ctx) {
+function NgSelectComponent_Conditional_9_Template(rf, ctx) {
   if (rf & 1) {
-    ɵɵelementContainerStart(0);
-    ɵɵtemplate(1, NgSelectComponent_ng_container_9_ng_template_1_Template, 1, 0, "ng-template", null, 2, ɵɵtemplateRefExtractor)(3, NgSelectComponent_ng_container_9_ng_template_3_Template, 0, 0, "ng-template", 24);
-    ɵɵelementContainerEnd();
+    ɵɵtemplate(0, NgSelectComponent_Conditional_9_ng_template_0_Template, 1, 0, "ng-template", null, 2, ɵɵtemplateRefExtractor)(2, NgSelectComponent_Conditional_9_ng_template_2_Template, 0, 0, "ng-template", 23);
   }
   if (rf & 2) {
-    const defaultLoadingSpinnerTemplate_r7 = ɵɵreference(2);
+    const defaultLoadingSpinnerTemplate_r7 = ɵɵreference(1);
     const ctx_r3 = ɵɵnextContext();
-    ɵɵadvance(3);
+    ɵɵadvance(2);
     ɵɵproperty("ngTemplateOutlet", ctx_r3.loadingSpinnerTemplate || defaultLoadingSpinnerTemplate_r7);
   }
 }
-function NgSelectComponent_span_10_Template(rf, ctx) {
+function NgSelectComponent_Conditional_10_Template(rf, ctx) {
   if (rf & 1) {
-    ɵɵelementStart(0, "span", 26, 3)(2, "span", 27);
+    ɵɵelementStart(0, "span", 15, 3)(2, "span", 25);
     ɵɵtext(3, "×");
     ɵɵelementEnd()();
   }
@@ -237,9 +237,9 @@ function NgSelectComponent_span_10_Template(rf, ctx) {
     ɵɵpropertyInterpolate("title", ctx_r3.clearAllText);
   }
 }
-function NgSelectComponent_ng_dropdown_panel_13_div_2_ng_template_1_Template(rf, ctx) {
+function NgSelectComponent_Conditional_13_For_3_ng_template_1_Template(rf, ctx) {
   if (rf & 1) {
-    ɵɵelement(0, "span", 32);
+    ɵɵelement(0, "span", 30);
   }
   if (rf & 2) {
     const item_r10 = ɵɵnextContext().$implicit;
@@ -247,22 +247,22 @@ function NgSelectComponent_ng_dropdown_panel_13_div_2_ng_template_1_Template(rf,
     ɵɵproperty("ngItemLabel", item_r10.label)("escape", ctx_r3.escapeHTML);
   }
 }
-function NgSelectComponent_ng_dropdown_panel_13_div_2_ng_template_3_Template(rf, ctx) {
+function NgSelectComponent_Conditional_13_For_3_ng_template_3_Template(rf, ctx) {
 }
-function NgSelectComponent_ng_dropdown_panel_13_div_2_Template(rf, ctx) {
+function NgSelectComponent_Conditional_13_For_3_Template(rf, ctx) {
   if (rf & 1) {
     const _r9 = ɵɵgetCurrentView();
-    ɵɵelementStart(0, "div", 31);
-    ɵɵlistener("click", function NgSelectComponent_ng_dropdown_panel_13_div_2_Template_div_click_0_listener() {
+    ɵɵelementStart(0, "div", 29);
+    ɵɵlistener("click", function NgSelectComponent_Conditional_13_For_3_Template_div_click_0_listener() {
       const item_r10 = ɵɵrestoreView(_r9).$implicit;
       const ctx_r3 = ɵɵnextContext(2);
       return ɵɵresetView(ctx_r3.toggleItem(item_r10));
-    })("mouseover", function NgSelectComponent_ng_dropdown_panel_13_div_2_Template_div_mouseover_0_listener() {
+    })("mouseover", function NgSelectComponent_Conditional_13_For_3_Template_div_mouseover_0_listener() {
       const item_r10 = ɵɵrestoreView(_r9).$implicit;
       const ctx_r3 = ɵɵnextContext(2);
       return ɵɵresetView(ctx_r3.onItemHover(item_r10));
     });
-    ɵɵtemplate(1, NgSelectComponent_ng_dropdown_panel_13_div_2_ng_template_1_Template, 1, 2, "ng-template", null, 4, ɵɵtemplateRefExtractor)(3, NgSelectComponent_ng_dropdown_panel_13_div_2_ng_template_3_Template, 0, 0, "ng-template", 21);
+    ɵɵtemplate(1, NgSelectComponent_Conditional_13_For_3_ng_template_1_Template, 1, 2, "ng-template", null, 4, ɵɵtemplateRefExtractor)(3, NgSelectComponent_Conditional_13_For_3_ng_template_3_Template, 0, 0, "ng-template", 12);
     ɵɵelementEnd();
   }
   if (rf & 2) {
@@ -275,9 +275,9 @@ function NgSelectComponent_ng_dropdown_panel_13_div_2_Template(rf, ctx) {
     ɵɵproperty("ngTemplateOutlet", item_r10.children ? ctx_r3.optgroupTemplate || defaultOptionTemplate_r11 : ctx_r3.optionTemplate || defaultOptionTemplate_r11)("ngTemplateOutletContext", ɵɵpureFunction4(17, _c9, item_r10.value, item_r10, item_r10.index, ctx_r3.searchTerm));
   }
 }
-function NgSelectComponent_ng_dropdown_panel_13_div_3_ng_template_1_Template(rf, ctx) {
+function NgSelectComponent_Conditional_13_Conditional_4_ng_template_1_Template(rf, ctx) {
   if (rf & 1) {
-    ɵɵelementStart(0, "span")(1, "span", 34);
+    ɵɵelementStart(0, "span")(1, "span", 32);
     ɵɵtext(2);
     ɵɵelementEnd();
     ɵɵtext(3);
@@ -291,22 +291,22 @@ function NgSelectComponent_ng_dropdown_panel_13_div_3_ng_template_1_Template(rf,
     ɵɵtextInterpolate1('"', ctx_r3.searchTerm, '"');
   }
 }
-function NgSelectComponent_ng_dropdown_panel_13_div_3_ng_template_3_Template(rf, ctx) {
+function NgSelectComponent_Conditional_13_Conditional_4_ng_template_3_Template(rf, ctx) {
 }
-function NgSelectComponent_ng_dropdown_panel_13_div_3_Template(rf, ctx) {
+function NgSelectComponent_Conditional_13_Conditional_4_Template(rf, ctx) {
   if (rf & 1) {
     const _r12 = ɵɵgetCurrentView();
-    ɵɵelementStart(0, "div", 33);
-    ɵɵlistener("mouseover", function NgSelectComponent_ng_dropdown_panel_13_div_3_Template_div_mouseover_0_listener() {
+    ɵɵelementStart(0, "div", 31);
+    ɵɵlistener("mouseover", function NgSelectComponent_Conditional_13_Conditional_4_Template_div_mouseover_0_listener() {
       ɵɵrestoreView(_r12);
       const ctx_r3 = ɵɵnextContext(2);
       return ɵɵresetView(ctx_r3.itemsList.unmarkItem());
-    })("click", function NgSelectComponent_ng_dropdown_panel_13_div_3_Template_div_click_0_listener() {
+    })("click", function NgSelectComponent_Conditional_13_Conditional_4_Template_div_click_0_listener() {
       ɵɵrestoreView(_r12);
       const ctx_r3 = ɵɵnextContext(2);
       return ɵɵresetView(ctx_r3.selectTag());
     });
-    ɵɵtemplate(1, NgSelectComponent_ng_dropdown_panel_13_div_3_ng_template_1_Template, 4, 2, "ng-template", null, 5, ɵɵtemplateRefExtractor)(3, NgSelectComponent_ng_dropdown_panel_13_div_3_ng_template_3_Template, 0, 0, "ng-template", 21);
+    ɵɵtemplate(1, NgSelectComponent_Conditional_13_Conditional_4_ng_template_1_Template, 4, 2, "ng-template", null, 5, ɵɵtemplateRefExtractor)(3, NgSelectComponent_Conditional_13_Conditional_4_ng_template_3_Template, 0, 0, "ng-template", 12);
     ɵɵelementEnd();
   }
   if (rf & 2) {
@@ -317,9 +317,9 @@ function NgSelectComponent_ng_dropdown_panel_13_div_3_Template(rf, ctx) {
     ɵɵproperty("ngTemplateOutlet", ctx_r3.tagTemplate || defaultTagTemplate_r13)("ngTemplateOutletContext", ɵɵpureFunction1(4, _c4, ctx_r3.searchTerm));
   }
 }
-function NgSelectComponent_ng_dropdown_panel_13_ng_container_4_ng_template_1_Template(rf, ctx) {
+function NgSelectComponent_Conditional_13_Conditional_5_ng_template_0_Template(rf, ctx) {
   if (rf & 1) {
-    ɵɵelementStart(0, "div", 35);
+    ɵɵelementStart(0, "div", 33);
     ɵɵtext(1);
     ɵɵelementEnd();
   }
@@ -329,24 +329,22 @@ function NgSelectComponent_ng_dropdown_panel_13_ng_container_4_ng_template_1_Tem
     ɵɵtextInterpolate(ctx_r3.notFoundText);
   }
 }
-function NgSelectComponent_ng_dropdown_panel_13_ng_container_4_ng_template_3_Template(rf, ctx) {
+function NgSelectComponent_Conditional_13_Conditional_5_ng_template_2_Template(rf, ctx) {
 }
-function NgSelectComponent_ng_dropdown_panel_13_ng_container_4_Template(rf, ctx) {
+function NgSelectComponent_Conditional_13_Conditional_5_Template(rf, ctx) {
   if (rf & 1) {
-    ɵɵelementContainerStart(0);
-    ɵɵtemplate(1, NgSelectComponent_ng_dropdown_panel_13_ng_container_4_ng_template_1_Template, 2, 1, "ng-template", null, 6, ɵɵtemplateRefExtractor)(3, NgSelectComponent_ng_dropdown_panel_13_ng_container_4_ng_template_3_Template, 0, 0, "ng-template", 21);
-    ɵɵelementContainerEnd();
+    ɵɵtemplate(0, NgSelectComponent_Conditional_13_Conditional_5_ng_template_0_Template, 2, 1, "ng-template", null, 6, ɵɵtemplateRefExtractor)(2, NgSelectComponent_Conditional_13_Conditional_5_ng_template_2_Template, 0, 0, "ng-template", 12);
   }
   if (rf & 2) {
-    const defaultNotFoundTemplate_r14 = ɵɵreference(2);
+    const defaultNotFoundTemplate_r14 = ɵɵreference(1);
     const ctx_r3 = ɵɵnextContext(2);
-    ɵɵadvance(3);
+    ɵɵadvance(2);
     ɵɵproperty("ngTemplateOutlet", ctx_r3.notFoundTemplate || defaultNotFoundTemplate_r14)("ngTemplateOutletContext", ɵɵpureFunction1(2, _c4, ctx_r3.searchTerm));
   }
 }
-function NgSelectComponent_ng_dropdown_panel_13_ng_container_5_ng_template_1_Template(rf, ctx) {
+function NgSelectComponent_Conditional_13_Conditional_6_ng_template_0_Template(rf, ctx) {
   if (rf & 1) {
-    ɵɵelementStart(0, "div", 35);
+    ɵɵelementStart(0, "div", 33);
     ɵɵtext(1);
     ɵɵelementEnd();
   }
@@ -356,24 +354,22 @@ function NgSelectComponent_ng_dropdown_panel_13_ng_container_5_ng_template_1_Tem
     ɵɵtextInterpolate(ctx_r3.typeToSearchText);
   }
 }
-function NgSelectComponent_ng_dropdown_panel_13_ng_container_5_ng_template_3_Template(rf, ctx) {
+function NgSelectComponent_Conditional_13_Conditional_6_ng_template_2_Template(rf, ctx) {
 }
-function NgSelectComponent_ng_dropdown_panel_13_ng_container_5_Template(rf, ctx) {
+function NgSelectComponent_Conditional_13_Conditional_6_Template(rf, ctx) {
   if (rf & 1) {
-    ɵɵelementContainerStart(0);
-    ɵɵtemplate(1, NgSelectComponent_ng_dropdown_panel_13_ng_container_5_ng_template_1_Template, 2, 1, "ng-template", null, 7, ɵɵtemplateRefExtractor)(3, NgSelectComponent_ng_dropdown_panel_13_ng_container_5_ng_template_3_Template, 0, 0, "ng-template", 24);
-    ɵɵelementContainerEnd();
+    ɵɵtemplate(0, NgSelectComponent_Conditional_13_Conditional_6_ng_template_0_Template, 2, 1, "ng-template", null, 7, ɵɵtemplateRefExtractor)(2, NgSelectComponent_Conditional_13_Conditional_6_ng_template_2_Template, 0, 0, "ng-template", 23);
   }
   if (rf & 2) {
-    const defaultTypeToSearchTemplate_r15 = ɵɵreference(2);
+    const defaultTypeToSearchTemplate_r15 = ɵɵreference(1);
     const ctx_r3 = ɵɵnextContext(2);
-    ɵɵadvance(3);
+    ɵɵadvance(2);
     ɵɵproperty("ngTemplateOutlet", ctx_r3.typeToSearchTemplate || defaultTypeToSearchTemplate_r15);
   }
 }
-function NgSelectComponent_ng_dropdown_panel_13_ng_container_6_ng_template_1_Template(rf, ctx) {
+function NgSelectComponent_Conditional_13_Conditional_7_ng_template_0_Template(rf, ctx) {
   if (rf & 1) {
-    ɵɵelementStart(0, "div", 35);
+    ɵɵelementStart(0, "div", 33);
     ɵɵtext(1);
     ɵɵelementEnd();
   }
@@ -383,46 +379,45 @@ function NgSelectComponent_ng_dropdown_panel_13_ng_container_6_ng_template_1_Tem
     ɵɵtextInterpolate(ctx_r3.loadingText);
   }
 }
-function NgSelectComponent_ng_dropdown_panel_13_ng_container_6_ng_template_3_Template(rf, ctx) {
+function NgSelectComponent_Conditional_13_Conditional_7_ng_template_2_Template(rf, ctx) {
 }
-function NgSelectComponent_ng_dropdown_panel_13_ng_container_6_Template(rf, ctx) {
+function NgSelectComponent_Conditional_13_Conditional_7_Template(rf, ctx) {
   if (rf & 1) {
-    ɵɵelementContainerStart(0);
-    ɵɵtemplate(1, NgSelectComponent_ng_dropdown_panel_13_ng_container_6_ng_template_1_Template, 2, 1, "ng-template", null, 8, ɵɵtemplateRefExtractor)(3, NgSelectComponent_ng_dropdown_panel_13_ng_container_6_ng_template_3_Template, 0, 0, "ng-template", 21);
-    ɵɵelementContainerEnd();
+    ɵɵtemplate(0, NgSelectComponent_Conditional_13_Conditional_7_ng_template_0_Template, 2, 1, "ng-template", null, 8, ɵɵtemplateRefExtractor)(2, NgSelectComponent_Conditional_13_Conditional_7_ng_template_2_Template, 0, 0, "ng-template", 12);
   }
   if (rf & 2) {
-    const defaultLoadingTextTemplate_r16 = ɵɵreference(2);
+    const defaultLoadingTextTemplate_r16 = ɵɵreference(1);
     const ctx_r3 = ɵɵnextContext(2);
-    ɵɵadvance(3);
+    ɵɵadvance(2);
     ɵɵproperty("ngTemplateOutlet", ctx_r3.loadingTextTemplate || defaultLoadingTextTemplate_r16)("ngTemplateOutletContext", ɵɵpureFunction1(2, _c4, ctx_r3.searchTerm));
   }
 }
-function NgSelectComponent_ng_dropdown_panel_13_Template(rf, ctx) {
+function NgSelectComponent_Conditional_13_Template(rf, ctx) {
   if (rf & 1) {
     const _r8 = ɵɵgetCurrentView();
-    ɵɵelementStart(0, "ng-dropdown-panel", 28);
-    ɵɵlistener("update", function NgSelectComponent_ng_dropdown_panel_13_Template_ng_dropdown_panel_update_0_listener($event) {
+    ɵɵelementStart(0, "ng-dropdown-panel", 26);
+    ɵɵlistener("update", function NgSelectComponent_Conditional_13_Template_ng_dropdown_panel_update_0_listener($event) {
       ɵɵrestoreView(_r8);
       const ctx_r3 = ɵɵnextContext();
       return ɵɵresetView(ctx_r3.viewPortItems = $event);
-    })("scroll", function NgSelectComponent_ng_dropdown_panel_13_Template_ng_dropdown_panel_scroll_0_listener($event) {
+    })("scroll", function NgSelectComponent_Conditional_13_Template_ng_dropdown_panel_scroll_0_listener($event) {
       ɵɵrestoreView(_r8);
       const ctx_r3 = ɵɵnextContext();
       return ɵɵresetView(ctx_r3.scroll.emit($event));
-    })("scrollToEnd", function NgSelectComponent_ng_dropdown_panel_13_Template_ng_dropdown_panel_scrollToEnd_0_listener($event) {
+    })("scrollToEnd", function NgSelectComponent_Conditional_13_Template_ng_dropdown_panel_scrollToEnd_0_listener($event) {
       ɵɵrestoreView(_r8);
       const ctx_r3 = ɵɵnextContext();
       return ɵɵresetView(ctx_r3.scrollToEnd.emit($event));
-    })("outsideClick", function NgSelectComponent_ng_dropdown_panel_13_Template_ng_dropdown_panel_outsideClick_0_listener() {
+    })("outsideClick", function NgSelectComponent_Conditional_13_Template_ng_dropdown_panel_outsideClick_0_listener() {
       ɵɵrestoreView(_r8);
       const ctx_r3 = ɵɵnextContext();
       return ɵɵresetView(ctx_r3.close());
     });
     ɵɵelementContainerStart(1);
-    ɵɵtemplate(2, NgSelectComponent_ng_dropdown_panel_13_div_2_Template, 4, 22, "div", 29)(3, NgSelectComponent_ng_dropdown_panel_13_div_3_Template, 4, 6, "div", 30);
+    ɵɵrepeaterCreate(2, NgSelectComponent_Conditional_13_For_3_Template, 4, 22, "div", 27, ɵɵcomponentInstance().trackByOption, true);
+    ɵɵtemplate(4, NgSelectComponent_Conditional_13_Conditional_4_Template, 4, 6, "div", 28);
     ɵɵelementContainerEnd();
-    ɵɵtemplate(4, NgSelectComponent_ng_dropdown_panel_13_ng_container_4_Template, 4, 4, "ng-container", 12)(5, NgSelectComponent_ng_dropdown_panel_13_ng_container_5_Template, 4, 1, "ng-container", 12)(6, NgSelectComponent_ng_dropdown_panel_13_ng_container_6_Template, 4, 4, "ng-container", 12);
+    ɵɵtemplate(5, NgSelectComponent_Conditional_13_Conditional_5_Template, 3, 4)(6, NgSelectComponent_Conditional_13_Conditional_6_Template, 3, 1)(7, NgSelectComponent_Conditional_13_Conditional_7_Template, 3, 4);
     ɵɵelementEnd();
   }
   if (rf & 2) {
@@ -430,15 +425,15 @@ function NgSelectComponent_ng_dropdown_panel_13_Template(rf, ctx) {
     ɵɵclassProp("ng-select-multiple", ctx_r3.multiple);
     ɵɵproperty("virtualScroll", ctx_r3.virtualScroll)("bufferAmount", ctx_r3.bufferAmount)("appendTo", ctx_r3.appendTo)("position", ctx_r3.dropdownPosition)("headerTemplate", ctx_r3.headerTemplate)("footerTemplate", ctx_r3.footerTemplate)("filterValue", ctx_r3.searchTerm)("items", ctx_r3.itemsList.filteredItems)("markedItem", ctx_r3.itemsList.markedItem)("ngClass", ctx_r3.appendTo ? ctx_r3.classes : null)("id", ctx_r3.dropdownId);
     ɵɵadvance(2);
-    ɵɵproperty("ngForOf", ctx_r3.viewPortItems)("ngForTrackBy", ctx_r3.trackByOption);
+    ɵɵrepeater(ctx_r3.viewPortItems);
+    ɵɵadvance(2);
+    ɵɵconditional(ctx_r3.showAddTag ? 4 : -1);
     ɵɵadvance();
-    ɵɵproperty("ngIf", ctx_r3.showAddTag);
+    ɵɵconditional(ctx_r3.showNoItemsFound() ? 5 : -1);
     ɵɵadvance();
-    ɵɵproperty("ngIf", ctx_r3.showNoItemsFound());
+    ɵɵconditional(ctx_r3.showTypeToSearch() ? 6 : -1);
     ɵɵadvance();
-    ɵɵproperty("ngIf", ctx_r3.showTypeToSearch());
-    ɵɵadvance();
-    ɵɵproperty("ngIf", ctx_r3.loading && ctx_r3.itemsList.filteredItems.length === 0);
+    ɵɵconditional(ctx_r3.loading && ctx_r3.itemsList.filteredItems.length === 0 ? 7 : -1);
   }
 }
 var unescapedHTMLExp = /[&<>"']/g;
@@ -2376,7 +2371,7 @@ _NgDropdownPanelComponent.ɵcmp = ɵɵdefineComponent({
     position: "position",
     appendTo: "appendTo",
     bufferAmount: "bufferAmount",
-    virtualScroll: "virtualScroll",
+    virtualScroll: [2, "virtualScroll", "virtualScroll", booleanAttribute],
     headerTemplate: "headerTemplate",
     footerTemplate: "footerTemplate",
     filterValue: "filterValue"
@@ -2387,33 +2382,33 @@ _NgDropdownPanelComponent.ɵcmp = ɵɵdefineComponent({
     scrollToEnd: "scrollToEnd",
     outsideClick: "outsideClick"
   },
-  features: [ɵɵNgOnChangesFeature],
+  features: [ɵɵInputTransformsFeature, ɵɵNgOnChangesFeature],
   ngContentSelectors: _c3,
   decls: 9,
   vars: 6,
-  consts: [["scroll", ""], ["padding", ""], ["content", ""], ["class", "ng-dropdown-header", 4, "ngIf"], ["role", "listbox", 1, "ng-dropdown-panel-items", "scroll-host"], ["class", "ng-dropdown-footer", 4, "ngIf"], [1, "ng-dropdown-header"], [3, "ngTemplateOutlet", "ngTemplateOutletContext"], [1, "ng-dropdown-footer"]],
+  consts: [["scroll", ""], ["padding", ""], ["content", ""], [1, "ng-dropdown-header"], ["role", "listbox", 1, "ng-dropdown-panel-items", "scroll-host"], [1, "ng-dropdown-footer"], [3, "ngTemplateOutlet", "ngTemplateOutletContext"]],
   template: function NgDropdownPanelComponent_Template(rf, ctx) {
     if (rf & 1) {
       ɵɵprojectionDef();
-      ɵɵtemplate(0, NgDropdownPanelComponent_div_0_Template, 2, 4, "div", 3);
+      ɵɵtemplate(0, NgDropdownPanelComponent_Conditional_0_Template, 2, 4, "div", 3);
       ɵɵelementStart(1, "div", 4, 0);
       ɵɵelement(3, "div", null, 1);
       ɵɵelementStart(5, "div", null, 2);
       ɵɵprojection(7);
       ɵɵelementEnd()();
-      ɵɵtemplate(8, NgDropdownPanelComponent_div_8_Template, 2, 4, "div", 5);
+      ɵɵtemplate(8, NgDropdownPanelComponent_Conditional_8_Template, 2, 4, "div", 5);
     }
     if (rf & 2) {
-      ɵɵproperty("ngIf", ctx.headerTemplate);
+      ɵɵconditional(ctx.headerTemplate ? 0 : -1);
       ɵɵadvance(3);
       ɵɵclassProp("total-padding", ctx.virtualScroll);
       ɵɵadvance(2);
       ɵɵclassProp("scrollable-content", ctx.virtualScroll && ctx.items.length);
       ɵɵadvance(3);
-      ɵɵproperty("ngIf", ctx.footerTemplate);
+      ɵɵconditional(ctx.footerTemplate ? 8 : -1);
     }
   },
-  dependencies: [NgIf, NgTemplateOutlet],
+  dependencies: [NgTemplateOutlet],
   encapsulation: 2,
   changeDetection: 0
 });
@@ -2426,18 +2421,22 @@ var NgDropdownPanelComponent = _NgDropdownPanelComponent;
       encapsulation: ViewEncapsulation$1.None,
       selector: "ng-dropdown-panel",
       template: `
-        <div *ngIf="headerTemplate" class="ng-dropdown-header">
+        @if (headerTemplate) {
+          <div class="ng-dropdown-header">
             <ng-container [ngTemplateOutlet]="headerTemplate" [ngTemplateOutletContext]="{ searchTerm: filterValue }"></ng-container>
-        </div>
+          </div>
+        }
         <div #scroll role="listbox" class="ng-dropdown-panel-items scroll-host">
             <div #padding [class.total-padding]="virtualScroll"></div>
             <div #content [class.scrollable-content]="virtualScroll && items.length">
                 <ng-content></ng-content>
             </div>
         </div>
-        <div *ngIf="footerTemplate" class="ng-dropdown-footer">
+        @if (footerTemplate) {
+          <div class="ng-dropdown-footer">
             <ng-container [ngTemplateOutlet]="footerTemplate" [ngTemplateOutletContext]="{ searchTerm: filterValue }"></ng-container>
-        </div>
+          </div>
+        }
     `
     }]
   }], () => [{
@@ -2473,7 +2472,10 @@ var NgDropdownPanelComponent = _NgDropdownPanelComponent;
       type: Input
     }],
     virtualScroll: [{
-      type: Input
+      type: Input,
+      args: [{
+        transform: booleanAttribute
+      }]
     }],
     headerTemplate: [{
       type: Input
@@ -2520,16 +2522,10 @@ var NgDropdownPanelComponent = _NgDropdownPanelComponent;
   });
 })();
 var _NgOptionComponent = class _NgOptionComponent {
-  get disabled() {
-    return this._disabled;
-  }
-  set disabled(value) {
-    this._disabled = this._isDisabled(value);
-  }
   constructor(elementRef) {
     this.elementRef = elementRef;
+    this.disabled = false;
     this.stateChange$ = new Subject();
-    this._disabled = false;
   }
   get label() {
     return (this.elementRef.nativeElement.textContent || "").trim();
@@ -2538,7 +2534,7 @@ var _NgOptionComponent = class _NgOptionComponent {
     if (changes.disabled) {
       this.stateChange$.next({
         value: this.value,
-        disabled: this._disabled
+        disabled: this.disabled
       });
     }
   }
@@ -2547,16 +2543,13 @@ var _NgOptionComponent = class _NgOptionComponent {
       this._previousLabel = this.label;
       this.stateChange$.next({
         value: this.value,
-        disabled: this._disabled,
+        disabled: this.disabled,
         label: this.elementRef.nativeElement.innerHTML
       });
     }
   }
   ngOnDestroy() {
     this.stateChange$.complete();
-  }
-  _isDisabled(value) {
-    return value != null && `${value}` !== "false";
   }
 };
 _NgOptionComponent.ɵfac = function NgOptionComponent_Factory(t) {
@@ -2567,9 +2560,9 @@ _NgOptionComponent.ɵcmp = ɵɵdefineComponent({
   selectors: [["ng-option"]],
   inputs: {
     value: "value",
-    disabled: "disabled"
+    disabled: [2, "disabled", "disabled", booleanAttribute]
   },
-  features: [ɵɵNgOnChangesFeature],
+  features: [ɵɵInputTransformsFeature, ɵɵNgOnChangesFeature],
   ngContentSelectors: _c3,
   decls: 1,
   vars: 0,
@@ -2598,7 +2591,10 @@ var NgOptionComponent = _NgOptionComponent;
       type: Input
     }],
     disabled: [{
-      type: Input
+      type: Input,
+      args: [{
+        transform: booleanAttribute
+      }]
     }]
   });
 })();
@@ -3306,7 +3302,7 @@ var _NgSelectComponent = class _NgSelectComponent {
   }
   _handleTab($event) {
     if (this.isOpen === false) {
-      if (this.showClear()) {
+      if (this.showClear() && !$event.shiftKey) {
         this.focusOnClear();
         $event.preventDefault();
       } else if (!this.addTag) {
@@ -3472,7 +3468,7 @@ _NgSelectComponent.ɵcmp = ɵɵdefineComponent({
   inputs: {
     bindLabel: "bindLabel",
     bindValue: "bindValue",
-    markFirst: "markFirst",
+    markFirst: [2, "markFirst", "markFirst", booleanAttribute],
     placeholder: "placeholder",
     notFoundText: "notFoundText",
     typeToSearchText: "typeToSearchText",
@@ -3482,35 +3478,35 @@ _NgSelectComponent.ɵcmp = ɵɵdefineComponent({
     appearance: "appearance",
     dropdownPosition: "dropdownPosition",
     appendTo: "appendTo",
-    loading: "loading",
-    closeOnSelect: "closeOnSelect",
-    hideSelected: "hideSelected",
-    selectOnTab: "selectOnTab",
-    openOnEnter: "openOnEnter",
-    maxSelectedItems: "maxSelectedItems",
+    loading: [2, "loading", "loading", booleanAttribute],
+    closeOnSelect: [2, "closeOnSelect", "closeOnSelect", booleanAttribute],
+    hideSelected: [2, "hideSelected", "hideSelected", booleanAttribute],
+    selectOnTab: [2, "selectOnTab", "selectOnTab", booleanAttribute],
+    openOnEnter: [2, "openOnEnter", "openOnEnter", booleanAttribute],
+    maxSelectedItems: [2, "maxSelectedItems", "maxSelectedItems", numberAttribute],
     groupBy: "groupBy",
     groupValue: "groupValue",
-    bufferAmount: "bufferAmount",
-    virtualScroll: "virtualScroll",
-    selectableGroup: "selectableGroup",
-    selectableGroupAsModel: "selectableGroupAsModel",
+    bufferAmount: [2, "bufferAmount", "bufferAmount", numberAttribute],
+    virtualScroll: [2, "virtualScroll", "virtualScroll", booleanAttribute],
+    selectableGroup: [2, "selectableGroup", "selectableGroup", booleanAttribute],
+    selectableGroupAsModel: [2, "selectableGroupAsModel", "selectableGroupAsModel", booleanAttribute],
     searchFn: "searchFn",
     trackByFn: "trackByFn",
-    clearOnBackspace: "clearOnBackspace",
+    clearOnBackspace: [2, "clearOnBackspace", "clearOnBackspace", booleanAttribute],
     labelForId: "labelForId",
     inputAttrs: "inputAttrs",
-    tabIndex: "tabIndex",
-    readonly: "readonly",
-    searchWhileComposing: "searchWhileComposing",
-    minTermLength: "minTermLength",
-    editableSearchTerm: "editableSearchTerm",
+    tabIndex: [2, "tabIndex", "tabIndex", numberAttribute],
+    readonly: [2, "readonly", "readonly", booleanAttribute],
+    searchWhileComposing: [2, "searchWhileComposing", "searchWhileComposing", booleanAttribute],
+    minTermLength: [2, "minTermLength", "minTermLength", numberAttribute],
+    editableSearchTerm: [2, "editableSearchTerm", "editableSearchTerm", booleanAttribute],
     keyDownFn: "keyDownFn",
     typeahead: "typeahead",
-    multiple: "multiple",
+    multiple: [2, "multiple", "multiple", booleanAttribute],
     addTag: "addTag",
-    searchable: "searchable",
-    clearable: "clearable",
-    isOpen: "isOpen",
+    searchable: [2, "searchable", "searchable", booleanAttribute],
+    clearable: [2, "clearable", "clearable", booleanAttribute],
+    isOpen: [2, "isOpen", "isOpen", booleanAttribute],
     items: "items",
     compareWith: "compareWith",
     clearSearchOnAdd: "clearSearchOnAdd",
@@ -3533,10 +3529,10 @@ _NgSelectComponent.ɵcmp = ɵɵdefineComponent({
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => _NgSelectComponent),
     multi: true
-  }, NgDropdownPanelService]), ɵɵNgOnChangesFeature],
+  }, NgDropdownPanelService]), ɵɵInputTransformsFeature, ɵɵNgOnChangesFeature],
   decls: 14,
   vars: 19,
-  consts: [["searchInput", ""], ["defaultLabelTemplate", ""], ["defaultLoadingSpinnerTemplate", ""], ["clearButton", ""], ["defaultOptionTemplate", ""], ["defaultTagTemplate", ""], ["defaultNotFoundTemplate", ""], ["defaultTypeToSearchTemplate", ""], ["defaultLoadingTextTemplate", ""], [1, "ng-select-container", 3, "mousedown"], [1, "ng-value-container"], [1, "ng-placeholder"], [4, "ngIf"], ["role", "combobox", "aria-haspopup", "listbox", 1, "ng-input"], ["aria-autocomplete", "list", 3, "input", "compositionstart", "compositionend", "focus", "blur", "change", "readOnly", "disabled", "value"], ["class", "ng-clear-wrapper", "tabindex", "0", 3, "title", 4, "ngIf"], [1, "ng-arrow-wrapper"], [1, "ng-arrow"], ["class", "ng-dropdown-panel", "role", "listbox", "aria-label", "Options list", 3, "virtualScroll", "bufferAmount", "appendTo", "position", "headerTemplate", "footerTemplate", "filterValue", "items", "markedItem", "ng-select-multiple", "ngClass", "id", "update", "scroll", "scrollToEnd", "outsideClick", 4, "ngIf"], ["class", "ng-value", 3, "ng-value-disabled", 4, "ngFor", "ngForOf", "ngForTrackBy"], [1, "ng-value"], [3, "ngTemplateOutlet", "ngTemplateOutletContext"], ["aria-hidden", "true", 1, "ng-value-icon", "left", 3, "click"], [1, "ng-value-label", 3, "ngItemLabel", "escape"], [3, "ngTemplateOutlet"], [1, "ng-spinner-loader"], ["tabindex", "0", 1, "ng-clear-wrapper", 3, "title"], ["aria-hidden", "true", 1, "ng-clear"], ["role", "listbox", "aria-label", "Options list", 1, "ng-dropdown-panel", 3, "update", "scroll", "scrollToEnd", "outsideClick", "virtualScroll", "bufferAmount", "appendTo", "position", "headerTemplate", "footerTemplate", "filterValue", "items", "markedItem", "ngClass", "id"], ["class", "ng-option", 3, "ng-option-disabled", "ng-option-selected", "ng-optgroup", "ng-option", "ng-option-child", "ng-option-marked", "click", "mouseover", 4, "ngFor", "ngForOf", "ngForTrackBy"], ["class", "ng-option", "role", "option", 3, "ng-option-marked", "mouseover", "click", 4, "ngIf"], [1, "ng-option", 3, "click", "mouseover"], [1, "ng-option-label", 3, "ngItemLabel", "escape"], ["role", "option", 1, "ng-option", 3, "mouseover", "click"], [1, "ng-tag-label"], [1, "ng-option", "ng-option-disabled"]],
+  consts: [["searchInput", ""], ["defaultLabelTemplate", ""], ["defaultLoadingSpinnerTemplate", ""], ["clearButton", ""], ["defaultOptionTemplate", ""], ["defaultTagTemplate", ""], ["defaultNotFoundTemplate", ""], ["defaultTypeToSearchTemplate", ""], ["defaultLoadingTextTemplate", ""], [1, "ng-select-container", 3, "mousedown"], [1, "ng-value-container"], [1, "ng-placeholder"], [3, "ngTemplateOutlet", "ngTemplateOutletContext"], ["role", "combobox", "aria-haspopup", "listbox", 1, "ng-input"], ["aria-autocomplete", "list", 3, "input", "compositionstart", "compositionend", "focus", "blur", "change", "readOnly", "disabled", "value"], ["tabindex", "0", 1, "ng-clear-wrapper", 3, "title"], [1, "ng-arrow-wrapper"], [1, "ng-arrow"], ["role", "listbox", "aria-label", "Options list", 1, "ng-dropdown-panel", 3, "virtualScroll", "bufferAmount", "appendTo", "position", "headerTemplate", "footerTemplate", "filterValue", "items", "markedItem", "ng-select-multiple", "ngClass", "id"], [1, "ng-value", 3, "ng-value-disabled"], [1, "ng-value"], ["aria-hidden", "true", 1, "ng-value-icon", "left", 3, "click"], [1, "ng-value-label", 3, "ngItemLabel", "escape"], [3, "ngTemplateOutlet"], [1, "ng-spinner-loader"], ["aria-hidden", "true", 1, "ng-clear"], ["role", "listbox", "aria-label", "Options list", 1, "ng-dropdown-panel", 3, "update", "scroll", "scrollToEnd", "outsideClick", "virtualScroll", "bufferAmount", "appendTo", "position", "headerTemplate", "footerTemplate", "filterValue", "items", "markedItem", "ngClass", "id"], [1, "ng-option", 3, "ng-option-disabled", "ng-option-selected", "ng-optgroup", "ng-option", "ng-option-child", "ng-option-marked"], ["role", "option", 1, "ng-option", 3, "ng-option-marked"], [1, "ng-option", 3, "click", "mouseover"], [1, "ng-option-label", 3, "ngItemLabel", "escape"], ["role", "option", 1, "ng-option", 3, "mouseover", "click"], [1, "ng-tag-label"], [1, "ng-option", "ng-option-disabled"]],
   template: function NgSelectComponent_Template(rf, ctx) {
     if (rf & 1) {
       const _r1 = ɵɵgetCurrentView();
@@ -3548,7 +3544,7 @@ _NgSelectComponent.ɵcmp = ɵɵdefineComponent({
       ɵɵelementStart(1, "div", 10)(2, "div", 11);
       ɵɵtext(3);
       ɵɵelementEnd();
-      ɵɵtemplate(4, NgSelectComponent_ng_container_4_Template, 2, 2, "ng-container", 12)(5, NgSelectComponent_5_Template, 1, 5, null, 12);
+      ɵɵtemplate(4, NgSelectComponent_Conditional_4_Template, 2, 0)(5, NgSelectComponent_Conditional_5_Template, 1, 5, null, 12);
       ɵɵelementStart(6, "div", 13)(7, "input", 14, 0);
       ɵɵlistener("input", function NgSelectComponent_Template_input_input_7_listener() {
         ɵɵrestoreView(_r1);
@@ -3572,34 +3568,34 @@ _NgSelectComponent.ɵcmp = ɵɵdefineComponent({
         return ɵɵresetView($event.stopPropagation());
       });
       ɵɵelementEnd()()();
-      ɵɵtemplate(9, NgSelectComponent_ng_container_9_Template, 4, 1, "ng-container", 12)(10, NgSelectComponent_span_10_Template, 4, 1, "span", 15);
+      ɵɵtemplate(9, NgSelectComponent_Conditional_9_Template, 3, 1)(10, NgSelectComponent_Conditional_10_Template, 4, 1, "span", 15);
       ɵɵelementStart(11, "span", 16);
       ɵɵelement(12, "span", 17);
       ɵɵelementEnd()();
-      ɵɵtemplate(13, NgSelectComponent_ng_dropdown_panel_13_Template, 7, 19, "ng-dropdown-panel", 18);
+      ɵɵtemplate(13, NgSelectComponent_Conditional_13_Template, 8, 17, "ng-dropdown-panel", 18);
     }
     if (rf & 2) {
       ɵɵclassProp("ng-appearance-outline", ctx.appearance === "outline")("ng-has-value", ctx.hasValue);
       ɵɵadvance(3);
       ɵɵtextInterpolate(ctx.placeholder);
       ɵɵadvance();
-      ɵɵproperty("ngIf", (!ctx.multiLabelTemplate || !ctx.multiple) && ctx.selectedItems.length > 0);
+      ɵɵconditional((!ctx.multiLabelTemplate || !ctx.multiple) && ctx.selectedItems.length > 0 ? 4 : -1);
       ɵɵadvance();
-      ɵɵproperty("ngIf", ctx.multiple && ctx.multiLabelTemplate && ctx.selectedValues.length > 0);
+      ɵɵconditional(ctx.multiple && ctx.multiLabelTemplate && ctx.selectedValues.length > 0 ? 5 : -1);
       ɵɵadvance();
       ɵɵattribute("aria-expanded", ctx.isOpen)("aria-owns", ctx.isOpen ? ctx.dropdownId : null);
       ɵɵadvance();
       ɵɵproperty("readOnly", !ctx.searchable || ctx.itemsList.maxItemsSelected)("disabled", ctx.disabled)("value", ctx.searchTerm ? ctx.searchTerm : "");
       ɵɵattribute("id", ctx.labelForId)("tabindex", ctx.tabIndex)("aria-activedescendant", ctx.isOpen ? ctx.itemsList == null ? null : ctx.itemsList.markedItem == null ? null : ctx.itemsList.markedItem.htmlId : null)("aria-controls", ctx.isOpen ? ctx.dropdownId : null);
       ɵɵadvance(2);
-      ɵɵproperty("ngIf", ctx.loading);
+      ɵɵconditional(ctx.loading ? 9 : -1);
       ɵɵadvance();
-      ɵɵproperty("ngIf", ctx.showClear());
+      ɵɵconditional(ctx.showClear() ? 10 : -1);
       ɵɵadvance(3);
-      ɵɵproperty("ngIf", ctx.isOpen);
+      ɵɵconditional(ctx.isOpen ? 13 : -1);
     }
   },
-  dependencies: [NgClass, NgForOf, NgIf, NgTemplateOutlet, NgDropdownPanelComponent, NgItemLabelDirective],
+  dependencies: [NgClass, NgTemplateOutlet, NgDropdownPanelComponent, NgItemLabelDirective],
   styles: ['@charset "UTF-8";.ng-select{position:relative;display:block;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}.ng-select div,.ng-select input,.ng-select span{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}.ng-select [hidden]{display:none}.ng-select.ng-select-searchable .ng-select-container .ng-value-container .ng-input{opacity:1}.ng-select.ng-select-opened .ng-select-container{z-index:1001}.ng-select.ng-select-disabled .ng-select-container .ng-value-container .ng-placeholder,.ng-select.ng-select-disabled .ng-select-container .ng-value-container .ng-value{-webkit-user-select:none;user-select:none;cursor:default}.ng-select.ng-select-disabled .ng-arrow-wrapper{cursor:default}.ng-select.ng-select-filtered .ng-placeholder{display:none}.ng-select .ng-select-container{cursor:default;display:flex;outline:none;overflow:hidden;position:relative;width:100%}.ng-select .ng-select-container .ng-value-container{display:flex;flex:1}.ng-select .ng-select-container .ng-value-container .ng-input{opacity:0}.ng-select .ng-select-container .ng-value-container .ng-input>input{box-sizing:content-box;background:none transparent;border:0 none;box-shadow:none;outline:none;padding:0;cursor:default;width:100%}.ng-select .ng-select-container .ng-value-container .ng-input>input::-ms-clear{display:none}.ng-select .ng-select-container .ng-value-container .ng-input>input[readonly]{-webkit-user-select:none;user-select:none;width:0;padding:0}.ng-select.ng-select-single.ng-select-filtered .ng-select-container .ng-value-container .ng-value{visibility:hidden}.ng-select.ng-select-single .ng-select-container .ng-value-container,.ng-select.ng-select-single .ng-select-container .ng-value-container .ng-value{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.ng-select.ng-select-single .ng-select-container .ng-value-container .ng-value .ng-value-icon{display:none}.ng-select.ng-select-single .ng-select-container .ng-value-container .ng-input{position:absolute;left:0;width:100%}.ng-select.ng-select-multiple.ng-select-disabled>.ng-select-container .ng-value-container .ng-value .ng-value-icon{display:none}.ng-select.ng-select-multiple .ng-select-container .ng-value-container{flex-wrap:wrap}.ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-placeholder{position:absolute}.ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value{white-space:nowrap}.ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value.ng-value-disabled .ng-value-icon{display:none}.ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value .ng-value-icon{cursor:pointer}.ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-input{flex:1;z-index:2}.ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-placeholder{z-index:1}.ng-select .ng-clear-wrapper{cursor:pointer;position:relative;width:17px;-webkit-user-select:none;user-select:none}.ng-select .ng-clear-wrapper .ng-clear{display:inline-block;font-size:18px;line-height:1;pointer-events:none}.ng-select .ng-spinner-loader{border-radius:50%;width:17px;height:17px;margin-right:5px;font-size:10px;position:relative;text-indent:-9999em;border-top:2px solid rgba(66,66,66,.2);border-right:2px solid rgba(66,66,66,.2);border-bottom:2px solid rgba(66,66,66,.2);border-left:2px solid #424242;transform:translateZ(0);animation:load8 .8s infinite linear}.ng-select .ng-spinner-loader:after{border-radius:50%;width:17px;height:17px}@-webkit-keyframes load8{0%{-webkit-transform:rotate(0deg);transform:rotate(0)}to{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}@keyframes load8{0%{-webkit-transform:rotate(0deg);transform:rotate(0)}to{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}.ng-select .ng-arrow-wrapper{cursor:pointer;position:relative;text-align:center;-webkit-user-select:none;user-select:none}.ng-select .ng-arrow-wrapper .ng-arrow{pointer-events:none;display:inline-block;height:0;width:0;position:relative}.ng-dropdown-panel{box-sizing:border-box;position:absolute;opacity:0;width:100%;z-index:1050;-webkit-overflow-scrolling:touch}.ng-dropdown-panel .ng-dropdown-panel-items{display:block;height:auto;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;max-height:240px;overflow-y:auto}.ng-dropdown-panel .ng-dropdown-panel-items .ng-optgroup{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.ng-dropdown-panel .ng-dropdown-panel-items .ng-option{box-sizing:border-box;cursor:pointer;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.ng-dropdown-panel .ng-dropdown-panel-items .ng-option .ng-option-label:empty:before{content:"\\200b"}.ng-dropdown-panel .ng-dropdown-panel-items .ng-option .highlighted{font-weight:700;text-decoration:underline}.ng-dropdown-panel .ng-dropdown-panel-items .ng-option.disabled{cursor:default}.ng-dropdown-panel .scroll-host{overflow:hidden;overflow-y:auto;position:relative;display:block;-webkit-overflow-scrolling:touch}.ng-dropdown-panel .scrollable-content{top:0;left:0;width:100%;height:100%;position:absolute}.ng-dropdown-panel .total-padding{width:1px;opacity:0}\n'],
   encapsulation: 2,
   changeDetection: 0
@@ -3624,26 +3620,29 @@ var NgSelectComponent = _NgSelectComponent;
     class="ng-select-container">
 
     <div class="ng-value-container">
-        <div class="ng-placeholder">{{placeholder}}</div>
+        <div class="ng-placeholder">{{ placeholder }}</div>
 
-        <ng-container *ngIf="(!multiLabelTemplate  || !multiple ) && selectedItems.length > 0">
-            <div [class.ng-value-disabled]="item.disabled" class="ng-value" *ngFor="let item of selectedItems; trackBy: trackByOption">
-                <ng-template #defaultLabelTemplate>
-                    <span class="ng-value-icon left" (click)="unselect(item);" aria-hidden="true">×</span>
-                    <span class="ng-value-label" [ngItemLabel]="item.label" [escape]="escapeHTML"></span>
-                </ng-template>
+        @if ((!multiLabelTemplate || !multiple) && selectedItems.length > 0) {
+            @for (item of selectedItems; track trackByOption($index, item)) {
+                <div [class.ng-value-disabled]="item.disabled" class="ng-value">
+                    <ng-template #defaultLabelTemplate>
+                        <span class="ng-value-icon left" (click)="unselect(item);" aria-hidden="true">×</span>
+                        <span class="ng-value-label" [ngItemLabel]="item.label" [escape]="escapeHTML"></span>
+                    </ng-template>
+                    <ng-template
+                        [ngTemplateOutlet]="labelTemplate || defaultLabelTemplate"
+                        [ngTemplateOutletContext]="{ item: item.value, clear: clearItem, label: item.label }">
+                    </ng-template>
+                </div>
+            }
+        }
 
-                <ng-template
-                    [ngTemplateOutlet]="labelTemplate || defaultLabelTemplate"
-                    [ngTemplateOutletContext]="{ item: item.value, clear: clearItem, label: item.label }">
-                </ng-template>
-            </div>
-        </ng-container>
-
-        <ng-template *ngIf="multiple && multiLabelTemplate && selectedValues.length > 0"
+        @if (multiple && multiLabelTemplate && selectedValues.length > 0) {
+            <ng-template
                 [ngTemplateOutlet]="multiLabelTemplate"
                 [ngTemplateOutletContext]="{ items: selectedValues, clear: clearItem }">
-        </ng-template>
+            </ng-template>
+        }
 
         <div class="ng-input"
             role="combobox" 
@@ -3669,113 +3668,109 @@ var NgSelectComponent = _NgSelectComponent;
         </div>
     </div>
 
-    <ng-container *ngIf="loading">
+    @if (loading) {
         <ng-template #defaultLoadingSpinnerTemplate>
             <div class="ng-spinner-loader"></div>
         </ng-template>
-
         <ng-template
             [ngTemplateOutlet]="loadingSpinnerTemplate || defaultLoadingSpinnerTemplate">
         </ng-template>
-    </ng-container>
+    }
 
-    <span *ngIf="showClear()" class="ng-clear-wrapper" tabindex="0" title="{{clearAllText}}" #clearButton>
-        <span class="ng-clear" aria-hidden="true">×</span>
-    </span>
+    @if (showClear()) {
+        <span class="ng-clear-wrapper" tabindex="0" title="{{clearAllText}}" #clearButton>
+            <span class="ng-clear" aria-hidden="true">×</span>
+        </span>
+    }
 
     <span class="ng-arrow-wrapper">
         <span class="ng-arrow"></span>
     </span>
 </div>
 
-<ng-dropdown-panel *ngIf="isOpen"
-                   class="ng-dropdown-panel"
-                   [virtualScroll]="virtualScroll"
-                   [bufferAmount]="bufferAmount"
-                   [appendTo]="appendTo"
-                   [position]="dropdownPosition"
-                   [headerTemplate]="headerTemplate"
-                   [footerTemplate]="footerTemplate"
-                   [filterValue]="searchTerm"
-                   [items]="itemsList.filteredItems"
-                   [markedItem]="itemsList.markedItem"
-                   (update)="viewPortItems = $event"
-                   (scroll)="scroll.emit($event)"
-                   (scrollToEnd)="scrollToEnd.emit($event)"
-                   (outsideClick)="close()"
-                   [class.ng-select-multiple]="multiple"
-                   [ngClass]="appendTo ? classes : null"
-                   [id]="dropdownId"
-                   role="listbox"
-                   aria-label="Options list">
-
-    <ng-container>
-        <div class="ng-option" [attr.role]="item.children ? 'group' : 'option'" (click)="toggleItem(item)" (mouseover)="onItemHover(item)"
-                *ngFor="let item of viewPortItems; trackBy: trackByOption"
-                [class.ng-option-disabled]="item.disabled"
-                [class.ng-option-selected]="item.selected"
-                [class.ng-optgroup]="item.children"
-                [class.ng-option]="!item.children"
-                [class.ng-option-child]="!!item.parent"
-                [class.ng-option-marked]="item === itemsList.markedItem"
-                [attr.aria-selected]="item.selected"
-                [attr.id]="item?.htmlId">
-
-            <ng-template #defaultOptionTemplate>
-                <span class="ng-option-label" [ngItemLabel]="item.label" [escape]="escapeHTML"></span>
+@if (isOpen) {
+    <ng-dropdown-panel
+        class="ng-dropdown-panel"
+        [virtualScroll]="virtualScroll"
+        [bufferAmount]="bufferAmount"
+        [appendTo]="appendTo"
+        [position]="dropdownPosition"
+        [headerTemplate]="headerTemplate"
+        [footerTemplate]="footerTemplate"
+        [filterValue]="searchTerm"
+        [items]="itemsList.filteredItems"
+        [markedItem]="itemsList.markedItem"
+        (update)="viewPortItems = $event"
+        (scroll)="scroll.emit($event)"
+        (scrollToEnd)="scrollToEnd.emit($event)"
+        (outsideClick)="close()"
+        [class.ng-select-multiple]="multiple"
+        [ngClass]="appendTo ? classes : null"
+        [id]="dropdownId"
+        role="listbox"
+        aria-label="Options list">
+        <ng-container>
+            @for (item of viewPortItems; track trackByOption($index, item)) {
+                <div class="ng-option" [attr.role]="item.children ? 'group' : 'option'" (click)="toggleItem(item)"
+                     (mouseover)="onItemHover(item)"
+                     [class.ng-option-disabled]="item.disabled"
+                     [class.ng-option-selected]="item.selected"
+                     [class.ng-optgroup]="item.children"
+                     [class.ng-option]="!item.children"
+                     [class.ng-option-child]="!!item.parent"
+                     [class.ng-option-marked]="item === itemsList.markedItem"
+                     [attr.aria-selected]="item.selected"
+                     [attr.id]="item?.htmlId">
+                    <ng-template #defaultOptionTemplate>
+                        <span class="ng-option-label" [ngItemLabel]="item.label" [escape]="escapeHTML"></span>
+                    </ng-template>
+                    <ng-template
+                        [ngTemplateOutlet]="item.children ? (optgroupTemplate || defaultOptionTemplate) : (optionTemplate || defaultOptionTemplate)"
+                        [ngTemplateOutletContext]="{ item: item.value, item$:item, index: item.index, searchTerm: searchTerm }">
+                    </ng-template>
+                </div>
+            }
+            @if (showAddTag) {
+                <div class="ng-option" [class.ng-option-marked]="!itemsList.markedItem"
+                     (mouseover)="itemsList.unmarkItem()" role="option" (click)="selectTag()">
+                    <ng-template #defaultTagTemplate>
+                        <span><span class="ng-tag-label">{{ addTagText }}</span>"{{ searchTerm }}"</span>
+                    </ng-template>
+                    <ng-template
+                        [ngTemplateOutlet]="tagTemplate || defaultTagTemplate"
+                        [ngTemplateOutletContext]="{ searchTerm: searchTerm }">
+                    </ng-template>
+                </div>
+            }
+        </ng-container>
+        @if (showNoItemsFound()) {
+            <ng-template #defaultNotFoundTemplate>
+                <div class="ng-option ng-option-disabled">{{ notFoundText }}</div>
             </ng-template>
-
             <ng-template
-                [ngTemplateOutlet]="item.children ? (optgroupTemplate || defaultOptionTemplate) : (optionTemplate || defaultOptionTemplate)"
-                [ngTemplateOutletContext]="{ item: item.value, item$:item, index: item.index, searchTerm: searchTerm }">
-            </ng-template>
-        </div>
-
-        <div class="ng-option" [class.ng-option-marked]="!itemsList.markedItem" (mouseover)="itemsList.unmarkItem()" role="option" (click)="selectTag()" *ngIf="showAddTag">
-            <ng-template #defaultTagTemplate>
-                <span><span class="ng-tag-label">{{addTagText}}</span>"{{searchTerm}}"</span>
-            </ng-template>
-
-            <ng-template
-                [ngTemplateOutlet]="tagTemplate || defaultTagTemplate"
+                [ngTemplateOutlet]="notFoundTemplate || defaultNotFoundTemplate"
                 [ngTemplateOutletContext]="{ searchTerm: searchTerm }">
             </ng-template>
-        </div>
-    </ng-container>
-
-    <ng-container *ngIf="showNoItemsFound()">
-        <ng-template #defaultNotFoundTemplate>
-            <div class="ng-option ng-option-disabled">{{notFoundText}}</div>
-        </ng-template>
-
-        <ng-template
-            [ngTemplateOutlet]="notFoundTemplate || defaultNotFoundTemplate"
-            [ngTemplateOutletContext]="{ searchTerm: searchTerm }">
-        </ng-template>
-    </ng-container>
-
-    <ng-container *ngIf="showTypeToSearch()">
-        <ng-template #defaultTypeToSearchTemplate>
-            <div class="ng-option ng-option-disabled">{{typeToSearchText}}</div>
-        </ng-template>
-
-        <ng-template
-            [ngTemplateOutlet]="typeToSearchTemplate || defaultTypeToSearchTemplate">
-        </ng-template>
-    </ng-container>
-
-    <ng-container *ngIf="loading && itemsList.filteredItems.length === 0">
-        <ng-template #defaultLoadingTextTemplate>
-            <div class="ng-option ng-option-disabled">{{loadingText}}</div>
-        </ng-template>
-
-        <ng-template
-            [ngTemplateOutlet]="loadingTextTemplate || defaultLoadingTextTemplate"
-            [ngTemplateOutletContext]="{ searchTerm: searchTerm }">
-        </ng-template>
-    </ng-container>
-
-</ng-dropdown-panel>
+        }
+        @if (showTypeToSearch()) {
+            <ng-template #defaultTypeToSearchTemplate>
+                <div class="ng-option ng-option-disabled">{{ typeToSearchText }}</div>
+            </ng-template>
+            <ng-template
+                [ngTemplateOutlet]="typeToSearchTemplate || defaultTypeToSearchTemplate">
+            </ng-template>
+        }
+        @if (loading && itemsList.filteredItems.length === 0) {
+            <ng-template #defaultLoadingTextTemplate>
+                <div class="ng-option ng-option-disabled">{{ loadingText }}</div>
+            </ng-template>
+            <ng-template
+                [ngTemplateOutlet]="loadingTextTemplate || defaultLoadingTextTemplate"
+                [ngTemplateOutletContext]="{ searchTerm: searchTerm }">
+            </ng-template>
+        }
+    </ng-dropdown-panel>
+}
 `,
       styles: ['@charset "UTF-8";.ng-select{position:relative;display:block;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}.ng-select div,.ng-select input,.ng-select span{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}.ng-select [hidden]{display:none}.ng-select.ng-select-searchable .ng-select-container .ng-value-container .ng-input{opacity:1}.ng-select.ng-select-opened .ng-select-container{z-index:1001}.ng-select.ng-select-disabled .ng-select-container .ng-value-container .ng-placeholder,.ng-select.ng-select-disabled .ng-select-container .ng-value-container .ng-value{-webkit-user-select:none;user-select:none;cursor:default}.ng-select.ng-select-disabled .ng-arrow-wrapper{cursor:default}.ng-select.ng-select-filtered .ng-placeholder{display:none}.ng-select .ng-select-container{cursor:default;display:flex;outline:none;overflow:hidden;position:relative;width:100%}.ng-select .ng-select-container .ng-value-container{display:flex;flex:1}.ng-select .ng-select-container .ng-value-container .ng-input{opacity:0}.ng-select .ng-select-container .ng-value-container .ng-input>input{box-sizing:content-box;background:none transparent;border:0 none;box-shadow:none;outline:none;padding:0;cursor:default;width:100%}.ng-select .ng-select-container .ng-value-container .ng-input>input::-ms-clear{display:none}.ng-select .ng-select-container .ng-value-container .ng-input>input[readonly]{-webkit-user-select:none;user-select:none;width:0;padding:0}.ng-select.ng-select-single.ng-select-filtered .ng-select-container .ng-value-container .ng-value{visibility:hidden}.ng-select.ng-select-single .ng-select-container .ng-value-container,.ng-select.ng-select-single .ng-select-container .ng-value-container .ng-value{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.ng-select.ng-select-single .ng-select-container .ng-value-container .ng-value .ng-value-icon{display:none}.ng-select.ng-select-single .ng-select-container .ng-value-container .ng-input{position:absolute;left:0;width:100%}.ng-select.ng-select-multiple.ng-select-disabled>.ng-select-container .ng-value-container .ng-value .ng-value-icon{display:none}.ng-select.ng-select-multiple .ng-select-container .ng-value-container{flex-wrap:wrap}.ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-placeholder{position:absolute}.ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value{white-space:nowrap}.ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value.ng-value-disabled .ng-value-icon{display:none}.ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value .ng-value-icon{cursor:pointer}.ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-input{flex:1;z-index:2}.ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-placeholder{z-index:1}.ng-select .ng-clear-wrapper{cursor:pointer;position:relative;width:17px;-webkit-user-select:none;user-select:none}.ng-select .ng-clear-wrapper .ng-clear{display:inline-block;font-size:18px;line-height:1;pointer-events:none}.ng-select .ng-spinner-loader{border-radius:50%;width:17px;height:17px;margin-right:5px;font-size:10px;position:relative;text-indent:-9999em;border-top:2px solid rgba(66,66,66,.2);border-right:2px solid rgba(66,66,66,.2);border-bottom:2px solid rgba(66,66,66,.2);border-left:2px solid #424242;transform:translateZ(0);animation:load8 .8s infinite linear}.ng-select .ng-spinner-loader:after{border-radius:50%;width:17px;height:17px}@-webkit-keyframes load8{0%{-webkit-transform:rotate(0deg);transform:rotate(0)}to{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}@keyframes load8{0%{-webkit-transform:rotate(0deg);transform:rotate(0)}to{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}.ng-select .ng-arrow-wrapper{cursor:pointer;position:relative;text-align:center;-webkit-user-select:none;user-select:none}.ng-select .ng-arrow-wrapper .ng-arrow{pointer-events:none;display:inline-block;height:0;width:0;position:relative}.ng-dropdown-panel{box-sizing:border-box;position:absolute;opacity:0;width:100%;z-index:1050;-webkit-overflow-scrolling:touch}.ng-dropdown-panel .ng-dropdown-panel-items{display:block;height:auto;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;max-height:240px;overflow-y:auto}.ng-dropdown-panel .ng-dropdown-panel-items .ng-optgroup{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.ng-dropdown-panel .ng-dropdown-panel-items .ng-option{box-sizing:border-box;cursor:pointer;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.ng-dropdown-panel .ng-dropdown-panel-items .ng-option .ng-option-label:empty:before{content:"\\200b"}.ng-dropdown-panel .ng-dropdown-panel-items .ng-option .highlighted{font-weight:700;text-decoration:underline}.ng-dropdown-panel .ng-dropdown-panel-items .ng-option.disabled{cursor:default}.ng-dropdown-panel .scroll-host{overflow:hidden;overflow-y:auto;position:relative;display:block;-webkit-overflow-scrolling:touch}.ng-dropdown-panel .scrollable-content{top:0;left:0;width:100%;height:100%;position:absolute}.ng-dropdown-panel .total-padding{width:1px;opacity:0}\n']
     }]
@@ -3813,7 +3808,10 @@ var NgSelectComponent = _NgSelectComponent;
       type: Input
     }],
     markFirst: [{
-      type: Input
+      type: Input,
+      args: [{
+        transform: booleanAttribute
+      }]
     }],
     placeholder: [{
       type: Input
@@ -3843,22 +3841,40 @@ var NgSelectComponent = _NgSelectComponent;
       type: Input
     }],
     loading: [{
-      type: Input
+      type: Input,
+      args: [{
+        transform: booleanAttribute
+      }]
     }],
     closeOnSelect: [{
-      type: Input
+      type: Input,
+      args: [{
+        transform: booleanAttribute
+      }]
     }],
     hideSelected: [{
-      type: Input
+      type: Input,
+      args: [{
+        transform: booleanAttribute
+      }]
     }],
     selectOnTab: [{
-      type: Input
+      type: Input,
+      args: [{
+        transform: booleanAttribute
+      }]
     }],
     openOnEnter: [{
-      type: Input
+      type: Input,
+      args: [{
+        transform: booleanAttribute
+      }]
     }],
     maxSelectedItems: [{
-      type: Input
+      type: Input,
+      args: [{
+        transform: numberAttribute
+      }]
     }],
     groupBy: [{
       type: Input
@@ -3867,16 +3883,28 @@ var NgSelectComponent = _NgSelectComponent;
       type: Input
     }],
     bufferAmount: [{
-      type: Input
+      type: Input,
+      args: [{
+        transform: numberAttribute
+      }]
     }],
     virtualScroll: [{
-      type: Input
+      type: Input,
+      args: [{
+        transform: booleanAttribute
+      }]
     }],
     selectableGroup: [{
-      type: Input
+      type: Input,
+      args: [{
+        transform: booleanAttribute
+      }]
     }],
     selectableGroupAsModel: [{
-      type: Input
+      type: Input,
+      args: [{
+        transform: booleanAttribute
+      }]
     }],
     searchFn: [{
       type: Input
@@ -3885,7 +3913,10 @@ var NgSelectComponent = _NgSelectComponent;
       type: Input
     }],
     clearOnBackspace: [{
-      type: Input
+      type: Input,
+      args: [{
+        transform: booleanAttribute
+      }]
     }],
     labelForId: [{
       type: Input
@@ -3894,19 +3925,34 @@ var NgSelectComponent = _NgSelectComponent;
       type: Input
     }],
     tabIndex: [{
-      type: Input
+      type: Input,
+      args: [{
+        transform: numberAttribute
+      }]
     }],
     readonly: [{
-      type: Input
+      type: Input,
+      args: [{
+        transform: booleanAttribute
+      }]
     }],
     searchWhileComposing: [{
-      type: Input
+      type: Input,
+      args: [{
+        transform: booleanAttribute
+      }]
     }],
     minTermLength: [{
-      type: Input
+      type: Input,
+      args: [{
+        transform: numberAttribute
+      }]
     }],
     editableSearchTerm: [{
-      type: Input
+      type: Input,
+      args: [{
+        transform: booleanAttribute
+      }]
     }],
     keyDownFn: [{
       type: Input
@@ -3918,7 +3964,10 @@ var NgSelectComponent = _NgSelectComponent;
       args: ["class.ng-select-typeahead"]
     }],
     multiple: [{
-      type: Input
+      type: Input,
+      args: [{
+        transform: booleanAttribute
+      }]
     }, {
       type: HostBinding,
       args: ["class.ng-select-multiple"]
@@ -3930,19 +3979,28 @@ var NgSelectComponent = _NgSelectComponent;
       args: ["class.ng-select-taggable"]
     }],
     searchable: [{
-      type: Input
+      type: Input,
+      args: [{
+        transform: booleanAttribute
+      }]
     }, {
       type: HostBinding,
       args: ["class.ng-select-searchable"]
     }],
     clearable: [{
-      type: Input
+      type: Input,
+      args: [{
+        transform: booleanAttribute
+      }]
     }, {
       type: HostBinding,
       args: ["class.ng-select-clearable"]
     }],
     isOpen: [{
-      type: Input
+      type: Input,
+      args: [{
+        transform: booleanAttribute
+      }]
     }, {
       type: HostBinding,
       args: ["class.ng-select-opened"]
