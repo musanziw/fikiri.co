@@ -1,0 +1,62 @@
+<button
+  [disabled]="disablePrev"
+  (click)="onPrevClick()"
+  class="disabled:bg-green-300/40 disabled:cursor-not-allowed"
+  [ngClass]="
+    type === 'default'
+      ? 'absolute top-1/2 -left-4 shadow-lg p-2 rounded-full bg-green-300 cursor-pointer'
+      : 'font-medium text-sm flex items-center text-black bg-green-400/70 rounded-md px-6 py-2 justify-center gap-1 '
+  ">
+  @if (type === 'default' ) {
+  <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-arrow-left h-4 w-4 fill-black" viewBox="0 0 16 16">
+    <path
+      fill-rule="evenodd"
+      d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8" />
+  </svg>
+
+  } @else {
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="currentColor"
+    class="bi bi-chevron-double-left w-3 h-3"
+    viewBox="0 0 16 16">
+    <path
+      fill-rule="evenodd"
+      d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0" />
+    <path
+      fill-rule="evenodd"
+      d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0" />
+  </svg>
+  Précédent }
+</button>
+<button
+  [disabled]="disableNext"
+  (click)="onNextClick()"
+  class="disabled:bg-green-300/40 disabled:cursor-not-allowed"
+  [ngClass]="
+    type === 'default'
+      ? 'absolute top-1/2 -right-4 shadow-lg p-2 rounded-full bg-green-300 cursor-pointer'
+      : 'font-medium text-sm flex items-center text-black bg-green-400/70 rounded-md px-6 py-2 justify-center gap-1'
+  ">
+  @if (type === 'default') {
+  <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-arrow-right h-4 w-4 fill-black" viewBox="0 0 16 16">
+    <path
+      fill-rule="evenodd"
+      d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
+  </svg>
+  } @else { Suivant
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="currentColor"
+    class="bi bi-chevron-double-right w-3 h-3"
+    viewBox="0 0 16 16">
+    <path
+      fill-rule="evenodd"
+      d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708" />
+    <path
+      fill-rule="evenodd"
+      d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708" />
+  </svg>
+
+  }
+</button>

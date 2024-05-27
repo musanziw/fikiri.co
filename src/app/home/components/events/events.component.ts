@@ -5,13 +5,14 @@ import { EventsStoreInterface } from './types/events-store.interface';
 import { AsyncPipe, DatePipe, NgClass, NgForOf, NgIf, NgOptimizedImage, SlicePipe } from '@angular/common';
 import { environment } from '../../../../environments/environment';
 import { Image } from '../../../shared/types/models-interfaces';
+import { PaginationComponent } from '../../../shared/components/pagination/pagination.component';
 
 @Component({
   selector: 'app-calls',
   standalone: true,
-  imports: [NgIf, AsyncPipe, SlicePipe, NgForOf, DatePipe, NgClass, NgOptimizedImage],
   providers: [eventsStore],
-  templateUrl: './events.component.html'
+  templateUrl: './events.component.html',
+  imports: [NgIf, AsyncPipe, SlicePipe, NgForOf, DatePipe, NgClass, NgOptimizedImage, PaginationComponent]
 })
 export class EventsComponent implements OnInit {
   currentImageIndex = 0;
@@ -35,13 +36,5 @@ export class EventsComponent implements OnInit {
 
   prevImage(): void {
     if (this.currentImageIndex > 0) this.currentImageIndex--;
-  }
-
-  isFirstImage(): boolean {
-    return this.currentImageIndex === 0;
-  }
-
-  isLastImage(images: Image[]): boolean {
-    return this.currentImageIndex === images.length - 1;
   }
 }
