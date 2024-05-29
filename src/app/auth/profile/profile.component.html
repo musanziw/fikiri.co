@@ -1,7 +1,7 @@
 <ng-container *ngIf="vm$ | async as vm">
   @if (vm.user; as user) {
-  <div class="mx-auto max-w-screen-lg grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-5">
-    <div class="flex flex-col gap-3 items-start pb-10 pt-24 md:pt-28 p-8 lg:col-span-2 border-r bg-gradient-to-b">
+  <div class="mx-auto max-w-screen-xl grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-6">
+    <div class="flex flex-col gap-3 items-start pb-10 pt-24 md:pt-28 p-8 lg:col-span-3 border-r bg-gradient-to-b">
       <div class="w-32 h-32 bg-gray-200/60 relative rounded-full flex flex-col items-center justify-center">
         @if (user.profile || user.google_image) {
         <img [ngSrc]="displayProfile(user)" class="rounded-full" [alt]="user.name" fill priority />
@@ -11,7 +11,7 @@
         <button
           type="button"
           (click)="file.click()"
-          class="absolute -bottom-2 -right-4 bg-green-200 p-2.5 rounded-md px-5">
+          class="absolute -bottom-2 -right-4 bg-gray-100 shadow-lg p-2.5 rounded-md px-5">
           <i class="bi bi-upload font-black h-6 w-6"></i>
           <input
             id="thumb"
@@ -23,9 +23,36 @@
             #file />
         </button>
       </div>
-      <h3 class="text-gray-900 text-xl font-semibold">Mon compte</h3>
-      <p class="text-gray-800 font-medium">Inscrit le {{ user.created_at | date : 'longDate' }}</p>
-      <p class="text-gray-800 font-medium bg-gray-100 p-1 rounded-md">{{ user.email }}</p>
+      <div class="flex gap-4 flex-col mt-4">
+        <h3 class="text-gray-900 text-xl font-semibold">Mon compte</h3>
+        <p class="text-gray-800 font-medium">Inscrit le {{ user.created_at | date : 'longDate' }}</p>
+        <div class="flex flex-col gap-4">
+          <h2 class="mt-4 text-gray-900 font-bold text-lg">Mes informations</h2>
+          <p class="text-gray-800 font-medium flex items-center gap-5">
+            <i class="bi bi-envelope h-5 w-5 text-gray-500"></i> {{ user.email }}
+          </p>
+          <p class="text-gray-800 font-medium flex items-center gap-5">
+            <i class="bi bi-person h-5 w-5 text-gray-500"></i> {{ user.name }}
+          </p>
+          <p class="text-gray-800 font-medium flex items-center gap-5">
+            <i class="bi bi-geo-alt-fill h-5 w-5 text-gray-500"></i> {{ user.address }}
+          </p>
+          <p class="text-gray-800 font-medium flex items-center gap-5">
+            <i class="bi bi-telephone-inbound h-5 w-5 text-gray-500"></i> {{ user.phone_number }}
+          </p>
+        </div>
+
+        @if (user.solutions; as solutions) {
+        <div class="flex flex-col gap-4">
+          <h2 class="mt-4 text-gray-900 font-bold text-lg">Mes solutions</h2>
+          @for (solution of solutions; track $index) { @if (solution.name) {
+          <p class="text-gray-800 font-medium flex items-center gap-5">
+            <span class="text-gray-700 inline-block"> {{ $index + 1 }}.</span> {{ solution.name }}
+          </p>
+          } }
+        </div>
+        }
+      </div>
     </div>
     <div class="w-full flex flex-col gap-3 lg:col-span-3 px-8 md:py-28">
       <h3 class="text-lg font-bold text-gray-950">Modifier mes informations</h3>

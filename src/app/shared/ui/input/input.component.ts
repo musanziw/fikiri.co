@@ -1,6 +1,7 @@
 import { Component, inject, Input } from '@angular/core';
 import { ControlContainer, ReactiveFormsModule } from '@angular/forms';
 import { ApiValiationsErrorsInterface } from '../../auth/types/api-valiations-errors.interface';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-input',
@@ -11,7 +12,7 @@ import { ApiValiationsErrorsInterface } from '../../auth/types/api-valiations-er
       useFactory: () => inject(ControlContainer, { skipSelf: true })
     }
   ],
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, NgClass],
   templateUrl: './input.component.html'
 })
 export class InputComponent {
