@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
 import { tapResponse } from '@ngrx/operators';
 import { ProfileStoreInterface } from '../types/profile-store.interface';
-import { combineLatestWith, exhaustMap, Observable, tap } from 'rxjs';
+import { exhaustMap, Observable, tap } from 'rxjs';
 import { InfoPayloadInterface } from '../types/info-payload.interface';
 import { ProfileService } from './profile.service';
 import { authActions } from '../../../shared/auth/data-access/auth.actions';
@@ -90,12 +90,11 @@ export class ProfileStore extends ComponentStore<ProfileStoreInterface> {
     )
   );
 
-  updateImage = this.effect((payload: Observable<FormData>) =>
+  updateImage = this.effect((payload: Observable<{ file: FormData; userId: number }>) =>
     payload.pipe(
       tap(() => this.setIsUpdatingImage(true)),
-      combineLatestWith(this.store.select(selectUser)),
-      exhaustMap(([payload, user]) =>
-        this.profileService.updateImage(user?.id, payload).pipe(
+      exhaustMap((payload) =>
+        this.profileService.updateImage(payload.userId, payload.file).pipe(
           tapResponse({
             next: (user) => {
               this.setUpdateImageMessage({ type: 'success', message: 'Image mise à jour avec succès' });

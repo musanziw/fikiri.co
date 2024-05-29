@@ -3,7 +3,7 @@ import { FormCardComponent } from '../../shared/components/form-card/form-card.c
 import { ButtonComponent } from '../../shared/ui/button/button.component';
 import { InputComponent } from '../../shared/ui/input/input.component';
 import { RouterLink } from '@angular/router';
-import { AsyncPipe, NgIf, NgOptimizedImage } from '@angular/common';
+import { AsyncPipe, NgClass, NgIf, NgOptimizedImage } from '@angular/common';
 import { ButtonOutlineComponent } from '../../shared/ui/button-outline/button-outline.component';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { environment } from '../../../environments/environment';
@@ -27,7 +27,8 @@ import { MessageComponent } from '../../shared/components/message/message.compon
     ReactiveFormsModule,
     AsyncPipe,
     NgIf,
-    MessageComponent
+    MessageComponent,
+    NgClass
   ]
 })
 export class ResetPasswordComponent {

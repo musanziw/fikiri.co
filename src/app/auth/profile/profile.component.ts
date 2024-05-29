@@ -36,6 +36,7 @@ export class ProfileComponent implements OnInit {
   form: FormGroup;
   updatePasswordForm: FormGroup;
   vm$: Observable<{ profileState: ProfileStoreInterface; user: User | null }>;
+  fileName = '';
 
   constructor(private store: ProfileStore, private formBuilder: FormBuilder) {
     this.vm$ = this.store.vm$;
@@ -83,13 +84,14 @@ export class ProfileComponent implements OnInit {
     this.store.upatedProfile(this.form.value);
   }
 
-  uploadImage(event: Event): void {
+  onFileSelected(event: Event, userId: number) {
     const fileInput: HTMLInputElement = event.target as HTMLInputElement;
     const file: File | undefined = fileInput.files?.[0];
     if (file) {
-      const formData: FormData = new FormData();
+      this.fileName = file.name;
+      const formData = new FormData();
       formData.append('thumb', file);
-      this.store.updateImage(formData);
+      this.store.updateImage({ file: formData, userId });
     }
   }
 

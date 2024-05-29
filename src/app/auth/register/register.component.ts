@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AsyncPipe, NgIf, NgOptimizedImage } from '@angular/common';
+import { AsyncPipe, NgClass, NgIf, NgOptimizedImage } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FormCardComponent } from '../../shared/components/form-card/form-card.component';
@@ -28,7 +28,8 @@ import { MessageComponent } from '../../shared/components/message/message.compon
     ReactiveFormsModule,
     AsyncPipe,
     NgIf,
-    MessageComponent
+    MessageComponent,
+    NgClass
   ]
 })
 export class RegisterComponent {
