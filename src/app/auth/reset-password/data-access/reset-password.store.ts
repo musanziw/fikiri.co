@@ -5,28 +5,26 @@ import { exhaustMap, Observable, tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { ApiValiationsErrorsInterface } from '../../../shared/auth/types/api-valiations-errors.interface';
 import { ResetPasswordStoreInterface } from '../types/reset-password-store.interface';
-import { ResetPasswordService } from './reset-pasword.service';
 import { ResetPasswordPayloadInterface } from '../types/reset-password-payload.interface';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ResetPasswordService } from './reset-pasword.service';
 
 @Injectable()
 export class ResetPasswordStore extends ComponentStore<ResetPasswordStoreInterface> {
   vm$: Observable<ResetPasswordStoreInterface>;
 
-  constructor(
-    private resetPasswordService: ResetPasswordService,
-    private router: Router
-  ) {
+  constructor(private resetPasswordService: ResetPasswordService, private router: Router) {
     super({ isLoading: false, error: null, validationErrors: [] });
     this.vm$ = this.select((state) => state);
   }
 
-  private setIsLoading = this.updater((state, isLoading: boolean) => ({ ...state, isLoading }));
-  private setError = this.updater((state, error: string) => ({ ...state, error }));
-  private setValidationErrors = this.updater((state, validationErrors: ApiValiationsErrorsInterface[]) => ({
+  setIsLoading = this.updater((state, isLoading: boolean) => ({ ...state, isLoading }));
+  setError = this.updater((state, error: string) => ({ ...state, error }));
+  setValidationErrors = this.updater((state, validationErrors: ApiValiationsErrorsInterface[]) => ({
     ...state,
     validationErrors
   }));
+  resetError = this.updater((state) => ({ ...state, error: null }));
 
   resetPassword = this.effect((payload$: Observable<ResetPasswordPayloadInterface>) => {
     return payload$.pipe(

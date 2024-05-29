@@ -22,24 +22,12 @@
 }
 
 @layer utilities {
-  @keyframes infinite-scroll {
-    from {
-      transform: translateX(0);
-    }
-    to {
-      transform: translateX(-100%);
-    }
-  }
-  .scroll {
-    animation: infinite-scroll 25s linear infinite;
-  }
-
   ::-webkit-scrollbar {
-    @apply w-2;
+    @apply w-2 bg-green-400/30;
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply bg-green-400/70  rounded-md;
+    @apply bg-green-400/70 w-2 rounded-md;
   }
 
   .pg .ngx-pagination .current {

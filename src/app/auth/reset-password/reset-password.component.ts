@@ -10,10 +10,13 @@ import { environment } from '../../../environments/environment';
 import { Observable } from 'rxjs';
 import { ResetPasswordStore } from './data-access/reset-password.store';
 import { ResetPasswordStoreInterface } from './types/reset-password-store.interface';
+import { MessageComponent } from '../../shared/components/message/message.component';
 
 @Component({
   selector: 'app-reset-passowrd',
   standalone: true,
+  providers: [ResetPasswordStore],
+  templateUrl: './reset-password.component.html',
   imports: [
     FormCardComponent,
     ButtonComponent,
@@ -23,20 +26,16 @@ import { ResetPasswordStoreInterface } from './types/reset-password-store.interf
     ButtonOutlineComponent,
     ReactiveFormsModule,
     AsyncPipe,
-    NgIf
-  ],
-  providers: [ResetPasswordStore],
-  templateUrl: './reset-password.component.html'
+    NgIf,
+    MessageComponent
+  ]
 })
 export class ResetPasswordComponent {
   form: FormGroup;
   apiUrl: string = environment.apiUrl;
   vm$: Observable<ResetPasswordStoreInterface>;
 
-  constructor(
-    private store: ResetPasswordStore,
-    private formBuilder: FormBuilder
-  ) {
+  constructor(private store: ResetPasswordStore, private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
       token: ['', Validators.minLength(6)],
       password: ['', Validators.required],
@@ -51,5 +50,9 @@ export class ResetPasswordComponent {
 
   loginWithGoogle(): void {
     return window.location.replace(`${this.apiUrl}auth/google/redirect`);
+  }
+
+  closeMessage(): void {
+    this.store.resetError();
   }
 }

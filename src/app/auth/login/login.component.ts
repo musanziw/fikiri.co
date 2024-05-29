@@ -10,10 +10,13 @@ import { environment } from '../../../environments/environment';
 import { Observable } from 'rxjs';
 import { LoginStore } from './data-access/login.store';
 import { LoginStoreInterface } from './types/login-store.interface';
+import { MessageComponent } from '../../shared/components/message/message.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
+  providers: [LoginStore],
+  templateUrl: './login.component.html',
   imports: [
     FormCardComponent,
     ButtonComponent,
@@ -23,20 +26,16 @@ import { LoginStoreInterface } from './types/login-store.interface';
     ButtonOutlineComponent,
     ReactiveFormsModule,
     AsyncPipe,
-    NgIf
-  ],
-  providers: [LoginStore],
-  templateUrl: './login.component.html'
+    NgIf,
+    MessageComponent
+  ]
 })
 export class LoginComponent {
   form: FormGroup;
   apiUrl: string = environment.apiUrl;
   vm$: Observable<LoginStoreInterface>;
 
-  constructor(
-    private store: LoginStore,
-    private formBuilder: FormBuilder
-  ) {
+  constructor(private store: LoginStore, private formBuilder: FormBuilder) {
     this.vm$ = this.store.vm$;
     this.form = this.formBuilder.group({
       email: ['', Validators.required],
@@ -50,5 +49,9 @@ export class LoginComponent {
 
   loginWithGoogle(): void {
     window.location.replace(`${this.apiUrl}auth/google/redirect`);
+  }
+
+  closeMessage(): void {
+    this.store.resetError();
   }
 }

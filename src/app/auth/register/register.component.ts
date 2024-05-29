@@ -10,10 +10,13 @@ import { Observable } from 'rxjs';
 import { RegisterStore } from './data-access/register.store';
 import { RegisterStoreInterface } from './types/register-store.interface';
 import { environment } from '../../../environments/environment';
+import { MessageComponent } from '../../shared/components/message/message.component';
 
 @Component({
   selector: 'app-register',
   standalone: true,
+  providers: [RegisterStore],
+  templateUrl: './register.component.html',
   imports: [
     FormCardComponent,
     ButtonComponent,
@@ -24,20 +27,16 @@ import { environment } from '../../../environments/environment';
     FormsModule,
     ReactiveFormsModule,
     AsyncPipe,
-    NgIf
-  ],
-  providers: [RegisterStore],
-  templateUrl: './register.component.html'
+    NgIf,
+    MessageComponent
+  ]
 })
 export class RegisterComponent {
   form: FormGroup;
   vm$: Observable<RegisterStoreInterface>;
   apiUrl: string = environment.apiUrl;
 
-  constructor(
-    private store: RegisterStore,
-    private formBuilder: FormBuilder
-  ) {
+  constructor(private store: RegisterStore, private formBuilder: FormBuilder) {
     this.vm$ = this.store.vm$;
     this.form = this.formBuilder.nonNullable.group({
       name: ['', Validators.required],
@@ -55,5 +54,9 @@ export class RegisterComponent {
 
   loginWithGoogle(): void {
     window.location.replace(`${this.apiUrl}auth/google/redirect`);
+  }
+
+  closeMessage(): void {
+    this.store.resetError();
   }
 }

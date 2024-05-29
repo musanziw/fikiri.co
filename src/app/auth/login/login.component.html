@@ -1,5 +1,6 @@
-<app-form-card formTitle="Se connecter" *ngIf="vm$ | async as vm" [error]="vm.error">
+<app-form-card formTitle="Se connecter" *ngIf="vm$ | async as vm">
   <form [formGroup]="form" (ngSubmit)="onSubmit()" class="gap-8 flex flex-col justify-center">
+    <app-message [message]="vm.error" type="error" *ngIf="vm.error" (handleClose)="closeMessage()" />
     <app-input type="email" label="Email" placeholder="Entrez votre email" name="email" />
     <app-input type="password" label="Mot de passe" placeholder="Entrez votre mot de passe" name="password" />
     <app-button type="submit" [loading]="vm.isLoading" [disabled]="form.invalid"> Se connecter </app-button>

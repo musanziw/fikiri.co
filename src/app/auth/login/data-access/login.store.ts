@@ -15,16 +15,13 @@ import { AppStoreInterface } from '../../../shared/types/app-store.interface';
 export class LoginStore extends ComponentStore<LoginStoreInterface> {
   vm$: Observable<LoginStoreInterface> = this.select((state) => state);
 
-  constructor(
-    private loginService: LoginService,
-    private router: Router,
-    private store: Store<AppStoreInterface>
-  ) {
+  constructor(private loginService: LoginService, private router: Router, private store: Store<AppStoreInterface>) {
     super({ isLoading: false, error: null });
   }
 
   setLoading = this.updater((state, isLoading: boolean) => ({ ...state, isLoading }));
   setError = this.updater((state, error: string) => ({ ...state, error }));
+  resetError = this.updater((state) => ({ ...state, error: null }));
 
   readonly login = this.effect((payload$: Observable<LoginPayloadInterface>) => {
     return payload$.pipe(

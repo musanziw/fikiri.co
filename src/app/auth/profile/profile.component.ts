@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, takeUntil } from 'rxjs';
 import { AsyncPipe, DatePipe, NgClass, NgIf, NgOptimizedImage } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -35,13 +35,9 @@ import { SpinnerComponent } from '../../shared/ui/spinner/spinner.component';
 export class ProfileComponent implements OnInit {
   form: FormGroup;
   updatePasswordForm: FormGroup;
-  fileName: string = '';
   vm$: Observable<{ profileState: ProfileStoreInterface; user: User | null }>;
 
-  constructor(
-    private store: ProfileStore,
-    private formBuilder: FormBuilder
-  ) {
+  constructor(private store: ProfileStore, private formBuilder: FormBuilder) {
     this.vm$ = this.store.vm$;
     this.form = this.formBuilder.nonNullable.group({
       name: ['', Validators.required],
@@ -56,20 +52,26 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.vm$
-      .subscribe((state) => {
-        this.form.patchValue({
-          name: state.user?.name,
-          address: state.user?.address,
-          phone_number: state.user?.phone_number
-        });
-      })
-      .unsubscribe();
+    this.vm$.pipe(takeUntil(this.store.destroy$)).subscribe((state) => {
+      this.form.patchValue({
+        name: state.user?.name,
+        address: state.user?.address,
+        phone_number: state.user?.phone_number
+      });
+    });
   }
 
-  sliceUsername(user: User | null): string {
-    if (!user) return '';
-    return user.name.slice(0, 2).toUpperCase();
+  closeInfoUpdateMessage(): void {
+    this.store.setInfoUpdateMessage({ type: null, message: null });
+  }
+
+  closePasswordUpdateMessage(): void {
+    this.store.setPasswordUpdateMessage({ type: null, message: null });
+  }
+
+  splitUsername(user: User): string {
+    const name = user.name.split(' ');
+    return name[0][0].toUpperCase() + ' ' + (name[1] ? name[1][0].toUpperCase() : '');
   }
 
   displayProfile(user: User): string {
@@ -81,11 +83,10 @@ export class ProfileComponent implements OnInit {
     this.store.upatedProfile(this.form.value);
   }
 
-  uploadFIle(event: Event): void {
+  uploadImage(event: Event): void {
     const fileInput: HTMLInputElement = event.target as HTMLInputElement;
     const file: File | undefined = fileInput.files?.[0];
     if (file) {
-      this.fileName = file.name;
       const formData: FormData = new FormData();
       formData.append('thumb', file);
       this.store.updateImage(formData);
@@ -94,5 +95,9 @@ export class ProfileComponent implements OnInit {
 
   submitPasswordForm(): void {
     this.store.updatePassword(this.updatePasswordForm.value);
+  }
+
+  closeImageUpdateMessage(): void {
+    this.store.setUpdateImageMessage({ type: null, message: null });
   }
 }

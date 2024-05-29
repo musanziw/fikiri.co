@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, output } from '@angular/core';
 
 @Component({
   selector: 'app-message',
@@ -8,6 +8,15 @@ import { Component, Input } from '@angular/core';
   templateUrl: './message.component.html'
 })
 export class MessageComponent {
-  @Input() message: string = '';
-  @Input() type: 'success' | 'error' | null = null;
+  @Input()
+  message: string | null = '';
+
+  @Input()
+  type: 'success' | 'error' | null = null;
+
+  handleClose = output<void>();
+
+  close(): void {
+    this.handleClose.emit();
+  }
 }

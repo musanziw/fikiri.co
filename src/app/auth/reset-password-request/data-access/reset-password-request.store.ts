@@ -13,20 +13,18 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class ResetPasswordRequestStore extends ComponentStore<ResetPasswordRequestStoreInterface> {
   vm$: Observable<ResetPasswordRequestStoreInterface>;
 
-  constructor(
-    private resetPasswordRequestService: ResetPasswordRequestService,
-    private router: Router
-  ) {
+  constructor(private resetPasswordRequestService: ResetPasswordRequestService, private router: Router) {
     super({ isLoading: false, error: null, validationErrors: [] });
     this.vm$ = this.select((state) => state);
   }
 
-  private setIsLoading = this.updater((state, isLoading: boolean) => ({ ...state, isLoading }));
-  private setError = this.updater((state, error: string) => ({ ...state, error }));
-  private setValidationErrors = this.updater((state, validationErrors: ApiValiationsErrorsInterface[]) => ({
+  setIsLoading = this.updater((state, isLoading: boolean) => ({ ...state, isLoading }));
+  setError = this.updater((state, error: string) => ({ ...state, error }));
+  setValidationErrors = this.updater((state, validationErrors: ApiValiationsErrorsInterface[]) => ({
     ...state,
     validationErrors
   }));
+  resetError = this.updater((state) => ({ ...state, error: null }));
 
   resetPassword = this.effect((payload$: Observable<ResetPasswordRequestPayloadInterface>) => {
     return payload$.pipe(

@@ -1,5 +1,6 @@
-<app-form-card formTitle="Inscrivez-vous" *ngIf="vm$ | async as state" [error]="state.error">
+<app-form-card formTitle="Inscrivez-vous" *ngIf="vm$ | async as state">
   <form [formGroup]="form" (ngSubmit)="onSubmit()" class="gap-8 flex flex-col justify-center">
+    <app-message [message]="state.error" *ngIf="state.error" type="error" (handleClose)="closeMessage()" />
     <app-input
       type="text"
       name="name"

@@ -19,10 +19,7 @@ export class ProfileStore extends ComponentStore<ProfileStoreInterface> {
   profileState$: Observable<ProfileStoreInterface>;
   vm$: Observable<{ profileState: ProfileStoreInterface; user: User | null }>;
 
-  constructor(
-    private profileService: ProfileService,
-    private store: Store
-  ) {
+  constructor(private profileService: ProfileService, private store: Store) {
     super({
       isUpdatingInfo: false,
       infoUpdateMessage: {

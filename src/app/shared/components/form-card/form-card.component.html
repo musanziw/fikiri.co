@@ -4,9 +4,6 @@
       <div class="rounded-md border border-gray-100 bg-white shadow-lg shadow-gray-600/30 backdrop-blur-2xl">
         <div class="p-8 py-12 sm:p-16">
           <h2 class="text-2xl font-extrabold mb-8">{{ formTitle }}</h2>
-          @if (error) {
-            <app-message type="error" [message]="error" />
-          }
           <ng-content />
         </div>
       </div>

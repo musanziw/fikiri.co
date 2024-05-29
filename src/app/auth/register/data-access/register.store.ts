@@ -13,10 +13,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class RegisterStore extends ComponentStore<RegisterStoreInterface> {
   vm$: Observable<RegisterStoreInterface>;
 
-  constructor(
-    private registerService: RegisterService,
-    private router: Router
-  ) {
+  constructor(private registerService: RegisterService, private router: Router) {
     super({ isLoading: false, error: null, validationErrors: [] });
     this.vm$ = this.select((state) => state);
   }
@@ -27,6 +24,7 @@ export class RegisterStore extends ComponentStore<RegisterStoreInterface> {
     ...state,
     validationErrors
   }));
+  resetError = this.updater((state) => ({ ...state, error: null }));
 
   register = this.effect((payload$: Observable<RegisterPayloadInterface>) => {
     return payload$.pipe(
