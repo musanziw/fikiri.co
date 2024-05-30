@@ -1,11 +1,9 @@
 <app-form-card formTitle="Se connecter" *ngIf="vm$ | async as vm">
-  @if (vm.error) {
   <app-message [message]="vm.error" type="error" (handleClose)="closeMessage()" />
-  }
   <form
     [formGroup]="form"
     (ngSubmit)="onSubmit()"
-    [ngClass]="vm.error ? 'translate-y-6 ease-in' : 'ease-out'"
+    [ngClass]="vm.error ? 'translate-y-2' : ''"
     class="gap-8 flex flex-col justify-center transition-transform duration-300 ease-in-out">
     <app-input type="email" label="Email" placeholder="Entrez votre email" name="email" />
     <app-input type="password" label="Mot de passe" placeholder="Entrez votre mot de passe" name="password" />
