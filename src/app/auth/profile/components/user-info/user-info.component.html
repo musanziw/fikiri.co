@@ -1,6 +1,6 @@
 <ng-container *ngIf="vm$ | async as vm">
   <div class="flex flex-col gap-3 items-start" *ngIf="vm.user as user">
-    <div class="flex items-center gap-8">
+    <div class="flex flex-col md:flex-row md:items-center gap-8">
       <div class="w-32 h-32 bg-gray-200/60 relative rounded-full flex flex-col items-center justify-center">
         @if (user.profile || user.google_image) {
         <img [ngSrc]="displayProfile(user)" class="rounded-full" [alt]="user.name" fill priority />
@@ -11,7 +11,8 @@
           type="button"
           (click)="file.click()"
           class="absolute bg-gray-100 rounded-full shadow-lg -bottom-2 p-2.5 flex items-center justify-center right-0">
-          <i class="bi bi-camera font-black h-7 w-7"></i>
+          <app-spinner class="text-green-700 h-7 w-7" *ngIf="vm.userInfoState.isLoading" />
+          <i class="bi bi-camera font-black h-7 w-7" *ngIf="!vm.userInfoState.isLoading"></i>
           <input
             id="thumb"
             name="thumb"
@@ -25,15 +26,10 @@
       <div class="flex flex-col gap-2">
         <h3 class="text-gray-900 text-xl font-semibold">Mon compte</h3>
         <p class="text-gray-800 font-medium">Inscrit le {{ user.created_at | date : 'longDate' }}</p>
-        <app-message
-          [message]="vm.userInfoState.message.message"
-          [type]="vm.userInfoState.message.type"
-          (handleClose)="closeUserInfoMessage()" />
       </div>
     </div>
-    <div
-      class="flex gap-2 flex-col mt-4 transition-transform duration-100"
-      [ngClass]="vm.userInfoState.message.message ? 'translate-y-1 ease-in' : 'ease-out'">
+
+    <div class="flex gap-2 flex-col mt-4">
       <div class="flex flex-col gap-2.5">
         <h2 class="mt-4 text-gray-900 font-bold text-lg mb-1">Mes informations</h2>
         <p class="text-gray-800 font-medium flex items-center gap-3">
@@ -49,6 +45,19 @@
           <i class="bi bi-telephone-inbound h-5 w-5 text-gray-900"></i> {{ user.phone_number }}
         </p>
       </div>
+    </div>
+
+    <div class="flex flex-col gap-4" *ngIf="vm.userInfoState.solutions as solutions">
+      <h2 class="mt-4 text-gray-900 font-bold text-lg mb-1">Mes solutions</h2>
+      @for (solution of solutions; track $index) {
+      <a
+        [routerLink]="['/solutions', solution.id]"
+        class="text-gray-800 font-medium flex items-center gap-3 md:w-3/4 group"
+        *ngIf="solution.name">
+        <span class="inline-block text-gray-950">{{ $index + 1 }}</span>
+        <span class="inline-block group-hover:text-green-700 group-hover:underline">{{ solution.name }}</span>
+      </a>
+      }
     </div>
   </div>
 </ng-container>

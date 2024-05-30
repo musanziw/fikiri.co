@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Image } from '../shared/types/models-interfaces';
+import { Image, User } from '../shared/types/models-interfaces';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -28,7 +28,7 @@ import { ConvertToLowercasePipe } from '../shared/pipes/convert-to-lowercase.pip
   ]
 })
 export class SolutionComponent implements OnInit {
-  vm$: Observable<SolutionStoreInterface>;
+  vm$: Observable<{ solutionStore: SolutionStoreInterface; user: User | null }>;
   currentImageIndex: number = 0;
 
   constructor(private store: SolutionStore, private route: ActivatedRoute, private router: Router) {
@@ -56,5 +56,15 @@ export class SolutionComponent implements OnInit {
     if (!id) return;
     this.router.navigate(['/solutions', id]);
     this.store.getSolution(id);
+  }
+
+  onImageChange(event: Event, solutionId: number): void {
+    const fileInput: HTMLInputElement = event.target as HTMLInputElement;
+    const file: File | undefined = fileInput.files?.[0];
+    if (file) {
+      const formData = new FormData();
+      formData.append('thumb', file);
+      this.store.uploadImage({ file: formData, solutionId });
+    }
   }
 }

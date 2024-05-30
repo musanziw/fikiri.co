@@ -18,11 +18,7 @@ export class UpdateInfoStore extends ComponentStore<UpdateInfoStoreInterface> {
   vm$: Observable<{ udpateInfoState: UpdateInfoStoreInterface; user: User | null }>;
 
   constructor(private updateInfoService: UpdateInfoService, private store: Store) {
-    super({
-      isLoading: false,
-      message: { type: null, message: null },
-      errors: []
-    });
+    super({ isLoading: false, message: { type: null, message: null }, errors: [] });
     this.vm$ = this.select({
       udpateInfoState: this.select((state) => state),
       user: this.store.select(selectUser)

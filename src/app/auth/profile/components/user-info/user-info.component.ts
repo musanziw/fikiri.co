@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { User } from '../../../../shared/types/models-interfaces';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { environment } from '../../../../../environments/environment';
@@ -6,19 +6,24 @@ import { UserInfoStore } from './data-access/user-info.store';
 import { Observable } from 'rxjs';
 import { UserInfoStoreInterface } from './types/user-info-store.interface';
 import { MessageComponent } from '../../../../shared/components/message/message.component';
+import { SpinnerComponent } from '../../../../shared/ui/spinner/spinner.component';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-user-info',
   standalone: true,
   providers: [UserInfoStore],
   templateUrl: './user-info.component.html',
-  imports: [NgOptimizedImage, CommonModule, MessageComponent]
+  imports: [NgOptimizedImage, CommonModule, MessageComponent, SpinnerComponent, RouterModule]
 })
-export class UserInfoComponent {
+export class UserInfoComponent implements OnInit {
   vm$: Observable<{ userInfoState: UserInfoStoreInterface; user: User | null }>;
 
-  constructor(private userInfoStore: UserInfoStore) {
-    this.vm$ = this.userInfoStore.vm$;
+  constructor(private store: UserInfoStore) {
+    this.vm$ = this.store.vm$;
+  }
+  ngOnInit(): void {
+    this.store.getSolutions();
   }
 
   displayProfile(user: User): string {
@@ -37,12 +42,11 @@ export class UserInfoComponent {
     if (file) {
       const formData = new FormData();
       formData.append('thumb', file);
-      console.log('formData :', formData, 'userId :', userId);
-      // this.store.updateImage({ file: formData, userId });
+      this.store.updateImage({ file: formData, userId });
     }
   }
 
   closeUserInfoMessage(): void {
-    this.userInfoStore.resetUpdateImageMessage();
+    this.store.resetMessage();
   }
 }

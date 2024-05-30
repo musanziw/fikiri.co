@@ -1,7 +1,7 @@
 import { ComponentStore } from '@ngrx/component-store';
 import { UserInfoStoreInterface } from '../types/user-info-store.interface';
 import { Observable, exhaustMap, tap } from 'rxjs';
-import { User } from '../../../../../shared/types/models-interfaces';
+import { Solution, User } from '../../../../../shared/types/models-interfaces';
 import { Store } from '@ngrx/store';
 import { selectUser } from '../../../../../shared/auth/data-access/auth.reducers';
 import { tapResponse } from '@ngrx/operators';
@@ -17,7 +17,7 @@ export class UserInfoStore extends ComponentStore<UserInfoStoreInterface> {
   vm$: Observable<{ userInfoState: UserInfoStoreInterface; user: User | null }>;
 
   constructor(private userInfoService: UserInfoService, private store: Store) {
-    super({ isLoading: false, message: { type: null, message: null } });
+    super({ isLoading: false, message: { type: null, message: null }, solutions: [] });
     this.userInfoState$ = this.select((state) => state);
     this.vm$ = this.select({
       userInfoState: this.userInfoState$,
@@ -25,26 +25,40 @@ export class UserInfoStore extends ComponentStore<UserInfoStoreInterface> {
     });
   }
 
-  setIsUpdatingImage = this.updater((state, isUpdatingImage: boolean) => ({ ...state, isUpdatingImage }));
-  setUpdateImageMessage = this.updater((state, message: MessageInterface) => ({ ...state, message }));
-  resetUpdateImageMessage() {
-    this.setUpdateImageMessage({ type: null, message: null });
+  setIsLoading = this.updater((state, isLoading: boolean) => ({ ...state, isLoading }));
+  setUpdateMessage = this.updater((state, message: MessageInterface) => ({ ...state, message }));
+  setSolutions = this.updater((state, solutions: Solution[]) => ({ ...state, solutions }));
+  resetMessage() {
+    this.setUpdateMessage({ type: null, message: null });
   }
 
   updateImage = this.effect((payload: Observable<{ file: FormData; userId: number }>) =>
     payload.pipe(
-      tap(() => this.setIsUpdatingImage(true)),
+      tap(() => this.setIsLoading(true)),
       exhaustMap((payload) =>
         this.userInfoService.updateImage(payload.userId, payload.file).pipe(
           tapResponse({
             next: (user) => {
-              this.setUpdateImageMessage({ type: 'success', message: 'Image mise à jour' });
+              this.setUpdateMessage({ type: 'success', message: 'Image mise à jour' });
               this.store.dispatch(authActions.authenticateUser({ user }));
             },
             error: (err: HttpErrorResponse) => {
-              this.setUpdateImageMessage({ type: 'error', message: err.error.message });
+              this.setUpdateMessage({ type: 'error', message: err.error.message });
             },
-            finalize: () => this.setIsUpdatingImage(false)
+            finalize: () => this.setIsLoading(false)
+          })
+        )
+      )
+    )
+  );
+
+  getSolutions = this.effect<void>((trigger$: Observable<void>) =>
+    trigger$.pipe(
+      exhaustMap(() =>
+        this.userInfoService.getSolutions().pipe(
+          tapResponse({
+            next: (solutions) => this.setSolutions(solutions),
+            error: () => {}
           })
         )
       )
