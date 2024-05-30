@@ -4,7 +4,6 @@ import { catchError, exhaustMap, map, of } from 'rxjs';
 import { AuthService } from './auth.service';
 import { authActions } from './auth.actions';
 import { Router } from '@angular/router';
-import { tapResponse } from '@ngrx/operators';
 
 export const authenticateEffect = createEffect(
   (actions$ = inject(Actions), authService = inject(AuthService)) =>

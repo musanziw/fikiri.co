@@ -1,6 +1,6 @@
-import { Component, Input, OutputEmitterRef, output } from '@angular/core';
+import { Component } from '@angular/core';
 import { User } from '../../../../shared/types/models-interfaces';
-import { AsyncPipe, CommonModule, DatePipe, NgIf, NgOptimizedImage } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { environment } from '../../../../../environments/environment';
 import { UserInfoStore } from './data-access/user-info.store';
 import { Observable } from 'rxjs';
