@@ -1,147 +1,15 @@
-<ng-container *ngIf="vm$ | async as vm">
-  @if (vm.user; as user) {
-  <div class="mx-auto max-w-screen-xl grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-6">
-    <div class="flex flex-col gap-3 items-start pb-10 pt-24 md:pt-28 p-8 lg:col-span-3 border-r bg-gradient-to-b">
-      <div class="w-32 h-32 bg-gray-200/60 relative rounded-full flex flex-col items-center justify-center">
-        @if (user.profile || user.google_image) {
-        <img [ngSrc]="displayProfile(user)" class="rounded-full" [alt]="user.name" fill priority />
-        } @else {
-        <h2 class="text-gray-950 font-bold text-xl">{{ splitUsername(user) }}</h2>
-        }
-        <button
-          type="button"
-          (click)="file.click()"
-          class="absolute -bottom-2 -right-4 bg-gray-100 shadow-lg p-2.5 rounded-md px-5">
-          <i class="bi bi-upload font-black h-6 w-6"></i>
-          <input
-            id="thumb"
-            name="thumb"
-            type="file"
-            class="hidden"
-            accept="image/*"
-            (change)="onFileSelected($event, user.id)"
-            #file />
-        </button>
+<section class="mx-auto max-w-screen-xl grid grid-cols-1 md:grid-cols-2 border-x border-dashed">
+  <div class="px-6 pt-20 mb-8 border-r">
+    <app-user-info />
+  </div>
+  <div class="md:py-28">
+    <div class="flex flex-col gap-10 md:px-10">
+      <div class="mx-4 p-6 py-8 rounded-md border border-gray-100 bg-white shadow-sm">
+        <app-update-info />
       </div>
-      <div class="flex gap-4 flex-col mt-4">
-        <h3 class="text-gray-900 text-xl font-semibold">Mon compte</h3>
-        <p class="text-gray-800 font-medium">Inscrit le {{ user.created_at | date : 'longDate' }}</p>
-        <div class="flex flex-col gap-4">
-          <h2 class="mt-4 text-gray-900 font-bold text-lg">Mes informations</h2>
-          <p class="text-gray-800 font-medium flex items-center gap-5">
-            <i class="bi bi-envelope h-5 w-5 text-gray-500"></i> {{ user.email }}
-          </p>
-          <p class="text-gray-800 font-medium flex items-center gap-5">
-            <i class="bi bi-person h-5 w-5 text-gray-500"></i> {{ user.name }}
-          </p>
-          <p class="text-gray-800 font-medium flex items-center gap-5">
-            <i class="bi bi-geo-alt-fill h-5 w-5 text-gray-500"></i> {{ user.address }}
-          </p>
-          <p class="text-gray-800 font-medium flex items-center gap-5">
-            <i class="bi bi-telephone-inbound h-5 w-5 text-gray-500"></i> {{ user.phone_number }}
-          </p>
-        </div>
-
-        @if (user.solutions; as solutions) {
-        <div class="flex flex-col gap-4">
-          <h2 class="mt-4 text-gray-900 font-bold text-lg">Mes solutions</h2>
-          @for (solution of solutions; track $index) { @if (solution.name) {
-          <p class="text-gray-800 font-medium flex items-center gap-5">
-            <span class="text-gray-700 inline-block"> {{ $index + 1 }}.</span> {{ solution.name }}
-          </p>
-          } }
-        </div>
-        }
+      <div class="mx-4 p-6 py-8 rounded-md border border-gray-100 bg-white shadow-sm">
+        <app-update-password />
       </div>
     </div>
-    <div class="w-full flex flex-col gap-3 lg:col-span-3 px-8 md:py-28">
-      <h3 class="text-lg font-bold text-gray-950">Modifier mes informations</h3>
-      @if (vm.profileState.isUpdatingImage) {
-      <app-spinner class="text-green-600" />
-      } @if (vm.profileState.infoUpdateMessage; as infoUpdateMessage) {
-      <app-message
-        [message]="infoUpdateMessage.message"
-        [type]="infoUpdateMessage.type"
-        (handleClose)="closeInfoUpdateMessage()" />
-      } @if (vm.profileState.updateImageMessage; as updateImageMessage) {
-      <app-message
-        [message]="updateImageMessage.message"
-        [type]="updateImageMessage.type"
-        (handleClose)="closeImageUpdateMessage()" />
-      }
-      <form
-        [formGroup]="form"
-        (ngSubmit)="onSubmit()"
-        class="gap-8 flex flex-col transition-transform duration-100"
-        [ngClass]="
-          vm.profileState.infoUpdateMessage.message ||
-          vm.profileState.updateImageMessage.message ||
-          vm.profileState.isUpdatingImage
-            ? 'translate-y-1 ease-in'
-            : 'ease-out'
-        ">
-        <app-input
-          type="text"
-          name="name"
-          label="Nom complet"
-          placeholder="Entrez votre name"
-          [validationErrors]="vm.profileState.validationErrors" />
-        <app-input
-          type="text"
-          name="phone_number"
-          label="Numéro téléphonique"
-          placeholder="Entrez votre numéro"
-          [validationErrors]="vm.profileState.validationErrors" />
-        <app-input
-          type="text"
-          name="address"
-          label="Adresse"
-          placeholder="Entrez votre adresse"
-          [validationErrors]="vm.profileState.validationErrors" />
-        <app-button type="submit" [loading]="vm.profileState.isUpdatingInfo" [disabled]="form.invalid">
-          Mettre à jour
-        </app-button>
-      </form>
-
-      <h3 class="text-lg font-bold text-gray-950 mb-4 mt-8">Modifier mon mot de passe</h3>
-      @if (vm.profileState.passwordUpdateMessage; as passwordUpdateMessage) {
-      <app-message
-        [message]="passwordUpdateMessage.message"
-        [type]="passwordUpdateMessage.type"
-        (handleClose)="closePasswordUpdateMessage()" />
-      }
-      <form [formGroup]="updatePasswordForm" (ngSubmit)="submitPasswordForm()" class="gap-8 flex flex-col pb-20">
-        <app-input
-          type="password"
-          name="old_password"
-          label="Ancien mot de passe"
-          placeholder="Entrez l'ancien mot de passe"
-          [validationErrors]="vm.profileState.validationErrors" />
-        <app-input
-          type="password"
-          name="password"
-          label="Nouveau mot de passe"
-          placeholder="Entrez le nouveau mot de passe"
-          [validationErrors]="vm.profileState.validationErrors" />
-        <app-input
-          type="password"
-          name="password_confirm"
-          label="Confirmation du mot de passe"
-          placeholder="Confirmez votre mot de passe"
-          [validationErrors]="vm.profileState.validationErrors" />
-        <app-button
-          type="submit"
-          [loading]="vm.profileState.isUpdatingPassword"
-          [disabled]="updatePasswordForm.invalid">
-          Changer le mot de passe
-        </app-button>
-      </form>
-    </div>
   </div>
-  } @else {
-  <div class="h-screen flex flex-col items-center gap-4 justify-center">
-    <app-spinner class="text-green-400" />
-    En cours de chargement...
-  </div>
-  }
-</ng-container>
+</section>
